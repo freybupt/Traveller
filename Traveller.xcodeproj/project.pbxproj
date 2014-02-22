@@ -58,6 +58,11 @@
 		76C2714518B43127003A49A3 /* arrow97.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C2714118B43127003A49A3 /* arrow97.png */; };
 		76C2714618B43127003A49A3 /* arrow106.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C2714218B43127003A49A3 /* arrow106.png */; };
 		76C2714718B43127003A49A3 /* down.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C2714318B43127003A49A3 /* down.png */; };
+		76D875E818B8383600B7AC79 /* CalendarTripDayObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875E718B8383600B7AC79 /* CalendarTripDayObject.m */; };
+		76D875EB18B838C400B7AC79 /* CityObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875EA18B838C400B7AC79 /* CityObject.m */; };
+		76D875EE18B840B600B7AC79 /* CalendarTripObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875ED18B840B600B7AC79 /* CalendarTripObject.m */; };
+		76D875F118B841B500B7AC79 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875F018B841B500B7AC79 /* CalendarView.m */; };
+		76D875F418B8458900B7AC79 /* CalendarColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875F318B8458900B7AC79 /* CalendarColorManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +154,16 @@
 		76C2714118B43127003A49A3 /* arrow97.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow97.png; sourceTree = "<group>"; };
 		76C2714218B43127003A49A3 /* arrow106.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow106.png; sourceTree = "<group>"; };
 		76C2714318B43127003A49A3 /* down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down.png; sourceTree = "<group>"; };
+		76D875E618B8383600B7AC79 /* CalendarTripDayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTripDayObject.h; sourceTree = "<group>"; };
+		76D875E718B8383600B7AC79 /* CalendarTripDayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTripDayObject.m; sourceTree = "<group>"; };
+		76D875E918B838C400B7AC79 /* CityObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityObject.h; sourceTree = "<group>"; };
+		76D875EA18B838C400B7AC79 /* CityObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityObject.m; sourceTree = "<group>"; };
+		76D875EC18B840B600B7AC79 /* CalendarTripObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarTripObject.h; sourceTree = "<group>"; };
+		76D875ED18B840B600B7AC79 /* CalendarTripObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarTripObject.m; sourceTree = "<group>"; };
+		76D875EF18B841B500B7AC79 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
+		76D875F018B841B500B7AC79 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
+		76D875F218B8458900B7AC79 /* CalendarColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarColorManager.h; sourceTree = "<group>"; };
+		76D875F318B8458900B7AC79 /* CalendarColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarColorManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +349,14 @@
 			children = (
 				76C2712318B2DF15003A49A3 /* CalendarManager.h */,
 				76C2712418B2DF15003A49A3 /* CalendarManager.m */,
+				76D875E618B8383600B7AC79 /* CalendarTripDayObject.h */,
+				76D875E718B8383600B7AC79 /* CalendarTripDayObject.m */,
+				76D875E918B838C400B7AC79 /* CityObject.h */,
+				76D875EA18B838C400B7AC79 /* CityObject.m */,
+				76D875EC18B840B600B7AC79 /* CalendarTripObject.h */,
+				76D875ED18B840B600B7AC79 /* CalendarTripObject.m */,
+				76D875F218B8458900B7AC79 /* CalendarColorManager.h */,
+				76D875F318B8458900B7AC79 /* CalendarColorManager.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -342,6 +365,8 @@
 			isa = PBXGroup;
 			children = (
 				76C270C318B2A1E2003A49A3 /* Main.storyboard */,
+				76D875EF18B841B500B7AC79 /* CalendarView.h */,
+				76D875F018B841B500B7AC79 /* CalendarView.m */,
 				76C2712618B2E496003A49A3 /* MyScheduleTableCell.h */,
 				76C2712718B2E496003A49A3 /* MyScheduleTableCell.m */,
 			);
@@ -510,11 +535,15 @@
 				769D541818B578520019888E /* UIImage+Additional.m in Sources */,
 				769D53C618B5377C0019888E /* DSLCalendarDayCalloutView.m in Sources */,
 				76C2712818B2E496003A49A3 /* MyScheduleTableCell.m in Sources */,
+				76D875F418B8458900B7AC79 /* CalendarColorManager.m in Sources */,
 				769D541618B578520019888E /* MZFormSheetSegue.m in Sources */,
+				76D875E818B8383600B7AC79 /* CalendarTripDayObject.m in Sources */,
 				769D541918B578520019888E /* UIViewController+TargetViewController.m in Sources */,
 				769D541318B578520019888E /* MZFormSheetBackgroundWindow.m in Sources */,
+				76D875EE18B840B600B7AC79 /* CalendarTripObject.m in Sources */,
 				769D542818B57AF30019888E /* AddDestinationViewController.m in Sources */,
 				769D541718B578520019888E /* MZTransition.m in Sources */,
+				76D875EB18B838C400B7AC79 /* CityObject.m in Sources */,
 				769D53CD18B5377C0019888E /* DSLCalendarView.m in Sources */,
 				769D53EF18B54DEE0019888E /* FXBlurView.m in Sources */,
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,
@@ -524,6 +553,7 @@
 				769D53CB18B5377C0019888E /* DSLCalendarMonthView.m in Sources */,
 				76C270BE18B2A1E2003A49A3 /* main.m in Sources */,
 				769D541218B578520019888E /* NSInvocation+Copy.m in Sources */,
+				76D875F118B841B500B7AC79 /* CalendarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

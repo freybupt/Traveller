@@ -161,9 +161,9 @@
                 dayView.selectionState = DSLCalendarDayViewWithinSelection;
             }
         }
-        else {
-            dayView.selectionState = DSLCalendarDayViewNotSelected;
-        }
+//        else {
+//            dayView.selectionState = DSLCalendarDayViewNotSelected;
+//        }
     }
 }
 

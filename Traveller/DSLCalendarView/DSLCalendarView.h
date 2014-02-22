@@ -47,7 +47,8 @@
 + (Class)dayViewClass;
 - (void)updateCalendarView;
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
-
+- (void)didTapMonthBack:(id)sender;
+- (void)didTapMonthForward:(id)sender;
 @end
 
 

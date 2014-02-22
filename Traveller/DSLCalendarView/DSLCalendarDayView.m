@@ -45,6 +45,7 @@
     __strong NSDateComponents *_day;
     __strong NSString *_labelText;
     __strong NSString *_eventDots;
+    __strong NSString *_tripLocation;
 }
 
 
@@ -108,8 +109,6 @@
         }
         _eventDots = eventDotString;
     }
-    
-    
 }
 
 - (NSDateComponents*)day {
@@ -139,6 +138,7 @@
 //        [self drawBorders];
         [self drawDayNumber];
         [self drawEventsDots];
+        [self drawTripLocation];
     }
 }
 
@@ -220,8 +220,11 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
-    else {//if (self.selectionState == DSLCalendarDayViewNotSelected) {
+    else if (self.selectionState == DSLCalendarDayViewNotSelected) {
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
+    }
+    else {
+        [[UIColor whiteColor] set];
     }
 
     
@@ -244,7 +247,6 @@
         [[UIColor orangeColor] set];
     }
     else if (self.selectionState == DSLCalendarDayViewNotSelected) {
-//        [[UIColor colorWithWhite:66.0/255.0 alpha:1.0] set];
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
     }
     else {
@@ -257,4 +259,52 @@
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), ceilf(CGRectGetMidY(self.bounds)), textSize.width, textSize.height);
     [_eventDots drawInRect:textRect withFont:textFont];
 }
+
+- (void)drawTripLocation {
+    CalendarManager *calendarManager = [CalendarManager sharedManager];
+    NSString *tripLocation = [calendarManager.tripLocationDict objectForKey:self.day.date];
+    if (tripLocation) {
+        _tripLocation = [[tripLocation uppercaseString] substringToIndex:2];
+    }
+    else{
+        _tripLocation  = @"";
+    }
+    
+    if (self.selectionState != DSLCalendarDayViewNotSelected) {
+        [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
+        switch (self.selectionState) {
+            case DSLCalendarDayViewStartOfSelection:
+            case DSLCalendarDayViewEndOfSelection:
+            case DSLCalendarDayViewWholeSelection:
+            {
+                unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+                NSCalendar* calendar = [NSCalendar currentCalendar];
+                
+                NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
+                NSDate* today = [calendar dateFromComponents:components];
+                
+                if ([self.dayAsDate isEqualToDate:today]) {
+                    [[UIColor orangeColor] set];
+                }
+                else if (self.selectionState == DSLCalendarDayViewNotSelected) {
+                    [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
+                }
+                else {
+                    [[UIColor whiteColor] set];
+                }
+                
+                UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:10.0];
+                CGSize textSize = [_tripLocation sizeWithFont:textFont];
+                
+                CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), 1, textSize.width, textSize.height);
+                [_tripLocation drawInRect:textRect withFont:textFont];
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
 @end
+

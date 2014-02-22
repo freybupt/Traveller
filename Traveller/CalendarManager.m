@@ -25,6 +25,7 @@
     if (self = [super init]) {
         // Initialize the event store
         self.eventStore = [[EKEventStore alloc] init];
+        self.tripLocationDict = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

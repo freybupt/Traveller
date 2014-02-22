@@ -48,6 +48,9 @@ enum {
 @interface DSLCalendarDayView : UIView
 
 @property (nonatomic, copy) NSDateComponents *day;
+//TODO: change to location component
+@property (nonatomic, strong) NSString *locationShort;
+
 @property (nonatomic, assign) DSLCalendarDayViewPositionInWeek positionInWeek;
 @property (nonatomic, assign) DSLCalendarDayViewSelectionState selectionState;
 @property (nonatomic, assign, getter = isInCurrentMonth) BOOL inCurrentMonth;

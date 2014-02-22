@@ -10,13 +10,14 @@
 
 #import <EventKit/EventKit.h>
 #import "CalendarManager.h"
-#import "DSLCalendarView.h"
+#import "CalendarView.h"
 #import "CalendarViewController.h"
 #import "MyScheduleTableCell.h"
 #import "MZFormSheetController.h"
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
 
+static CGFloat kUIAnimationDuration = 0.3f;
 
 @interface CalendarViewController () <DSLCalendarViewDelegate, EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
 
@@ -26,10 +27,12 @@
 @property (nonatomic, strong) NSDateFormatter *sectionDateFormatter;
 
 //Customized Calendar View
-@property (nonatomic, weak) IBOutlet DSLCalendarView *calendarView;
+@property (nonatomic, weak) IBOutlet CalendarView *calendarView;
 @property (nonatomic, strong) DSLCalendarRange *currentDateRange;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 @property (nonatomic, strong) NSDateComponents *currentMonth;
+
+@property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 
 @end
 
@@ -51,13 +54,16 @@
                                                                   NSMonthCalendarUnit) fromDate:[NSDate date]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessGrantedForCalendar:) name:kGrantCalendarAccessNotification object:[CalendarManager sharedManager]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissDestinationPopup:) name:kDismissPopupNotification object:nil];
     
-    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
-    [[MZFormSheetBackgroundWindow appearance] setBlurRadius:5.0];
-    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
     
-    [MZFormSheetController registerTransitionClass:[MZCustomTransition class] forTransitionStyle:MZFormSheetTransitionStyleCustom];
+    //destination popout
+//    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
+//    [[MZFormSheetBackgroundWindow appearance] setBlurRadius:5.0];
+//    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
+//    
+//    [MZFormSheetController registerTransitionClass:[MZCustomTransition class] forTransitionStyle:MZFormSheetTransitionStyleCustom];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissDestinationPopup:) name:kDismissPopupNotification object:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -76,19 +82,6 @@
 }
 
 
-- (void)dismissDestinationPopup:(NSNotification *)notification
-{
-    NSDictionary *dict = [notification userInfo];
-    NSString *destinationString = [dict objectForKey:@"destinationString"];
-    NSString *departureString = [dict objectForKey:@"departureStrong"];
-    //TODO: save location to current trip
-    
-    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-    }];
-}
-
-
-
 - (IBAction)showDestinationPopup:(id)sender
 {
     
@@ -99,11 +92,11 @@
     formSheet.presentedFormSheetSize = CGSizeMake(300, 298);
     formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
     formSheet.shadowRadius = 2.0;
-    formSheet.shadowOpacity = 0.3;
+    formSheet.shadowOpacity = kUIAnimationDuration;
     formSheet.shouldDismissOnBackgroundViewTap = NO;
     formSheet.shouldCenterVertically = YES;
     formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-
+    
     formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {;
         UINavigationController *navController = (UINavigationController *)presentedFSViewController;
         [navController.topViewController.navigationController.navigationBar setHidden:YES];
@@ -115,6 +108,67 @@
     [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
         
     }];
+}
+
+- (void)dismissDestinationPopup:(NSNotification *)notification
+{
+//    NSDictionary *dict = [notification userInfo];
+//    NSString *destinationString = [dict objectForKey:@"destinationString"];
+//    NSString *departureString = [dict objectForKey:@"departureStrong"];
+    //TODO: save location to current trip
+    
+    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
+    }];
+}
+
+
+#pragma mark - Destination Panel
+
+- (IBAction)showDestinationPanel:(id)sender
+{
+    CalendarViewController __weak *weakSelf = self;
+    //show destination view
+    [UIView animateWithDuration:kUIAnimationDuration animations:^{
+        weakSelf.destinationPanel.frame = CGRectMake(0, 60, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
+        [weakSelf.tabView setAlpha:0.0];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (IBAction)hideDestinationPanel:(id)sender
+{
+    
+    [self.departureLocationTextField resignFirstResponder];
+    [self.destinationTextField resignFirstResponder];
+    //save results
+    UIButton *button = (UIButton *)sender;
+    if (button == self.confirmButton) {
+        //save results
+        NSString *destinationString = self.destinationTextField.text;
+        CalendarManager *calendarManager  = [CalendarManager sharedManager];
+        //enumarate in current trip range
+        NSDateComponents *oneDay = [[NSDateComponents alloc] init];
+        [oneDay setDay: 1];
+        for (NSDate *date = self.currentDateRange.startDay.date; [date compare:self.currentDateRange.endDay.date] <=0;
+             date = [[NSCalendar currentCalendar] dateByAddingComponents: oneDay
+                                              toDate: date
+                                             options: 0]) {
+            [calendarManager.tripLocationDict setObject:destinationString forKey:date];
+        }
+    }
+    self.calendarView.selectedRange = self.currentDateRange;
+
+    CalendarViewController __weak *weakSelf = self;
+    //show destination view
+    [UIView animateWithDuration:kUIAnimationDuration animations:^{
+        weakSelf.destinationPanel.frame = CGRectMake(0, -200, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
+        [weakSelf.tabView setAlpha:1.0];
+    } completion:^(BOOL finished) {
+        weakSelf.departureLocationTextField.text = @"";
+        weakSelf.departureLocationTextField.text = @"";
+    }];
+    
+    
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
@@ -129,7 +183,8 @@
         [self.scheduleTableView reloadData];
         
         //show destination popup
-        [self showDestinationPopup:nil];
+//        [self showDestinationPopup:nil];
+        [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
     }
     else {
         self.currentDateRange = nil;

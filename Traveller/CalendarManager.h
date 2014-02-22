@@ -15,6 +15,7 @@ static NSString *const kGrantCalendarAccessNotification = @"grantCalendarAccessN
 @interface CalendarManager : NSObject
 // EKEventStore instance associated with the current Calendar application
 @property (nonatomic, strong) EKEventStore *eventStore;
+@property (nonatomic, strong) NSMutableDictionary *tripLocationDict;
 
 + (id)sharedManager;
 - (void)checkEventStoreAccessForCalendar;

@@ -397,7 +397,7 @@
     else {
         self.draggingFixedDay = self.selectedRange.startDay;
     }
-    
+
     if ([self.delegate respondsToSelector:@selector(calendarView:didDragToDay:selectingRange:)]) {
         newRange = [self.delegate calendarView:self didDragToDay:touchedView.day selectingRange:newRange];
     }
