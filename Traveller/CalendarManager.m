@@ -7,6 +7,12 @@
 //
 
 #import "CalendarManager.h"
+#import "Trip.h"
+
+@interface CalendarManager ()
+
+
+@end
 
 @implementation CalendarManager
 
@@ -25,10 +31,10 @@
     if (self = [super init]) {
         // Initialize the event store
         self.eventStore = [[EKEventStore alloc] init];
-        self.tripLocationDict = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
+
 
 // Check the authorization status of our application for Calendar
 -(void)checkEventStoreAccessForCalendar
@@ -84,5 +90,7 @@
     NSDictionary *accessDict = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithBool:isGranted],@"hasAccess", nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kGrantCalendarAccessNotification object:self userInfo:accessDict];
 }
+
+
 
 @end

@@ -1,5 +1,5 @@
 //
-//  CityObject.h
+//  City.h
 //  Traveller
 //
 //  Created by Shirley on 2/21/2014.
@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
-@interface CityObject : NSObject
+@interface City : NSObject
 
 @property (nonatomic, strong) NSString *cityFullName;
 @property (nonatomic, strong) NSString *cityShortName;
-@property (nonatomic, assign) CGFloat longitude;
-@property (nonatomic, assign) CGFloat latitude;
 @property (nonatomic, assign) NSString *countryName;
+
+@property (nonatomic, strong) CLLocation *location;
+
+
+- (id)initWithCityName: (NSString *)cityName;
 @end

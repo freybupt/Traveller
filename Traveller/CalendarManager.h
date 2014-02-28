@@ -10,13 +10,15 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
+@class Trip;
 static NSString *const kGrantCalendarAccessNotification = @"grantCalendarAccessNotification";
 
 @interface CalendarManager : NSObject
 // EKEventStore instance associated with the current Calendar application
 @property (nonatomic, strong) EKEventStore *eventStore;
-@property (nonatomic, strong) NSMutableDictionary *tripLocationDict;
+
 
 + (id)sharedManager;
 - (void)checkEventStoreAccessForCalendar;
+
 @end

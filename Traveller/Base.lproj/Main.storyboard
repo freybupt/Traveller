@@ -17,150 +17,219 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q5S-ke-8Eo" userLabel="Tab View">
-                                <rect key="frame" x="0.0" y="64" width="320" height="35"/>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GCd-Uz-CSc" userLabel="Confirm View">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9E5-A7-l5c">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="35"/>
+                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5WA-vA-3qE" userLabel="Booking TableView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="454"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="pZm-77-QNM" kind="embed" id="tCy-7p-gV1"/>
+                                        </connections>
+                                    </containerView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLu-6f-rwJ">
+                                        <rect key="frame" x="51" y="467" width="219" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                                        <state key="normal" title="Date &amp; Destination">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSF-TZ-cdL">
-                                        <rect key="frame" x="160" y="0.0" width="160" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                                        <state key="normal" title="Confirm &amp; Book">
+                                        <state key="normal" title="BOOK NOW">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="lE0-f7-HVH"/>
-                                </constraints>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ul0-Ld-sd0" customClass="CalendarView">
-                                <rect key="frame" x="0.0" y="97" width="320" height="284"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="284" id="hZD-Vx-DN9"/>
-                                </constraints>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mBy-03-yug">
-                                <rect key="frame" x="0.0" y="379" width="320" height="189"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="xeT-ra-1iZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn5-zO-Cyt">
-                                            <rect key="frame" x="288" y="1" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="26"/>
-                                            <state key="normal" title="+">
-                                                <color key="titleColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mfc-DX-Nb3"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSM-fL-UYl">
-                                            <rect key="frame" x="15" y="5" width="123" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
-                                            <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                </view>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="eventCell" id="45X-Sj-bsO" customClass="MyScheduleTableCell">
-                                        <rect key="frame" x="0.0" y="54" width="320" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45X-Sj-bsO" id="Dkr-qr-DQN">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="55"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmE-78-5br">
-                                                    <rect key="frame" x="13" y="10" width="57" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
-                                                    <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67L-p7-eVs">
-                                                    <rect key="frame" x="74" y="10" width="212" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                                                    <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9r-Fl-5Kp">
-                                                    <rect key="frame" x="74" y="31" width="212" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-LightOblique" family="Avenir" pointSize="14"/>
-                                                    <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="eventLocationLabel" destination="o9r-Fl-5Kp" id="zxK-Cq-gZc"/>
-                                            <outlet property="eventTimeLabel" destination="bmE-78-5br" id="IFS-eY-3c2"/>
-                                            <outlet property="eventTitleLabel" destination="67L-p7-eVs" id="QFU-OV-t2E"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="kFx-aA-bkk"/>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="wIi-6g-dSb"/>
-                                </connections>
-                            </tableView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bys-zB-5FN" userLabel="Destination Panel">
-                                <rect key="frame" x="0.0" y="-70" width="320" height="70"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wLi-nh-koY" userLabel="Plan View">
+                                <rect key="frame" x="0.0" y="62" width="320" height="506"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vancouver" placeholder="From" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gij-2j-YYW">
-                                        <rect key="frame" x="0.0" y="5" width="140" height="35"/>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ul0-Ld-sd0" customClass="CalendarView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mBy-03-yug">
+                                        <rect key="frame" x="0.0" y="280" width="320" height="181"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <view key="tableHeaderView" contentMode="scaleToFill" id="xeT-ra-1iZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn5-zO-Cyt">
+                                                    <rect key="frame" x="288" y="1" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="26"/>
+                                                    <state key="normal" title="+">
+                                                        <color key="titleColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mfc-DX-Nb3"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSM-fL-UYl">
+                                                    <rect key="frame" x="15" y="5" width="123" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
+                                                    <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pY5-99-my6">
+                                                    <rect key="frame" x="137" y="2" width="32" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="arrowDown.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="adjustScheduleView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="F1j-pd-aPZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        </view>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="eventCell" id="45X-Sj-bsO" customClass="MyScheduleTableCell">
+                                                <rect key="frame" x="0.0" y="54" width="320" height="55"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45X-Sj-bsO" id="Dkr-qr-DQN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmE-78-5br">
+                                                            <rect key="frame" x="13" y="10" width="57" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
+                                                            <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67L-p7-eVs">
+                                                            <rect key="frame" x="74" y="10" width="212" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                                            <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9r-Fl-5Kp">
+                                                            <rect key="frame" x="74" y="31" width="212" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-LightOblique" family="Avenir" pointSize="14"/>
+                                                            <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="eventLocationLabel" destination="o9r-Fl-5Kp" id="zxK-Cq-gZc"/>
+                                                    <outlet property="eventTimeLabel" destination="bmE-78-5br" id="IFS-eY-3c2"/>
+                                                    <outlet property="eventTitleLabel" destination="67L-p7-eVs" id="QFU-OV-t2E"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="vXZ-lx-hvc" id="kFx-aA-bkk"/>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="wIi-6g-dSb"/>
+                                        </connections>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-4O-HHZ">
+                                        <rect key="frame" x="99" y="469" width="123" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Generate Itinerary">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gc5-W2-1vz" userLabel="Map View">
+                                <rect key="frame" x="0.0" y="64" width="320" height="279"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8Mu-Vo-pD0">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="313"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </mapView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q5S-ke-8Eo" userLabel="Tab View">
+                                <rect key="frame" x="0.0" y="64" width="320" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9E5-A7-l5c">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="Calendar">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jgZ-Gn-n7K"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xSF-TZ-cdL">
+                                        <rect key="frame" x="221" y="0.0" width="100" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="Events">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="s2Q-aT-gnz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnf-QY-WmT">
+                                        <rect key="frame" x="110" y="0.0" width="100" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                        <state key="normal" title="Map">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EbI-zr-Ywh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bys-zB-5FN" userLabel="Destination Panel">
+                                <rect key="frame" x="0.0" y="-40" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vancouver" placeholder="Departure Location" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gij-2j-YYW">
+                                        <rect key="frame" x="9" y="-7" width="69" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="e51-Nf-LVi"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Destination" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NiG-jb-JhX">
+                                        <rect key="frame" x="9" y="3" width="162" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="19"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="Sm7-nD-b0o"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Destination" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NiG-jb-JhX">
-                                        <rect key="frame" x="180" y="5" width="140" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="19"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=">" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALc-X7-IjL">
-                                        <rect key="frame" x="139" y="12" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moQ-Xh-Hpz">
-                                        <rect key="frame" x="0.0" y="39" width="160" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moQ-Xh-Hpz" userLabel="Button -remove trip">
+                                        <rect key="frame" x="179" y="3" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <state key="normal" title="x">
+                                        <state key="normal" image="dustbin.png">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="hideDestinationPanel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="CPH-0v-1Hm"/>
+                                            <action selector="deleteCurrentTrip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nnH-em-oPg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWL-HE-vlq">
-                                        <rect key="frame" x="160" y="39" width="160" height="30"/>
+                                        <rect key="frame" x="270" y="5" width="50" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.51372549020000002" green="0.78039215689999997" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
@@ -169,7 +238,20 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="hideDestinationPanel:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uw0-B1-VQe"/>
+                                            <action selector="confirmTripChange:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2qw-jx-Hg7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxS-p1-oQ0">
+                                        <rect key="frame" x="219" y="5" width="50" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelTripChange:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="M4x-iq-ZPc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -177,37 +259,63 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ul0-Ld-sd0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="1rt-3H-ieg"/>
-                            <constraint firstItem="mBy-03-yug" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="42A-Hx-iT2"/>
-                            <constraint firstItem="hBi-6v-Vei" firstAttribute="top" secondItem="mBy-03-yug" secondAttribute="bottom" id="Jbd-cH-xPF"/>
-                            <constraint firstItem="Q5S-ke-8Eo" firstAttribute="top" secondItem="qao-Qn-Q8H" secondAttribute="bottom" id="cqq-HH-fd8"/>
-                            <constraint firstAttribute="trailing" secondItem="Q5S-ke-8Eo" secondAttribute="trailing" id="fo8-z3-DJR"/>
-                            <constraint firstAttribute="trailing" secondItem="mBy-03-yug" secondAttribute="trailing" id="ny1-rR-UEe"/>
-                            <constraint firstItem="Q5S-ke-8Eo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="qed-3r-Xoq"/>
-                            <constraint firstItem="Ul0-Ld-sd0" firstAttribute="top" secondItem="qao-Qn-Q8H" secondAttribute="bottom" constant="33" id="sIq-Tq-i1I"/>
-                            <constraint firstAttribute="trailing" secondItem="Ul0-Ld-sd0" secondAttribute="trailing" id="vCe-5T-QFK"/>
-                            <constraint firstItem="mBy-03-yug" firstAttribute="top" secondItem="Ul0-Ld-sd0" secondAttribute="bottom" constant="-2" id="wY3-9D-JBA"/>
-                            <constraint firstItem="mBy-03-yug" firstAttribute="top" secondItem="Ul0-Ld-sd0" secondAttribute="bottom" constant="-2" id="wiM-Ad-8r1"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="BOOK TRIP" id="qRu-rj-Pjs"/>
+                    <navigationItem key="navigationItem" title="Plan Trip" id="qRu-rj-Pjs">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="zFJ-OT-V28"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="addButton" destination="Fn5-zO-Cyt" id="Fdy-Kq-IC2"/>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
-                        <outlet property="cancelButton" destination="moQ-Xh-Hpz" id="2Ut-L6-gFH"/>
-                        <outlet property="confirmButton" destination="dWL-HE-vlq" id="f5M-Da-kgL"/>
+                        <outlet property="cancelEditDestinationButton" destination="XxS-p1-oQ0" id="o85-Oj-7Cn"/>
+                        <outlet property="confirmDestinationButton" destination="dWL-HE-vlq" id="3BM-rt-fBC"/>
+                        <outlet property="confirmTripSwitch" destination="xSF-TZ-cdL" id="XqI-k2-3Ze"/>
+                        <outlet property="confirmTripView" destination="GCd-Uz-CSc" id="UAh-rg-ECg"/>
                         <outlet property="departureLocationTextField" destination="Gij-2j-YYW" id="9uP-A6-ndP"/>
                         <outlet property="destinationPanel" destination="Bys-zB-5FN" id="fKu-WL-gkS"/>
                         <outlet property="destinationTextField" destination="NiG-jb-JhX" id="ICK-rq-Y0z"/>
+                        <outlet property="expandButton" destination="pY5-99-my6" id="Zvc-Ec-Sah"/>
+                        <outlet property="generateItineraryButton" destination="rYh-4O-HHZ" id="t22-1k-Zrp"/>
+                        <outlet property="mapSwitch" destination="fnf-QY-WmT" id="cYz-jO-wzs"/>
+                        <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
+                        <outlet property="planTripSwitch" destination="9E5-A7-l5c" id="17c-kM-P16"/>
+                        <outlet property="planTripView" destination="wLi-nh-koY" id="Auc-kb-Dy1"/>
+                        <outlet property="removeTripButton" destination="moQ-Xh-Hpz" id="K2C-aE-9EH"/>
                         <outlet property="scheduleTableView" destination="mBy-03-yug" id="hes-Pm-GLW"/>
                         <outlet property="tabView" destination="Q5S-ke-8Eo" id="h9Q-7I-O7q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671" y="10"/>
+            <point key="canvasLocation" x="141" y="26"/>
+        </scene>
+        <!--Booking Table View Controller-->
+        <scene sceneID="tSn-M6-lW5">
+            <objects>
+                <tableViewController id="pZm-77-QNM" customClass="BookingTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2NC-fN-Tl8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="454"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="fRd-6d-S3l">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRd-6d-S3l" id="brW-p5-X1A">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pZm-77-QNM" id="5mZ-gN-II6"/>
+                            <outlet property="delegate" destination="pZm-77-QNM" id="Exw-f2-cPt"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m19-3b-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="542" y="99"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yr-BD-sku">
@@ -221,12 +329,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="drP-Qg-QL6"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="BVE-5n-E6l"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn6-uD-LnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="10"/>
+            <point key="canvasLocation" x="-233" y="26"/>
         </scene>
         <!--Add Destination View Controller-->
         <scene sceneID="y7c-Eo-Mdu">
@@ -326,7 +434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nAj-wI-Qiy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="841"/>
+            <point key="canvasLocation" x="603" y="1431"/>
         </scene>
         <!--Navigation View Controller-->
         <scene sceneID="06j-cQ-CsE">
@@ -344,9 +452,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmT-7a-FHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-11" y="836"/>
+            <point key="canvasLocation" x="165" y="1426"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrowDown.png" width="512" height="512"/>
+        <image name="dustbin.png" width="64" height="64"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

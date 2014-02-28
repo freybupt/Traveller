@@ -32,10 +32,13 @@
 
 #import "DSLCalendarDayView.h"
 #import "NSDate+DSLCalendarView.h"
+#import "TripManager.h"
 #import "CalendarManager.h"
+#import "CalendarColorManager.h"
 
 @interface DSLCalendarDayView ()
 
+@property (nonatomic, strong) Trip *activeTrip;
 @end
 
 
@@ -133,7 +136,9 @@
 
 - (void)drawRect:(CGRect)rect {
     if ([self isMemberOfClass:[DSLCalendarDayView class]]) {
-        // If this isn't a subclass of DSLCalendarDayView, use the default drawing
+        //update trip info
+        TripManager *tripManager = [TripManager sharedManager];
+        self.activeTrip = [tripManager findActiveTripByDate:self.day.date];
         [self drawBackground];
 //        [self drawBorders];
         [self drawDayNumber];
@@ -146,37 +151,44 @@
 #pragma mark Drawing
 
 - (void)drawBackground {
+    UIColor *cellColor = [[CalendarColorManager sharedManager] getSelectionHighlightColor];
+    if (self.activeTrip) {
+        cellColor = self.activeTrip.defaultColor;
+    }
+    const float* colors = CGColorGetComponents( cellColor.CGColor );
+    UIColor *cellColorHighlighted = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
+    
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        if (self.isInCurrentMonth) {
-            [[UIColor colorWithWhite:255.0/255.0 alpha:1.0] setFill];
+        if (self.activeTrip) {
+            //already has trip plans
+            if ([self.day.date compare:self.activeTrip.dateRange.startDay.date] == NSOrderedSame ||
+                [self.day.date compare:self.activeTrip.dateRange.endDay.date] == NSOrderedSame) {
+                [cellColorHighlighted setFill];
+            }
+            else{
+                [cellColor setFill];
+            }
         }
-        else {
-            [[UIColor colorWithWhite:225.0/255.0 alpha:1.0] setFill];
+        else{
+            if (self.isInCurrentMonth) {
+                [[UIColor colorWithWhite:255.0/255.0 alpha:1.0] setFill];
+            }
+            else {
+                [[UIColor colorWithWhite:225.0/255.0 alpha:1.0] setFill];
+            }
         }
     }
     else {
-        [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
         switch (self.selectionState) {
-            case DSLCalendarDayViewNotSelected:
-                break;
-                
-            case DSLCalendarDayViewStartOfSelection:
-                [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:0.8] setFill];
-//                [[[UIImage imageNamed:@"Day_green_left"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
-                break;
-                
-            case DSLCalendarDayViewEndOfSelection:
-                [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:0.8] setFill];
-//                [[[UIImage imageNamed:@"Day_green_right"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
-                break;
-                
             case DSLCalendarDayViewWithinSelection:
-//                [[[UIImage imageNamed:@"Day_green_center"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [cellColor setFill];
                 break;
-                
+            case DSLCalendarDayViewStartOfSelection:
+            case DSLCalendarDayViewEndOfSelection:
             case DSLCalendarDayViewWholeSelection:
-                [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:0.8] setFill];
-//                [[[UIImage imageNamed:@"Day_green"] resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20)] drawInRect:self.bounds];
+                [cellColorHighlighted setFill];
+                break;
+            default:
                 break;
         }
     }
@@ -220,7 +232,7 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
-    else if (self.selectionState == DSLCalendarDayViewNotSelected) {
+    else if (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip == nil) {
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
     }
     else {
@@ -246,7 +258,7 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
-    else if (self.selectionState == DSLCalendarDayViewNotSelected) {
+    else if (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip == nil) {
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
     }
     else {
@@ -261,50 +273,49 @@
 }
 
 - (void)drawTripLocation {
-    CalendarManager *calendarManager = [CalendarManager sharedManager];
-    NSString *tripLocation = [calendarManager.tripLocationDict objectForKey:self.day.date];
-    if (tripLocation) {
+    NSString *tripLocation = self.activeTrip.destinationCity.cityShortName;
+    
+    BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
+                              self.selectionState == DSLCalendarDayViewEndOfSelection ||
+                              self.selectionState == DSLCalendarDayViewWholeSelection ||
+                              (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip &&
+                               ([self.day.date compare:self.activeTrip.dateRange.startDay.date] == NSOrderedSame ||
+                                [self.day.date compare:self.activeTrip.dateRange.endDay.date] == NSOrderedSame));
+
+    if ([tripLocation length] > 0 && shouldDrawLocation) {
+//        NSLog(@"Current date: %@ - %@", self.day.date, tripLocation);
         _tripLocation = [[tripLocation uppercaseString] substringToIndex:2];
     }
     else{
         _tripLocation  = @"";
     }
     
-    if (self.selectionState != DSLCalendarDayViewNotSelected) {
-        [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
-        switch (self.selectionState) {
-            case DSLCalendarDayViewStartOfSelection:
-            case DSLCalendarDayViewEndOfSelection:
-            case DSLCalendarDayViewWholeSelection:
-            {
-                unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-                NSCalendar* calendar = [NSCalendar currentCalendar];
-                
-                NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
-                NSDate* today = [calendar dateFromComponents:components];
-                
-                if ([self.dayAsDate isEqualToDate:today]) {
-                    [[UIColor orangeColor] set];
-                }
-                else if (self.selectionState == DSLCalendarDayViewNotSelected) {
-                    [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
-                }
-                else {
-                    [[UIColor whiteColor] set];
-                }
-                
-                UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:10.0];
-                CGSize textSize = [_tripLocation sizeWithFont:textFont];
-                
-                CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), 1, textSize.width, textSize.height);
-                [_tripLocation drawInRect:textRect withFont:textFont];
-                break;
-            }
-            default:
-                break;
-        }
+    [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
+
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
+    NSDate* today = [calendar dateFromComponents:components];
+    
+    if ([self.dayAsDate isEqualToDate:today]) {
+        [[UIColor orangeColor] set];
     }
+    else if (self.selectionState == DSLCalendarDayViewNotSelected) {
+        [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
+    }
+    else {
+        [[UIColor whiteColor] set];
+    }
+    
+    UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:10.0];
+    CGSize textSize = [_tripLocation sizeWithFont:textFont];
+    
+    CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), 1, textSize.width, textSize.height);
+    [_tripLocation drawInRect:textRect withFont:textFont];
+
 }
+
 
 @end
 

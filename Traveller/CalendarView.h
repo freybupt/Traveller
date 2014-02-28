@@ -10,6 +10,7 @@
 
 @interface CalendarView : DSLCalendarView
 
-@property (nonatomic, strong) NSMutableArray *activeTripRange;
-
+@property (nonatomic, strong) NSMutableArray *savedTripRanges;
+@property (nonatomic, strong) Trip *editingTrip;
+@property (nonatomic, strong) Trip *originalTrip;
 @end
