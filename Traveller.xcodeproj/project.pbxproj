@@ -224,13 +224,13 @@
 			name = Calendar;
 			sourceTree = "<group>";
 		};
-		767DD20818BE866300FCFCA9 /* Other */ = {
+		767DD20818BE866300FCFCA9 /* Geo */ = {
 			isa = PBXGroup;
 			children = (
 				76D875E918B838C400B7AC79 /* City.h */,
 				76D875EA18B838C400B7AC79 /* City.m */,
 			);
-			name = Other;
+			name = Geo;
 			sourceTree = "<group>";
 		};
 		769D53B518B5377C0019888E /* DSLCalendarView */ = {
@@ -392,7 +392,7 @@
 			children = (
 				767DD20618BE864200FCFCA9 /* Trip */,
 				767DD20718BE865900FCFCA9 /* Calendar */,
-				767DD20818BE866300FCFCA9 /* Other */,
+				767DD20818BE866300FCFCA9 /* Geo */,
 			);
 			name = Models;
 			sourceTree = "<group>";

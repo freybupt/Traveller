@@ -73,15 +73,6 @@ static CGFloat kActionButtonHeight = 35.0f;
                               forControlEvents:UIControlEventEditingChanged];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripInfo:) name:kTripChangeNotification object:[TripManager sharedManager]];
-
-    //destination popout
-//    [[MZFormSheetBackgroundWindow appearance] setBackgroundBlurEffect:YES];
-//    [[MZFormSheetBackgroundWindow appearance] setBlurRadius:5.0];
-//    [[MZFormSheetBackgroundWindow appearance] setBackgroundColor:[UIColor clearColor]];
-//    
-//    [MZFormSheetController registerTransitionClass:[MZCustomTransition class] forTransitionStyle:MZFormSheetTransitionStyleCustom];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissDestinationPopup:) name:kDismissPopupNotification object:nil];
-
 }
 
 
@@ -103,7 +94,7 @@ static CGFloat kActionButtonHeight = 35.0f;
 }
 
 
-#pragma mark - IBAction
+#pragma mark - UI IBAction
 
 - (IBAction)switchDidTapped:(id)sender
 {
@@ -139,50 +130,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
 }
 
-
-
-
-#pragma mark - Destination
-
-- (IBAction)showDestinationPopup:(id)sender
-{
-    
-    UIViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"addDestination"];
-    
-    MZFormSheetController *formSheet = [[MZFormSheetController alloc] initWithViewController:vc];
-    
-    formSheet.presentedFormSheetSize = CGSizeMake(300, 298);
-    formSheet.transitionStyle = MZFormSheetTransitionStyleCustom;
-    formSheet.shadowRadius = 2.0;
-    formSheet.shadowOpacity = kUIAnimationDuration;
-    formSheet.shouldDismissOnBackgroundViewTap = NO;
-    formSheet.shouldCenterVertically = YES;
-    formSheet.movementWhenKeyboardAppears = MZFormSheetWhenKeyboardAppearsCenterVertically;
-    
-    formSheet.willPresentCompletionHandler = ^(UIViewController *presentedFSViewController) {;
-        UINavigationController *navController = (UINavigationController *)presentedFSViewController;
-        [navController.topViewController.navigationController.navigationBar setHidden:YES];
-    };
-    
-    
-    [MZFormSheetController sharedBackgroundWindow].formSheetBackgroundWindowDelegate = self;
-    
-    [self mz_presentFormSheetController:formSheet animated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-        
-    }];
-}
-
-- (void)dismissDestinationPopup:(NSNotification *)notification
-{
-//    NSDictionary *dict = [notification userInfo];
-//    NSString *destinationString = [dict objectForKey:@"destinationString"];
-//    NSString *departureString = [dict objectForKey:@"departureStrong"];
-    //TODO: save location to current trip
-    
-    [self mz_dismissFormSheetControllerAnimated:YES completionHandler:^(MZFormSheetController *formSheetController) {
-    }];
-}
-
 - (IBAction)adjustScheduleView:(id)sender
 {
     CalendarViewController __weak *weakSelf = self;
@@ -204,7 +151,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
     
 }
-
 
 
 #pragma mark - Destination Panel
@@ -304,7 +250,9 @@ static CGFloat kActionButtonHeight = 35.0f;
     [self.calendarView updateCalendarView];
 }
 
+
 #pragma mark - DSLCalendarViewDelegate methods
+
 - (void)calendarView:(DSLCalendarView *)calendarView shouldHighlightTrip:(Trip *)trip
 {
     self.destinationTextField.text = trip.destinationCity.cityFullName;
@@ -323,7 +271,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     if (range != nil) {
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
-        //update My schedule events
+        //TODO: update My schedule events - show all the selected events
 //        [self fetchEvents];
 //        [self.scheduleTableView reloadData];
         
@@ -380,7 +328,9 @@ static CGFloat kActionButtonHeight = 35.0f;
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
+
 #pragma mark - UITableViewDelegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.sortedDays count];

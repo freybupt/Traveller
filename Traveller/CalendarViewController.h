@@ -40,9 +40,6 @@
 - (IBAction)addEvent:(id)sender;
 - (IBAction)adjustScheduleView:(id)sender;
 
-- (IBAction)dismissDestinationPopup:(id)sender;
-- (IBAction)showDestinationPopup:(id)sender;
-
 - (IBAction)showDestinationPanel:(id)sender;
 - (IBAction)hideDestinationPanel:(id)sender;
 
