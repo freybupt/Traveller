@@ -26,31 +26,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Traveller/TripManager.m"
-            timestampString = "415232412.312604"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-addTripToActiveList:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traveller/CalendarViewController.m"
-            timestampString = "415315727.635425"
+            timestampString = "415328336.164259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "-eventEditViewController:didCompleteWithAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -62,11 +46,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traveller/CalendarViewController.m"
-            timestampString = "415315727.635425"
+            timestampString = "415328336.164259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "626"
-            endingLineNumber = "626"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-eventViewController:didCompleteWithAction:"
             landmarkType = "5">
          </BreakpointContent>

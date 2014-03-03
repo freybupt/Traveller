@@ -132,6 +132,8 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 - (IBAction)adjustScheduleView:(id)sender
 {
+    [self hideDestinationPanel:nil];
+    
     CalendarViewController __weak *weakSelf = self;
     if (self.isScheduleExpanded) {
         [UIView animateWithDuration:0.2 animations:^{
@@ -195,7 +197,7 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    if ([self.destinationTextField.text length] > 0) {
+    if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
         //save trip
         Trip *trip = [[Trip alloc] initWithDateRange:self.currentDateRange
                                        departureCity:self.departureLocationTextField.text

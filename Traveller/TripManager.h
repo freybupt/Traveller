@@ -10,6 +10,8 @@
 #import "Trip.h"
 
 static NSString *const kTripChangeNotification = @"tripChangeNotification";
+static NSString *const kTripListKey = @"allTripSaved";
+
 
 @interface TripManager : NSObject
 
@@ -20,5 +22,6 @@ static NSString *const kTripChangeNotification = @"tripChangeNotification";
 
 - (Trip *)findActiveTripByDate:(NSDate *)date;
 - (NSArray *)getUsedTripColors;
+- (NSInteger)countActiveTrips;
 
 @end

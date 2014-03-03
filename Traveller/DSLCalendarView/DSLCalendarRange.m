@@ -68,6 +68,22 @@
 }
 
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.startDay forKey:@"startDay"];
+    [encoder encodeObject:self.endDay forKey:@"endDay"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.startDay = [decoder decodeObjectForKey:@"startDay"];
+        self.endDay = [decoder decodeObjectForKey:@"endDay"];
+    }
+    return self;
+}
+
+
 #pragma mark - Properties
 
 - (void)setStartDay:(NSDateComponents *)startDay {

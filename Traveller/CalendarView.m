@@ -46,11 +46,11 @@
     Trip *activeTrip = [[TripManager sharedManager] findActiveTripByDate:touchedView.day.date];
     if (activeTrip) {
         [self.delegate calendarView:self shouldHighlightTrip:activeTrip];
-        self.originalTrip = activeTrip;
+        self.originalTrip = [[Trip alloc] initWithExistingTrip:activeTrip];
         self.selectedRange = activeTrip.dateRange;
         if ([touchedView.day.date isEqualToDate:activeTrip.dateRange.startDay.date] ||
             [touchedView.day.date isEqualToDate:activeTrip.dateRange.endDay.date]) {
-            self.editingTrip = activeTrip;
+            self.editingTrip = [[Trip alloc] initWithExistingTrip:activeTrip];
         }
     }
     else{

@@ -11,6 +11,30 @@
 
 @implementation Trip
 
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.dateRange forKey:@"dateRange"];
+    [encoder encodeObject:self.departureCity forKey:@"departureCity"];
+    [encoder encodeObject:self.destinationCity forKey:@"destinationCity"];
+    [encoder encodeObject:[NSNumber numberWithBool:self.isRoundTrip] forKey:@"isRoundTrip"];
+    [encoder encodeObject:self.defaultColor forKey:@"defaultColor"];
+    [encoder encodeObject:self.events forKey:@"events"];
+}
+
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.dateRange = [decoder decodeObjectForKey:@"dateRange"];
+        self.departureCity = [decoder decodeObjectForKey:@"departureCity"];
+        self.destinationCity = [decoder decodeObjectForKey:@"destinationCity"];
+        self.isRoundTrip = [[decoder decodeObjectForKey:@"isRoundTrip"] boolValue];
+        self.defaultColor = [decoder decodeObjectForKey:@"defaultColor"];
+        self.events = [decoder decodeObjectForKey:@"events"];
+    }
+    return self;
+}
+
 - (id)initWithDateRange:(DSLCalendarRange *)range
           departureCity:(NSString *)departureCityName
          andDestination:(NSString *)destinationCityName
@@ -52,5 +76,6 @@
     
     return NO;
 }
+
 
 @end

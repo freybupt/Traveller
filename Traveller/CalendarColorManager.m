@@ -29,8 +29,6 @@
         manager = [[self alloc] init];
         //default color schemes
         manager.defaultColorsArray = [NSArray arrayWithObjects:
-//                                      UIColorFromRGB(0xffffcc),
-//                                      UIColorFromRGB(0xcccccc),
                                       UIColorFromRGB(0xcccc66),
                                       UIColorFromRGB(0x336666),
                                       UIColorFromRGB(0x339933),
@@ -55,6 +53,13 @@
     return [self.defaultColorsArray objectAtIndex:randIndex];
 }
 
+- (UIColor *)nextColor
+{
+    //TODO: find adjacent color and avoid using them
+    NSInteger index = [[TripManager sharedManager] countActiveTrips];
+    return [self.defaultColorsArray objectAtIndex:index%([self.defaultColorsArray count])];
+}
+
 - (UIColor *)getActiveColor:(BOOL)shouldCreateNew
 {
     if (self.activeColor == nil || shouldCreateNew) {
@@ -67,7 +72,7 @@
             uniqueColor = [self randomColor];
             shouldFindNextColor = NO;
             for (UIColor *usedColor in usedColors) {
-                if ([usedColors isEqual:uniqueColor]) {
+                if ([self isColor:usedColor theSameAsColor:uniqueColor]) {
                     shouldFindNextColor = YES;
                 }
             }
@@ -81,6 +86,27 @@
 - (UIColor *)getSelectionHighlightColor
 {
     return [UIColor lightTextColor];
+}
+
+
+- (BOOL)isColor:(UIColor *)color1 theSameAsColor:(UIColor *)color2
+{
+    CGColorSpaceRef colorSpaceRGB = CGColorSpaceCreateDeviceRGB();
+    
+    UIColor *(^convertColorToRGBSpace)(UIColor*) = ^(UIColor *color) {
+        if(CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor)) == kCGColorSpaceModelMonochrome) {
+            const CGFloat *oldComponents = CGColorGetComponents(color.CGColor);
+            CGFloat components[4] = {oldComponents[0], oldComponents[0], oldComponents[0], oldComponents[1]};
+            return [UIColor colorWithCGColor:CGColorCreate(colorSpaceRGB, components)];
+        } else
+            return color;
+    };
+    
+    UIColor *firstColor = convertColorToRGBSpace(color1);
+    UIColor *secondColor = convertColorToRGBSpace(color2);
+    CGColorSpaceRelease(colorSpaceRGB);
+    
+    return [firstColor isEqual:secondColor];
 }
 
 @end

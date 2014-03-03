@@ -21,13 +21,19 @@
 
 + (id)sharedManager
 {
-    static TripManager *mamager = nil;
+    static TripManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        mamager = [[self alloc] init];
+        manager = [[self alloc] init];
+        manager.activeTripList = [[NSMutableArray alloc] init];
+        NSMutableArray *allTripsKeys = [[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey];
+        for (NSString *tripKey in allTripsKeys) {
+            Trip *savedTrip = [manager loadCustomObjectWithKey:tripKey];
+            [manager.activeTripList addObject:savedTrip];
+        }
     });
     
-    return mamager;
+    return manager;
 }
 
 - (void)addTripToActiveList:(Trip *)currentTrip
@@ -55,6 +61,20 @@
         
     }
     
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *tripKey = [self getTripKey:currentTrip];
+        [self saveCustomObject:currentTrip key:tripKey];
+        
+        //update trip key list
+        NSMutableArray *savedtripKeys = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey]];
+        if (savedtripKeys == nil) {
+            savedtripKeys = [[NSMutableArray alloc] init];
+        }
+        [savedtripKeys addObject:tripKey];
+        [[NSUserDefaults standardUserDefaults] setObject:savedtripKeys forKey:kTripListKey];
+    });
+    
     //send notification for trip updated
     [[NSNotificationCenter defaultCenter] postNotificationName:kTripChangeNotification object:self];
 }
@@ -67,6 +87,19 @@
         if ([oneTrip isEqual:oldTrip]) {
             [tripListCopy removeObject:oldTrip];
             [tripListCopy insertObject:updatedTrip atIndex:index];
+            NSString *oldTripKey = [self getTripKey:oldTrip];
+            [self saveCustomObject:nil key:oldTripKey];
+            NSString *updatedTripKey = [self getTripKey:updatedTrip];
+            [self saveCustomObject:updatedTrip key:updatedTripKey];
+            //update trip key list
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                NSMutableArray *savedtripKeys = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey]];
+                [savedtripKeys removeObject:oldTripKey];
+                [savedtripKeys addObject:updatedTripKey];
+                [[NSUserDefaults standardUserDefaults] setObject:savedtripKeys forKey:kTripListKey];
+            });
+            
             break;
         }
     }
@@ -81,6 +114,15 @@
         Trip *oneTrip = [self.activeTripList objectAtIndex:index];
         if ([oneTrip isEqual:trip]) {
             [tripListCopy removeObject:trip];
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                NSString *oldTripKey = [self getTripKey:trip];
+                [self saveCustomObject:nil key:oldTripKey];
+                NSMutableArray *savedtripKeys = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey]];
+                [savedtripKeys removeObject:oldTripKey];
+                [[NSUserDefaults standardUserDefaults] setObject:savedtripKeys forKey:kTripListKey];
+            });
+            
             break;
         }
     }
@@ -113,6 +155,36 @@
     return [NSArray arrayWithArray:allColors];
 }
 
+- (NSInteger)countActiveTrips
+{
+    return [self.activeTripList count];
+}
 
 
+#pragma mark - Save Trips
+
+- (void)saveCustomObject:(Trip *)object key:(NSString *)key {
+    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:object];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:encodedObject forKey:key];
+    [defaults synchronize];
+    
+}
+
+- (Trip *)loadCustomObjectWithKey:(NSString *)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *encodedObject = [defaults objectForKey:key];
+    Trip *object = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+    return object;
+}
+
+- (NSString *)getTripKey:(Trip *)trip
+{
+
+    //create unique key for this trip
+    NSString *key = [NSString stringWithFormat:@"%@_%@_%@_%@", trip.destinationCity.cityFullName, [trip.dateRange.startDay.date description], [trip.dateRange.endDay.date description], trip.isRoundTrip?@"roundTrip":@"oneWay"];
+    return key;
+}
 @end
+
+

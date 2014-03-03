@@ -22,4 +22,25 @@
     }
     return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeObject:self.cityFullName forKey:@"cityFullName"];
+    [encoder encodeObject:self.cityShortName forKey:@"cityShortName"];
+    [encoder encodeObject:self.countryName forKey:@"countryName"];
+    [encoder encodeObject:self.location forKey:@"location"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        self.cityFullName = [decoder decodeObjectForKey:@"cityFullName"];
+        self.cityShortName = [decoder decodeObjectForKey:@"cityShortName"];
+        self.countryName = [decoder decodeObjectForKey:@"countryName"];
+        self.location = [decoder decodeObjectForKey:@"location"];
+    }
+    return self;
+}
+
+
 @end
