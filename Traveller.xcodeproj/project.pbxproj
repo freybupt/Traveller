@@ -35,6 +35,7 @@
 		769D541C18B578790019888E /* MZCustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D541B18B578790019888E /* MZCustomTransition.m */; };
 		769D541F18B57A040019888E /* MZNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D541E18B57A040019888E /* MZNavigationViewController.m */; };
 		769D542818B57AF30019888E /* AddDestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D542718B57AF30019888E /* AddDestinationViewController.m */; };
+		769F276118C8012F0022AA4F /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 769F276018C8012F0022AA4F /* Checkbox.m */; };
 		76A17A4C18BC37CE0050AAEA /* dustbin.png in Resources */ = {isa = PBXBuildFile; fileRef = 76A17A4B18BC37CE0050AAEA /* dustbin.png */; };
 		76A17A5518BD22BB0050AAEA /* BookingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A17A5418BD22BB0050AAEA /* BookingTableViewController.m */; };
 		76A17A5818BD22FD0050AAEA /* BookingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A17A5718BD22FD0050AAEA /* BookingViewController.m */; };
@@ -127,6 +128,8 @@
 		769D541E18B57A040019888E /* MZNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MZNavigationViewController.m; path = ../MZNavigationViewController.m; sourceTree = "<group>"; };
 		769D542618B57AF30019888E /* AddDestinationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDestinationViewController.h; sourceTree = "<group>"; };
 		769D542718B57AF30019888E /* AddDestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDestinationViewController.m; sourceTree = "<group>"; };
+		769F275F18C8012F0022AA4F /* Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkbox.h; sourceTree = "<group>"; };
+		769F276018C8012F0022AA4F /* Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkbox.m; sourceTree = "<group>"; };
 		76A17A4B18BC37CE0050AAEA /* dustbin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dustbin.png; sourceTree = "<group>"; };
 		76A17A5318BD22BB0050AAEA /* BookingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingTableViewController.h; sourceTree = "<group>"; };
 		76A17A5418BD22BB0050AAEA /* BookingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingTableViewController.m; sourceTree = "<group>"; };
@@ -405,6 +408,8 @@
 				76D875F018B841B500B7AC79 /* CalendarView.m */,
 				76C2712618B2E496003A49A3 /* MyScheduleTableCell.h */,
 				76C2712718B2E496003A49A3 /* MyScheduleTableCell.m */,
+				769F275F18C8012F0022AA4F /* Checkbox.h */,
+				769F276018C8012F0022AA4F /* Checkbox.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -550,6 +555,7 @@
 				769D53CE18B5377C0019888E /* NSDate+DSLCalendarView.m in Sources */,
 				76C2712518B2DF15003A49A3 /* CalendarManager.m in Sources */,
 				769D541418B578520019888E /* MZFormSheetBackgroundWindowViewController.m in Sources */,
+				769F276118C8012F0022AA4F /* Checkbox.m in Sources */,
 				769D541118B578520019888E /* MZAppearance.m in Sources */,
 				76C270C818B2A1E2003A49A3 /* CalendarViewController.m in Sources */,
 				769D541518B578520019888E /* MZFormSheetController.m in Sources */,

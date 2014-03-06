@@ -47,7 +47,7 @@
 - (IBAction)confirmTripChange:(id)sender;
 - (IBAction)cancelTripChange:(id)sender;
 - (IBAction)deleteCurrentTrip:(id)sender;
-
+- (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event;
 
 - (IBAction)switchDidTapped:(id)sender;
 

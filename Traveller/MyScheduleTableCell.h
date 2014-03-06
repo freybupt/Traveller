@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
+#import "Checkbox.h"
 
 @interface MyScheduleTableCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *eventTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventLocationLabel;
+@property (nonatomic, strong) IBOutlet Checkbox *checkBox;
+
 
 - (void)setWithEvent:(EKEvent *)event;
 

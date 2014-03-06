@@ -20,7 +20,7 @@
 #import "MZFormSheetController.h"
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
-
+#import "Checkbox.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
@@ -41,7 +41,7 @@ static CGFloat kActionButtonHeight = 35.0f;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
-
+@property (nonatomic, strong) NSMutableArray *selectedEvents;
 
 @property (nonatomic, strong) NSMutableArray *numberOutput;
 
@@ -55,13 +55,15 @@ static CGFloat kActionButtonHeight = 35.0f;
 	
     // The Add button is initially disabled
     self.addButton.enabled = NO;
-    self.isScheduleExpanded = YES;
+    self.isScheduleExpanded = NO;
     //init calendar view
     self.calendarView.delegate = self;
 
     //set up default date formatter
     self.sectionDateFormatter = [[NSDateFormatter alloc] init];
     [self.sectionDateFormatter setDateFormat:@"EEE, MMM dd"];
+    
+    self.selectedEvents = [[NSMutableArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessGrantedForCalendar:) name:kGrantCalendarAccessNotification object:[CalendarManager sharedManager]];
     
@@ -85,7 +87,7 @@ static CGFloat kActionButtonHeight = 35.0f;
         [calendarManager checkEventStoreAccessForCalendar];
     }
     
-    [self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
+//    [self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -136,7 +138,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     
     CalendarViewController __weak *weakSelf = self;
     if (self.isScheduleExpanded) {
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
             [weakSelf.scheduleTableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate - kActionButtonHeight)];
         }];
         
@@ -144,7 +146,7 @@ static CGFloat kActionButtonHeight = 35.0f;
         [self.expandButton setImage:[UIImage imageNamed:@"arrowUp.png"] forState:UIControlStateNormal];
     }
     else{
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
             [weakSelf.scheduleTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height - kActionButtonHeight)];
         }];
         
@@ -321,8 +323,8 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 - (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents *)month {
     NSLog(@"Now showing %@", month);
-//    [self fetchEvents];
-//    [self.scheduleTableView reloadData];
+    [self fetchEvents];
+    [self.scheduleTableView reloadData];
     
 }
 
@@ -369,6 +371,13 @@ static CGFloat kActionButtonHeight = 35.0f;
 {
 	MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell" forIndexPath:indexPath];
     
+    if (cell.accessoryView == nil) {
+        // Only configure the Checkbox control once.
+        [(UIButton *)cell.accessoryView addTarget:self action:@selector(reviewDetail:forEvent:) forControlEvents:UIControlEventValueChanged];
+    }
+
+    cell.checkBox.checked = NO;
+    
     // Get the event at the row selected and display its title
     EKEvent *event = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     [cell setWithEvent:event];
@@ -379,20 +388,90 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Configure the destination event view controller
-    EKEventViewController* eventViewController = [[EKEventViewController alloc] init];
-    eventViewController.delegate = self;
-    // Set the view controller to display the selected event
-    eventViewController.event = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+    MyScheduleTableCell *targetCell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+    EKEvent *selectedEvent = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     
-    // Allow event editing
-    eventViewController.allowsEditing = YES;
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:eventViewController];
-    navigationController.delegate = self;
-    //now present this navigation controller as modally
-    [self presentViewController:navigationController animated:YES completion:nil];
+    if ([self.selectedEvents containsObject:selectedEvent]) {
+        [self.selectedEvents removeObject:selectedEvent];
+        targetCell.checkBox.checked = NO;
+    }
+    else{
+        [self.selectedEvents addObject:selectedEvent];
+        targetCell.checkBox.checked = YES;
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+
+//| ----------------------------------------------------------------------------
+//! IBAction that is called when the value of a checkbox in any row changes.
+//
+- (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event
+{
+	NSSet *touches = [event allTouches];
+	UITouch *touch = [touches anyObject];
+	CGPoint currentTouchPosition = [touch locationInView:self.scheduleTableView];
+    
+    // Lookup the index path of the cell whose checkbox was modified.
+	NSIndexPath *indexPath = [self.scheduleTableView indexPathForRowAtPoint:currentTouchPosition];
+    
+	if (indexPath != nil) {
+        // Configure the destination event view controller
+        EKEventViewController* eventViewController = [[EKEventViewController alloc] init];
+        eventViewController.delegate = self;
+        // Set the view controller to display the selected event
+        eventViewController.event = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+        
+        // Allow event editing
+        eventViewController.allowsEditing = YES;
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:eventViewController];
+        navigationController.delegate = self;
+        //now present this navigation controller as modally
+        [self presentViewController:navigationController animated:YES completion:nil];
+
+        
+//        UITableViewCell *targetCell = [self.scheduleTableView cellForRowAtIndexPath:indexPath];
+//        Checkbox *targetCheckbox = (Checkbox*)[targetCell accessoryView];
+//        
+//        EKEvent *selectedEvent = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+//        
+//        if ([self.selectedEvents containsObject:selectedEvent]) {
+//            [self.selectedEvents removeObject:selectedEvent];
+//            targetCheckbox.checked = NO;
+//        }
+//        else{
+//            [self.selectedEvents addObject:selectedEvent];
+//            targetCheckbox.checked = YES;
+//        }
+    }
+
+//    // Accessibility
+//    [self updateAccessibilityForCell:[self.scheduleTableView cellForRowAtIndexPath:indexPath]];
+}
+
+
+//| ----------------------------------------------------------------------------
+//  Because a custom accessory view is used, this method is never invoked by
+//  the table view.  If one of the standard UITableViewCellAccessoryTypes were
+//  used instead, the table view would invoke this method in response to a tap
+//  on the accessory.
+//
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+#pragma mark -
+#pragma mark Accessibility
+
+//| ----------------------------------------------------------------------------
+//! Utility method for configuring a cell's accessibilityValue based upon the
+//! current checkbox state.
+//
+- (void)updateAccessibilityForCell:(UITableViewCell*)cell
+{
+    // The cell's accessibilityValue is the Checkbox's accessibilityValue.
+    cell.accessibilityValue = cell.accessoryView.accessibilityValue;
 }
 
 #pragma mark -
