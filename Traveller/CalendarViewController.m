@@ -21,6 +21,7 @@
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
 #import "Checkbox.h"
+#import "CalendarColorManager.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
@@ -111,16 +112,16 @@ static CGFloat kActionButtonHeight = 35.0f;
         self.confirmTripSwitch.backgroundColor = [UIColor lightTextColor];
         
     }
-    else if(buttonTapped == self.confirmTripSwitch){
-        //show confirm view
-        self.planTripView.hidden = YES;
-        self.mapView.hidden = YES;
-        self.confirmTripView.hidden = NO;
-        self.planTripSwitch.backgroundColor = [UIColor lightTextColor];
-        self.mapSwitch.backgroundColor = [UIColor lightTextColor];
-        self.confirmTripSwitch.backgroundColor = [UIColor whiteColor];
-        //TODO: replan the trip details
-    }
+//    else if(buttonTapped == self.confirmTripSwitch){
+//        //show confirm view
+//        self.planTripView.hidden = YES;
+//        self.mapView.hidden = YES;
+//        self.confirmTripView.hidden = NO;
+//        self.planTripSwitch.backgroundColor = [UIColor lightTextColor];
+//        self.mapSwitch.backgroundColor = [UIColor lightTextColor];
+//        self.confirmTripSwitch.backgroundColor = [UIColor whiteColor];
+//        //TODO: replan the trip details
+//    }
     else if(buttonTapped == self.mapSwitch){
         self.planTripView.hidden = NO;
         self.mapView.hidden = NO;
@@ -394,10 +395,12 @@ static CGFloat kActionButtonHeight = 35.0f;
     if ([self.selectedEvents containsObject:selectedEvent]) {
         [self.selectedEvents removeObject:selectedEvent];
         targetCell.checkBox.checked = NO;
+        targetCell.backgroundColor = [UIColor whiteColor];
     }
     else{
         [self.selectedEvents addObject:selectedEvent];
         targetCell.checkBox.checked = YES;
+        targetCell.backgroundColor = UIColorFromRGB(0x9bee9e);
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
