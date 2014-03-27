@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7644726918E49D8600319348 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726818E49D8600319348 /* CFNetwork.framework */; };
+		7644726B18E49DCA00319348 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726A18E49DCA00319348 /* SystemConfiguration.framework */; };
+		7644726D18E49DD200319348 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726C18E49DD200319348 /* MobileCoreServices.framework */; };
+		7644726F18E49DDF00319348 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726E18E49DDF00319348 /* libz.dylib */; };
 		9F4F9AD218E427D900C55A5D /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD018E427D900C55A5D /* EventViewController.m */; };
 		9F4F9AD318E427D900C55A5D /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD118E427D900C55A5D /* EventViewController.xib */; };
 		9F4F9AD918E42C1B00C55A5D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD818E42C1B00C55A5D /* Event.m */; };
@@ -86,6 +90,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7644726818E49D8600319348 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7644726A18E49DCA00319348 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		7644726C18E49DD200319348 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		7644726E18E49DDF00319348 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		9F4F9ACF18E427D900C55A5D /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F4F9AD018E427D900C55A5D /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		9F4F9AD118E427D900C55A5D /* EventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
@@ -200,12 +208,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7644726F18E49DDF00319348 /* libz.dylib in Frameworks */,
+				9F9F338D18E108010077C85A /* CoreGraphics.framework in Frameworks */,
+				7644726D18E49DD200319348 /* MobileCoreServices.framework in Frameworks */,
+				7644726B18E49DCA00319348 /* SystemConfiguration.framework in Frameworks */,
 				9F4F9AE418E42ED500C55A5D /* EventKitUI.framework in Frameworks */,
 				9F4F9AE218E42E0600C55A5D /* EventKit.framework in Frameworks */,
 				9FC055B218E2B6D300743E16 /* MapKit.framework in Frameworks */,
 				9F9F33CC18E138A20077C85A /* CoreLocation.framework in Frameworks */,
 				9F9F33C318E112590077C85A /* CoreData.framework in Frameworks */,
-				9F9F338D18E108010077C85A /* CoreGraphics.framework in Frameworks */,
 				9F9F338F18E108010077C85A /* UIKit.framework in Frameworks */,
 				9F9F338B18E108010077C85A /* Foundation.framework in Frameworks */,
 			);
@@ -215,6 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7644726918E49D8600319348 /* CFNetwork.framework in Frameworks */,
 				9F9F33AA18E108010077C85A /* XCTest.framework in Frameworks */,
 				9F9F33AC18E108010077C85A /* UIKit.framework in Frameworks */,
 				9F9F33AB18E108010077C85A /* Foundation.framework in Frameworks */,
@@ -278,6 +290,10 @@
 		9F9F338918E108010077C85A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7644726E18E49DDF00319348 /* libz.dylib */,
+				7644726C18E49DD200319348 /* MobileCoreServices.framework */,
+				7644726A18E49DCA00319348 /* SystemConfiguration.framework */,
+				7644726818E49D8600319348 /* CFNetwork.framework */,
 				9F4F9AE018E42E0600C55A5D /* EventKit.framework */,
 				9F4F9AE118E42E0600C55A5D /* EventKitUI.framework */,
 				9FC055B118E2B6D300743E16 /* MapKit.framework */,
@@ -831,6 +847,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Spoonbill/Spoonbill-Prefix.pch";
 				INFOPLIST_FILE = "Spoonbill/Spoonbill-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -844,6 +861,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Spoonbill/Spoonbill-Prefix.pch";
 				INFOPLIST_FILE = "Spoonbill/Spoonbill-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -865,6 +883,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SpoonbillTests/SpoonbillTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -883,6 +902,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Spoonbill/Spoonbill-Prefix.pch";
 				INFOPLIST_FILE = "SpoonbillTests/SpoonbillTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
