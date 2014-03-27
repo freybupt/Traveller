@@ -69,7 +69,7 @@
     return [object isKindOfClass:[NSURL class]];
 }
 
-- (BOOL)isNullObject
+- (BOOL)isNonNullObject
 {
     id object = self;
     if (object == [NSNull null]) {

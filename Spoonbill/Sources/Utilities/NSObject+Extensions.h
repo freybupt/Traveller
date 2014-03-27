@@ -15,5 +15,5 @@
 - (BOOL)isDictionaryObject;
 - (BOOL)isDateObject;
 - (BOOL)isURLObject;
-- (BOOL)isNullObject;
+- (BOOL)isNonNullObject;
 @end
