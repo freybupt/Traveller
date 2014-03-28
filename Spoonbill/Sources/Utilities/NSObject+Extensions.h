@@ -16,4 +16,5 @@
 - (BOOL)isDateObject;
 - (BOOL)isURLObject;
 - (BOOL)isNonNullObject;
+- (BOOL)isEventObject;
 @end

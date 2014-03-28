@@ -35,6 +35,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self registerNotificationCenter];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    [self unregisterNotificationCenter];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,12 +70,37 @@
     [self presentViewController:nc animated:YES completion:^{}];
 }
 
-- (IBAction)eventButtonTapAction:(Event *)event
+- (IBAction)eventDetailButtonTapAction:(Event *)event
 {
+    if (!event) {
+        return;
+    }
+    
     EventDetailViewController *vc = [[EventDetailViewController alloc] initWithNibName:@"EventDetailViewController"
                                                                                 bundle:nil
                                                                              withEvent:event];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+/*
+- (IBAction)deleteEventButtonTapAction:(Event *)event
+{
+    if (!event) {
+        return;
+    }
+    
+    [[TripManager sharedInstance] deleteEvent:event
+                                      context:self.managedObjectContext];
+}
+*/
+- (IBAction)deleteEventButtonTapAction:(NSNotification *)notification
+{
+    if (![notification.object isEventObject]) {
+        return;
+    }
+    Event *event = (Event *)notification.object;
+    [[TripManager sharedInstance] deleteEvent:event
+                                      context:self.managedObjectContext];
 }
 
 #pragma mark - UITableView configuration
@@ -107,12 +141,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[self tableCellReuseIdentifier]];
-    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:[self tableCellReuseIdentifier]];
     }
-
+    
     [self configureCell:cell
             atIndexPath:indexPath];
     
@@ -131,7 +164,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self eventButtonTapAction:event];
+    [self eventDetailButtonTapAction:event];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,9 +177,27 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [[TripManager sharedInstance] deleteEvent:event
-                                          context:self.managedObjectContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TripManagerOperationDidDeleteEventNotification
+                                                                object:event
+                                                              userInfo:nil];
+        });
     }
 }
 
+#pragma mark - NSNotificationCenter
+- (void)registerNotificationCenter
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(deleteEventButtonTapAction:)
+                                                 name:TripManagerOperationDidDeleteEventNotification
+                                               object:nil];
+}
+
+- (void)unregisterNotificationCenter
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TripManagerOperationDidDeleteEventNotification
+                                                  object:nil];
+}
 @end

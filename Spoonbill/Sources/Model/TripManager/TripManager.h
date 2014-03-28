@@ -12,6 +12,8 @@
 #import "City.h"
 #import "Event.h"
 
+extern NSString * const TripManagerOperationDidDeleteEventNotification;
+
 @interface TripManager : NSObject
 + (id)sharedInstance;
 
@@ -23,8 +25,8 @@
                       context:(NSManagedObjectContext *)moc;
 - (BOOL)addCityWithDictionary:(NSDictionary *)dictionary
                       context:(NSManagedObjectContext *)moc;
-- (BOOL)updateCity:(City *)city
-           context:(NSManagedObjectContext *)moc;
+- (BOOL)saveCity:(City *)city
+         context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteCity:(City *)city
            context:(NSManagedObjectContext *)moc;
 
@@ -33,8 +35,10 @@
                                context:(NSManagedObjectContext *)moc;
 - (BOOL)addEventWithEKEvent:(EKEvent *)ekEvent
                     context:(NSManagedObjectContext *)moc;
-- (BOOL)updateEvent:(Event *)event
-            context:(NSManagedObjectContext *)moc;
+- (BOOL)updateEventWithEKEvent:(EKEvent *)ekEvent
+                       context:(NSManagedObjectContext *)moc;
+- (BOOL)saveEvent:(Event *)event
+          context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteEvent:(Event *)event
             context:(NSManagedObjectContext *)moc;
 @end

@@ -79,4 +79,13 @@
     return YES;
 }
 
+- (BOOL)isEventObject
+{
+    id object = self;
+    if (object == [NSNull null]) {
+        return NO;
+    }
+    
+    return [object isKindOfClass:[Event class]];
+}
 @end

@@ -8,6 +8,8 @@
 
 #import "TripManager.h"
 
+NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbill.tripmanager.operation.delete.event";
+
 @interface TripManager ()
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -127,6 +129,55 @@
     City *city = [[City alloc] initWithEntity:entity
                insertIntoManagedObjectContext:moc];
     
+    [self setCity:city withDictionary:dictionary];
+    
+    return [self saveCity:city
+                  context:moc];
+}
+
+- (BOOL)saveCity:(City *)city
+         context:(NSManagedObjectContext *)moc
+{
+    if (!city || !moc ) {
+        return NO;
+    }
+
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved a city: %@", city);
+    return YES;
+}
+
+- (BOOL)deleteCity:(City *)city
+           context:(NSManagedObjectContext *)moc
+{
+    if (!city || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:city];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted a city");
+    return YES;
+}
+
+- (void)setCity:(City *)city withDictionary:(NSDictionary *)dictionary
+{
     if ([dictionary[@"id"] isNumberObject]) {
         city.uid = dictionary[@"id"];
     }
@@ -162,62 +213,9 @@
     if ([dictionary[@"LongitudeRef"] isStringObject]) {
         city.longitudeRef = dictionary[@"LongitudeRef"];
     }
-    
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Inserted a city: %@", city);
-    return YES;
 }
 
-- (BOOL)updateCity:(City *)city
-           context:(NSManagedObjectContext *)moc
-{
-    if (!city || !moc ) {
-        return NO;
-    }
-
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Updated a city: %@", city);
-    return YES;
-}
-
-- (BOOL)deleteCity:(City *)city
-           context:(NSManagedObjectContext *)moc
-{
-    if (!city || !moc) {
-        return NO;
-    }
-    
-    [moc deleteObject:city];
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Deleted a city");
-    return YES;
-}
-
-#pragma mark - City
+#pragma mark - Event
 - (Event *)getEventWithEventIdentifier:(NSString *)eventIdentifier
                                context:(NSManagedObjectContext *)moc
 {
@@ -250,7 +248,70 @@
                                               inManagedObjectContext:moc];
     Event *event = [[Event alloc] initWithEntity:entity
                   insertIntoManagedObjectContext:moc];
+    [self setEvent:event withEKEvent:ekEvent];
     
+    return [self saveEvent:event
+                   context:moc];
+}
+
+- (BOOL)updateEventWithEKEvent:(EKEvent *)ekEvent
+                       context:(NSManagedObjectContext *)moc
+{
+    if (!ekEvent || !moc ) {
+        return NO;
+    }
+    
+    Event *event = [self getEventWithEventIdentifier:ekEvent.eventIdentifier
+                                             context:moc];
+    [self setEvent:event withEKEvent:ekEvent];
+    
+    return [self saveEvent:event
+                   context:moc];
+}
+
+- (BOOL)saveEvent:(Event *)event
+          context:(NSManagedObjectContext *)moc
+{
+    if (!event || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved an event: %@", event);
+    return YES;
+}
+
+- (BOOL)deleteEvent:(Event *)event
+            context:(NSManagedObjectContext *)moc
+{
+    if (!event || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:event];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted an event");
+    return YES;
+}
+
+- (void)setEvent:(Event *)event withEKEvent:(EKEvent *)ekEvent
+{
     if ([[MockManager userid] isNumberObject]) {
         event.uid = [MockManager userid];
     }
@@ -284,59 +345,5 @@
     if ([ekEvent.notes isStringObject]) {
         event.notes = ekEvent.notes;
     }
-    
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Inserted an event: %@", event);
-    return YES;
 }
-
-- (BOOL)updateEvent:(Event *)event
-            context:(NSManagedObjectContext *)moc
-{
-    if (!event || !moc ) {
-        return NO;
-    }
-    
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Updated an event: %@", event);
-    return YES;
-}
-
-- (BOOL)deleteEvent:(Event *)event
-            context:(NSManagedObjectContext *)moc
-{
-    if (!event || !moc) {
-        return NO;
-    }
-    
-    [moc deleteObject:event];
-    if ([moc hasChanges]) {
-        
-        NSError *error = nil;
-        if (![moc save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-            return NO;
-        }
-    }
-    NSLog(@"Deleted an event");
-    return YES;
-}
-
 @end

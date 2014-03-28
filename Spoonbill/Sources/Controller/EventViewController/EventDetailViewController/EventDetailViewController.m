@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
+#import <EventKitUI/EventKitUI.h>
 #import "EventDetailViewController.h"
 #import "CityMapViewController.h"
 #import "AddCityViewController.h"
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
     EventInfoTableRowCount
 };
 
-@interface EventDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface EventDetailViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) Event *event;
@@ -37,6 +38,12 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
 {
     self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil)
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(editEventButtonTapAction:)];
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+        
         _event = event;
         
         _managedObjectContext = [NSManagedObjectContext new];
@@ -96,6 +103,57 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
                                                                         bundle:nil];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:^{}];
+}
+
+- (IBAction)editEventButtonTapAction:(id)sender
+{
+    /* Create an eventStore with an event associated with eventIdentifier for EKEventEditViewController */
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    EKEvent *event = [eventStore eventWithIdentifier:_event.eventIdentifier];
+    
+    if (!event) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Calendar", nil)
+                                                            message:NSLocalizedString(@"The event item is not in Calendar anymore.", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    EKEventEditViewController *vc = [[EKEventEditViewController alloc] init];
+	vc.eventStore = eventStore;
+    vc.event = event;
+    vc.editViewDelegate = self;
+    [self presentViewController:vc animated:YES completion:^{}];
+}
+
+- (IBAction)saveEventButtonTapAction:(EKEvent *)event
+{
+    if (![[TripManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
+                                                          context:_managedObjectContext]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
+                                                            message:NSLocalizedString(@"The event item is not existed.", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    if ([[TripManager sharedInstance] updateEventWithEKEvent:event
+                                                     context:_managedObjectContext]) {
+        _event = [[TripManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
+                                                                   context:_managedObjectContext];
+        [_tableView reloadData];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
+                                                            message:NSLocalizedString(@"An error just occurred when inserting an event item", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 #pragma mark - UIAlertView delegate
@@ -164,5 +222,27 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
             [self cityMapButtonTapAction:city];
         }break;
     }
+}
+
+#pragma mark - EKEventEditViewDelegate
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+		  didCompleteWithAction:(EKEventEditViewAction)action
+{    
+    [controller dismissViewControllerAnimated:NO
+                                   completion:^{
+                                       if (action == EKEventEditViewActionSaved &&
+                                           controller.event) {
+                                           [self saveEventButtonTapAction:controller.event];
+                                       } else if (action == EKEventEditViewActionDeleted &&
+                                                  _event) {
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               [[NSNotificationCenter defaultCenter] postNotificationName:TripManagerOperationDidDeleteEventNotification
+                                                                                                   object:_event
+                                                                                                 userInfo:nil];
+                                           });
+                                           [self.navigationController popViewControllerAnimated:NO];
+                                       }
+                                       
+                                   }];
 }
 @end

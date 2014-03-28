@@ -60,7 +60,7 @@
     [self presentViewController:vc animated:YES completion:^{}];
 }
 
-- (IBAction)saveButtonTapAction:(EKEvent *)event
+- (IBAction)saveEventButtonTapAction:(EKEvent *)event
 {
     if ([[TripManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
                                                           context:self.managedObjectContext]) {
@@ -144,7 +144,7 @@
                                    completion:^{
                                        if (action == EKEventEditViewActionSaved &&
                                            controller.event) {
-                                           [self saveButtonTapAction:controller.event];
+                                           [self saveEventButtonTapAction:controller.event];
                                        }
          
     }];
