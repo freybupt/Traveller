@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "CityViewController.h"
 #import "EventViewController.h"
+#import "TripViewController.h"
 
 #define ROOT_TABLEVIEWCELL_IDENTIFIER @"RootTableViewCellIdentifier"
 
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSInteger, PlainTableRow) {
 typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     CoreDataTableRowCity,
     CoreDataTableRowEvent,
+    CoreDataTableRowTrip,
     CoreDataTableRowCount
 };
 
@@ -56,6 +58,12 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+}
+
 #pragma mark - Button tap action
 - (IBAction)cityButtonTapAction:(id)sender
 {
@@ -66,6 +74,12 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 - (IBAction)eventButtonTapAction:(id)sender
 {
     EventViewController *vc = [[EventViewController alloc] initWithNibName:@"EventViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)tripButtonTapAction:(id)sender
+{
+    TripViewController *vc = [[TripViewController alloc] initWithNibName:@"TripViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -111,6 +125,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
             break;
         case CoreDataTableRowEvent:
             [self eventButtonTapAction:nil];
+            break;
+        case CoreDataTableRowTrip:
+            [self tripButtonTapAction:nil];
             break;
     }
 }
@@ -178,6 +195,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
                 break;
             case CoreDataTableRowEvent:
                 [mArray insertObject:@"Event" atIndex:CoreDataTableRowEvent];
+                break;
+            case CoreDataTableRowTrip:
+                [mArray insertObject:@"Trip" atIndex:CoreDataTableRowTrip];
                 break;
         }
     }

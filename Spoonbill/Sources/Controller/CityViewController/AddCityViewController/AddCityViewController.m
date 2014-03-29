@@ -35,7 +35,8 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
     DetailTableRowCount
 };
 
-@interface AddCityViewController ()<UITextFieldDelegate>
+@interface AddCityViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSArray *textFieldTitles;
 @property (nonatomic, strong) NSArray *detailTitles;

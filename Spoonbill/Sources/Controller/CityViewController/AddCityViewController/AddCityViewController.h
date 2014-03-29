@@ -8,6 +8,6 @@
 
 #import "SBViewController.h"
 
-@interface AddCityViewController : SBViewController<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@interface AddCityViewController : SBViewController
+
 @end

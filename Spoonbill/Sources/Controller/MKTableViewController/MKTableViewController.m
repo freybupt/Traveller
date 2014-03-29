@@ -38,6 +38,12 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+}
+
 #pragma mark - MKMapView configuration
 - (void)setMapView
 {

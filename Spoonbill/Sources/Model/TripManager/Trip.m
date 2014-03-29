@@ -1,26 +1,24 @@
 //
-//  Event.m
+//  Trip.m
 //  Spoonbill
 //
 //  Created by WEI-JEN TU on 2014-03-29.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
-#import "Event.h"
 #import "Trip.h"
+#import "Event.h"
 
 
-@implementation Event
+@implementation Trip
 
-@dynamic allDay;
+@dynamic defaultColor;
+@dynamic departureCity;
+@dynamic destinationCity;
 @dynamic endDate;
-@dynamic eventIdentifier;
-@dynamic location;
-@dynamic notes;
+@dynamic isRoundTrip;
 @dynamic startDate;
-@dynamic title;
 @dynamic uid;
-@dynamic url;
-@dynamic toTrip;
+@dynamic toEvent;
 
 @end

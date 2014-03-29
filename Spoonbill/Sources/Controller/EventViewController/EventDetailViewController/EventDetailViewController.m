@@ -68,6 +68,12 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+}
+
 #pragma mark - Button tap action
 - (IBAction)cityMapButtonTapAction:(City *)city
 {
