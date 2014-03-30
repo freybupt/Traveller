@@ -8,6 +8,8 @@
 
 #import "AddTripViewController.h"
 #import "AddTripTableViewCell.h"
+#import "DepartureCityViewController.h"
+#import "DestinationCityViewController.h"
 
 #define ADDTRIP_TABLEVIEWCELL_IDENTIFIER @"AddTripTableViewCellIdentifier"
 #define TRIP_TITLE_TEXTFIELD_PLACEHOLDER @"Please enter a trip title here..."
@@ -38,7 +40,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *events;
-@property (nonatomic, strong) NSArray *detailTitles;
+@property (nonatomic, strong) NSMutableArray *detailTitles;
 @end
 
 @implementation AddTripViewController
@@ -67,7 +69,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         _managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
         
         _events = [NSMutableArray new];
-        _detailTitles = [self defaultDetailTitles];
+        _detailTitles = [[NSMutableArray alloc] initWithArray:[self defaultDetailTitles]];
     }
     return self;
 }
@@ -78,6 +80,15 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     
     [_tableView registerClass:[AddTripTableViewCell class]
        forCellReuseIdentifier:ADDTRIP_TABLEVIEWCELL_IDENTIFIER];
+    
+    [self registerNotificationCenter];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    [self unregisterNotificationCenter];
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,6 +135,40 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         [alertView show];
     }
     */
+}
+
+- (IBAction)departureCityButtonTapAction:(id)sender
+{
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Depature City", nil)
+                                                            message:NSLocalizedString(@"Internet is necessary to add departure city", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    DepartureCityViewController *vc = [[DepartureCityViewController alloc] initWithNibName:@"DepartureCityViewController"
+                                                                              bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)destinationCityButtonTapAction:(id)sender
+{
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Destination City", nil)
+                                                            message:NSLocalizedString(@"Internet is necessary to add destination city", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    DestinationCityViewController *vc = [[DestinationCityViewController alloc] initWithNibName:@"DestinationCityViewController"
+                                                                              bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableView datasource & delegate
@@ -177,6 +222,22 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    switch (indexPath.section) {
+        case AddTripTableSectionDetail:
+            switch (indexPath.row) {
+                case DetailTableRowDepartureCity:
+                    [self departureCityButtonTapAction:nil];
+                    break;
+                case DetailTableRowDestinationCity:
+                    [self destinationCityButtonTapAction:nil];
+                    break;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITableView default data
@@ -207,7 +268,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                 [mArray insertObject:@"End Date" atIndex:DetailTableRowEndDate];
                 break;
             case DetailTableRowRoundTrip:
-                [mArray insertObject:@"Round Trp" atIndex:DetailTableRowRoundTrip];
+                [mArray insertObject:@"Round Trip" atIndex:DetailTableRowRoundTrip];
                 break;
             case DetailTableRowDefaultColor:
                 [mArray insertObject:@"Default Color" atIndex:DetailTableRowDefaultColor];
@@ -239,5 +300,51 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - Notification action
+- (IBAction)updateDepartureCityNotificationAction:(NSNotification *)notification
+{
+    if (![notification.object isCityObject]) {
+        return;
+    }
+    City *city = (City *)notification.object;
+    [_detailTitles replaceObjectAtIndex:DetailTableRowDepartureCity
+                             withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Departure", nil), city.cityName]];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDepartureCity inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)updateDestinationCityNotificationAction:(NSNotification *)notification
+{
+    if (![notification.object isCityObject]) {
+        return;
+    }
+    City *city = (City *)notification.object;
+    [_detailTitles replaceObjectAtIndex:DetailTableRowDestinationCity
+                             withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Destination", nil), city.cityName]];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDestinationCity inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - NSNotificationCenter
+- (void)registerNotificationCenter
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateDepartureCityNotificationAction:)
+                                                 name:TripOperationDidUpdateDepartureCityNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateDestinationCityNotificationAction:)
+                                                 name:TripOperationDidUpdateDestinationCityNotification
+                                               object:nil];
+}
+
+- (void)unregisterNotificationCenter
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TripOperationDidUpdateDepartureCityNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TripOperationDidUpdateDestinationCityNotification
+                                                  object:nil];
 }
 @end

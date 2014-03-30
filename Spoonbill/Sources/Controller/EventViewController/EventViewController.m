@@ -82,27 +82,6 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-/*
-- (IBAction)deleteEventButtonTapAction:(Event *)event
-{
-    if (!event) {
-        return;
-    }
-    
-    [[TripManager sharedInstance] deleteEvent:event
-                                      context:self.managedObjectContext];
-}
-*/
-- (IBAction)deleteEventButtonTapAction:(NSNotification *)notification
-{
-    if (![notification.object isEventObject]) {
-        return;
-    }
-    Event *event = (Event *)notification.object;
-    [[TripManager sharedInstance] deleteEvent:event
-                                      context:self.managedObjectContext];
-}
-
 #pragma mark - UITableView configuration
 - (void)setTableView
 {
@@ -185,11 +164,22 @@
     }
 }
 
+#pragma mark - Notification action
+- (IBAction)deleteEventNotificationAction:(NSNotification *)notification
+{
+    if (![notification.object isEventObject]) {
+        return;
+    }
+    Event *event = (Event *)notification.object;
+    [[TripManager sharedInstance] deleteEvent:event
+                                      context:self.managedObjectContext];
+}
+
 #pragma mark - NSNotificationCenter
 - (void)registerNotificationCenter
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(deleteEventButtonTapAction:)
+                                             selector:@selector(deleteEventNotificationAction:)
                                                  name:TripManagerOperationDidDeleteEventNotification
                                                object:nil];
 }

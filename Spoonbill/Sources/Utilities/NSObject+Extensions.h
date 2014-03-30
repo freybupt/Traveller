@@ -16,5 +16,7 @@
 - (BOOL)isDateObject;
 - (BOOL)isURLObject;
 - (BOOL)isNonNullObject;
+- (BOOL)isCityObject;
 - (BOOL)isEventObject;
+- (BOOL)isTripObject;
 @end

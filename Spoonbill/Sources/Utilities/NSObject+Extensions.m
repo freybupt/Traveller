@@ -79,6 +79,16 @@
     return YES;
 }
 
+- (BOOL)isCityObject
+{
+    id object = self;
+    if (object == [NSNull null]) {
+        return NO;
+    }
+    
+    return [object isKindOfClass:[City class]];
+}
+
 - (BOOL)isEventObject
 {
     id object = self;
@@ -87,5 +97,15 @@
     }
     
     return [object isKindOfClass:[Event class]];
+}
+
+- (BOOL)isTripObject
+{
+    id object = self;
+    if (object == [NSNull null]) {
+        return NO;
+    }
+    
+    return [object isKindOfClass:[Trip class]];
 }
 @end
