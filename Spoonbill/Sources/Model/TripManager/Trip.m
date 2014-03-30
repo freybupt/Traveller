@@ -2,7 +2,7 @@
 //  Trip.m
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-03-29.
+//  Created by WEI-JEN TU on 2014-03-30.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @dynamic isRoundTrip;
 @dynamic startDate;
 @dynamic uid;
+@dynamic title;
 @dynamic toEvent;
 
 @end

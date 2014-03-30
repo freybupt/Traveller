@@ -34,7 +34,7 @@
 
 - (UITextField *)newTextField
 {
-    CGFloat x = ADDCITY_TABLEVIEWCELL_PADDING * 2;
+    CGFloat x = ADDCITY_TABLEVIEWCELL_PADDING * 3;
     CGFloat y = ADDCITY_TABLEVIEWCELL_PADDING;
     CGFloat width = self.frame.size.width - x * 2;
     CGFloat height = self.frame.size.height - y * 2;

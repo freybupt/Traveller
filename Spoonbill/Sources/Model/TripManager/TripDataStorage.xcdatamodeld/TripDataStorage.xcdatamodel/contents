@@ -30,12 +30,13 @@
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isRoundTrip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
         <element name="City" positionX="-252" positionY="-144" width="128" height="180"/>
         <element name="Event" positionX="-45" positionY="72" width="128" height="193"/>
-        <element name="Trip" positionX="-488" positionY="-18" width="128" height="163"/>
+        <element name="Trip" positionX="-488" positionY="-18" width="128" height="178"/>
     </elements>
 </model>

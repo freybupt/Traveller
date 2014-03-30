@@ -2,7 +2,7 @@
 //  Trip.h
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-03-29.
+//  Created by WEI-JEN TU on 2014-03-30.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * isRoundTrip;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSNumber * uid;
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSOrderedSet *toEvent;
 @end
 

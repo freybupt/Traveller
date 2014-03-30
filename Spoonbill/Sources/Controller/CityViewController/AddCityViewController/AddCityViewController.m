@@ -10,6 +10,7 @@
 #import "AddCityTableViewCell.h"
 
 #define ADDCITY_TABLEVIEWCELL_IDENTIFIER @"AddCityTableViewCellIdentifier"
+#define CITYNAME_TEXTFIELD_PLACEHOLDER @"Please enter a city name here..."
 #define MAX_LENGTH_OF_CITYCODE 2
 
 typedef NS_ENUM(NSInteger, AddCityTableSection) {
@@ -68,8 +69,8 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
         _managedObjectContext.undoManager = nil;
         _managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
         
-        _textFieldTitles = [self newTextFieldTitles];
-        _detailTitles = [self newDetailTitles];
+        _textFieldTitles = [self defaultTextFieldTitles];
+        _detailTitles = [self defaultDetailTitles];
     }
     return self;
 }
@@ -180,20 +181,20 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
              _detailTitles];
 }
 
-- (NSArray *)newTextFieldTitles
+- (NSArray *)defaultTextFieldTitles
 {
     NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:NameTableRowCount];
     for (NSUInteger idx = 0; idx < NameTableRowCount; idx++) {
         switch (idx) {
             case NameTableRowTextField:
-                [mArray insertObject:@"Please enter a city name here..." atIndex:NameTableRowTextField];
+                [mArray insertObject:CITYNAME_TEXTFIELD_PLACEHOLDER atIndex:NameTableRowTextField];
                 break;
         }
     }
     return mArray;
 }
 
-- (NSArray *)newDetailTitles
+- (NSArray *)defaultDetailTitles
 {
     NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:DetailTableRowCount];
     for (NSUInteger idx = 0; idx < DetailTableRowCount; idx++) {
@@ -349,12 +350,12 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     [self stopGeocoderQuery];
-    return [textField.placeholder isEqualToString:NSLocalizedString(@"Please enter a city name here...", nil)];
+    return [textField.placeholder isEqualToString:NSLocalizedString(CITYNAME_TEXTFIELD_PLACEHOLDER, nil)];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    return [textField.placeholder isEqualToString:NSLocalizedString(@"Please enter a city name here...", nil)];
+    return [textField.placeholder isEqualToString:NSLocalizedString(CITYNAME_TEXTFIELD_PLACEHOLDER, nil)];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
