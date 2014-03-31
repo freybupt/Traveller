@@ -101,9 +101,10 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@)", event.title, event.location];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", [event.startDate relativeTime], [event.endDate relativeTime]];
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", trip.title];
+    NSString *roundTripSymbol = [trip.isRoundTrip boolValue] ? @"<-->" : @"-->";
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@", trip.toCityDepartureCity.cityName, roundTripSymbol, trip.toCityDestinationCity.cityName];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,7 +121,9 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[TripManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext];
     }
 }
 @end

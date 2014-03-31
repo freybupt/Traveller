@@ -25,7 +25,9 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
     DetailTableRowDepartureCity,
     DetailTableRowDestinationCity,
     DetailTableRowStartDate,
+    DetailTableRowStartDatePicker,
     DetailTableRowEndDate,
+    DetailTableRowEndDatePicker,
     DetailTableRowRoundTrip,
     DetailTableRowDefaultColor,
     DetailTableRowCount
@@ -39,8 +41,11 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 @interface AddTripViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) Trip *trip;
 @property (nonatomic, strong) NSMutableArray *events;
 @property (nonatomic, strong) NSMutableArray *detailTitles;
+@property (nonatomic, assign) BOOL hasStartDatePicker;
+@property (nonatomic, assign) BOOL hasEndDatePicker;
 @end
 
 @implementation AddTripViewController
@@ -68,8 +73,22 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         _managedObjectContext.undoManager = nil;
         _managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
         
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Trip"
+                                                  inManagedObjectContext:_managedObjectContext];
+        _trip = [[Trip alloc] initWithEntity:entity
+              insertIntoManagedObjectContext:_managedObjectContext];
+        
+        // TODO: Remove the following part later.
+        /* Default values for trip item */
+        NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
+        _trip.defaultColor = colorData;
+        _trip.uid = [MockManager userid];
+        
         _events = [NSMutableArray new];
         _detailTitles = [[NSMutableArray alloc] initWithArray:[self defaultDetailTitles]];
+        
+        _hasStartDatePicker = NO;
+        _hasEndDatePicker = NO;
     }
     return self;
 }
@@ -80,6 +99,11 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     
     [_tableView registerClass:[AddTripTableViewCell class]
        forCellReuseIdentifier:ADDTRIP_TABLEVIEWCELL_IDENTIFIER];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(handleTapFrom:)];
+    [tapGestureRecognizer setCancelsTouchesInView:NO];
+    [_tableView addGestureRecognizer:tapGestureRecognizer];
     
     [self registerNotificationCenter];
 }
@@ -110,31 +134,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 
 - (IBAction)saveButtonTapAction:(id)sender
 {
-    /*
-    if ([[TripManager sharedInstance] getCityWithCityName:[_detailTitles objectAtIndex:DetailTableRowCity]
-                                                  context:_managedObjectContext]) {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
-                                                            message:NSLocalizedString(@"The city item has been saved before", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-        return;
+    AddTripTableViewCell *cell = (AddTripTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailTableRowTitle inSection:AddTripTableSectionDetail]];
+    _trip.title = cell.textField.text;
+
+    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
     }
-    
-    if ([[TripManager sharedInstance] AddTripWithDictionary:[self cityDictionaryWithArray:_detailTitles]
-                                                    context:_managedObjectContext]) {
-        [self dismissViewControllerAnimated:YES completion:^{}];
-    } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
-                                                            message:NSLocalizedString(@"An error just occurred when inserting a city item", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-    */
 }
 
 - (IBAction)departureCityButtonTapAction:(id)sender
@@ -171,10 +176,59 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (IBAction)startDateButtonTapAction:(id)sender
+{
+    _hasStartDatePicker = !_hasStartDatePicker;
+    _hasEndDatePicker = NO;
+    [_tableView reloadData];
+}
+
+- (IBAction)endDateButtonTapAction:(id)sender
+{
+    _hasStartDatePicker = NO;
+    _hasEndDatePicker = !_hasEndDatePicker;
+    [_tableView reloadData];
+}
+
+- (IBAction)startDatePickerButtonTapAction:(UIDatePicker *)datePicker
+{
+    _trip.startDate = datePicker.date;
+    [_detailTitles replaceObjectAtIndex:DetailTableRowStartDate
+                             withObject:[NSString stringWithFormat:@"Start: %@", [datePicker.date translatedTime]]];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowStartDate inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)endDatePickerButtonTapAction:(UIDatePicker *)datePicker
+{
+    _trip.endDate = datePicker.date;
+    [_detailTitles replaceObjectAtIndex:DetailTableRowEndDate
+                             withObject:[NSString stringWithFormat:@"Start: %@", [datePicker.date translatedTime]]];
+    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowEndDate inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)toggleButtonTapAction:(UISwitch *)toggle
+{
+    _trip.isRoundTrip = [NSNumber numberWithBool:toggle.on];
+}
+
 #pragma mark - UITableView datasource & delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return AddTripTableSectionCount;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case DetailTableRowStartDatePicker:
+            return _hasStartDatePicker ? DEFAULT_DATECELL_HEIGHT : 0.0f;
+            break;
+        case DetailTableRowEndDatePicker:
+            return _hasEndDatePicker ? DEFAULT_DATECELL_HEIGHT : 0.0f;
+            break;
+    }
+    
+    return DEFAULT_TABLECELL_HEIGHT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -198,15 +252,46 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         case AddTripTableSectionDetail:{
             if (indexPath.row == DetailTableRowTitle) {
                 cell.textField.hidden = NO;
+                cell.toggle.hidden = YES;
+                cell.datePicker.hidden = YES;
+                
                 cell.textField.placeholder = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
                 cell.textField.tag = indexPath.row;
                 cell.textField.delegate = self;
                 cell.accessoryType = UITableViewCellAccessoryNone;
             } else if (indexPath.row == DetailTableRowRoundTrip) {
+                cell.textField.hidden = YES;
                 cell.toggle.hidden = NO;
+                cell.datePicker.hidden = YES;
+                
+                [cell.toggle addTarget:self
+                                action:@selector(toggleButtonTapAction:)
+                      forControlEvents:UIControlEventValueChanged];
                 cell.textLabel.text = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
                 cell.accessoryType = UITableViewCellAccessoryNone;
+            } else if (indexPath.row == DetailTableRowStartDatePicker) {
+                cell.textField.hidden = YES;
+                cell.toggle.hidden = YES;
+                cell.datePicker.hidden = !_hasStartDatePicker;
+                
+                [cell.datePicker addTarget:self
+                                    action:@selector(startDatePickerButtonTapAction:)
+                          forControlEvents:UIControlEventValueChanged];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            } else if (indexPath.row == DetailTableRowEndDatePicker) {
+                cell.textField.hidden = YES;
+                cell.toggle.hidden = YES;
+                cell.datePicker.hidden = !_hasEndDatePicker;
+                
+                [cell.datePicker addTarget:self
+                                    action:@selector(endDatePickerButtonTapAction:)
+                          forControlEvents:UIControlEventValueChanged];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             } else {
+                cell.textField.hidden = YES;
+                cell.toggle.hidden = YES;
+                cell.datePicker.hidden = YES;
+                
                 cell.textLabel.text = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
@@ -232,6 +317,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                 case DetailTableRowDestinationCity:
                     [self destinationCityButtonTapAction:nil];
                     break;
+                case DetailTableRowStartDate:
+                    [self startDateButtonTapAction:nil];
+                    break;
+                case DetailTableRowEndDate:
+                    [self endDateButtonTapAction:nil];
+                    break;
             }
             break;
             
@@ -241,12 +332,6 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 }
 
 #pragma mark - UITableView default data
-/*
-- (NSArray *)cellTitles
-{
-    return @[_detailTitles];
-}
-*/
 - (NSArray *)defaultDetailTitles
 {
     NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:DetailTableRowCount];
@@ -264,8 +349,14 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
             case DetailTableRowStartDate:
                 [mArray insertObject:@"Start Date" atIndex:DetailTableRowStartDate];
                 break;
+            case DetailTableRowStartDatePicker:
+                [mArray insertObject:@"Start Date Picker" atIndex:DetailTableRowStartDatePicker];
+                break;
             case DetailTableRowEndDate:
                 [mArray insertObject:@"End Date" atIndex:DetailTableRowEndDate];
+                break;
+            case DetailTableRowEndDatePicker:
+                [mArray insertObject:@"End Date Picker" atIndex:DetailTableRowEndDatePicker];
                 break;
             case DetailTableRowRoundTrip:
                 [mArray insertObject:@"Round Trip" atIndex:DetailTableRowRoundTrip];
@@ -289,11 +380,16 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     return [textField.placeholder isEqualToString:NSLocalizedString(TRIP_TITLE_TEXTFIELD_PLACEHOLDER, nil)];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if ([textField.text length] > 0) {
-
-    }
+    NSUInteger oldLength = [textField.text length];
+    NSUInteger replacementLength = [string length];
+    NSUInteger rangeLength = range.length;
+    NSUInteger newLength = oldLength - rangeLength + replacementLength;
+    
+    self.navigationItem.rightBarButtonItem.enabled = (newLength > 0);
+    
+    return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -309,6 +405,11 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         return;
     }
     City *city = (City *)notification.object;
+    
+    /* Establish relationship has to be in the same managedObjectContext */
+    City *toCityDepartuerCity = [[TripManager sharedInstance] getCityWithCityName:city.cityName context:_managedObjectContext];
+    _trip.toCityDepartureCity = toCityDepartuerCity;
+    
     [_detailTitles replaceObjectAtIndex:DetailTableRowDepartureCity
                              withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Departure", nil), city.cityName]];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDepartureCity inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -320,6 +421,11 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         return;
     }
     City *city = (City *)notification.object;
+    
+    /* Establish relationship has to be in the same managedObjectContext */
+    City *toCityDestinationCity = [[TripManager sharedInstance] getCityWithCityName:city.cityName context:_managedObjectContext];
+    _trip.toCityDestinationCity = toCityDestinationCity;
+    
     [_detailTitles replaceObjectAtIndex:DetailTableRowDestinationCity
                              withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Destination", nil), city.cityName]];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDestinationCity inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -346,5 +452,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:TripOperationDidUpdateDestinationCityNotification
                                                   object:nil];
+}
+
+#pragma mark - UITapGestureRecognizer
+- (void)handleTapFrom:(UITapGestureRecognizer *)recognizer
+{
+    AddTripTableViewCell *cell = (AddTripTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailTableRowTitle inSection:AddTripTableSectionDetail]];
+    [cell.textField resignFirstResponder];
 }
 @end

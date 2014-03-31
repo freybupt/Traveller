@@ -17,7 +17,8 @@
         _toggle = [self newToggle];
         [self addSubview:_toggle];
         
-        self.textField.hidden = YES;
+        _datePicker = [self newDatePicker];
+        [self addSubview:_datePicker];
     }
     return self;
 }
@@ -29,5 +30,14 @@
     toggle.hidden = YES;
 
     return toggle;
+}
+
+#pragma mark - Configuration
+- (UIDatePicker *)newDatePicker
+{
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, DEFAULT_DATECELL_HEIGHT)];
+    datePicker.hidden = YES;
+    
+    return datePicker;
 }
 @end

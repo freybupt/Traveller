@@ -10,6 +10,9 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitudeRef" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="toCity" inverseEntity="Event" syncable="YES"/>
+        <relationship name="toTripDepartureCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDepartureCity" inverseEntity="Trip" syncable="YES"/>
+        <relationship name="toTripDestinationCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDestinationCity" inverseEntity="Trip" syncable="YES"/>
     </entity>
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="allDay" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -21,22 +24,23 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Trip" inverseName="toEvent" inverseEntity="Trip" syncable="YES"/>
+        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
+        <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Trip" inverseName="toEvent" inverseEntity="Trip" syncable="YES"/>
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="defaultColor" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="departureCity" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="destinationCity" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isRoundTrip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
+        <relationship name="toCityDepartureCity" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="City" inverseName="toTripDepartureCity" inverseEntity="City" syncable="YES"/>
+        <relationship name="toCityDestinationCity" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="City" inverseName="toTripDestinationCity" inverseEntity="City" syncable="YES"/>
+        <relationship name="toEvent" optional="YES" maxCount="1" deletionRule="No Action" ordered="YES" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="City" positionX="-252" positionY="-144" width="128" height="180"/>
-        <element name="Event" positionX="-45" positionY="72" width="128" height="193"/>
+        <element name="City" positionX="-92" positionY="-295" width="128" height="223"/>
+        <element name="Event" positionX="-110" positionY="224" width="128" height="208"/>
         <element name="Trip" positionX="-488" positionY="-18" width="128" height="178"/>
     </elements>
 </model>

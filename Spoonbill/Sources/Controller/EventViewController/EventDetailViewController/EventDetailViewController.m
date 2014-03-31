@@ -221,11 +221,9 @@ typedef NS_ENUM(NSInteger, EventInfoTableRow) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    City *city = [[TripManager sharedInstance] getCityWithCityName:_event.location
-                                                           context:_managedObjectContext];
     switch (indexPath.row) {
         case EventInfoTableRowLocation:{
-            [self cityMapButtonTapAction:city];
+            [self cityMapButtonTapAction:_event.toCity];
         }break;
     }
 }

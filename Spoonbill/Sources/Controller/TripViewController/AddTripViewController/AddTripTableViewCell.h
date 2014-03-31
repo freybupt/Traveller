@@ -8,6 +8,10 @@
 
 #import "AddCityTableViewCell.h"
 
+#define DEFAULT_TABLECELL_HEIGHT 45.0f
+#define DEFAULT_DATECELL_HEIGHT 200.0f
+
 @interface AddTripTableViewCell : AddCityTableViewCell
 @property (nonatomic, strong) UISwitch *toggle;
+@property (nonatomic, strong) UIDatePicker *datePicker;
 @end

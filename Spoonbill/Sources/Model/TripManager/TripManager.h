@@ -42,4 +42,10 @@ extern NSString * const TripManagerOperationDidDeleteEventNotification;
           context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteEvent:(Event *)event
             context:(NSManagedObjectContext *)moc;
+
+/* Trip */
+- (BOOL)saveTrip:(Trip *)trip
+         context:(NSManagedObjectContext *)moc;
+- (BOOL)deleteTrip:(Trip *)trip
+           context:(NSManagedObjectContext *)moc;
 @end

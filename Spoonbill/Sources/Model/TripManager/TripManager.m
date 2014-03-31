@@ -250,6 +250,11 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
                   insertIntoManagedObjectContext:moc];
     [self setEvent:event withEKEvent:ekEvent];
     
+    City *city = [self getCityWithCityName:event.location context:moc];
+    if (city) {
+        event.toCity = city;
+    }
+    
     return [self saveEvent:event
                    context:moc];
 }
@@ -345,5 +350,47 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
     if ([ekEvent.notes isStringObject]) {
         event.notes = ekEvent.notes;
     }
+}
+
+#pragma mark - Trip
+- (BOOL)saveTrip:(Trip *)trip
+         context:(NSManagedObjectContext *)moc
+{
+    if (!trip || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved a trip: %@", trip);
+    return YES;
+}
+
+- (BOOL)deleteTrip:(Trip *)trip
+           context:(NSManagedObjectContext *)moc
+{
+    if (!trip || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:trip];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted a trip");
+    return YES;
 }
 @end

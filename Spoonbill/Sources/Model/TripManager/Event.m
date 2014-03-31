@@ -2,11 +2,12 @@
 //  Event.m
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-03-29.
+//  Created by WEI-JEN TU on 2014-03-31.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
 #import "Event.h"
+#import "City.h"
 #import "Trip.h"
 
 
@@ -22,5 +23,6 @@
 @dynamic uid;
 @dynamic url;
 @dynamic toTrip;
+@dynamic toCity;
 
 @end
