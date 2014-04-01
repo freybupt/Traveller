@@ -56,11 +56,11 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
                                                                              target:self
                                                                              action:@selector(backButtonTapAction:)];
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-        
-        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil)
+
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
                                                                                style:UIBarButtonItemStylePlain
                                                                               target:self
-                                                                              action:@selector(saveButtonTapAction:)];
+                                                                              action:@selector(doneButtonTapAction:)];
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
         self.navigationItem.rightBarButtonItem.enabled = NO;
         
@@ -100,7 +100,7 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
-- (IBAction)saveButtonTapAction:(id)sender
+- (IBAction)doneButtonTapAction:(id)sender
 {
     if ([[TripManager sharedInstance] getCityWithCityName:[_detailTitles objectAtIndex:DetailTableRowCity]
                                                   context:_managedObjectContext]) {
@@ -348,4 +348,12 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
     return YES;
 }
 
+#pragma mark - UIScrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    AddCityTableViewCell *cell = (AddCityTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:NameTableRowTextField inSection:AddCityTableSectionEditing]];
+    if (cell.textField.editing) {
+        [cell.textField resignFirstResponder];
+    }
+}
 @end

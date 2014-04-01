@@ -14,41 +14,11 @@
 #import "FCColorPickerViewController.h"
 
 #define ADDTRIP_TABLEVIEWCELL_IDENTIFIER @"AddTripTableViewCellIdentifier"
-#define TRIP_TITLE_TEXTFIELD_PLACEHOLDER @"Please enter a trip title here..."
 #define MINIMUM_TEXTFIELD_LENGTH_FOR_SAVING 0
 #define DEFAULT_BACKGROUND_COLOR [UIColor colorWithRed:0.561f green:0.952f blue:1.0f alpha:1.0f]
-
-typedef NS_ENUM(NSInteger, AddTripTableSection) {
-    AddTripTableSectionDetail,
-    AddTripTableSectionEvent,
-    AddTripTableSectionCount
-};
-
-typedef NS_ENUM(NSInteger, DetailTableRow) {
-    DetailTableRowTitle,
-    DetailTableRowDepartureCity,
-    DetailTableRowDestinationCity,
-    DetailTableRowStartDate,
-    DetailTableRowStartDatePicker,
-    DetailTableRowEndDate,
-    DetailTableRowEndDatePicker,
-    DetailTableRowRoundTrip,
-    DetailTableRowDefaultColor,
-    DetailTableRowCount
-};
-
-typedef NS_ENUM(NSInteger, EventTableRow) {
-    EventTableRowAdd,
-    EventTableRowCount
-};
-
-@interface AddTripViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FCColorPickerViewControllerDelegate>
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) Trip *trip;
+#define HOUR_INTERVAL 60 * 60
+@interface AddTripViewController ()<FCColorPickerViewControllerDelegate>
 @property (nonatomic, strong) NSMutableArray *detailTitles;
-@property (nonatomic, assign) BOOL hasStartDatePicker;
-@property (nonatomic, assign) BOOL hasEndDatePicker;
 @end
 
 @implementation AddTripViewController
@@ -59,6 +29,18 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     if (self) {
         self.title = NSLocalizedString(@"Add Trip", nil);
         
+        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(backButtonTapAction:)];
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+        
+        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil)
+                                                                               style:UIBarButtonItemStylePlain
+                                                                              target:self
+                                                                              action:@selector(doneButtonTapAction:)];
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem;
+        
         /* Properties initializing */
         _managedObjectContext = [self newManagedObjectContext];
         _trip = [self newTrip];
@@ -67,18 +49,6 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         /* Boolean initializing */
         _hasStartDatePicker = NO;
         _hasEndDatePicker = NO;
-        
-        UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(backButtonTapAction:)];
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-        
-        UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", nil)
-                                                                               style:UIBarButtonItemStylePlain
-                                                                              target:self
-                                                                              action:@selector(saveButtonTapAction:)];
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     }
     return self;
 }
@@ -86,8 +56,6 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self defaultCityButtonTapAction:nil];
     
     [_tableView registerClass:[AddTripTableViewCell class]
        forCellReuseIdentifier:ADDTRIP_TABLEVIEWCELL_IDENTIFIER];
@@ -111,14 +79,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 {
     [super viewDidAppear:animated];
     
-    if (![[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
-                                                            message:NSLocalizedString(@"An error just occurred when initializing a trip item in Core Data", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-    }
+    [self defaultCityButtonTapAction:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -146,7 +107,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
-- (IBAction)saveButtonTapAction:(id)sender
+- (IBAction)doneButtonTapAction:(id)sender
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
 }
@@ -242,6 +203,11 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 
 - (IBAction)defaultCityButtonTapAction:(id)sender
 {
+    if (_trip.toCityDepartureCity &&
+        _trip.toCityDestinationCity) {
+        return;
+    }
+    
     City *city = [[TripManager sharedInstance] getCityWithCityName:[[NSUserDefaults standardUserDefaults] objectForKey:CURRENT_CITY_KEY] context:_managedObjectContext];
     if (city) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -292,56 +258,40 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 
 - (void)configureCell:(AddTripTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.textField.hidden = YES;
+    cell.toggle.hidden = YES;
+    cell.datePicker.hidden = YES;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
     switch (indexPath.section) {
         case AddTripTableSectionDetail:{
             if (indexPath.row == DetailTableRowTitle) {
                 cell.textField.hidden = NO;
-                cell.toggle.hidden = YES;
-                cell.datePicker.hidden = YES;
-                
                 cell.textField.placeholder = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
                 cell.textField.tag = indexPath.row;
                 cell.textField.delegate = self;
-                cell.accessoryType = UITableViewCellAccessoryNone;
             } else if (indexPath.row == DetailTableRowRoundTrip) {
-                cell.textField.hidden = YES;
                 cell.toggle.hidden = NO;
-                cell.datePicker.hidden = YES;
-                
                 [cell.toggle addTarget:self
                                 action:@selector(toggleButtonTapAction:)
                       forControlEvents:UIControlEventValueChanged];
                 cell.textLabel.text = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
-                cell.accessoryType = UITableViewCellAccessoryNone;
             } else if (indexPath.row == DetailTableRowStartDatePicker) {
-                cell.textField.hidden = YES;
-                cell.toggle.hidden = YES;
                 cell.datePicker.hidden = !_hasStartDatePicker;
-                
                 [cell.datePicker addTarget:self
                                     action:@selector(startDatePickerButtonTapAction:)
                           forControlEvents:UIControlEventValueChanged];
-                cell.accessoryType = UITableViewCellAccessoryNone;
             } else if (indexPath.row == DetailTableRowEndDatePicker) {
-                cell.textField.hidden = YES;
-                cell.toggle.hidden = YES;
                 cell.datePicker.hidden = !_hasEndDatePicker;
-                
                 [cell.datePicker addTarget:self
                                     action:@selector(endDatePickerButtonTapAction:)
                           forControlEvents:UIControlEventValueChanged];
-                cell.accessoryType = UITableViewCellAccessoryNone;
             } else {
-                
                 if (indexPath.row == DetailTableRowDefaultColor) {
                     UIColor *backgroundColor = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:_trip.defaultColor];
                     cell.backgroundColor = backgroundColor;
                 }
-                
-                cell.textField.hidden = YES;
-                cell.toggle.hidden = YES;
-                cell.datePicker.hidden = YES;
-                
                 cell.textLabel.text = NSLocalizedString([_detailTitles objectAtIndex:indexPath.row], nil);
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
@@ -553,6 +503,8 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     Trip *trip = [[Trip alloc] initWithEntity:entity
                insertIntoManagedObjectContext:_managedObjectContext];
     trip.title = NSLocalizedString(@"New Trip", nil);
+    trip.startDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    trip.endDate = [NSDate dateWithTimeIntervalSinceNow:HOUR_INTERVAL];
     trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:DEFAULT_BACKGROUND_COLOR];
     trip.uid = [MockManager userid];
     
@@ -578,5 +530,22 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 -(void)colorPickerViewControllerDidCancel:(FCColorPickerViewController *)colorPicker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIScrollView delegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    AddTripTableViewCell *cell = (AddTripTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailTableRowTitle inSection:AddTripTableSectionDetail]];
+    if (cell.textField.editing) {
+        [cell.textField resignFirstResponder];
+    }
+    
+    if (_hasStartDatePicker) {
+        [self startDateButtonTapAction:nil];
+    }
+    
+    if (_hasEndDatePicker) {
+        [self endDateButtonTapAction:nil];
+    }
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "TripViewController.h"
+#import "TripDetailViewController.h"
 #import "AddTripViewController.h"
 
 #define TRIP_TABLEVIEWCELL_IDENTIFIER @"TripTableCellIdentifier"
@@ -48,6 +49,14 @@
                                                                         bundle:nil];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:^{}];
+}
+
+- (IBAction)tripDetailButtonTapAction:(Trip *)trip
+{
+    TripDetailViewController *vc = [[TripDetailViewController alloc] initWithNibName:@"TripDetailViewController"
+                                                                              bundle:nil
+                                                                                trip:trip];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UITableView configuration
@@ -114,6 +123,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self tripDetailButtonTapAction:trip];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

@@ -42,7 +42,7 @@
     UILabel *titleView = (UILabel *)self.navigationItem.titleView;
     if (!titleView) {
         titleView = [[UILabel alloc] initWithFrame:CGRectZero];
-        titleView.font = [UIFont systemFontOfSize:20.0f];
+        titleView.font = [UIFont boldSystemFontOfSize:18.0f];
         titleView.textColor = [UIColor blackColor];
         self.navigationItem.titleView = titleView;
     }

@@ -9,7 +9,7 @@
 #import "ChooseEventTableViewCell.h"
 
 #define CHOOSEEVENT_TABLEVIEWCELL_PADDING 5.0f
-#define CHOOSEEVENT_BUTTON_WIDTH 100.0f
+#define CHOOSEEVENT_BUTTON_WIDTH 80.0f
 #define CHOOSEEVENT_BUTTON_HEIGHT 35.0f
 
 @implementation ChooseEventTableViewCell

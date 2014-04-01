@@ -31,6 +31,8 @@
 		9F2F85F918EAA5E600BA98AA /* FCBrightDarkGradView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85F118EAA5E600BA98AA /* FCBrightDarkGradView.m */; };
 		9F2F85FA18EAA5E600BA98AA /* FCColorSwatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85F318EAA5E600BA98AA /* FCColorSwatchView.m */; };
 		9F2F85FD18EAA80300BA98AA /* ColorMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2F85FC18EAA80300BA98AA /* ColorMap@2x.png */; };
+		9F2F860818EAD96500BA98AA /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F860618EAD96500BA98AA /* TripDetailViewController.m */; };
+		9F2F860918EAD96500BA98AA /* TripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */; };
 		9F4F9AD218E427D900C55A5D /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD018E427D900C55A5D /* EventViewController.m */; };
 		9F4F9AD318E427D900C55A5D /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD118E427D900C55A5D /* EventViewController.xib */; };
 		9F4F9ADE18E42CAB00C55A5D /* ChooseCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9ADC18E42CAB00C55A5D /* ChooseCityViewController.m */; };
@@ -145,6 +147,9 @@
 		9F2F85F218EAA5E600BA98AA /* FCColorSwatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCColorSwatchView.h; sourceTree = "<group>"; };
 		9F2F85F318EAA5E600BA98AA /* FCColorSwatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCColorSwatchView.m; sourceTree = "<group>"; };
 		9F2F85FC18EAA80300BA98AA /* ColorMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ColorMap@2x.png"; sourceTree = "<group>"; };
+		9F2F860518EAD96500BA98AA /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		9F2F860618EAD96500BA98AA /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
+		9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailViewController.xib; sourceTree = "<group>"; };
 		9F4F9ACF18E427D900C55A5D /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F4F9AD018E427D900C55A5D /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		9F4F9AD118E427D900C55A5D /* EventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
@@ -287,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				9F14E64E18E669050004BD9F /* AddTripViewController */,
+				9F2F860418EAD96500BA98AA /* TripDetailViewController */,
 				9F14E64918E667BB0004BD9F /* TripViewController.h */,
 				9F14E64A18E667BB0004BD9F /* TripViewController.m */,
 				9F14E64B18E667BB0004BD9F /* TripViewController.xib */,
@@ -370,6 +376,16 @@
 				9F2F85FC18EAA80300BA98AA /* ColorMap@2x.png */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		9F2F860418EAD96500BA98AA /* TripDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F2F860518EAD96500BA98AA /* TripDetailViewController.h */,
+				9F2F860618EAD96500BA98AA /* TripDetailViewController.m */,
+				9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */,
+			);
+			path = TripDetailViewController;
 			sourceTree = "<group>";
 		};
 		9F4F9ACE18E427A900C55A5D /* EventViewController */ = {
@@ -809,6 +825,7 @@
 				9FC055B818E2BF7700743E16 /* MKTableViewController.xib in Resources */,
 				9F9F33D918E14FA20077C85A /* CityViewController.xib in Resources */,
 				9F2F85FD18EAA80300BA98AA /* ColorMap@2x.png in Resources */,
+				9F2F860918EAD96500BA98AA /* TripDetailViewController.xib in Resources */,
 				9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */,
 				9F2F85F818EAA5E600BA98AA /* FCColorPickerViewController.xib in Resources */,
 			);
@@ -855,6 +872,7 @@
 				9F2F85C518EA4F3E00BA98AA /* ChooseEventTableViewCell.m in Sources */,
 				9F4F9ADE18E42CAB00C55A5D /* ChooseCityViewController.m in Sources */,
 				9F9F33A118E108010077C85A /* RootViewController.m in Sources */,
+				9F2F860818EAD96500BA98AA /* TripDetailViewController.m in Sources */,
 				9FC0558E18E2B31600743E16 /* AFURLRequestSerialization.m in Sources */,
 				9FC0558B18E2B31600743E16 /* AFNetworkReachabilityManager.m in Sources */,
 				9F9F339B18E108010077C85A /* AppDelegate.m in Sources */,
