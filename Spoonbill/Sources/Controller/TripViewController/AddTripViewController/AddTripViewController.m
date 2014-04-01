@@ -116,8 +116,7 @@
 {
     ChooseEventViewController *vc = [[ChooseEventViewController alloc] initWithNibName:@"ChooseEventViewController"
                                                                                 bundle:nil
-                                                                                  trip:_trip
-                                                                                   moc:self.managedObjectContext];
+                                                                                  trip:_trip];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -442,11 +441,21 @@
 
 - (IBAction)updateTripEventsNotificationAction:(NSNotification *)notification
 {
-    if (![notification.object isTripObject]) {
+    if (![notification.object isEventObject]) {
         return;
     }
-    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:AddTripTableSectionEvent]
-              withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    Event *event = (Event *)[_managedObjectContext objectWithID:[notification.object objectID]];
+    if ([_trip.toEvent containsObject:event]) {
+        [_trip removeToEventObject:event];
+    } else {
+        [_trip addToEventObject:event];
+    }
+    
+    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        [_tableView reloadSections:[NSIndexSet indexSetWithIndex:AddTripTableSectionEvent]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 #pragma mark - NSNotificationCenter

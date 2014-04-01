@@ -13,6 +13,5 @@ extern NSString * const TripOperationDidUpdateTripEventsNotification;
 @interface ChooseEventViewController : EventViewController
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
-                 trip:(Trip *)trip
-                  moc:(NSManagedObjectContext *)moc;
+                 trip:(Trip *)trip;
 @end

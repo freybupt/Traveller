@@ -21,14 +21,11 @@ NSString * const TripOperationDidUpdateTripEventsNotification = @"com.spoonbill.
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
                  trip:(Trip *)trip
-                  moc:(NSManagedObjectContext *)moc
 {
     self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Choose Event", nil);
-        _trip = trip;
-        self.managedObjectContext = moc;
-        self.navigationItem.rightBarButtonItem = nil;
+        _trip = (Trip *)[self.managedObjectContext objectWithID:trip.objectID];;
     }
     return self;
 }
@@ -58,18 +55,10 @@ NSString * const TripOperationDidUpdateTripEventsNotification = @"com.spoonbill.
 {
     button.selected = !button.selected;
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
-    if (button.selected) {
-        [_trip addToEventObject:event];
-    } else {
-        [_trip removeToEventObject:event];
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([[TripManager sharedInstance] saveTrip:_trip
-                                           context:self.managedObjectContext]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:TripOperationDidUpdateTripEventsNotification
-                                                                object:_trip
-                                                              userInfo:nil];
-        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:TripOperationDidUpdateTripEventsNotification
+                                                            object:event
+                                                          userInfo:nil];
     });
 }
 
