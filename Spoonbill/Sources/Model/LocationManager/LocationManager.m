@@ -10,6 +10,7 @@
 
 @interface LocationManager ()<CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @end
 
 @implementation LocationManager
@@ -32,6 +33,8 @@
         _locationManager = [CLLocationManager new];
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        _managedObjectContext = [self newManagedObjectContext];
 	}
 	return self;
 }
@@ -62,11 +65,10 @@
         [self getPlacemarkWithLocation:location
                                  block:^(CLPlacemark *placemark, NSError *error) {
                                      if (!error) {
-                                         NSLog(@"%@", placemark.addressDictionary);
-                                         NSLog(@"Latitude: %f", placemark.location.coordinate.latitude);
-                                         NSLog(@"LatitudeRef: %@", placemark.location.coordinate.latitude > 0 ? NSLocalizedString(@"North", nil) : NSLocalizedString(@"South", nil));
-                                         NSLog(@"Longitude: %f", placemark.location.coordinate.longitude);
-                                         NSLog(@"LongitudeRef: %@", placemark.location.coordinate.longitude > 0 ? NSLocalizedString(@"East", nil) : NSLocalizedString(@"West", nil));
+                                         _cityDictionary = [self cityDictionaryWithPlacemark:placemark];
+                                         [[TripManager sharedInstance] addCityWithDictionary:_cityDictionary context:_managedObjectContext];
+                                         [[NSUserDefaults standardUserDefaults] setObject:_cityDictionary[@"City"] forKey:CURRENT_CITY_KEY];
+                                         [[NSUserDefaults standardUserDefaults] synchronize];
                                      }
         }];
         
@@ -119,5 +121,39 @@
                      }
     }];
     return geoCoder;
+}
+
+#pragma mark - Configuration
+- (NSManagedObjectContext *)newManagedObjectContext
+{
+    NSManagedObjectContext *managedObjectContext = [NSManagedObjectContext new];
+    managedObjectContext.undoManager = nil;
+    managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
+    
+    return managedObjectContext;
+}
+
+#pragma mark - Helper
+- (NSDictionary *)cityDictionaryWithPlacemark:(CLPlacemark *)placemark
+{
+    NSString *city = placemark.addressDictionary[@"City"];
+    NSString *cityCode = [placemark.addressDictionary[@"City"] length] > MAX_LENGTH_OF_CITYCODE ? [[placemark.addressDictionary[@"City"] uppercaseString] substringToIndex:MAX_LENGTH_OF_CITYCODE] : placemark.addressDictionary[@"City"];
+    NSString *country = placemark.addressDictionary[@"Country"];
+    NSString *countryCode = placemark.addressDictionary[@"CountryCode"];
+    NSNumber *latitude = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
+    NSString *latitudeRef = placemark.location.coordinate.latitude > 0 ? NSLocalizedString(@"North", nil) : NSLocalizedString(@"South", nil);
+    NSNumber *longitude = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
+    NSString *longitudeRef = placemark.location.coordinate.longitude > 0 ? NSLocalizedString(@"East", nil) : NSLocalizedString(@"West", nil);
+    NSNumber *uid = [MockManager userid];
+    
+    return @{ @"City" : city,
+              @"CityCode" : cityCode,
+              @"Country" : country,
+              @"CountryCode" : countryCode,
+              @"Latitude" : latitude,
+              @"LatitudeRef" : latitudeRef,
+              @"Longitude" : longitude,
+              @"LongitudeRef" : longitudeRef,
+              @"id" : uid};
 }
 @end

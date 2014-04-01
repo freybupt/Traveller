@@ -69,6 +69,16 @@
     return [object isKindOfClass:[NSURL class]];
 }
 
+- (BOOL)isMutableSetObject
+{
+    id object = self;
+    if (object == [NSNull null]) {
+        return NO;
+    }
+    
+    return [object isKindOfClass:[NSMutableSet class]];
+}
+
 - (BOOL)isNonNullObject
 {
     id object = self;

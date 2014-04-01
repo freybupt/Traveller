@@ -9,7 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+#define MAX_LENGTH_OF_CITYCODE 2
+#define CURRENT_CITY_KEY @"CurrentCityKey"
+
 @interface LocationManager : NSObject<CLLocationManagerDelegate>
+@property (nonatomic, strong) NSDictionary *cityDictionary;
+
 + (id)sharedInstance;
 - (void)startUpdatingLocation;
 - (void)stopUpdatingLocation;

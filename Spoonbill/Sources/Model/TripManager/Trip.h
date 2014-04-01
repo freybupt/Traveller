@@ -2,7 +2,7 @@
 //  Trip.h
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-03-31.
+//  Created by WEI-JEN TU on 2014-04-01.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -19,21 +19,16 @@
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSOrderedSet *toEvent;
 @property (nonatomic, retain) City *toCityDepartureCity;
 @property (nonatomic, retain) City *toCityDestinationCity;
+@property (nonatomic, retain) NSSet *toEvent;
 @end
 
 @interface Trip (CoreDataGeneratedAccessors)
 
-- (void)insertObject:(Event *)value inToEventAtIndex:(NSUInteger)idx;
-- (void)removeObjectFromToEventAtIndex:(NSUInteger)idx;
-- (void)insertToEvent:(NSArray *)value atIndexes:(NSIndexSet *)indexes;
-- (void)removeToEventAtIndexes:(NSIndexSet *)indexes;
-- (void)replaceObjectInToEventAtIndex:(NSUInteger)idx withObject:(Event *)value;
-- (void)replaceToEventAtIndexes:(NSIndexSet *)indexes withToEvent:(NSArray *)values;
 - (void)addToEventObject:(Event *)value;
 - (void)removeToEventObject:(Event *)value;
-- (void)addToEvent:(NSOrderedSet *)values;
-- (void)removeToEvent:(NSOrderedSet *)values;
+- (void)addToEvent:(NSSet *)values;
+- (void)removeToEvent:(NSSet *)values;
+
 @end

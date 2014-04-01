@@ -124,6 +124,10 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
         return NO;
     }
     
+    if ([self getCityWithCityName:dictionary[@"City"] context:moc]) {
+        return NO;
+    }
+    
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"City"
                                               inManagedObjectContext:moc];
     City *city = [[City alloc] initWithEntity:entity

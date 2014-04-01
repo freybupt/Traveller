@@ -15,6 +15,7 @@
 - (BOOL)isDictionaryObject;
 - (BOOL)isDateObject;
 - (BOOL)isURLObject;
+- (BOOL)isMutableSetObject;
 - (BOOL)isNonNullObject;
 - (BOOL)isCityObject;
 - (BOOL)isEventObject;

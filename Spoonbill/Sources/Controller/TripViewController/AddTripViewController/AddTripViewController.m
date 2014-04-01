@@ -8,11 +8,13 @@
 
 #import "AddTripViewController.h"
 #import "AddTripTableViewCell.h"
+#import "ChooseEventViewController.h"
 #import "DepartureCityViewController.h"
 #import "DestinationCityViewController.h"
 
 #define ADDTRIP_TABLEVIEWCELL_IDENTIFIER @"AddTripTableViewCellIdentifier"
 #define TRIP_TITLE_TEXTFIELD_PLACEHOLDER @"Please enter a trip title here..."
+#define MINIMUM_TEXTFIELD_LENGTH_FOR_SAVING 0
 
 typedef NS_ENUM(NSInteger, AddTripTableSection) {
     AddTripTableSectionDetail,
@@ -42,7 +44,6 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) Trip *trip;
-@property (nonatomic, strong) NSMutableArray *events;
 @property (nonatomic, strong) NSMutableArray *detailTitles;
 @property (nonatomic, assign) BOOL hasStartDatePicker;
 @property (nonatomic, assign) BOOL hasEndDatePicker;
@@ -56,6 +57,15 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     if (self) {
         self.title = NSLocalizedString(@"Add Trip", nil);
         
+        /* Properties initializing */
+        _managedObjectContext = [self newManagedObjectContext];
+        _trip = [self newTrip];
+        _detailTitles = [[NSMutableArray alloc] initWithArray:[self defaultDetailTitles]];
+        
+        /* Boolean initializing */
+        _hasStartDatePicker = NO;
+        _hasEndDatePicker = NO;
+        
         UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
@@ -67,28 +77,6 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                                                                               target:self
                                                                               action:@selector(saveButtonTapAction:)];
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-        
-        _managedObjectContext = [NSManagedObjectContext new];
-        _managedObjectContext.undoManager = nil;
-        _managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
-        
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Trip"
-                                                  inManagedObjectContext:_managedObjectContext];
-        _trip = [[Trip alloc] initWithEntity:entity
-              insertIntoManagedObjectContext:_managedObjectContext];
-        
-        // TODO: Remove the following part later.
-        /* Default values for trip item */
-        NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
-        _trip.defaultColor = colorData;
-        _trip.uid = [MockManager userid];
-        
-        _events = [NSMutableArray new];
-        _detailTitles = [[NSMutableArray alloc] initWithArray:[self defaultDetailTitles]];
-        
-        _hasStartDatePicker = NO;
-        _hasEndDatePicker = NO;
     }
     return self;
 }
@@ -96,6 +84,8 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self defaultCityButtonTapAction:nil];
     
     [_tableView registerClass:[AddTripTableViewCell class]
        forCellReuseIdentifier:ADDTRIP_TABLEVIEWCELL_IDENTIFIER];
@@ -115,6 +105,20 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     [self unregisterNotificationCenter];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (![[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
+                                                            message:NSLocalizedString(@"An error just occurred when initializing a trip item in Core Data", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -129,17 +133,29 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 #pragma mark - Button tap action
 - (IBAction)backButtonTapAction:(id)sender
 {
+    if (![[TripManager sharedInstance] deleteTrip:_trip context:_managedObjectContext]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"TripManager", nil)
+                                                            message:NSLocalizedString(@"An error just occurred when removing a trip item in Core Data", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
     [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 - (IBAction)saveButtonTapAction:(id)sender
 {
-    AddTripTableViewCell *cell = (AddTripTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailTableRowTitle inSection:AddTripTableSectionDetail]];
-    _trip.title = cell.textField.text;
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+}
 
-    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
-    }
+- (IBAction)chooseEventButtonTapAction:(id)sender
+{
+    ChooseEventViewController *vc = [[ChooseEventViewController alloc] initWithNibName:@"ChooseEventViewController"
+                                                                                bundle:nil
+                                                                                  trip:_trip
+                                                                                   moc:self.managedObjectContext];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)departureCityButtonTapAction:(id)sender
@@ -209,6 +225,21 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 - (IBAction)toggleButtonTapAction:(UISwitch *)toggle
 {
     _trip.isRoundTrip = [NSNumber numberWithBool:toggle.on];
+}
+
+- (IBAction)defaultCityButtonTapAction:(id)sender
+{
+    City *city = [[TripManager sharedInstance] getCityWithCityName:[[NSUserDefaults standardUserDefaults] objectForKey:CURRENT_CITY_KEY] context:_managedObjectContext];
+    if (city) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TripOperationDidUpdateDepartureCityNotification
+                                                                object:city
+                                                              userInfo:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:TripOperationDidUpdateDestinationCityNotification
+                                                                object:city
+                                                              userInfo:nil];
+        });
+    }
 }
 
 #pragma mark - UITableView datasource & delegate
@@ -298,7 +329,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
         }break;
         case AddTripTableSectionEvent:
             cell.textField.hidden = YES;
-            cell.textLabel.text = [NSString stringWithFormat:@"%@ ( %@ )", NSLocalizedString(@"Events", nil), [NSNumber numberWithInteger:[_events count]]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ ( %@ )", NSLocalizedString(@"Events", nil), [NSNumber numberWithInteger:[_trip.toEvent count]]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
     }
@@ -325,8 +356,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                     break;
             }
             break;
-            
-        default:
+        case AddTripTableSectionEvent:
+            switch (indexPath.row) {
+                case EventTableRowAdd:
+                    [self chooseEventButtonTapAction:nil];
+                    break;
+            }
             break;
     }
 }
@@ -380,16 +415,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     return [textField.placeholder isEqualToString:NSLocalizedString(TRIP_TITLE_TEXTFIELD_PLACEHOLDER, nil)];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSUInteger oldLength = [textField.text length];
-    NSUInteger replacementLength = [string length];
-    NSUInteger rangeLength = range.length;
-    NSUInteger newLength = oldLength - rangeLength + replacementLength;
-    
-    self.navigationItem.rightBarButtonItem.enabled = (newLength > 0);
-    
-    return YES;
+    if ([textField.text length] > MINIMUM_TEXTFIELD_LENGTH_FOR_SAVING) {
+        _trip.title = textField.text;
+        [[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -409,6 +440,9 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     /* Establish relationship has to be in the same managedObjectContext */
     City *toCityDepartuerCity = [[TripManager sharedInstance] getCityWithCityName:city.cityName context:_managedObjectContext];
     _trip.toCityDepartureCity = toCityDepartuerCity;
+    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        self.navigationItem.rightBarButtonItem.enabled = [self didInsertDepartureAndDestinationCity];
+    }
     
     [_detailTitles replaceObjectAtIndex:DetailTableRowDepartureCity
                              withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Departure", nil), city.cityName]];
@@ -425,10 +459,22 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     /* Establish relationship has to be in the same managedObjectContext */
     City *toCityDestinationCity = [[TripManager sharedInstance] getCityWithCityName:city.cityName context:_managedObjectContext];
     _trip.toCityDestinationCity = toCityDestinationCity;
+    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        self.navigationItem.rightBarButtonItem.enabled = [self didInsertDepartureAndDestinationCity];
+    }
     
     [_detailTitles replaceObjectAtIndex:DetailTableRowDestinationCity
                              withObject:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Destination", nil), city.cityName]];
     [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDestinationCity inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (IBAction)updateTripEventsNotificationAction:(NSNotification *)notification
+{
+    if (![notification.object isTripObject]) {
+        return;
+    }
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:AddTripTableSectionEvent]
+              withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - NSNotificationCenter
@@ -442,6 +488,10 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                                              selector:@selector(updateDestinationCityNotificationAction:)
                                                  name:TripOperationDidUpdateDestinationCityNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTripEventsNotificationAction:)
+                                                 name:TripOperationDidUpdateTripEventsNotification
+                                               object:nil];
 }
 
 - (void)unregisterNotificationCenter
@@ -452,6 +502,9 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:TripOperationDidUpdateDestinationCityNotification
                                                   object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:TripOperationDidUpdateTripEventsNotification
+                                                  object:nil];
 }
 
 #pragma mark - UITapGestureRecognizer
@@ -459,5 +512,34 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 {
     AddTripTableViewCell *cell = (AddTripTableViewCell *)[_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailTableRowTitle inSection:AddTripTableSectionDetail]];
     [cell.textField resignFirstResponder];
+}
+
+#pragma mark - Configuration
+- (NSManagedObjectContext *)newManagedObjectContext
+{
+    NSManagedObjectContext *managedObjectContext = [NSManagedObjectContext new];
+    managedObjectContext.undoManager = nil;
+    managedObjectContext.persistentStoreCoordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
+    
+    return managedObjectContext;
+}
+
+- (Trip *)newTrip
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Trip"
+                                              inManagedObjectContext:_managedObjectContext];
+    Trip *trip = [[Trip alloc] initWithEntity:entity
+               insertIntoManagedObjectContext:_managedObjectContext];
+    trip.title = NSLocalizedString(@"New Trip", nil);
+    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
+    trip.uid = [MockManager userid];
+    
+    return trip;
+}
+
+#pragma mark - Helper
+- (BOOL)didInsertDepartureAndDestinationCity
+{
+    return (_trip.toCityDepartureCity && _trip.toCityDestinationCity);
 }
 @end

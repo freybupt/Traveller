@@ -11,7 +11,6 @@
 
 #define ADDCITY_TABLEVIEWCELL_IDENTIFIER @"AddCityTableViewCellIdentifier"
 #define CITYNAME_TEXTFIELD_PLACEHOLDER @"Please enter a city name here..."
-#define MAX_LENGTH_OF_CITYCODE 2
 
 typedef NS_ENUM(NSInteger, AddCityTableSection) {
     AddCityTableSectionEditing,
@@ -300,29 +299,6 @@ typedef NS_ENUM(NSInteger, DetailTableRow) {
 }
 
 #pragma mark - Helpers
-- (NSDictionary *)cityDictionaryWithPlacemark:(CLPlacemark *)placemark
-{
-    NSString *city = placemark.addressDictionary[@"City"];
-    NSString *cityCode = [placemark.addressDictionary[@"City"] length] > MAX_LENGTH_OF_CITYCODE ? [[placemark.addressDictionary[@"City"] uppercaseString] substringToIndex:MAX_LENGTH_OF_CITYCODE] : placemark.addressDictionary[@"City"];
-    NSString *country = placemark.addressDictionary[@"Country"];
-    NSString *countryCode = placemark.addressDictionary[@"CountryCode"];
-    NSNumber *latitude = [NSNumber numberWithDouble:placemark.location.coordinate.latitude];
-    NSString *latitudeRef = placemark.location.coordinate.latitude > 0 ? NSLocalizedString(@"North", nil) : NSLocalizedString(@"South", nil);
-    NSNumber *longitude = [NSNumber numberWithDouble:placemark.location.coordinate.longitude];
-    NSString *longitudeRef = placemark.location.coordinate.longitude > 0 ? NSLocalizedString(@"East", nil) : NSLocalizedString(@"West", nil);
-    NSNumber *uid = [MockManager userid];
-    
-    return @{ @"City" : city,
-              @"CityCode" : cityCode,
-              @"Country" : country,
-              @"CountryCode" : countryCode,
-              @"Latitude" : latitude,
-              @"LatitudeRef" : latitudeRef,
-              @"Longitude" : longitude,
-              @"LongitudeRef" : longitudeRef,
-              @"id" : uid};
-}
-
 - (NSDictionary *)cityDictionaryWithArray:(NSArray *)array
 {
     NSString *city = [array objectAtIndex:DetailTableRowCity];
