@@ -103,8 +103,12 @@
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [NSString stringWithFormat:@"%@", trip.title];
+    
     NSString *roundTripSymbol = [trip.isRoundTrip boolValue] ? @"<-->" : @"-->";
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@", trip.toCityDepartureCity.cityName, roundTripSymbol, trip.toCityDestinationCity.cityName];
+    
+    UIColor *backgroundColor = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor];
+    cell.backgroundColor = backgroundColor;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

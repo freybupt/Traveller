@@ -11,10 +11,12 @@
 #import "ChooseEventViewController.h"
 #import "DepartureCityViewController.h"
 #import "DestinationCityViewController.h"
+#import "FCColorPickerViewController.h"
 
 #define ADDTRIP_TABLEVIEWCELL_IDENTIFIER @"AddTripTableViewCellIdentifier"
 #define TRIP_TITLE_TEXTFIELD_PLACEHOLDER @"Please enter a trip title here..."
 #define MINIMUM_TEXTFIELD_LENGTH_FOR_SAVING 0
+#define DEFAULT_BACKGROUND_COLOR [UIColor colorWithRed:0.561f green:0.952f blue:1.0f alpha:1.0f]
 
 typedef NS_ENUM(NSInteger, AddTripTableSection) {
     AddTripTableSectionDetail,
@@ -40,7 +42,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     EventTableRowCount
 };
 
-@interface AddTripViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface AddTripViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, FCColorPickerViewControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) Trip *trip;
@@ -227,6 +229,17 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     _trip.isRoundTrip = [NSNumber numberWithBool:toggle.on];
 }
 
+- (IBAction)colorPickerButtonTapAction:(id)sender
+{
+    FCColorPickerViewController *vc = [FCColorPickerViewController colorPicker];
+    vc.color = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:_trip.defaultColor];
+    vc.delegate = self;
+    vc.modalPresentationStyle = UIModalPresentationFormSheet;
+    vc.backgroundColor = [UIColor blackColor];
+
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 - (IBAction)defaultCityButtonTapAction:(id)sender
 {
     City *city = [[TripManager sharedInstance] getCityWithCityName:[[NSUserDefaults standardUserDefaults] objectForKey:CURRENT_CITY_KEY] context:_managedObjectContext];
@@ -319,6 +332,12 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                           forControlEvents:UIControlEventValueChanged];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             } else {
+                
+                if (indexPath.row == DetailTableRowDefaultColor) {
+                    UIColor *backgroundColor = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:_trip.defaultColor];
+                    cell.backgroundColor = backgroundColor;
+                }
+                
                 cell.textField.hidden = YES;
                 cell.toggle.hidden = YES;
                 cell.datePicker.hidden = YES;
@@ -353,6 +372,9 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
                     break;
                 case DetailTableRowEndDate:
                     [self endDateButtonTapAction:nil];
+                    break;
+                case DetailTableRowDefaultColor:
+                    [self colorPickerButtonTapAction:nil];
                     break;
             }
             break;
@@ -531,7 +553,7 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
     Trip *trip = [[Trip alloc] initWithEntity:entity
                insertIntoManagedObjectContext:_managedObjectContext];
     trip.title = NSLocalizedString(@"New Trip", nil);
-    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]];
+    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:DEFAULT_BACKGROUND_COLOR];
     trip.uid = [MockManager userid];
     
     return trip;
@@ -541,5 +563,20 @@ typedef NS_ENUM(NSInteger, EventTableRow) {
 - (BOOL)didInsertDepartureAndDestinationCity
 {
     return (_trip.toCityDepartureCity && _trip.toCityDestinationCity);
+}
+
+#pragma mark - FCColorPickerViewControllerDelegate Methods
+-(void)colorPickerViewController:(FCColorPickerViewController *)colorPicker didSelectColor:(UIColor *)color
+{
+    _trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:color];
+    if ([[TripManager sharedInstance] saveTrip:_trip context:_managedObjectContext]) {
+        [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:DetailTableRowDefaultColor inSection:AddTripTableSectionDetail]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+-(void)colorPickerViewControllerDidCancel:(FCColorPickerViewController *)colorPicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
