@@ -10,6 +10,7 @@
 
 /* Plain */
 #import "PLPlanTripViewController.h"
+#import "PLPlanTripCalendarViewController.h"
 
 /* Core Data */
 #import "CityViewController.h"
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSInteger, StylishTableRow) {
 
 typedef NS_ENUM(NSInteger, PlainTableRow) {
     PlainTableRowPlanTrip,
+    PlainTableRowPlanTripCalendar,
     PlainTableRowCount
 };
 
@@ -74,6 +76,12 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 - (IBAction)planTripButtonTapAction:(id)sender
 {
     PLPlanTripViewController *vc = [[PLPlanTripViewController alloc] initWithNibName:@"PLPlanTripViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)planTripCalendarButtonTapAction:(id)sender
+{
+    PLPlanTripCalendarViewController *vc = [[PLPlanTripCalendarViewController alloc] initWithNibName:@"PLPlanTripCalendarViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -149,6 +157,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
         case PlainTableRowPlanTrip:
             [self planTripButtonTapAction:nil];
             break;
+        case PlainTableRowPlanTripCalendar:
+            [self planTripCalendarButtonTapAction:nil];
+            break;
     }
 }
 
@@ -214,6 +225,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
         switch (idx) {
             case PlainTableRowPlanTrip:
                 [mArray insertObject:@"Plan Trip" atIndex:PlainTableRowPlanTrip];
+                break;
+            case PlainTableRowPlanTripCalendar:
+                [mArray insertObject:@"Plan Trip + Calendar" atIndex:PlainTableRowPlanTripCalendar];
                 break;
         }
     }
