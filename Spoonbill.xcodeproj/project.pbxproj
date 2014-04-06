@@ -11,18 +11,6 @@
 		7644726B18E49DCA00319348 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726A18E49DCA00319348 /* SystemConfiguration.framework */; };
 		7644726D18E49DD200319348 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726C18E49DD200319348 /* MobileCoreServices.framework */; };
 		7644726F18E49DDF00319348 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726E18E49DDF00319348 /* libz.dylib */; };
-		9F14E64C18E667BB0004BD9F /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F14E64A18E667BB0004BD9F /* TripViewController.m */; };
-		9F14E64D18E667BB0004BD9F /* TripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F14E64B18E667BB0004BD9F /* TripViewController.xib */; };
-		9F14E65218E669170004BD9F /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F14E65018E669170004BD9F /* AddTripViewController.m */; };
-		9F14E65318E669170004BD9F /* AddTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F14E65118E669170004BD9F /* AddTripViewController.xib */; };
-		9F1C6E2718E7B1B700E7CD41 /* AddTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C6E2618E7B1B700E7CD41 /* AddTripTableViewCell.m */; };
-		9F1C6E3018E7C2A500E7CD41 /* DepartureCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C6E2E18E7C2A500E7CD41 /* DepartureCityViewController.m */; };
-		9F1C6E3118E7C2A500E7CD41 /* DepartureCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1C6E2F18E7C2A500E7CD41 /* DepartureCityViewController.xib */; };
-		9F1C6E3518E7C38500E7CD41 /* DestinationCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1C6E3318E7C38500E7CD41 /* DestinationCityViewController.m */; };
-		9F1C6E3618E7C38500E7CD41 /* DestinationCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1C6E3418E7C38500E7CD41 /* DestinationCityViewController.xib */; };
-		9F2F85BC18EA3BCE00BA98AA /* ChooseEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85BA18EA3BCE00BA98AA /* ChooseEventViewController.m */; };
-		9F2F85BD18EA3BCE00BA98AA /* ChooseEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2F85BB18EA3BCE00BA98AA /* ChooseEventViewController.xib */; };
-		9F2F85C518EA4F3E00BA98AA /* ChooseEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85C418EA4F3E00BA98AA /* ChooseEventTableViewCell.m */; };
 		9F2F85E318EA70EF00BA98AA /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E218EA70EF00BA98AA /* City.m */; };
 		9F2F85E618EA70F000BA98AA /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E518EA70F000BA98AA /* Trip.m */; };
 		9F2F85E918EA70F000BA98AA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E818EA70F000BA98AA /* Event.m */; };
@@ -31,17 +19,46 @@
 		9F2F85F918EAA5E600BA98AA /* FCBrightDarkGradView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85F118EAA5E600BA98AA /* FCBrightDarkGradView.m */; };
 		9F2F85FA18EAA5E600BA98AA /* FCColorSwatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85F318EAA5E600BA98AA /* FCColorSwatchView.m */; };
 		9F2F85FD18EAA80300BA98AA /* ColorMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F2F85FC18EAA80300BA98AA /* ColorMap@2x.png */; };
-		9F2F860818EAD96500BA98AA /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F860618EAD96500BA98AA /* TripDetailViewController.m */; };
-		9F2F860918EAD96500BA98AA /* TripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */; };
-		9F4F9AD218E427D900C55A5D /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD018E427D900C55A5D /* EventViewController.m */; };
-		9F4F9AD318E427D900C55A5D /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F9AD118E427D900C55A5D /* EventViewController.xib */; };
-		9F4F9ADE18E42CAB00C55A5D /* ChooseCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9ADC18E42CAB00C55A5D /* ChooseCityViewController.m */; };
-		9F4F9ADF18E42CAB00C55A5D /* ChooseCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F9ADD18E42CAB00C55A5D /* ChooseCityViewController.xib */; };
 		9F4F9AE218E42E0600C55A5D /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4F9AE018E42E0600C55A5D /* EventKit.framework */; };
 		9F4F9AE418E42ED500C55A5D /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4F9AE118E42E0600C55A5D /* EventKitUI.framework */; };
 		9F4F9AE718E43EC800C55A5D /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AE618E43EC800C55A5D /* NSDate+Extensions.m */; };
-		9F4F9AF118E44AF800C55A5D /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F4F9AEF18E44AF800C55A5D /* EventDetailViewController.m */; };
-		9F4F9AF218E44AF800C55A5D /* EventDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4F9AF018E44AF800C55A5D /* EventDetailViewController.xib */; };
+		9F7F702718F0FDC800904AA5 /* AddCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FE518F0FDC800904AA5 /* AddCityTableViewCell.m */; };
+		9F7F702818F0FDC800904AA5 /* AddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FE718F0FDC800904AA5 /* AddCityViewController.m */; };
+		9F7F702918F0FDC800904AA5 /* AddCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FE818F0FDC800904AA5 /* AddCityViewController.xib */; };
+		9F7F702A18F0FDC800904AA5 /* CityMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FEB18F0FDC800904AA5 /* CityMapViewController.m */; };
+		9F7F702B18F0FDC800904AA5 /* CityMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FEC18F0FDC800904AA5 /* CityMapViewController.xib */; };
+		9F7F702C18F0FDC800904AA5 /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FEE18F0FDC800904AA5 /* CityViewController.m */; };
+		9F7F702D18F0FDC800904AA5 /* CityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FEF18F0FDC800904AA5 /* CityViewController.xib */; };
+		9F7F702E18F0FDC800904AA5 /* ChooseCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FF318F0FDC800904AA5 /* ChooseCityViewController.m */; };
+		9F7F702F18F0FDC800904AA5 /* ChooseCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FF418F0FDC800904AA5 /* ChooseCityViewController.xib */; };
+		9F7F703018F0FDC800904AA5 /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FF718F0FDC800904AA5 /* EventDetailViewController.m */; };
+		9F7F703118F0FDC800904AA5 /* EventDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FF818F0FDC800904AA5 /* EventDetailViewController.xib */; };
+		9F7F703218F0FDC800904AA5 /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FFA18F0FDC800904AA5 /* EventViewController.m */; };
+		9F7F703318F0FDC800904AA5 /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F6FFB18F0FDC800904AA5 /* EventViewController.xib */; };
+		9F7F703418F0FDC800904AA5 /* AddTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FFF18F0FDC800904AA5 /* AddTripTableViewCell.m */; };
+		9F7F703518F0FDC800904AA5 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F700118F0FDC800904AA5 /* AddTripViewController.m */; };
+		9F7F703618F0FDC800904AA5 /* AddTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F700218F0FDC800904AA5 /* AddTripViewController.xib */; };
+		9F7F703718F0FDC800904AA5 /* ChooseEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F700518F0FDC800904AA5 /* ChooseEventTableViewCell.m */; };
+		9F7F703818F0FDC800904AA5 /* ChooseEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F700718F0FDC800904AA5 /* ChooseEventViewController.m */; };
+		9F7F703918F0FDC800904AA5 /* ChooseEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F700818F0FDC800904AA5 /* ChooseEventViewController.xib */; };
+		9F7F703A18F0FDC800904AA5 /* DepartureCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F700B18F0FDC800904AA5 /* DepartureCityViewController.m */; };
+		9F7F703B18F0FDC800904AA5 /* DepartureCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F700C18F0FDC800904AA5 /* DepartureCityViewController.xib */; };
+		9F7F703C18F0FDC800904AA5 /* DestinationCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F700F18F0FDC800904AA5 /* DestinationCityViewController.m */; };
+		9F7F703D18F0FDC800904AA5 /* DestinationCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F701018F0FDC800904AA5 /* DestinationCityViewController.xib */; };
+		9F7F703E18F0FDC800904AA5 /* TripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F701318F0FDC800904AA5 /* TripDetailViewController.m */; };
+		9F7F703F18F0FDC800904AA5 /* TripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F701418F0FDC800904AA5 /* TripDetailViewController.xib */; };
+		9F7F704018F0FDC800904AA5 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F701618F0FDC800904AA5 /* TripViewController.m */; };
+		9F7F704118F0FDC800904AA5 /* TripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F701718F0FDC800904AA5 /* TripViewController.xib */; };
+		9F7F704218F0FDC800904AA5 /* CDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F701C18F0FDC800904AA5 /* CDTableViewController.m */; };
+		9F7F704318F0FDC800904AA5 /* CDTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F701D18F0FDC800904AA5 /* CDTableViewController.xib */; };
+		9F7F704418F0FDC800904AA5 /* MKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F702018F0FDC800904AA5 /* MKTableViewController.m */; };
+		9F7F704518F0FDC800904AA5 /* MKTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F702118F0FDC800904AA5 /* MKTableViewController.xib */; };
+		9F7F704618F0FDC800904AA5 /* SBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F702418F0FDC800904AA5 /* SBViewController.m */; };
+		9F7F704718F0FDC800904AA5 /* SBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F702518F0FDC800904AA5 /* SBViewController.xib */; };
+		9F7F704C18F0FE4400904AA5 /* PLPlanTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F704A18F0FE4400904AA5 /* PLPlanTripViewController.m */; };
+		9F7F704D18F0FE4400904AA5 /* PLPlanTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F704B18F0FE4400904AA5 /* PLPlanTripViewController.xib */; };
+		9F7F705418F1047900904AA5 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F705318F1047900904AA5 /* Checkbox.m */; };
+		9F7F705718F105D600904AA5 /* PLPlanTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F705618F105D600904AA5 /* PLPlanTripTableViewCell.m */; };
 		9F9F338B18E108010077C85A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9F338A18E108010077C85A /* Foundation.framework */; };
 		9F9F338D18E108010077C85A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9F338C18E108010077C85A /* CoreGraphics.framework */; };
 		9F9F338F18E108010077C85A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9F338E18E108010077C85A /* UIKit.framework */; };
@@ -61,16 +78,7 @@
 		9F9F33CA18E1148E0077C85A /* TripDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33C818E1148E0077C85A /* TripDataStorage.xcdatamodeld */; };
 		9F9F33CC18E138A20077C85A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9F33CB18E138A20077C85A /* CoreLocation.framework */; };
 		9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33CF18E13BB30077C85A /* LocationManager.m */; };
-		9F9F33D818E14FA20077C85A /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33D618E14FA20077C85A /* CityViewController.m */; };
-		9F9F33D918E14FA20077C85A /* CityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F33D718E14FA20077C85A /* CityViewController.xib */; };
 		9F9F33E518E1619E0077C85A /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33E418E1619E0077C85A /* NSObject+Extensions.m */; };
-		9F9F33EF18E16E1C0077C85A /* AddCityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33EB18E16E1C0077C85A /* AddCityTableViewCell.m */; };
-		9F9F33F018E16E1C0077C85A /* AddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33ED18E16E1C0077C85A /* AddCityViewController.m */; };
-		9F9F33F118E16E1C0077C85A /* AddCityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F33EE18E16E1C0077C85A /* AddCityViewController.xib */; };
-		9F9F33F618E16E960077C85A /* CDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33F418E16E960077C85A /* CDTableViewController.m */; };
-		9F9F33F718E16E960077C85A /* CDTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F9F33F518E16E960077C85A /* CDTableViewController.xib */; };
-		9FC0556D18E274C300743E16 /* SBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0556B18E274C300743E16 /* SBViewController.m */; };
-		9FC0556E18E274C300743E16 /* SBViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC0556C18E274C300743E16 /* SBViewController.xib */; };
 		9FC0557218E2AA6500743E16 /* MockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557118E2AA6500743E16 /* MockManager.m */; };
 		9FC0558818E2B31600743E16 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557618E2B31600743E16 /* AFHTTPRequestOperation.m */; };
 		9FC0558918E2B31600743E16 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557818E2B31600743E16 /* AFHTTPRequestOperationManager.m */; };
@@ -89,11 +97,7 @@
 		9FC055A818E2B46300743E16 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0559E18E2B46300743E16 /* UIProgressView+AFNetworking.m */; };
 		9FC055A918E2B46300743E16 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055A018E2B46300743E16 /* UIRefreshControl+AFNetworking.m */; };
 		9FC055AA18E2B46300743E16 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */; };
-		9FC055AF18E2B66A00743E16 /* CityMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055AD18E2B66A00743E16 /* CityMapViewController.m */; };
-		9FC055B018E2B66A00743E16 /* CityMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC055AE18E2B66A00743E16 /* CityMapViewController.xib */; };
 		9FC055B218E2B6D300743E16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC055B118E2B6D300743E16 /* MapKit.framework */; };
-		9FC055B718E2BF7700743E16 /* MKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055B518E2BF7700743E16 /* MKTableViewController.m */; };
-		9FC055B818E2BF7700743E16 /* MKTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC055B618E2BF7700743E16 /* MKTableViewController.xib */; };
 		9FFE21AC18E260DB00AF78AF /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */; };
 		9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */; };
 		9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21AB18E260DB00AF78AF /* Icon@2x.png */; };
@@ -114,25 +118,6 @@
 		7644726A18E49DCA00319348 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7644726C18E49DD200319348 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7644726E18E49DDF00319348 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		9F14E64918E667BB0004BD9F /* TripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripViewController.h; sourceTree = "<group>"; };
-		9F14E64A18E667BB0004BD9F /* TripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripViewController.m; sourceTree = "<group>"; };
-		9F14E64B18E667BB0004BD9F /* TripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripViewController.xib; sourceTree = "<group>"; };
-		9F14E64F18E669170004BD9F /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
-		9F14E65018E669170004BD9F /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
-		9F14E65118E669170004BD9F /* AddTripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTripViewController.xib; sourceTree = "<group>"; };
-		9F1C6E2518E7B1B700E7CD41 /* AddTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripTableViewCell.h; sourceTree = "<group>"; };
-		9F1C6E2618E7B1B700E7CD41 /* AddTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripTableViewCell.m; sourceTree = "<group>"; };
-		9F1C6E2D18E7C2A500E7CD41 /* DepartureCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartureCityViewController.h; sourceTree = "<group>"; };
-		9F1C6E2E18E7C2A500E7CD41 /* DepartureCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureCityViewController.m; sourceTree = "<group>"; };
-		9F1C6E2F18E7C2A500E7CD41 /* DepartureCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DepartureCityViewController.xib; sourceTree = "<group>"; };
-		9F1C6E3218E7C38500E7CD41 /* DestinationCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCityViewController.h; sourceTree = "<group>"; };
-		9F1C6E3318E7C38500E7CD41 /* DestinationCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCityViewController.m; sourceTree = "<group>"; };
-		9F1C6E3418E7C38500E7CD41 /* DestinationCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCityViewController.xib; sourceTree = "<group>"; };
-		9F2F85B918EA3BCE00BA98AA /* ChooseEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseEventViewController.h; sourceTree = "<group>"; };
-		9F2F85BA18EA3BCE00BA98AA /* ChooseEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseEventViewController.m; sourceTree = "<group>"; };
-		9F2F85BB18EA3BCE00BA98AA /* ChooseEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseEventViewController.xib; sourceTree = "<group>"; };
-		9F2F85C318EA4F3E00BA98AA /* ChooseEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseEventTableViewCell.h; sourceTree = "<group>"; };
-		9F2F85C418EA4F3E00BA98AA /* ChooseEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseEventTableViewCell.m; sourceTree = "<group>"; };
 		9F2F85E118EA70EF00BA98AA /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		9F2F85E218EA70EF00BA98AA /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		9F2F85E418EA70F000BA98AA /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -147,22 +132,68 @@
 		9F2F85F218EAA5E600BA98AA /* FCColorSwatchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCColorSwatchView.h; sourceTree = "<group>"; };
 		9F2F85F318EAA5E600BA98AA /* FCColorSwatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCColorSwatchView.m; sourceTree = "<group>"; };
 		9F2F85FC18EAA80300BA98AA /* ColorMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ColorMap@2x.png"; sourceTree = "<group>"; };
-		9F2F860518EAD96500BA98AA /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
-		9F2F860618EAD96500BA98AA /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
-		9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailViewController.xib; sourceTree = "<group>"; };
-		9F4F9ACF18E427D900C55A5D /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
-		9F4F9AD018E427D900C55A5D /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
-		9F4F9AD118E427D900C55A5D /* EventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
-		9F4F9ADB18E42CAB00C55A5D /* ChooseCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCityViewController.h; sourceTree = "<group>"; };
-		9F4F9ADC18E42CAB00C55A5D /* ChooseCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseCityViewController.m; sourceTree = "<group>"; };
-		9F4F9ADD18E42CAB00C55A5D /* ChooseCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseCityViewController.xib; sourceTree = "<group>"; };
 		9F4F9AE018E42E0600C55A5D /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		9F4F9AE118E42E0600C55A5D /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		9F4F9AE518E43EC800C55A5D /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9F4F9AE618E43EC800C55A5D /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
-		9F4F9AEE18E44AF800C55A5D /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
-		9F4F9AEF18E44AF800C55A5D /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
-		9F4F9AF018E44AF800C55A5D /* EventDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDetailViewController.xib; sourceTree = "<group>"; };
+		9F7F6FE418F0FDC800904AA5 /* AddCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCityTableViewCell.h; sourceTree = "<group>"; };
+		9F7F6FE518F0FDC800904AA5 /* AddCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCityTableViewCell.m; sourceTree = "<group>"; };
+		9F7F6FE618F0FDC800904AA5 /* AddCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCityViewController.h; sourceTree = "<group>"; };
+		9F7F6FE718F0FDC800904AA5 /* AddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCityViewController.m; sourceTree = "<group>"; };
+		9F7F6FE818F0FDC800904AA5 /* AddCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCityViewController.xib; sourceTree = "<group>"; };
+		9F7F6FEA18F0FDC800904AA5 /* CityMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityMapViewController.h; sourceTree = "<group>"; };
+		9F7F6FEB18F0FDC800904AA5 /* CityMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityMapViewController.m; sourceTree = "<group>"; };
+		9F7F6FEC18F0FDC800904AA5 /* CityMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityMapViewController.xib; sourceTree = "<group>"; };
+		9F7F6FED18F0FDC800904AA5 /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
+		9F7F6FEE18F0FDC800904AA5 /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
+		9F7F6FEF18F0FDC800904AA5 /* CityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityViewController.xib; sourceTree = "<group>"; };
+		9F7F6FF218F0FDC800904AA5 /* ChooseCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseCityViewController.h; sourceTree = "<group>"; };
+		9F7F6FF318F0FDC800904AA5 /* ChooseCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseCityViewController.m; sourceTree = "<group>"; };
+		9F7F6FF418F0FDC800904AA5 /* ChooseCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseCityViewController.xib; sourceTree = "<group>"; };
+		9F7F6FF618F0FDC800904AA5 /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		9F7F6FF718F0FDC800904AA5 /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
+		9F7F6FF818F0FDC800904AA5 /* EventDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDetailViewController.xib; sourceTree = "<group>"; };
+		9F7F6FF918F0FDC800904AA5 /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
+		9F7F6FFA18F0FDC800904AA5 /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		9F7F6FFB18F0FDC800904AA5 /* EventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
+		9F7F6FFE18F0FDC800904AA5 /* AddTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripTableViewCell.h; sourceTree = "<group>"; };
+		9F7F6FFF18F0FDC800904AA5 /* AddTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripTableViewCell.m; sourceTree = "<group>"; };
+		9F7F700018F0FDC800904AA5 /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
+		9F7F700118F0FDC800904AA5 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
+		9F7F700218F0FDC800904AA5 /* AddTripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTripViewController.xib; sourceTree = "<group>"; };
+		9F7F700418F0FDC800904AA5 /* ChooseEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseEventTableViewCell.h; sourceTree = "<group>"; };
+		9F7F700518F0FDC800904AA5 /* ChooseEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseEventTableViewCell.m; sourceTree = "<group>"; };
+		9F7F700618F0FDC800904AA5 /* ChooseEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseEventViewController.h; sourceTree = "<group>"; };
+		9F7F700718F0FDC800904AA5 /* ChooseEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseEventViewController.m; sourceTree = "<group>"; };
+		9F7F700818F0FDC800904AA5 /* ChooseEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseEventViewController.xib; sourceTree = "<group>"; };
+		9F7F700A18F0FDC800904AA5 /* DepartureCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartureCityViewController.h; sourceTree = "<group>"; };
+		9F7F700B18F0FDC800904AA5 /* DepartureCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureCityViewController.m; sourceTree = "<group>"; };
+		9F7F700C18F0FDC800904AA5 /* DepartureCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DepartureCityViewController.xib; sourceTree = "<group>"; };
+		9F7F700E18F0FDC800904AA5 /* DestinationCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationCityViewController.h; sourceTree = "<group>"; };
+		9F7F700F18F0FDC800904AA5 /* DestinationCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationCityViewController.m; sourceTree = "<group>"; };
+		9F7F701018F0FDC800904AA5 /* DestinationCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCityViewController.xib; sourceTree = "<group>"; };
+		9F7F701218F0FDC800904AA5 /* TripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailViewController.h; sourceTree = "<group>"; };
+		9F7F701318F0FDC800904AA5 /* TripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailViewController.m; sourceTree = "<group>"; };
+		9F7F701418F0FDC800904AA5 /* TripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripDetailViewController.xib; sourceTree = "<group>"; };
+		9F7F701518F0FDC800904AA5 /* TripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripViewController.h; sourceTree = "<group>"; };
+		9F7F701618F0FDC800904AA5 /* TripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripViewController.m; sourceTree = "<group>"; };
+		9F7F701718F0FDC800904AA5 /* TripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripViewController.xib; sourceTree = "<group>"; };
+		9F7F701B18F0FDC800904AA5 /* CDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTableViewController.h; sourceTree = "<group>"; };
+		9F7F701C18F0FDC800904AA5 /* CDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTableViewController.m; sourceTree = "<group>"; };
+		9F7F701D18F0FDC800904AA5 /* CDTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDTableViewController.xib; sourceTree = "<group>"; };
+		9F7F701F18F0FDC800904AA5 /* MKTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTableViewController.h; sourceTree = "<group>"; };
+		9F7F702018F0FDC800904AA5 /* MKTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTableViewController.m; sourceTree = "<group>"; };
+		9F7F702118F0FDC800904AA5 /* MKTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKTableViewController.xib; sourceTree = "<group>"; };
+		9F7F702318F0FDC800904AA5 /* SBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBViewController.h; sourceTree = "<group>"; };
+		9F7F702418F0FDC800904AA5 /* SBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBViewController.m; sourceTree = "<group>"; };
+		9F7F702518F0FDC800904AA5 /* SBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBViewController.xib; sourceTree = "<group>"; };
+		9F7F704918F0FE4400904AA5 /* PLPlanTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlanTripViewController.h; sourceTree = "<group>"; };
+		9F7F704A18F0FE4400904AA5 /* PLPlanTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlanTripViewController.m; sourceTree = "<group>"; };
+		9F7F704B18F0FE4400904AA5 /* PLPlanTripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PLPlanTripViewController.xib; sourceTree = "<group>"; };
+		9F7F705218F1047900904AA5 /* Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkbox.h; sourceTree = "<group>"; };
+		9F7F705318F1047900904AA5 /* Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkbox.m; sourceTree = "<group>"; };
+		9F7F705518F105D600904AA5 /* PLPlanTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlanTripTableViewCell.h; sourceTree = "<group>"; };
+		9F7F705618F105D600904AA5 /* PLPlanTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlanTripTableViewCell.m; sourceTree = "<group>"; };
 		9F9F338718E108010077C85A /* Spoonbill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spoonbill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F9F338A18E108010077C85A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9F9F338C18E108010077C85A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -189,22 +220,8 @@
 		9F9F33CB18E138A20077C85A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9F9F33CE18E13BB30077C85A /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		9F9F33CF18E13BB30077C85A /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		9F9F33D518E14FA20077C85A /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
-		9F9F33D618E14FA20077C85A /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
-		9F9F33D718E14FA20077C85A /* CityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityViewController.xib; sourceTree = "<group>"; };
 		9F9F33E318E1619E0077C85A /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
 		9F9F33E418E1619E0077C85A /* NSObject+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extensions.m"; sourceTree = "<group>"; };
-		9F9F33EA18E16E1C0077C85A /* AddCityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCityTableViewCell.h; sourceTree = "<group>"; };
-		9F9F33EB18E16E1C0077C85A /* AddCityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCityTableViewCell.m; sourceTree = "<group>"; };
-		9F9F33EC18E16E1C0077C85A /* AddCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCityViewController.h; sourceTree = "<group>"; };
-		9F9F33ED18E16E1C0077C85A /* AddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCityViewController.m; sourceTree = "<group>"; };
-		9F9F33EE18E16E1C0077C85A /* AddCityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCityViewController.xib; sourceTree = "<group>"; };
-		9F9F33F318E16E960077C85A /* CDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTableViewController.h; sourceTree = "<group>"; };
-		9F9F33F418E16E960077C85A /* CDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTableViewController.m; sourceTree = "<group>"; };
-		9F9F33F518E16E960077C85A /* CDTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDTableViewController.xib; sourceTree = "<group>"; };
-		9FC0556A18E274C300743E16 /* SBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBViewController.h; sourceTree = "<group>"; };
-		9FC0556B18E274C300743E16 /* SBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBViewController.m; sourceTree = "<group>"; };
-		9FC0556C18E274C300743E16 /* SBViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBViewController.xib; sourceTree = "<group>"; };
 		9FC0557018E2AA6500743E16 /* MockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockManager.h; sourceTree = "<group>"; };
 		9FC0557118E2AA6500743E16 /* MockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockManager.m; sourceTree = "<group>"; };
 		9FC0557518E2B31600743E16 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -243,13 +260,7 @@
 		9FC055A018E2B46300743E16 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		9FC055A118E2B46300743E16 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		9FC055AC18E2B66A00743E16 /* CityMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityMapViewController.h; sourceTree = "<group>"; };
-		9FC055AD18E2B66A00743E16 /* CityMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityMapViewController.m; sourceTree = "<group>"; };
-		9FC055AE18E2B66A00743E16 /* CityMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityMapViewController.xib; sourceTree = "<group>"; };
 		9FC055B118E2B6D300743E16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		9FC055B418E2BF7700743E16 /* MKTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKTableViewController.h; sourceTree = "<group>"; };
-		9FC055B518E2BF7700743E16 /* MKTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKTableViewController.m; sourceTree = "<group>"; };
-		9FC055B618E2BF7700743E16 /* MKTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MKTableViewController.xib; sourceTree = "<group>"; };
 		9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		9FFE21AB18E260DB00AF78AF /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -288,65 +299,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9F14E64818E667860004BD9F /* TripViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F14E64E18E669050004BD9F /* AddTripViewController */,
-				9F2F860418EAD96500BA98AA /* TripDetailViewController */,
-				9F14E64918E667BB0004BD9F /* TripViewController.h */,
-				9F14E64A18E667BB0004BD9F /* TripViewController.m */,
-				9F14E64B18E667BB0004BD9F /* TripViewController.xib */,
-			);
-			path = TripViewController;
-			sourceTree = "<group>";
-		};
-		9F14E64E18E669050004BD9F /* AddTripViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F2F85B818EA3BB000BA98AA /* ChooseEventViewController */,
-				9F1C6E2B18E7C28D00E7CD41 /* DepartureCityViewController */,
-				9F1C6E2C18E7C28D00E7CD41 /* DestinationCityViewController */,
-				9F14E64F18E669170004BD9F /* AddTripViewController.h */,
-				9F14E65018E669170004BD9F /* AddTripViewController.m */,
-				9F14E65118E669170004BD9F /* AddTripViewController.xib */,
-				9F1C6E2518E7B1B700E7CD41 /* AddTripTableViewCell.h */,
-				9F1C6E2618E7B1B700E7CD41 /* AddTripTableViewCell.m */,
-			);
-			path = AddTripViewController;
-			sourceTree = "<group>";
-		};
-		9F1C6E2B18E7C28D00E7CD41 /* DepartureCityViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F1C6E2D18E7C2A500E7CD41 /* DepartureCityViewController.h */,
-				9F1C6E2E18E7C2A500E7CD41 /* DepartureCityViewController.m */,
-				9F1C6E2F18E7C2A500E7CD41 /* DepartureCityViewController.xib */,
-			);
-			path = DepartureCityViewController;
-			sourceTree = "<group>";
-		};
-		9F1C6E2C18E7C28D00E7CD41 /* DestinationCityViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F1C6E3218E7C38500E7CD41 /* DestinationCityViewController.h */,
-				9F1C6E3318E7C38500E7CD41 /* DestinationCityViewController.m */,
-				9F1C6E3418E7C38500E7CD41 /* DestinationCityViewController.xib */,
-			);
-			path = DestinationCityViewController;
-			sourceTree = "<group>";
-		};
-		9F2F85B818EA3BB000BA98AA /* ChooseEventViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F2F85B918EA3BCE00BA98AA /* ChooseEventViewController.h */,
-				9F2F85BA18EA3BCE00BA98AA /* ChooseEventViewController.m */,
-				9F2F85BB18EA3BCE00BA98AA /* ChooseEventViewController.xib */,
-				9F2F85C318EA4F3E00BA98AA /* ChooseEventTableViewCell.h */,
-				9F2F85C418EA4F3E00BA98AA /* ChooseEventTableViewCell.m */,
-			);
-			path = ChooseEventViewController;
-			sourceTree = "<group>";
-		};
 		9F2F85EA18EAA5E600BA98AA /* Color Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,46 +330,225 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		9F2F860418EAD96500BA98AA /* TripDetailViewController */ = {
+		9F7F6FE118F0FDC800904AA5 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9F2F860518EAD96500BA98AA /* TripDetailViewController.h */,
-				9F2F860618EAD96500BA98AA /* TripDetailViewController.m */,
-				9F2F860718EAD96500BA98AA /* TripDetailViewController.xib */,
+				9F7F6FE218F0FDC800904AA5 /* CityViewController */,
+				9F7F6FF018F0FDC800904AA5 /* EventViewController */,
+				9F7F6FFC18F0FDC800904AA5 /* TripViewController */,
 			);
-			path = TripDetailViewController;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
-		9F4F9ACE18E427A900C55A5D /* EventViewController */ = {
+		9F7F6FE218F0FDC800904AA5 /* CityViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9F4F9ADA18E42C9600C55A5D /* ChooseCityViewController */,
-				9F4F9AED18E44AF800C55A5D /* EventDetailViewController */,
-				9F4F9ACF18E427D900C55A5D /* EventViewController.h */,
-				9F4F9AD018E427D900C55A5D /* EventViewController.m */,
-				9F4F9AD118E427D900C55A5D /* EventViewController.xib */,
+				9F7F6FE318F0FDC800904AA5 /* AddCityViewController */,
+				9F7F6FE918F0FDC800904AA5 /* CityMapViewController */,
+				9F7F6FED18F0FDC800904AA5 /* CityViewController.h */,
+				9F7F6FEE18F0FDC800904AA5 /* CityViewController.m */,
+				9F7F6FEF18F0FDC800904AA5 /* CityViewController.xib */,
+			);
+			path = CityViewController;
+			sourceTree = "<group>";
+		};
+		9F7F6FE318F0FDC800904AA5 /* AddCityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6FE418F0FDC800904AA5 /* AddCityTableViewCell.h */,
+				9F7F6FE518F0FDC800904AA5 /* AddCityTableViewCell.m */,
+				9F7F6FE618F0FDC800904AA5 /* AddCityViewController.h */,
+				9F7F6FE718F0FDC800904AA5 /* AddCityViewController.m */,
+				9F7F6FE818F0FDC800904AA5 /* AddCityViewController.xib */,
+			);
+			path = AddCityViewController;
+			sourceTree = "<group>";
+		};
+		9F7F6FE918F0FDC800904AA5 /* CityMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6FEA18F0FDC800904AA5 /* CityMapViewController.h */,
+				9F7F6FEB18F0FDC800904AA5 /* CityMapViewController.m */,
+				9F7F6FEC18F0FDC800904AA5 /* CityMapViewController.xib */,
+			);
+			path = CityMapViewController;
+			sourceTree = "<group>";
+		};
+		9F7F6FF018F0FDC800904AA5 /* EventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6FF118F0FDC800904AA5 /* ChooseCityViewController */,
+				9F7F6FF518F0FDC800904AA5 /* EventDetailViewController */,
+				9F7F6FF918F0FDC800904AA5 /* EventViewController.h */,
+				9F7F6FFA18F0FDC800904AA5 /* EventViewController.m */,
+				9F7F6FFB18F0FDC800904AA5 /* EventViewController.xib */,
 			);
 			path = EventViewController;
 			sourceTree = "<group>";
 		};
-		9F4F9ADA18E42C9600C55A5D /* ChooseCityViewController */ = {
+		9F7F6FF118F0FDC800904AA5 /* ChooseCityViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9F4F9ADB18E42CAB00C55A5D /* ChooseCityViewController.h */,
-				9F4F9ADC18E42CAB00C55A5D /* ChooseCityViewController.m */,
-				9F4F9ADD18E42CAB00C55A5D /* ChooseCityViewController.xib */,
+				9F7F6FF218F0FDC800904AA5 /* ChooseCityViewController.h */,
+				9F7F6FF318F0FDC800904AA5 /* ChooseCityViewController.m */,
+				9F7F6FF418F0FDC800904AA5 /* ChooseCityViewController.xib */,
 			);
 			path = ChooseCityViewController;
 			sourceTree = "<group>";
 		};
-		9F4F9AED18E44AF800C55A5D /* EventDetailViewController */ = {
+		9F7F6FF518F0FDC800904AA5 /* EventDetailViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9F4F9AEE18E44AF800C55A5D /* EventDetailViewController.h */,
-				9F4F9AEF18E44AF800C55A5D /* EventDetailViewController.m */,
-				9F4F9AF018E44AF800C55A5D /* EventDetailViewController.xib */,
+				9F7F6FF618F0FDC800904AA5 /* EventDetailViewController.h */,
+				9F7F6FF718F0FDC800904AA5 /* EventDetailViewController.m */,
+				9F7F6FF818F0FDC800904AA5 /* EventDetailViewController.xib */,
 			);
 			path = EventDetailViewController;
+			sourceTree = "<group>";
+		};
+		9F7F6FFC18F0FDC800904AA5 /* TripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6FFD18F0FDC800904AA5 /* AddTripViewController */,
+				9F7F701118F0FDC800904AA5 /* TripDetailViewController */,
+				9F7F701518F0FDC800904AA5 /* TripViewController.h */,
+				9F7F701618F0FDC800904AA5 /* TripViewController.m */,
+				9F7F701718F0FDC800904AA5 /* TripViewController.xib */,
+			);
+			path = TripViewController;
+			sourceTree = "<group>";
+		};
+		9F7F6FFD18F0FDC800904AA5 /* AddTripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F6FFE18F0FDC800904AA5 /* AddTripTableViewCell.h */,
+				9F7F6FFF18F0FDC800904AA5 /* AddTripTableViewCell.m */,
+				9F7F700018F0FDC800904AA5 /* AddTripViewController.h */,
+				9F7F700118F0FDC800904AA5 /* AddTripViewController.m */,
+				9F7F700218F0FDC800904AA5 /* AddTripViewController.xib */,
+				9F7F700318F0FDC800904AA5 /* ChooseEventViewController */,
+				9F7F700918F0FDC800904AA5 /* DepartureCityViewController */,
+				9F7F700D18F0FDC800904AA5 /* DestinationCityViewController */,
+			);
+			path = AddTripViewController;
+			sourceTree = "<group>";
+		};
+		9F7F700318F0FDC800904AA5 /* ChooseEventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F700418F0FDC800904AA5 /* ChooseEventTableViewCell.h */,
+				9F7F700518F0FDC800904AA5 /* ChooseEventTableViewCell.m */,
+				9F7F700618F0FDC800904AA5 /* ChooseEventViewController.h */,
+				9F7F700718F0FDC800904AA5 /* ChooseEventViewController.m */,
+				9F7F700818F0FDC800904AA5 /* ChooseEventViewController.xib */,
+			);
+			path = ChooseEventViewController;
+			sourceTree = "<group>";
+		};
+		9F7F700918F0FDC800904AA5 /* DepartureCityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F700A18F0FDC800904AA5 /* DepartureCityViewController.h */,
+				9F7F700B18F0FDC800904AA5 /* DepartureCityViewController.m */,
+				9F7F700C18F0FDC800904AA5 /* DepartureCityViewController.xib */,
+			);
+			path = DepartureCityViewController;
+			sourceTree = "<group>";
+		};
+		9F7F700D18F0FDC800904AA5 /* DestinationCityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F700E18F0FDC800904AA5 /* DestinationCityViewController.h */,
+				9F7F700F18F0FDC800904AA5 /* DestinationCityViewController.m */,
+				9F7F701018F0FDC800904AA5 /* DestinationCityViewController.xib */,
+			);
+			path = DestinationCityViewController;
+			sourceTree = "<group>";
+		};
+		9F7F701118F0FDC800904AA5 /* TripDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F701218F0FDC800904AA5 /* TripDetailViewController.h */,
+				9F7F701318F0FDC800904AA5 /* TripDetailViewController.m */,
+				9F7F701418F0FDC800904AA5 /* TripDetailViewController.xib */,
+			);
+			path = TripDetailViewController;
+			sourceTree = "<group>";
+		};
+		9F7F701818F0FDC800904AA5 /* Plain */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F704818F0FE1300904AA5 /* PLPlanTripViewController */,
+			);
+			path = Plain;
+			sourceTree = "<group>";
+		};
+		9F7F701918F0FDC800904AA5 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F701A18F0FDC800904AA5 /* CDTableViewController */,
+				9F7F701E18F0FDC800904AA5 /* MKTableViewController */,
+				9F7F702218F0FDC800904AA5 /* SBViewController */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9F7F701A18F0FDC800904AA5 /* CDTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F701B18F0FDC800904AA5 /* CDTableViewController.h */,
+				9F7F701C18F0FDC800904AA5 /* CDTableViewController.m */,
+				9F7F701D18F0FDC800904AA5 /* CDTableViewController.xib */,
+			);
+			path = CDTableViewController;
+			sourceTree = "<group>";
+		};
+		9F7F701E18F0FDC800904AA5 /* MKTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F701F18F0FDC800904AA5 /* MKTableViewController.h */,
+				9F7F702018F0FDC800904AA5 /* MKTableViewController.m */,
+				9F7F702118F0FDC800904AA5 /* MKTableViewController.xib */,
+			);
+			path = MKTableViewController;
+			sourceTree = "<group>";
+		};
+		9F7F702218F0FDC800904AA5 /* SBViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F702318F0FDC800904AA5 /* SBViewController.h */,
+				9F7F702418F0FDC800904AA5 /* SBViewController.m */,
+				9F7F702518F0FDC800904AA5 /* SBViewController.xib */,
+			);
+			path = SBViewController;
+			sourceTree = "<group>";
+		};
+		9F7F702618F0FDC800904AA5 /* Stylish */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stylish;
+			sourceTree = "<group>";
+		};
+		9F7F704818F0FE1300904AA5 /* PLPlanTripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F704918F0FE4400904AA5 /* PLPlanTripViewController.h */,
+				9F7F704A18F0FE4400904AA5 /* PLPlanTripViewController.m */,
+				9F7F704B18F0FE4400904AA5 /* PLPlanTripViewController.xib */,
+				9F7F705518F105D600904AA5 /* PLPlanTripTableViewCell.h */,
+				9F7F705618F105D600904AA5 /* PLPlanTripTableViewCell.m */,
+			);
+			path = PLPlanTripViewController;
+			sourceTree = "<group>";
+		};
+		9F7F705118F1047900904AA5 /* Checkbox */ = {
+			isa = PBXGroup;
+			children = (
+				9F7F705218F1047900904AA5 /* Checkbox.h */,
+				9F7F705318F1047900904AA5 /* Checkbox.m */,
+			);
+			path = Checkbox;
 			sourceTree = "<group>";
 		};
 		9F9F337E18E108010077C85A = {
@@ -511,12 +642,10 @@
 		9F9F33BF18E111890077C85A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9F9F33D418E14F810077C85A /* CityViewController */,
-				9F4F9ACE18E427A900C55A5D /* EventViewController */,
-				9F14E64818E667860004BD9F /* TripViewController */,
-				9F9F33F218E16E6A0077C85A /* CDTableViewController */,
-				9FC055B318E2BF5600743E16 /* MKTableViewController */,
-				9FC0556918E274AE00743E16 /* SBViewController */,
+				9F7F702618F0FDC800904AA5 /* Stylish */,
+				9F7F701818F0FDC800904AA5 /* Plain */,
+				9F7F6FE118F0FDC800904AA5 /* CoreData */,
+				9F7F701918F0FDC800904AA5 /* Shared */,
 			);
 			name = Controller;
 			path = Sources/Controller;
@@ -536,6 +665,7 @@
 		9F9F33C118E111890077C85A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9F7F705118F1047900904AA5 /* Checkbox */,
 			);
 			name = View;
 			path = Sources/View;
@@ -566,18 +696,6 @@
 			path = LocationManager;
 			sourceTree = "<group>";
 		};
-		9F9F33D418E14F810077C85A /* CityViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F9F33E918E16E1C0077C85A /* AddCityViewController */,
-				9FC055AB18E2B65700743E16 /* CityMapViewController */,
-				9F9F33D518E14FA20077C85A /* CityViewController.h */,
-				9F9F33D618E14FA20077C85A /* CityViewController.m */,
-				9F9F33D718E14FA20077C85A /* CityViewController.xib */,
-			);
-			path = CityViewController;
-			sourceTree = "<group>";
-		};
 		9F9F33E218E1616F0077C85A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,38 +706,6 @@
 			);
 			name = Utilities;
 			path = Sources/Utilities;
-			sourceTree = "<group>";
-		};
-		9F9F33E918E16E1C0077C85A /* AddCityViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F9F33EA18E16E1C0077C85A /* AddCityTableViewCell.h */,
-				9F9F33EB18E16E1C0077C85A /* AddCityTableViewCell.m */,
-				9F9F33EC18E16E1C0077C85A /* AddCityViewController.h */,
-				9F9F33ED18E16E1C0077C85A /* AddCityViewController.m */,
-				9F9F33EE18E16E1C0077C85A /* AddCityViewController.xib */,
-			);
-			path = AddCityViewController;
-			sourceTree = "<group>";
-		};
-		9F9F33F218E16E6A0077C85A /* CDTableViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9F9F33F318E16E960077C85A /* CDTableViewController.h */,
-				9F9F33F418E16E960077C85A /* CDTableViewController.m */,
-				9F9F33F518E16E960077C85A /* CDTableViewController.xib */,
-			);
-			path = CDTableViewController;
-			sourceTree = "<group>";
-		};
-		9FC0556918E274AE00743E16 /* SBViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9FC0556A18E274C300743E16 /* SBViewController.h */,
-				9FC0556B18E274C300743E16 /* SBViewController.m */,
-				9FC0556C18E274C300743E16 /* SBViewController.xib */,
-			);
-			path = SBViewController;
 			sourceTree = "<group>";
 		};
 		9FC0556F18E2AA5100743E16 /* MockManager */ = {
@@ -689,26 +775,6 @@
 				9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
-			sourceTree = "<group>";
-		};
-		9FC055AB18E2B65700743E16 /* CityMapViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9FC055AC18E2B66A00743E16 /* CityMapViewController.h */,
-				9FC055AD18E2B66A00743E16 /* CityMapViewController.m */,
-				9FC055AE18E2B66A00743E16 /* CityMapViewController.xib */,
-			);
-			path = CityMapViewController;
-			sourceTree = "<group>";
-		};
-		9FC055B318E2BF5600743E16 /* MKTableViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9FC055B418E2BF7700743E16 /* MKTableViewController.h */,
-				9FC055B518E2BF7700743E16 /* MKTableViewController.m */,
-				9FC055B618E2BF7700743E16 /* MKTableViewController.xib */,
-			);
-			path = MKTableViewController;
 			sourceTree = "<group>";
 		};
 		9FFE21A418E260DB00AF78AF /* Resources */ = {
@@ -805,28 +871,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F1C6E3118E7C2A500E7CD41 /* DepartureCityViewController.xib in Resources */,
-				9FC055B018E2B66A00743E16 /* CityMapViewController.xib in Resources */,
-				9F14E65318E669170004BD9F /* AddTripViewController.xib in Resources */,
-				9F1C6E3618E7C38500E7CD41 /* DestinationCityViewController.xib in Resources */,
-				9F9F33F118E16E1C0077C85A /* AddCityViewController.xib in Resources */,
-				9F4F9ADF18E42CAB00C55A5D /* ChooseCityViewController.xib in Resources */,
+				9F7F703918F0FDC800904AA5 /* ChooseEventViewController.xib in Resources */,
+				9F7F704118F0FDC800904AA5 /* TripViewController.xib in Resources */,
+				9F7F703B18F0FDC800904AA5 /* DepartureCityViewController.xib in Resources */,
 				9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */,
 				9F9F33A318E108010077C85A /* Images.xcassets in Resources */,
-				9F14E64D18E667BB0004BD9F /* TripViewController.xib in Resources */,
-				9F4F9AF218E44AF800C55A5D /* EventDetailViewController.xib in Resources */,
 				9F9F339518E108010077C85A /* InfoPlist.strings in Resources */,
+				9F7F703618F0FDC800904AA5 /* AddTripViewController.xib in Resources */,
 				9F9F339E18E108010077C85A /* Main.storyboard in Resources */,
-				9FC0556E18E274C300743E16 /* SBViewController.xib in Resources */,
-				9F4F9AD318E427D900C55A5D /* EventViewController.xib in Resources */,
+				9F7F703F18F0FDC800904AA5 /* TripDetailViewController.xib in Resources */,
 				9FFE21AC18E260DB00AF78AF /* Icon-40@2x.png in Resources */,
-				9F9F33F718E16E960077C85A /* CDTableViewController.xib in Resources */,
-				9F2F85BD18EA3BCE00BA98AA /* ChooseEventViewController.xib in Resources */,
-				9FC055B818E2BF7700743E16 /* MKTableViewController.xib in Resources */,
-				9F9F33D918E14FA20077C85A /* CityViewController.xib in Resources */,
+				9F7F704D18F0FE4400904AA5 /* PLPlanTripViewController.xib in Resources */,
+				9F7F703318F0FDC800904AA5 /* EventViewController.xib in Resources */,
 				9F2F85FD18EAA80300BA98AA /* ColorMap@2x.png in Resources */,
-				9F2F860918EAD96500BA98AA /* TripDetailViewController.xib in Resources */,
+				9F7F703D18F0FDC800904AA5 /* DestinationCityViewController.xib in Resources */,
+				9F7F704718F0FDC800904AA5 /* SBViewController.xib in Resources */,
+				9F7F702F18F0FDC800904AA5 /* ChooseCityViewController.xib in Resources */,
+				9F7F702B18F0FDC800904AA5 /* CityMapViewController.xib in Resources */,
+				9F7F703118F0FDC800904AA5 /* EventDetailViewController.xib in Resources */,
+				9F7F704318F0FDC800904AA5 /* CDTableViewController.xib in Resources */,
 				9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */,
+				9F7F702918F0FDC800904AA5 /* AddCityViewController.xib in Resources */,
+				9F7F704518F0FDC800904AA5 /* MKTableViewController.xib in Resources */,
+				9F7F702D18F0FDC800904AA5 /* CityViewController.xib in Resources */,
 				9F2F85F818EAA5E600BA98AA /* FCColorPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -846,56 +913,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F14E65218E669170004BD9F /* AddTripViewController.m in Sources */,
-				9F9F33EF18E16E1C0077C85A /* AddCityTableViewCell.m in Sources */,
+				9F7F703518F0FDC800904AA5 /* AddTripViewController.m in Sources */,
 				9FC055A418E2B46300743E16 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				9F7F702818F0FDC800904AA5 /* AddCityViewController.m in Sources */,
 				9FC055A918E2B46300743E16 /* UIRefreshControl+AFNetworking.m in Sources */,
+				9F7F703218F0FDC800904AA5 /* EventViewController.m in Sources */,
 				9F2F85E618EA70F000BA98AA /* Trip.m in Sources */,
 				9FC055A618E2B46300743E16 /* UIButton+AFNetworking.m in Sources */,
+				9F7F705418F1047900904AA5 /* Checkbox.m in Sources */,
 				9FC055A518E2B46300743E16 /* UIAlertView+AFNetworking.m in Sources */,
-				9F1C6E2718E7B1B700E7CD41 /* AddTripTableViewCell.m in Sources */,
 				9F9F33E518E1619E0077C85A /* NSObject+Extensions.m in Sources */,
-				9F1C6E3018E7C2A500E7CD41 /* DepartureCityViewController.m in Sources */,
+				9F7F702718F0FDC800904AA5 /* AddCityTableViewCell.m in Sources */,
 				9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */,
-				9FC055AF18E2B66A00743E16 /* CityMapViewController.m in Sources */,
 				9FC0558F18E2B31600743E16 /* AFURLResponseSerialization.m in Sources */,
 				9FC0558D18E2B31600743E16 /* AFURLConnectionOperation.m in Sources */,
-				9F9F33F018E16E1C0077C85A /* AddCityViewController.m in Sources */,
+				9F7F704618F0FDC800904AA5 /* SBViewController.m in Sources */,
+				9F7F704418F0FDC800904AA5 /* MKTableViewController.m in Sources */,
+				9F7F703818F0FDC800904AA5 /* ChooseEventViewController.m in Sources */,
+				9F7F703E18F0FDC800904AA5 /* TripDetailViewController.m in Sources */,
+				9F7F704018F0FDC800904AA5 /* TripViewController.m in Sources */,
+				9F7F704218F0FDC800904AA5 /* CDTableViewController.m in Sources */,
+				9F7F703718F0FDC800904AA5 /* ChooseEventTableViewCell.m in Sources */,
 				9FC0557218E2AA6500743E16 /* MockManager.m in Sources */,
 				9FC055A818E2B46300743E16 /* UIProgressView+AFNetworking.m in Sources */,
 				9FC0558918E2B31600743E16 /* AFHTTPRequestOperationManager.m in Sources */,
-				9F9F33F618E16E960077C85A /* CDTableViewController.m in Sources */,
 				9FC0558C18E2B31600743E16 /* AFSecurityPolicy.m in Sources */,
+				9F7F702E18F0FDC800904AA5 /* ChooseCityViewController.m in Sources */,
+				9F7F702C18F0FDC800904AA5 /* CityViewController.m in Sources */,
 				9F2F85FA18EAA5E600BA98AA /* FCColorSwatchView.m in Sources */,
 				9F2F85E318EA70EF00BA98AA /* City.m in Sources */,
 				9F9F33CA18E1148E0077C85A /* TripDataStorage.xcdatamodeld in Sources */,
-				9F2F85C518EA4F3E00BA98AA /* ChooseEventTableViewCell.m in Sources */,
-				9F4F9ADE18E42CAB00C55A5D /* ChooseCityViewController.m in Sources */,
 				9F9F33A118E108010077C85A /* RootViewController.m in Sources */,
-				9F2F860818EAD96500BA98AA /* TripDetailViewController.m in Sources */,
+				9F7F705718F105D600904AA5 /* PLPlanTripTableViewCell.m in Sources */,
 				9FC0558E18E2B31600743E16 /* AFURLRequestSerialization.m in Sources */,
 				9FC0558B18E2B31600743E16 /* AFNetworkReachabilityManager.m in Sources */,
+				9F7F702A18F0FDC800904AA5 /* CityMapViewController.m in Sources */,
 				9F9F339B18E108010077C85A /* AppDelegate.m in Sources */,
 				9F4F9AE718E43EC800C55A5D /* NSDate+Extensions.m in Sources */,
-				9F2F85BC18EA3BCE00BA98AA /* ChooseEventViewController.m in Sources */,
 				9FC055A718E2B46300743E16 /* UIImageView+AFNetworking.m in Sources */,
 				9F9F33C718E112A60077C85A /* TripManager.m in Sources */,
+				9F7F703A18F0FDC800904AA5 /* DepartureCityViewController.m in Sources */,
 				9F2F85E918EA70F000BA98AA /* Event.m in Sources */,
-				9FC0556D18E274C300743E16 /* SBViewController.m in Sources */,
 				9FC0558818E2B31600743E16 /* AFHTTPRequestOperation.m in Sources */,
 				9F9F339718E108010077C85A /* main.m in Sources */,
+				9F7F703C18F0FDC800904AA5 /* DestinationCityViewController.m in Sources */,
 				9FC055A318E2B46300743E16 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				9F7F703018F0FDC800904AA5 /* EventDetailViewController.m in Sources */,
 				9F2F85F918EAA5E600BA98AA /* FCBrightDarkGradView.m in Sources */,
-				9FC055B718E2BF7700743E16 /* MKTableViewController.m in Sources */,
-				9F4F9AF118E44AF800C55A5D /* EventDetailViewController.m in Sources */,
-				9F4F9AD218E427D900C55A5D /* EventViewController.m in Sources */,
 				9FC0558A18E2B31600743E16 /* AFHTTPSessionManager.m in Sources */,
+				9F7F703418F0FDC800904AA5 /* AddTripTableViewCell.m in Sources */,
 				9FC055AA18E2B46300743E16 /* UIWebView+AFNetworking.m in Sources */,
-				9F14E64C18E667BB0004BD9F /* TripViewController.m in Sources */,
-				9F9F33D818E14FA20077C85A /* CityViewController.m in Sources */,
 				9F2F85F718EAA5E600BA98AA /* FCColorPickerViewController.m in Sources */,
 				9FC0559018E2B31600743E16 /* AFURLSessionManager.m in Sources */,
-				9F1C6E3518E7C38500E7CD41 /* DestinationCityViewController.m in Sources */,
+				9F7F704C18F0FE4400904AA5 /* PLPlanTripViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

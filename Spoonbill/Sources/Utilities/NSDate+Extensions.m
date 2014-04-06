@@ -9,6 +9,16 @@
 #import "NSDate+Extensions.h"
 
 @implementation NSDate (Extensions)
+- (NSString *)hourTime
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+	[dateFormatter setDateFormat:@"HH:mm"];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    
+	return [dateFormatter stringFromDate:self];
+}
+
 - (NSString *)translatedTime
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -18,6 +28,7 @@
     
 	return [dateFormatter stringFromDate:self];
 }
+
 - (NSString *)relativeTime
 {
 	NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];

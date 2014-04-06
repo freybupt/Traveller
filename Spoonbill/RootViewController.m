@@ -7,6 +7,11 @@
 //
 
 #import "RootViewController.h"
+
+/* Plain */
+#import "PLPlanTripViewController.h"
+
+/* Core Data */
 #import "CityViewController.h"
 #import "EventViewController.h"
 #import "TripViewController.h"
@@ -26,7 +31,7 @@ typedef NS_ENUM(NSInteger, StylishTableRow) {
 };
 
 typedef NS_ENUM(NSInteger, PlainTableRow) {
-    PlainTableRowPending,
+    PlainTableRowPlanTrip,
     PlainTableRowCount
 };
 
@@ -65,6 +70,14 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 }
 
 #pragma mark - Button tap action
+/* Plain */
+- (IBAction)planTripButtonTapAction:(id)sender
+{
+    PLPlanTripViewController *vc = [[PLPlanTripViewController alloc] initWithNibName:@"PLPlanTripViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+/* Core Data */
 - (IBAction)cityButtonTapAction:(id)sender
 {
     CityViewController *vc = [[CityViewController alloc] initWithNibName:@"CityViewController" bundle:nil];
@@ -119,6 +132,28 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    switch (indexPath.section) {
+        case RootTableSectionPlain:
+            [self tapPlainCellAtIndexPath:indexPath];
+            break;
+        case RootTableSectionCoreData:
+            [self tapCoreDataCellAtIndexPath:indexPath];
+            break;
+    }
+}
+
+#pragma mark - UITableView tap action
+- (void)tapPlainCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case PlainTableRowPlanTrip:
+            [self planTripButtonTapAction:nil];
+            break;
+    }
+}
+
+- (void)tapCoreDataCellAtIndexPath:(NSIndexPath *)indexPath
+{
     switch (indexPath.row) {
         case CoreDataTableRowCity:
             [self cityButtonTapAction:nil];
@@ -177,8 +212,8 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:PlainTableRowCount];
     for (NSUInteger idx = 0; idx < PlainTableRowCount; idx++) {
         switch (idx) {
-            case PlainTableRowPending:
-                [mArray insertObject:@"Pending" atIndex:PlainTableRowPending];
+            case PlainTableRowPlanTrip:
+                [mArray insertObject:@"Plan Trip" atIndex:PlainTableRowPlanTrip];
                 break;
         }
     }
