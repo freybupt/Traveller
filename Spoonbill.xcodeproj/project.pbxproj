@@ -11,6 +11,10 @@
 		7644726B18E49DCA00319348 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726A18E49DCA00319348 /* SystemConfiguration.framework */; };
 		7644726D18E49DD200319348 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726C18E49DD200319348 /* MobileCoreServices.framework */; };
 		7644726F18E49DDF00319348 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7644726E18E49DDF00319348 /* libz.dylib */; };
+		9F24751F18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F24751E18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.m */; };
+		9F24752318F37A4500A290BE /* arrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752118F37A4500A290BE /* arrowDown@2x.png */; };
+		9F24752418F37A4500A290BE /* arrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752218F37A4500A290BE /* arrowUp@2x.png */; };
+		9F24752718F382DC00A290BE /* add-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752618F382DC00A290BE /* add-item@2x.png */; };
 		9F2F85E318EA70EF00BA98AA /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E218EA70EF00BA98AA /* City.m */; };
 		9F2F85E618EA70F000BA98AA /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E518EA70F000BA98AA /* Trip.m */; };
 		9F2F85E918EA70F000BA98AA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E818EA70F000BA98AA /* Event.m */; };
@@ -143,6 +147,11 @@
 		7644726A18E49DCA00319348 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7644726C18E49DD200319348 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7644726E18E49DDF00319348 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9F24751D18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlanTripCalendarHeaderFooterView.h; sourceTree = "<group>"; };
+		9F24751E18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlanTripCalendarHeaderFooterView.m; sourceTree = "<group>"; };
+		9F24752118F37A4500A290BE /* arrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@2x.png"; sourceTree = "<group>"; };
+		9F24752218F37A4500A290BE /* arrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@2x.png"; sourceTree = "<group>"; };
+		9F24752618F382DC00A290BE /* add-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-item@2x.png"; sourceTree = "<group>"; };
 		9F2F85E118EA70EF00BA98AA /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		9F2F85E218EA70EF00BA98AA /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		9F2F85E418EA70F000BA98AA /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -357,6 +366,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F24752018F37A4500A290BE /* Arrow */ = {
+			isa = PBXGroup;
+			children = (
+				9F24752118F37A4500A290BE /* arrowDown@2x.png */,
+				9F24752218F37A4500A290BE /* arrowUp@2x.png */,
+			);
+			path = Arrow;
+			sourceTree = "<group>";
+		};
+		9F24752518F382DC00A290BE /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				9F24752618F382DC00A290BE /* add-item@2x.png */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
 		9F2F85EA18EAA5E600BA98AA /* Color Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +633,8 @@
 				9F7F705918F1673A00904AA5 /* PLPlanTripCalendarViewController.h */,
 				9F7F705A18F1673A00904AA5 /* PLPlanTripCalendarViewController.m */,
 				9F7F705B18F1673A00904AA5 /* PLPlanTripCalendarViewController.xib */,
+				9F24751D18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.h */,
+				9F24751E18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.m */,
 			);
 			path = PLPlanTripCalendarViewController;
 			sourceTree = "<group>";
@@ -895,7 +923,9 @@
 		9FFE21A418E260DB00AF78AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9F24752518F382DC00A290BE /* Add */,
 				9FFE21A518E260DB00AF78AF /* AppIcon */,
+				9F24752018F37A4500A290BE /* Arrow */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -998,6 +1028,7 @@
 				9F9F33A318E108010077C85A /* Images.xcassets in Resources */,
 				9F7F70B018F17BD400904AA5 /* DSLCalendar-nextMonth@2x.png in Resources */,
 				9F9F339518E108010077C85A /* InfoPlist.strings in Resources */,
+				9F24752418F37A4500A290BE /* arrowUp@2x.png in Resources */,
 				9F7F70B718F17BD400904AA5 /* DSLCalendarDaySelection-middle.png in Resources */,
 				9F7F703618F0FDC800904AA5 /* AddTripViewController.xib in Resources */,
 				9F9F339E18E108010077C85A /* Main.storyboard in Resources */,
@@ -1012,6 +1043,7 @@
 				9F7F704718F0FDC800904AA5 /* SBViewController.xib in Resources */,
 				9F7F702F18F0FDC800904AA5 /* ChooseCityViewController.xib in Resources */,
 				9F7F702B18F0FDC800904AA5 /* CityMapViewController.xib in Resources */,
+				9F24752318F37A4500A290BE /* arrowDown@2x.png in Resources */,
 				9F7F705D18F1673A00904AA5 /* PLPlanTripCalendarViewController.xib in Resources */,
 				9F7F703118F0FDC800904AA5 /* EventDetailViewController.xib in Resources */,
 				9F7F70BA18F17BD400904AA5 /* DSLCalendarDaySelection-right@2x.png in Resources */,
@@ -1021,6 +1053,7 @@
 				9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */,
 				9F7F702918F0FDC800904AA5 /* AddCityViewController.xib in Resources */,
 				9F7F70B118F17BD400904AA5 /* DSLCalendar-previousMonth.png in Resources */,
+				9F24752718F382DC00A290BE /* add-item@2x.png in Resources */,
 				9F7F70B318F17BD400904AA5 /* DSLCalendarDayCallout.png in Resources */,
 				9F7F704518F0FDC800904AA5 /* MKTableViewController.xib in Resources */,
 				9F7F702D18F0FDC800904AA5 /* CityViewController.xib in Resources */,
@@ -1099,6 +1132,7 @@
 				9F7F703018F0FDC800904AA5 /* EventDetailViewController.m in Sources */,
 				9F2F85F918EAA5E600BA98AA /* FCBrightDarkGradView.m in Sources */,
 				9FC0558A18E2B31600743E16 /* AFHTTPSessionManager.m in Sources */,
+				9F24751F18F3778300A290BE /* PLPlanTripCalendarHeaderFooterView.m in Sources */,
 				9F7F703418F0FDC800904AA5 /* AddTripTableViewCell.m in Sources */,
 				9F7F70AC18F17BD400904AA5 /* DSLCalendarMonthView.m in Sources */,
 				9FC055AA18E2B46300743E16 /* UIWebView+AFNetworking.m in Sources */,

@@ -107,10 +107,11 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat sectionHeaderHeight = PLANTRIP_SECTION_HEADER_HEIGHT;
-    if (scrollView.contentOffset.y <= sectionHeaderHeight &&
-        scrollView.contentOffset.y >= 0.0f) {
-        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0.0f, 0.0f, 0.0f);
-    } else if (scrollView.contentOffset.y >= sectionHeaderHeight) {
+    CGFloat yOffset = scrollView.contentOffset.y;
+    if (yOffset <= sectionHeaderHeight &&
+        yOffset >= 0.0f) {
+        scrollView.contentInset = UIEdgeInsetsMake(-yOffset, 0.0f, 0.0f, 0.0f);
+    } else if (yOffset >= sectionHeaderHeight) {
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0.0f, 0.0f, 0.0f);
     }
 }

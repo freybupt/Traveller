@@ -26,7 +26,7 @@
         
         UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                             target:self
-                                                                                            action:@selector(addButtonTapAction:)];
+                                                                                            action:@selector(addEventButtonTapAction:)];
         self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     }
     return self;
@@ -52,7 +52,7 @@
 }
 
 #pragma mark - Button tap action
-- (IBAction)addButtonTapAction:(id)sender
+- (IBAction)addEventButtonTapAction:(id)sender
 {
     if (![AFNetworkReachabilityManager sharedManager].reachable) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Add City", nil)

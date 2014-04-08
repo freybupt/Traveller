@@ -195,7 +195,9 @@
 
 - (NSString*)monthViewKeyForMonth:(NSDateComponents*)month {
     month = [month.calendar components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:month.date];
-    return [NSString stringWithFormat:@"%d.%d", month.year, month.month];
+    return [NSString stringWithFormat:@"%@.%@",
+            [NSNumber numberWithInteger:month.year],
+            [NSNumber numberWithInteger:month.month]];
 }
 
 - (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month {

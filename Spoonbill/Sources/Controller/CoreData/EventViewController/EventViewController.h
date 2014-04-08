@@ -9,5 +9,6 @@
 #import "CDTableViewController.h"
 
 @interface EventViewController : CDTableViewController
-
+- (IBAction)addEventButtonTapAction:(id)sender;
+- (IBAction)eventDetailButtonTapAction:(Event *)event;
 @end
