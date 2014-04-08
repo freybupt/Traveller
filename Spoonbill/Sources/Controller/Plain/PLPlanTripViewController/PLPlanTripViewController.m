@@ -103,6 +103,12 @@
     cell.locationLabel.text = event.location;
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self eventDetailButtonTapAction:event];
+}
+
 #pragma mark - UIScrollView delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

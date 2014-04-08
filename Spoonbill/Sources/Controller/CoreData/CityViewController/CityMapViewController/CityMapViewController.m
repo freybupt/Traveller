@@ -8,7 +8,6 @@
 
 #import "CityMapViewController.h"
 
-#define DEFAULT_MAP_COORDINATE_SPAN 0.1f
 #define CITYMAP_TABLEVIEWCELL_IDENTIFIER @"CityMapTableCellIdentifier"
 
 typedef NS_ENUM(NSInteger, CityInfoTableRow) {

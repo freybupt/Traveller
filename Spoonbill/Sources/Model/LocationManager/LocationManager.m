@@ -83,6 +83,12 @@
     NSLog(@"CLLocation Error: %@", [error localizedDescription]);
 }
 
+#pragma mark - Location
+- (CLLocation *)currentLocation
+{
+    return _locationManager.location;
+}
+
 #pragma mark - CLGeocoder
 - (CLGeocoder *)getPlacemarkWithLocation:(CLLocation *)location
                            block:(void (^)(CLPlacemark *placemark, NSError *error))block

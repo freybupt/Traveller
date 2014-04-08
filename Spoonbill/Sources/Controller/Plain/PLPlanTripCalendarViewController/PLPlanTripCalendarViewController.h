@@ -7,7 +7,11 @@
 //
 
 #import "PLPlanTripViewController.h"
+#import "PLPlanTripCalendarHeaderFooterView.h"
+#import "DSLCalendarView.h"
 
-@interface PLPlanTripCalendarViewController : PLPlanTripViewController
+#define SECTIONHEADER_FOR_TOOLCONTROL_POINTER 1
 
+@interface PLPlanTripCalendarViewController : PLPlanTripViewController<DSLCalendarViewDelegate>
+@property (nonatomic, weak) IBOutlet DSLCalendarView *calendarView;
 @end

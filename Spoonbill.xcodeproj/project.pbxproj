@@ -15,6 +15,10 @@
 		9F24752318F37A4500A290BE /* arrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752118F37A4500A290BE /* arrowDown@2x.png */; };
 		9F24752418F37A4500A290BE /* arrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752218F37A4500A290BE /* arrowUp@2x.png */; };
 		9F24752718F382DC00A290BE /* add-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752618F382DC00A290BE /* add-item@2x.png */; };
+		9F24752C18F3990500A290BE /* PLPlanTripCalendarMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F24752A18F3990500A290BE /* PLPlanTripCalendarMapViewController.m */; };
+		9F24752D18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752B18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib */; };
+		9F24753218F39D9200A290BE /* calendar53@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24752F18F39D9200A290BE /* calendar53@2x.png */; };
+		9F24753318F39D9200A290BE /* map35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F24753118F39D9200A290BE /* map35@2x.png */; };
 		9F2F85E318EA70EF00BA98AA /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E218EA70EF00BA98AA /* City.m */; };
 		9F2F85E618EA70F000BA98AA /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E518EA70F000BA98AA /* Trip.m */; };
 		9F2F85E918EA70F000BA98AA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F2F85E818EA70F000BA98AA /* Event.m */; };
@@ -152,6 +156,11 @@
 		9F24752118F37A4500A290BE /* arrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@2x.png"; sourceTree = "<group>"; };
 		9F24752218F37A4500A290BE /* arrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@2x.png"; sourceTree = "<group>"; };
 		9F24752618F382DC00A290BE /* add-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-item@2x.png"; sourceTree = "<group>"; };
+		9F24752918F3990500A290BE /* PLPlanTripCalendarMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLPlanTripCalendarMapViewController.h; sourceTree = "<group>"; };
+		9F24752A18F3990500A290BE /* PLPlanTripCalendarMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLPlanTripCalendarMapViewController.m; sourceTree = "<group>"; };
+		9F24752B18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PLPlanTripCalendarMapViewController.xib; sourceTree = "<group>"; };
+		9F24752F18F39D9200A290BE /* calendar53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar53@2x.png"; sourceTree = "<group>"; };
+		9F24753118F39D9200A290BE /* map35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map35@2x.png"; sourceTree = "<group>"; };
 		9F2F85E118EA70EF00BA98AA /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		9F2F85E218EA70EF00BA98AA /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		9F2F85E418EA70F000BA98AA /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -383,6 +392,32 @@
 			path = Add;
 			sourceTree = "<group>";
 		};
+		9F24752818F398E500A290BE /* PLPlanTripCalendarMapViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F24752918F3990500A290BE /* PLPlanTripCalendarMapViewController.h */,
+				9F24752A18F3990500A290BE /* PLPlanTripCalendarMapViewController.m */,
+				9F24752B18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib */,
+			);
+			path = PLPlanTripCalendarMapViewController;
+			sourceTree = "<group>";
+		};
+		9F24752E18F39D9200A290BE /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				9F24752F18F39D9200A290BE /* calendar53@2x.png */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		9F24753018F39D9200A290BE /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9F24753118F39D9200A290BE /* map35@2x.png */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		9F2F85EA18EAA5E600BA98AA /* Color Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,6 +597,7 @@
 		9F7F701818F0FDC800904AA5 /* Plain */ = {
 			isa = PBXGroup;
 			children = (
+				9F24752818F398E500A290BE /* PLPlanTripCalendarMapViewController */,
 				9F7F705818F1670900904AA5 /* PLPlanTripCalendarViewController */,
 				9F7F704818F0FE1300904AA5 /* PLPlanTripViewController */,
 			);
@@ -926,6 +962,8 @@
 				9F24752518F382DC00A290BE /* Add */,
 				9FFE21A518E260DB00AF78AF /* AppIcon */,
 				9F24752018F37A4500A290BE /* Arrow */,
+				9F24752E18F39D9200A290BE /* Calendar */,
+				9F24753018F39D9200A290BE /* Map */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1027,6 +1065,7 @@
 				9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */,
 				9F9F33A318E108010077C85A /* Images.xcassets in Resources */,
 				9F7F70B018F17BD400904AA5 /* DSLCalendar-nextMonth@2x.png in Resources */,
+				9F24752D18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib in Resources */,
 				9F9F339518E108010077C85A /* InfoPlist.strings in Resources */,
 				9F24752418F37A4500A290BE /* arrowUp@2x.png in Resources */,
 				9F7F70B718F17BD400904AA5 /* DSLCalendarDaySelection-middle.png in Resources */,
@@ -1056,10 +1095,12 @@
 				9F24752718F382DC00A290BE /* add-item@2x.png in Resources */,
 				9F7F70B318F17BD400904AA5 /* DSLCalendarDayCallout.png in Resources */,
 				9F7F704518F0FDC800904AA5 /* MKTableViewController.xib in Resources */,
+				9F24753218F39D9200A290BE /* calendar53@2x.png in Resources */,
 				9F7F702D18F0FDC800904AA5 /* CityViewController.xib in Resources */,
 				9F2F85F818EAA5E600BA98AA /* FCColorPickerViewController.xib in Resources */,
 				9F7F70AF18F17BD400904AA5 /* DSLCalendar-nextMonth.png in Resources */,
 				9F7F70BB18F17BD400904AA5 /* DSLCalendarDaySelection.png in Resources */,
+				9F24753318F39D9200A290BE /* map35@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1090,6 +1131,7 @@
 				9F7F702718F0FDC800904AA5 /* AddCityTableViewCell.m in Sources */,
 				9F7F70A918F17BD400904AA5 /* DSLCalendarDayView.m in Sources */,
 				9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */,
+				9F24752C18F3990500A290BE /* PLPlanTripCalendarMapViewController.m in Sources */,
 				9FC0558F18E2B31600743E16 /* AFURLResponseSerialization.m in Sources */,
 				9FC0558D18E2B31600743E16 /* AFURLConnectionOperation.m in Sources */,
 				9F7F704618F0FDC800904AA5 /* SBViewController.m in Sources */,

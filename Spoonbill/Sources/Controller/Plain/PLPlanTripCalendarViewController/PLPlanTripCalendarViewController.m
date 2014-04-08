@@ -7,12 +7,9 @@
 //
 
 #import "PLPlanTripCalendarViewController.h"
-#import "PLPlanTripCalendarHeaderFooterView.h"
 #import "PLPlanTripTableViewCell.h"
-#import "DSLCalendarView.h"
 
 #define PLANTRIPCALENDAR_HEADER_REUSEIDENTIFIER @"PLPlanTripCalendarTableViewSectionHeaderViewIdentifier"
-#define SECTIONHEADER_FOR_TOOLCONTROL_POINTER 1
 
 typedef NS_ENUM(NSInteger, PlanTripTableSection) {
     PlanTripTableSectionCalendarMapView,
@@ -20,8 +17,8 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
     PlanTripTableSectionCount
 };
 
-@interface PLPlanTripCalendarViewController ()<DSLCalendarViewDelegate>
-@property (nonatomic, weak) IBOutlet DSLCalendarView *calendarView;
+@interface PLPlanTripCalendarViewController ()
+
 @end
 
 @implementation PLPlanTripCalendarViewController
@@ -46,7 +43,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
 }
 
 #pragma mark - Button tap action
-- (IBAction)toggleCalendarMapViewButtonTapAction:(id)sender
+- (IBAction)hideCalendarMapViewButtonTapAction:(id)sender
 {
     UIButton *button = (UIButton *)sender;
     button.selected = !button.selected;
@@ -121,7 +118,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
     PLPlanTripCalendarHeaderFooterView *sectionHeaderView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:[self tableHeaderReuseIdentifier]];
     
     [sectionHeaderView.middleButton addTarget:self
-                                 action:@selector(toggleCalendarMapViewButtonTapAction:)
+                                 action:@selector(hideCalendarMapViewButtonTapAction:)
                        forControlEvents:UIControlEventTouchUpInside];
     sectionHeaderView.middleButton.hidden = (section != SECTIONHEADER_FOR_TOOLCONTROL_POINTER - 1);
     
@@ -151,7 +148,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
         return;
     }
     
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER];
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER]; /* Translated indexPath */
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.timeLabel.text = [event.allDay boolValue] ? NSLocalizedString(@"all-day", nil) : [event.startDate hourTime];
     cell.titleLabel.text = event.title;
@@ -162,7 +159,14 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER];
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER]; /* Translated indexPath */
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self eventDetailButtonTapAction:event];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER]; /* Translated indexPath */
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     [self eventDetailButtonTapAction:event];
 }
@@ -171,7 +175,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
 {
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER];
+        indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section - SECTIONHEADER_FOR_TOOLCONTROL_POINTER]; /* Translated indexPath */
         Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:TripManagerOperationDidDeleteEventNotification
@@ -182,7 +186,6 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
-
 - (void)calendarView:(DSLCalendarView *)calendarView
       didSelectRange:(DSLCalendarRange *)range
 {
