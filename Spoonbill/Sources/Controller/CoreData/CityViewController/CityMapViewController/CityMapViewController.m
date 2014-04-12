@@ -58,6 +58,10 @@ typedef NS_ENUM(NSInteger, CityInfoTableRow) {
         region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
                                            DEFAULT_MAP_COORDINATE_SPAN * self.mapView.frame.size.height/self.mapView.frame.size.width);
         [self.mapView setRegion:region animated:YES];
+        
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        [annotation setCoordinate:region.center];
+        [self.mapView addAnnotation:annotation];
     });
 }
 

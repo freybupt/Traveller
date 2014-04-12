@@ -8,8 +8,6 @@
 
 #import "AddCityTableViewCell.h"
 
-#define ADDCITY
-
 @implementation AddCityTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -42,4 +40,5 @@
     
     return textField;
 }
+
 @end
