@@ -156,11 +156,19 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:TripManagerOperationDidDeleteEventNotification
-                                                                object:event
-                                                              userInfo:nil];
-        });
+        EKEventStore *store = [[EKEventStore alloc] init];
+        EKEvent *eventToRemove = [store eventWithIdentifier:event.eventIdentifier];
+        NSError *error = nil;
+        [store removeEvent:eventToRemove
+                      span:EKSpanThisEvent
+                     error:&error];
+        if (!error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:TripManagerOperationDidDeleteEventNotification
+                                                                    object:event
+                                                                  userInfo:nil];
+            });
+        }
     }
 }
 
