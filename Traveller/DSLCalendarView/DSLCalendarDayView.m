@@ -155,7 +155,7 @@
     if (self.activeTrip) {
         cellColor = self.activeTrip.defaultColor;
     }
-    const float* colors = CGColorGetComponents( cellColor.CGColor );
+    const CGFloat * colors = CGColorGetComponents( cellColor.CGColor );
     UIColor *cellColorHighlighted = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
     
     if (self.selectionState == DSLCalendarDayViewNotSelected) {

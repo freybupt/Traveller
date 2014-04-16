@@ -29,7 +29,9 @@
         NSMutableArray *allTripsKeys = [[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey];
         for (NSString *tripKey in allTripsKeys) {
             Trip *savedTrip = [manager loadCustomObjectWithKey:tripKey];
-            [manager.activeTripList addObject:savedTrip];
+            if (savedTrip) {
+                [manager.activeTripList addObject:savedTrip];
+            }
         }
     });
     

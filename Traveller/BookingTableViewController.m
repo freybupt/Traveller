@@ -21,7 +21,7 @@
     NSMutableArray *subItems; // array of arrays
     NSMutableArray *subItemsTitle;
     
-    int currentExpandedIndex;
+    NSInteger currentExpandedIndex;
 }
 
 - (id)init {
@@ -168,7 +168,7 @@
         cell.textLabel.text = [[subItems objectAtIndex:currentExpandedIndex] objectAtIndex:indexPath.row - currentExpandedIndex - 1];
     }
     else {
-        int topIndex = (currentExpandedIndex > -1 && indexPath.row > currentExpandedIndex)
+        NSInteger topIndex = (currentExpandedIndex > -1 && indexPath.row > currentExpandedIndex)
         ? indexPath.row - [[subItems objectAtIndex:currentExpandedIndex] count]
         : indexPath.row;
         
@@ -231,20 +231,20 @@
     
 }
 
-- (void)expandItemAtIndex:(int)index {
+- (void)expandItemAtIndex:(NSInteger)index {
     NSMutableArray *indexPaths = [NSMutableArray new];
     NSArray *currentSubItems = [subItems objectAtIndex:index];
-    int insertPos = index + 1;
-    for (int i = 0; i < [currentSubItems count]; i++) {
+    NSInteger insertPos = index + 1;
+    for (NSInteger i = 0; i < [currentSubItems count]; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:insertPos++ inSection:0]];
     }
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
-- (void)collapseSubItemsAtIndex:(int)index {
+- (void)collapseSubItemsAtIndex:(NSInteger)index {
     NSMutableArray *indexPaths = [NSMutableArray new];
-    for (int i = index + 1; i <= index + [[subItems objectAtIndex:index] count]; i++) {
+    for (NSInteger i = index + 1; i <= index + [[subItems objectAtIndex:index] count]; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     }
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
