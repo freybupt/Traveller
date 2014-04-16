@@ -64,13 +64,15 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
 #pragma mark - UITableView configuration
 - (void)setTableView
 { 
-    NSUInteger flags = NSCalendarCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+    NSUInteger flags = NSCalendarCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [calendar components:flags fromDate:[NSDate date]];
     
     [_calendarView setVisibleMonth:components animated:NO];
     _calendarView.delegate = self;
-
+    
+    [self drawCalendarDayViewForEvent];
+    
     [self.tableView setContentInset:UIEdgeInsetsMake(_calendarView.frame.size.height, 0.0f, 0.0f, 0.0f)];
     [self.tableView registerClass:[PLPlanTripCalendarHeaderFooterView class]
         forHeaderFooterViewReuseIdentifier:[self tableHeaderReuseIdentifier]];
@@ -252,6 +254,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
     didChangeToVisibleMonth:(NSDateComponents *)month
 {
     NSLog(@"Now showing %@", month);
+    [self drawCalendarDayViewForEvent];
 }
 
 - (BOOL)day:(NSDateComponents*)day1
@@ -316,5 +319,29 @@ isBeforeDay:(NSDateComponents*)day2
             [self.tableView reloadData];
             break;
     }
+}
+
+#pragma mark - DSLCalendarDayView helpers
+- (void)drawCalendarDayViewForEvent
+{
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        
+        NSUInteger flags = NSCalendarCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:flags fromDate:event.startDate];
+        
+        DSLCalendarMonthView *calendarMonthView = (DSLCalendarMonthView *)[_calendarView cachedOrCreatedMonthViewForMonth:_calendarView.visibleMonth];
+        [[calendarMonthView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[PLPlanTripCalendarDayView class]]) {
+                PLPlanTripCalendarDayView *dayView = (PLPlanTripCalendarDayView *)obj;
+                if (dayView.day.year == components.year &&
+                    dayView.day.month == components.month &&
+                    dayView.day.day == components.day) {
+                    dayView.tag = components.year * 10000 + components.month * 100 + components.day;
+                    [dayView setNeedsDisplay];
+                }
+            }
+        }];
+    }];
 }
 @end

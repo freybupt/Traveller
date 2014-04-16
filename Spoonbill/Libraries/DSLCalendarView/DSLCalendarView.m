@@ -33,10 +33,7 @@
 #import "DSLCalendarDayCalloutView.h"
 #import "DSLCalendarDayView.h"
 #import "DSLCalendarMonthSelectorView.h"
-#import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
-#import "DSLCalendarDayView.h"
-#import "PLPlanTripCalendarDayView.h"
 
 @interface DSLCalendarView ()
 

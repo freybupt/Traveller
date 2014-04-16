@@ -43,6 +43,11 @@
         else {
             [[UIColor colorWithWhite:225.0/255.0 alpha:1.0] setFill];
         }
+        
+        if (self.tag != 0) {
+            [[UIColor redColor] setFill];
+        }
+        
         UIRectFill(self.bounds);
     } else {
         UIColor *cellColor = [UIColor colorWithRed:0.0f green:1.0f blue:0.0f alpha:0.8f];
@@ -59,6 +64,11 @@
             default:
                 break;
         }
+        
+        if (self.tag != 0) {
+            [[UIColor redColor] setFill];
+        }
+        
         UIRectFill(self.bounds);
     }
 }
@@ -100,8 +110,8 @@
     }
     
     UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
-    __block NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
-                                  NSForegroundColorAttributeName : [UIColor darkTextColor]};
+    NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
+                                  NSForegroundColorAttributeName : (self.tag != 0) ? [UIColor whiteColor] : [UIColor darkTextColor]};
     CGSize textSize = [self.labelText sizeWithAttributes:attributes];
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), ceilf(CGRectGetMidY(self.bounds) - (textSize.height / 2.0)), textSize.width, textSize.height);
     [self.labelText drawInRect:textRect withAttributes:attributes];

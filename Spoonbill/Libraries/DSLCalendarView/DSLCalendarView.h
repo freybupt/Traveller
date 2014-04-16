@@ -32,6 +32,9 @@
 
 #import "DSLCalendarRange.h"
 #import "NSDate+DSLCalendarView.h"
+#import "DSLCalendarMonthView.h"
+#import "PLPlanTripCalendarDayView.h"
+
 @protocol DSLCalendarViewDelegate;
 
 
@@ -47,7 +50,7 @@
 + (Class)dayViewClass;
 
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
-
+- (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month;
 @end
 
 
