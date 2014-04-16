@@ -89,21 +89,24 @@
 
 - (BOOL)isColor:(UIColor *)color1 theSameAsColor:(UIColor *)color2
 {
-    CGColorSpaceRef colorSpaceRGB = CGColorSpaceCreateDeviceRGB();
-    
     UIColor *(^convertColorToRGBSpace)(UIColor*) = ^(UIColor *color) {
         if(CGColorSpaceGetModel(CGColorGetColorSpace(color.CGColor)) == kCGColorSpaceModelMonochrome) {
+            CGColorSpaceRef colorSpaceRGB = CGColorSpaceCreateDeviceRGB();
             const CGFloat *oldComponents = CGColorGetComponents(color.CGColor);
             CGFloat components[4] = {oldComponents[0], oldComponents[0], oldComponents[0], oldComponents[1]};
-            return [UIColor colorWithCGColor:CGColorCreate(colorSpaceRGB, components)];
+            CGColorRef colorRef = CGColorCreate(colorSpaceRGB, components);
+            UIColor *theColor = [UIColor colorWithCGColor:colorRef];
+            CGColorRelease(colorRef);
+            CGColorSpaceRelease(colorSpaceRGB);
+            
+            return theColor;
         } else
             return color;
     };
     
     UIColor *firstColor = convertColorToRGBSpace(color1);
     UIColor *secondColor = convertColorToRGBSpace(color2);
-    CGColorSpaceRelease(colorSpaceRGB);
-    
+
     return [firstColor isEqual:secondColor];
 }
 
