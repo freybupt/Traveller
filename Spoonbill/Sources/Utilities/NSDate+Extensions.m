@@ -19,6 +19,16 @@
 	return [dateFormatter stringFromDate:self];
 }
 
+- (NSString *)monthDayTime
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
+	[dateFormatter setDateFormat:@"MMMM dd"];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    
+	return [dateFormatter stringFromDate:self];
+}
+
 - (NSString *)translatedTime
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

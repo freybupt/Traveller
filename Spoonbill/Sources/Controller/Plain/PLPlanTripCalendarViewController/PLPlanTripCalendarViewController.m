@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, PlanTripTableSection) {
     
     [_calendarView setVisibleMonth:components animated:NO];
     _calendarView.delegate = self;
-    
+
     [self.tableView setContentInset:UIEdgeInsetsMake(_calendarView.frame.size.height, 0.0f, 0.0f, 0.0f)];
     [self.tableView registerClass:[PLPlanTripCalendarHeaderFooterView class]
         forHeaderFooterViewReuseIdentifier:[self tableHeaderReuseIdentifier]];

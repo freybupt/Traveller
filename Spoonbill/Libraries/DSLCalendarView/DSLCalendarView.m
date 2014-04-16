@@ -36,7 +36,7 @@
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
 #import "DSLCalendarDayView.h"
-
+#import "PLPlanTripCalendarDayView.h"
 
 @interface DSLCalendarView ()
 
@@ -131,7 +131,7 @@
 }
 
 + (Class)dayViewClass {
-    return [DSLCalendarDayView class];
+    return [PLPlanTripCalendarDayView class];
 }
 
 - (void)setSelectedRange:(DSLCalendarRange *)selectedRange {

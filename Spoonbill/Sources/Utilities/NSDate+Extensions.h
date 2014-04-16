@@ -10,6 +10,7 @@
 
 @interface NSDate (Extensions)
 - (NSString *)hourTime;
+- (NSString *)monthDayTime;
 - (NSString *)translatedTime;
 - (NSString *)relativeTime;
 @end

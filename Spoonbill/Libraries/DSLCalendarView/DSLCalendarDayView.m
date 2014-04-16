@@ -43,7 +43,6 @@
     __strong NSCalendar *_calendar;
     __strong NSDate *_dayAsDate;
     __strong NSDateComponents *_day;
-    __strong NSString *_labelText;
 }
 
 
