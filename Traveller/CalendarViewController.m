@@ -18,6 +18,7 @@
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
 #import "Checkbox.h"
+#import "DSLCalendarView.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
@@ -66,9 +67,20 @@ static CGFloat kActionButtonHeight = 35.0f;
                                         action:@selector(departureCityUpdated:)
                               forControlEvents:UIControlEventEditingChanged];
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripInfo:) name:kTripChangeNotification object:[TripManager sharedManager]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fetchEvents)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
+- (void)viewDidUnload
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
+    
+    [super viewDidUnload];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -80,13 +92,13 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
 
     //[self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
+    [self fetchEvents];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
-
 
 #pragma mark - UI IBAction
 
@@ -306,7 +318,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     [self.calendarView updateCalendarView];
 }
 
-
 #pragma mark - DSLCalendarViewDelegate methods
 
 - (void)calendarView:(DSLCalendarView *)calendarView
@@ -332,7 +343,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     if (range != nil) {
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
-        //TODO: update My schedule events - show all the selected events
         [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
     }
     else {
@@ -412,8 +422,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:oneMonth
                                                                     toDate:startDate
                                                                    options:0];
-    NSLog(@"%@", startDate);
-    NSLog(@"%@", endDate);
     return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
 }
 
@@ -497,30 +505,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        EKEventStore *store = [[EKEventStore alloc] init];
-        EKEvent *eventToRemove = [store eventWithIdentifier:event.eventIdentifier];
-        NSError *error = nil;
-        [store removeEvent:eventToRemove
-                      span:EKSpanThisEvent
-                     error:&error];
-        if (!error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self deleteEventButtonTapAction:event];
-            });
-        }
-    }
-}
-
 //| ----------------------------------------------------------------------------
 //! IBAction that is called when the value of a checkbox in any row changes.
 //
@@ -574,8 +558,7 @@ static CGFloat kActionButtonHeight = 35.0f;
                                               otherButtonTitles:nil];
         [alert show];
         self.calendarView.hidden = YES;
-    }
-    else{
+    } else {
         self.hasLoadedCalendar = YES;
         [self.calendarView updateCalendarView];
         // Enable the Add button
@@ -585,7 +568,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
     
 }
-
 
 #pragma mark -
 #pragma mark Fetch events
@@ -637,12 +619,22 @@ static CGFloat kActionButtonHeight = 35.0f;
         // Fetch all events that match the predicate
         NSMutableArray *events = [NSMutableArray arrayWithArray:[calendarManager.eventStore eventsMatchingPredicate:predicate]];
         
-        // Initialize the events list
+        // Initialize the events list for synchronizing
+        // Add events for those not in local storage
         for (EKEvent *event in events)
         {
             [[DataManager sharedInstance] addEventWithEKEvent:event
                                                       context:self.managedObjectContext];
         }
+        
+        // Remove events for those not in calendar
+        [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+            EKEventStore *eventStore = [[EKEventStore alloc] init];
+            EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
+            if (!ekEvent) {
+                [self deleteEventButtonTapAction:event];
+            }
+        }];
     }
     
     [self refreshScheduleTable];
@@ -657,28 +649,40 @@ static CGFloat kActionButtonHeight = 35.0f;
         abort();
     }
     [self.tableView reloadData];
+    [self performSelector:@selector(drawCalendarDayViewForEvent)
+               withObject:nil
+               afterDelay:0.5f];
 }
 
-- (NSDate *)dateAtBeginningOfDayForDate:(NSDate *)inputDate
+- (void)drawCalendarDayViewForEvent
 {
-    // Use the user's current calendar and time zone
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
-    [calendar setTimeZone:timeZone];
+    DSLCalendarMonthView *calendarMonthView = (DSLCalendarMonthView *)[self.calendarView cachedOrCreatedMonthViewForMonth:self.calendarView.visibleMonth];
+    [[calendarMonthView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[DSLCalendarDayView class]]) {
+            DSLCalendarDayView *dayView = (DSLCalendarDayView *)obj;
+            [dayView setDay:dayView.day];
+            dayView.tag = 0;
+            [dayView setNeedsDisplay];
+        }
+    }];
     
-    // Selectively convert the date components (year, month, day) of the input date
-    NSDateComponents *dateComps = [calendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:inputDate];
-    
-    // Set the time components manually
-    [dateComps setHour:0];
-    [dateComps setMinute:0];
-    [dateComps setSecond:0];
-    
-    // Convert back
-    NSDate *beginningOfDay = [calendar dateFromComponents:dateComps];
-    return beginningOfDay;
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        NSUInteger flags = NSCalendarCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit;
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:flags fromDate:event.startDate];
+        [[calendarMonthView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[DSLCalendarDayView class]]) {
+                DSLCalendarDayView *dayView = (DSLCalendarDayView *)obj;
+                if (dayView.day.year == components.year &&
+                    dayView.day.month == components.month &&
+                    dayView.day.day == components.day) {
+                    dayView.tag = components.year * 10000 + components.month * 100 + components.day;
+                    [dayView setNeedsDisplay];
+                }
+            }
+        }];
+    }];
 }
-
 
 #pragma mark -
 #pragma mark Add a new event

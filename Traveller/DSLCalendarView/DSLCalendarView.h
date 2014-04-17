@@ -31,6 +31,8 @@
 
 
 #import "DSLCalendarRange.h"
+#import "DSLCalendarMonthView.h"
+#import "DSLCalendarDayView.h"
 #import "NSDate+DSLCalendarView.h"
 @protocol DSLCalendarViewDelegate;
 
@@ -51,7 +53,7 @@
 - (void)didTapMonthBack:(id)sender;
 - (void)didTapMonthForward:(id)sender;
 - (void)animateMoveToAdjacentMonth:(NSDateComponents *)day;
-
+- (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month;
 @end
 
 
