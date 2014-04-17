@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tjR-tg-0cD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tjR-tg-0cD">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--Calendar View Controller - Book Trip-->
@@ -29,14 +29,6 @@
                                             <segue destination="pZm-77-QNM" kind="embed" id="tCy-7p-gV1"/>
                                         </connections>
                                     </containerView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rLu-6f-rwJ">
-                                        <rect key="frame" x="51" y="434" width="219" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="BOOK NOW">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -50,7 +42,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mBy-03-yug">
-                                        <rect key="frame" x="0.0" y="284" width="320" height="175"/>
+                                        <rect key="frame" x="0.0" y="284" width="320" height="220"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <view key="tableHeaderView" contentMode="scaleToFill" id="xeT-ra-1iZ">
@@ -149,13 +141,6 @@
                                             <outlet property="delegate" destination="vXZ-lx-hvc" id="wIi-6g-dSb"/>
                                         </connections>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYh-4O-HHZ">
-                                        <rect key="frame" x="99" y="467" width="123" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Generate Itinerary">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -283,7 +268,6 @@
                         <outlet property="destinationPanel" destination="Bys-zB-5FN" id="fKu-WL-gkS"/>
                         <outlet property="destinationTextField" destination="NiG-jb-JhX" id="ICK-rq-Y0z"/>
                         <outlet property="expandButton" destination="pY5-99-my6" id="Zvc-Ec-Sah"/>
-                        <outlet property="generateItineraryButton" destination="rYh-4O-HHZ" id="t22-1k-Zrp"/>
                         <outlet property="mapSwitch" destination="fnf-QY-WmT" id="cYz-jO-wzs"/>
                         <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
                         <outlet property="planTripSwitch" destination="9E5-A7-l5c" id="17c-kM-P16"/>
@@ -295,7 +279,42 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141" y="26"/>
+            <point key="canvasLocation" x="577" y="17"/>
+        </scene>
+        <!--Table View Controller - Select events for trip-->
+        <scene sceneID="Ote-uM-DBR">
+            <objects>
+                <tableViewController id="04m-rM-cxV" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Auw-bx-r3K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5td-gx-Mbl">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5td-gx-Mbl" id="FEf-IA-E6W">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="04m-rM-cxV" id="qEM-io-gdK"/>
+                            <outlet property="delegate" destination="04m-rM-cxV" id="Ihj-oj-gEL"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select events for trip" id="LfS-BB-ddS">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="XBa-Xq-yV9">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="push" id="Rhm-5f-idy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ir-a8-tKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="165" y="31"/>
         </scene>
         <!--Booking Table View Controller-->
         <scene sceneID="tSn-M6-lW5">
@@ -323,7 +342,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m19-3b-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="542" y="99"/>
+            <point key="canvasLocation" x="994" y="163"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yr-BD-sku">
@@ -337,7 +356,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="BVE-5n-E6l"/>
+                        <segue destination="04m-rM-cxV" kind="relationship" relationship="rootViewController" id="lkQ-sf-Rw8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn6-uD-LnL" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -22,7 +22,6 @@
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
-static CGFloat kActionButtonHeight = 35.0f;
 
 @interface CalendarViewController () <DSLCalendarViewDelegate, EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
 
@@ -143,7 +142,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     CalendarViewController __weak *weakSelf = self;
     if (self.isScheduleExpanded) {
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.tableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate - kActionButtonHeight)];
+            [weakSelf.tableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate)];
         }];
         
         self.isScheduleExpanded = NO;
@@ -151,7 +150,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
     else{
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.tableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height - kActionButtonHeight)];
+            [weakSelf.tableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height)];
         }];
         
         self.isScheduleExpanded = YES;
