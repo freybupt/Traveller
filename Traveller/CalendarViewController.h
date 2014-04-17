@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "CDTableViewController.h"
 
-@interface CalendarViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface CalendarViewController : CDTableViewController <UITextFieldDelegate>
 
 
 @property (nonatomic, weak) IBOutlet UIView *planTripView;
@@ -24,7 +24,6 @@
 
 //my schedule table
 @property (nonatomic, weak) IBOutlet UIButton *addButton;
-@property (nonatomic, weak) IBOutlet UITableView *scheduleTableView;
 @property (nonatomic, weak) IBOutlet UIButton *expandButton;
 
 //Destination View

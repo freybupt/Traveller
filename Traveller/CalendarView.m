@@ -12,7 +12,7 @@
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
 #import "DSLCalendarDayView.h"
-#import "TripManager.h"
+//#import "TripManager.h"
 
 @interface DSLCalendarView ()
 
@@ -43,6 +43,7 @@
     
     self.editingTrip = nil;
     //already have trip
+    /*
     Trip *activeTrip = [[TripManager sharedManager] findActiveTripByDate:touchedView.day.date];
     if (activeTrip) {
         [self.delegate calendarView:self shouldHighlightTrip:activeTrip];
@@ -73,7 +74,26 @@
         }
         self.selectedRange = newRange;
     }
+    */
     
+    DSLCalendarRange *newRange = self.selectedRange;
+    if (self.selectedRange == nil) {
+        newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
+    }
+    else if (![self.selectedRange.startDay isEqual:touchedView.day] && ![self.selectedRange.endDay isEqual:touchedView.day]) {
+        newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
+    }
+    else if ([self.selectedRange.startDay isEqual:touchedView.day]) {
+        self.draggingFixedDay = self.selectedRange.endDay;
+    }
+    else {
+        self.draggingFixedDay = self.selectedRange.startDay;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(calendarView:didDragToDay:selectingRange:)]) {
+        newRange = [self.delegate calendarView:self didDragToDay:touchedView.day selectingRange:newRange];
+    }
+    self.selectedRange = newRange;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -89,7 +109,7 @@
     
     //TODO: check within current range whether there is trip plan already?
     //modify current trip
-
+    /*
     if (self.editingTrip) {
         DSLCalendarRange *newRange;
         if ([touchedView.day.date compare:self.editingTrip.dateRange.startDay.date] == NSOrderedAscending){
@@ -139,6 +159,25 @@
             }
         }
     }
+    */
+    DSLCalendarRange *newRange;
+    if ([touchedView.day.date compare:self.draggingFixedDay.date] == NSOrderedAscending) {
+        newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:self.draggingFixedDay];
+    }
+    else {
+        newRange = [[DSLCalendarRange alloc] initWithStartDay:self.draggingFixedDay endDay:touchedView.day];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(calendarView:didDragToDay:selectingRange:)]) {
+        newRange = [self.delegate calendarView:self didDragToDay:touchedView.day selectingRange:newRange];
+    }
+    self.selectedRange = newRange;
+    
+    if (!self.draggedOffStartDay) {
+        if (![self.draggingStartDay isEqual:touchedView.day]) {
+            self.draggedOffStartDay = YES;
+        }
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -152,7 +191,7 @@
         return;
     }
     
-    
+    /*
     if (self.editingTrip) {
         Trip *updatedTrip = [[Trip alloc] initWithExistingTrip:self.editingTrip];
         updatedTrip.dateRange = self.selectedRange;
@@ -174,6 +213,15 @@
             [self.delegate calendarView:self didSelectRange:self.selectedRange];
         }
     }
+    */
+    if (!self.draggedOffStartDay && [self.draggingStartDay isEqual:touchedView.day]) {
+        self.selectedRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(calendarView:didSelectRange:)]) {
+        [self.delegate calendarView:self didSelectRange:self.selectedRange];
+    }
+    
     self.draggingStartDay = nil;
     [self animateMoveToAdjacentMonth:touchedView.day];
 }

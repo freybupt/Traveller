@@ -289,8 +289,8 @@
                         <outlet property="planTripSwitch" destination="9E5-A7-l5c" id="17c-kM-P16"/>
                         <outlet property="planTripView" destination="wLi-nh-koY" id="Auc-kb-Dy1"/>
                         <outlet property="removeTripButton" destination="moQ-Xh-Hpz" id="K2C-aE-9EH"/>
-                        <outlet property="scheduleTableView" destination="mBy-03-yug" id="hes-Pm-GLW"/>
                         <outlet property="tabView" destination="Q5S-ke-8Eo" id="h9Q-7I-O7q"/>
+                        <outlet property="tableView" destination="mBy-03-yug" id="W5e-sy-Q4f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -464,10 +464,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrowUp.png" width="512" height="512"/>
-        <image name="calendar53.png" width="512" height="512"/>
-        <image name="dustbin.png" width="64" height="64"/>
-        <image name="map35.png" width="512" height="512"/>
+        <image name="arrowUp.png" width="256" height="256"/>
+        <image name="calendar53.png" width="256" height="256"/>
+        <image name="dustbin.png" width="32" height="32"/>
+        <image name="map35.png" width="256" height="256"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -11,9 +11,6 @@
 #import <EventKit/EventKit.h>
 #import "CalendarManager.h"
 #import "CalendarColorManager.h"
-#import "TripManager.h"
-#import "Trip.h"
-#import "City.h"
 #import "CalendarView.h"
 #import "CalendarViewController.h"
 #import "MyScheduleTableCell.h"
@@ -21,19 +18,14 @@
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
 #import "Checkbox.h"
-#import "CalendarColorManager.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
 static CGFloat kActionButtonHeight = 35.0f;
 
-
-
 @interface CalendarViewController () <DSLCalendarViewDelegate, EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
 
 @property (nonatomic, assign) BOOL hasLoadedCalendar;
-@property (nonatomic, strong) NSMutableDictionary *sections;
-@property (nonatomic, strong) NSArray *sortedDays;
 @property (nonatomic, strong) NSDateFormatter *sectionDateFormatter;
 
 //Customized Calendar View
@@ -43,7 +35,6 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 @property (nonatomic, strong) NSMutableArray *selectedEvents;
-
 @property (nonatomic, strong) NSMutableArray *numberOutput;
 
 @end
@@ -75,7 +66,7 @@ static CGFloat kActionButtonHeight = 35.0f;
                                         action:@selector(departureCityUpdated:)
                               forControlEvents:UIControlEventEditingChanged];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripInfo:) name:kTripChangeNotification object:[TripManager sharedManager]];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTripInfo:) name:kTripChangeNotification object:[TripManager sharedManager]];
 }
 
 
@@ -87,8 +78,8 @@ static CGFloat kActionButtonHeight = 35.0f;
         CalendarManager *calendarManager = [CalendarManager sharedManager];
         [calendarManager checkEventStoreAccessForCalendar];
     }
-    
-//    [self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
+
+    //[self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -140,7 +131,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     CalendarViewController __weak *weakSelf = self;
     if (self.isScheduleExpanded) {
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.scheduleTableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate - kActionButtonHeight)];
+            [weakSelf.tableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate - kActionButtonHeight)];
         }];
         
         self.isScheduleExpanded = NO;
@@ -148,7 +139,7 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
     else{
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.scheduleTableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height - kActionButtonHeight)];
+            [weakSelf.tableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height - kActionButtonHeight)];
         }];
         
         self.isScheduleExpanded = YES;
@@ -157,14 +148,75 @@ static CGFloat kActionButtonHeight = 35.0f;
     
 }
 
+- (IBAction)saveEventButtonTapAction:(EKEvent *)event
+{
+    if ([[DataManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
+                                                          context:self.managedObjectContext]) {
+        [self updateEventButtonTapAction:event];
+        return;
+    }
+    
+    if (![[DataManager sharedInstance] addEventWithEKEvent:event
+                                                  context:self.managedObjectContext]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DataManager", nil)
+                                                            message:NSLocalizedString(@"An error just occurred when inserting an event item", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+- (IBAction)editEventButtonTapAction:(Event *)event
+{
+    /* Create an eventStore with an event associated with eventIdentifier for EKEventEditViewController */
+    EKEventStore *eventStore = [[EKEventStore alloc] init];
+    EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
+    
+    if (!event) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Calendar", nil)
+                                                            message:NSLocalizedString(@"The event item is not in Calendar anymore.", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    EKEventViewController *vc = [[EKEventViewController alloc] init];
+    vc.allowsEditing = YES;
+    vc.event = ekEvent;
+    vc.delegate = self;
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nc animated:YES completion:^{}];
+}
+
+- (IBAction)updateEventButtonTapAction:(EKEvent *)event
+{
+    if (![[DataManager sharedInstance] updateEventWithEKEvent:event
+                                                     context:self.managedObjectContext]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DataManager", nil)
+                                                            message:NSLocalizedString(@"An error just occurred when inserting an event item", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                  otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
+
+- (IBAction)deleteEventButtonTapAction:(Event *)event
+{
+    [[DataManager sharedInstance] deleteEvent:event
+                                      context:self.managedObjectContext];
+}
 
 #pragma mark - Destination Panel
 
 - (IBAction)showDestinationPanel:(id)sender
 {
     if ([sender isKindOfClass:[Trip class]]) {
-        Trip *activeTrip = (Trip *)sender;
-        self.destinationTextField.text = activeTrip.destinationCity.cityFullName;
+        //Trip *activeTrip = (Trip *)sender;
+        //self.destinationTextField.text = activeTrip.destinationCity.cityFullName;
         self.removeTripButton.hidden = NO;
     }
     else{
@@ -197,11 +249,11 @@ static CGFloat kActionButtonHeight = 35.0f;
     [self updateTripInfo:nil];
 }
 
-
 - (IBAction)confirmTripChange:(id)sender
 {
     if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
         //save trip
+        /*
         Trip *trip = [[Trip alloc] initWithDateRange:self.currentDateRange
                                        departureCity:self.departureLocationTextField.text
                                       andDestination:self.destinationTextField.text
@@ -209,6 +261,7 @@ static CGFloat kActionButtonHeight = 35.0f;
         
         TripManager *tripManager = [TripManager sharedManager];
         [tripManager addTripToActiveList:trip];
+        */
     }
     
     self.calendarView.selectedRange = self.currentDateRange;
@@ -220,19 +273,18 @@ static CGFloat kActionButtonHeight = 35.0f;
     self.currentDateRange = nil;
     self.calendarView.selectedRange = nil;
     if (self.calendarView.editingTrip && self.calendarView.originalTrip) {
-        [[TripManager sharedManager] modifyTrip:self.calendarView.editingTrip toNewTrip:self.calendarView.originalTrip];
+        //[[TripManager sharedManager] modifyTrip:self.calendarView.editingTrip toNewTrip:self.calendarView.originalTrip];
         self.calendarView.editingTrip = nil;
         self.calendarView.originalTrip = nil;
     }
     [self hideDestinationPanel:nil];
-    
 }
 
 
 - (IBAction)deleteCurrentTrip:(id)sender
 {
     if (self.calendarView.originalTrip) {
-        [[TripManager sharedManager] deleteTrip:self.calendarView.originalTrip];
+        //[[TripManager sharedManager] deleteTrip:self.calendarView.originalTrip];
         self.calendarView.selectedRange = nil;
         [self hideDestinationPanel:nil];
     }
@@ -249,7 +301,6 @@ static CGFloat kActionButtonHeight = 35.0f;
     
 }
 
-
 - (void)updateTripInfo:(NSNotification *)userinfo
 {
     [self.calendarView updateCalendarView];
@@ -258,30 +309,30 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 #pragma mark - DSLCalendarViewDelegate methods
 
-- (void)calendarView:(DSLCalendarView *)calendarView shouldHighlightTrip:(Trip *)trip
+- (void)calendarView:(DSLCalendarView *)calendarView
+ shouldHighlightTrip:(Trip *)trip
 {
-    self.destinationTextField.text = trip.destinationCity.cityFullName;
+    //self.destinationTextField.text = trip.destinationCity.cityFullName;
     [self showDestinationPanel:trip];
 
 }
 
-- (void)calendarView:(DSLCalendarView *)calendarView didModifytrip:(Trip *)old toNewTrip:(Trip *)updatedTrip
+- (void)calendarView:(DSLCalendarView *)calendarView
+       didModifytrip:(Trip *)old
+           toNewTrip:(Trip *)updatedTrip
 {
-    updatedTrip.destinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
-    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
+    //updatedTrip.destinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
+    //[[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
     [self.calendarView updateCalendarView];
 }
 
-- (void)calendarView:(DSLCalendarView *)calendarView didSelectRange:(DSLCalendarRange *)range {
+- (void)calendarView:(DSLCalendarView *)calendarView
+      didSelectRange:(DSLCalendarRange *)range
+{
     if (range != nil) {
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         //TODO: update My schedule events - show all the selected events
-//        [self fetchEvents];
-//        [self.scheduleTableView reloadData];
-        
-        //show destination popup
-//        [self showDestinationPopup:nil];
         [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
     }
     else {
@@ -290,7 +341,10 @@ static CGFloat kActionButtonHeight = 35.0f;
     }
 }
 
-- (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView didDragToDay:(NSDateComponents *)day selectingRange:(DSLCalendarRange *)range {
+- (DSLCalendarRange*)calendarView:(DSLCalendarView *)calendarView
+                     didDragToDay:(NSDateComponents *)day
+                   selectingRange:(DSLCalendarRange *)range
+{
     if (NO) { // Only select a single day
         return [[DSLCalendarRange alloc] initWithStartDay:day endDay:day];
     }
@@ -318,94 +372,154 @@ static CGFloat kActionButtonHeight = 35.0f;
     return range;
 }
 
-- (void)calendarView:(DSLCalendarView *)calendarView willChangeToVisibleMonth:(NSDateComponents *)month duration:(NSTimeInterval)duration {
+- (void)calendarView:(DSLCalendarView *)calendarView
+    willChangeToVisibleMonth:(NSDateComponents *)month
+            duration:(NSTimeInterval)duration
+{
     NSLog(@"Will show %@ in %.3f seconds", month, duration);
 }
 
-- (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents *)month {
+- (void)calendarView:(DSLCalendarView *)calendarView
+    didChangeToVisibleMonth:(NSDateComponents *)month
+{
     NSLog(@"Now showing %@", month);
     [self fetchEvents];
-    [self.scheduleTableView reloadData];
-    
 }
 
-- (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2 {
+- (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2
+{
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
+#pragma mark - NSFetchedResultController configuration
+
+- (NSString *)entityName
+{
+    return @"Event";
+}
+
+- (NSEntityDescription *)entityDescription
+{
+    return [NSEntityDescription entityForName:[self entityName]
+                       inManagedObjectContext:self.managedObjectContext];
+}
+
+- (NSPredicate *)predicate
+{
+    NSDateComponents *oneMonth = [NSDateComponents new];
+    oneMonth.month = 1;
+    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:self.calendarView.visibleMonth];
+    NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:oneMonth
+                                                                    toDate:startDate
+                                                                   options:0];
+    NSLog(@"%@", startDate);
+    NSLog(@"%@", endDate);
+    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
+}
+
+- (NSArray *)sortDescriptors
+{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES];
+    return [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+}
+
+- (NSString *)sectionNameKeyPath
+{
+    return @"startDate";
+}
 
 #pragma mark - UITableViewDelegate
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [self.sortedDays count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger count =[[self.sections objectForKey:[self.sortedDays objectAtIndex:section]] count];
-	return count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 22.0f;
+    NSString *dateString = [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    // Raw Date String -> NSDate
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZ"];
+    NSDate *date = [formatter dateFromString:dateString];
+    
+    // NSDate -> Formatted Date String
+    [formatter setDateFormat:@"EEE, MMM dd"];
+    NSString *formattedDateString = [formatter stringFromDate:date];
+    
+    return formattedDateString;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
     if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
-        
         UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
         tableViewHeaderFooterView.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
         tableViewHeaderFooterView.textLabel.textColor = [UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSDate *headerDate = [self.sortedDays objectAtIndex:section];
-    return [self.sectionDateFormatter stringFromDate:headerDate];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell" forIndexPath:indexPath];
-    
-    if (cell.accessoryView == nil) {
-        // Only configure the Checkbox control once.
-        [(UIButton *)cell.accessoryView addTarget:self action:@selector(reviewDetail:forEvent:) forControlEvents:UIControlEventValueChanged];
+    MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
+    if (!cell) {
+        cell = [[MyScheduleTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:@"eventCell"];
     }
-
-    cell.checkBox.checked = NO;
-    
-    // Get the event at the row selected and display its title
-    EKEvent *event = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    [cell setWithEvent:event];
+    [self configureCell:cell
+            atIndexPath:indexPath];
     
     return cell;
 }
 
+- (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.eventTitleLabel.text = event.title;
+    if ([event.allDay boolValue]) {
+        cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
+    } else {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm"];
+        [formatter setTimeZone:[NSTimeZone localTimeZone]];
+        cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
+    }
+    cell.eventLocationLabel.text = event.location;
+    cell.checkBox.checked = [self.selectedEvents containsObject:event];
+    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MyScheduleTableCell *targetCell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
-    EKEvent *selectedEvent = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    
-    if ([self.selectedEvents containsObject:selectedEvent]) {
-        [self.selectedEvents removeObject:selectedEvent];
-        targetCell.checkBox.checked = NO;
-        targetCell.backgroundColor = [UIColor whiteColor];
-    }
-    else{
-        [self.selectedEvents addObject:selectedEvent];
-        targetCell.checkBox.checked = YES;
-        targetCell.backgroundColor = UIColorFromRGB(0x9bee9e);
-    }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.checkBox.checked = !cell.checkBox.checked;
+    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
+
+    [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        EKEventStore *store = [[EKEventStore alloc] init];
+        EKEvent *eventToRemove = [store eventWithIdentifier:event.eventIdentifier];
+        NSError *error = nil;
+        [store removeEvent:eventToRemove
+                      span:EKSpanThisEvent
+                     error:&error];
+        if (!error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self deleteEventButtonTapAction:event];
+            });
+        }
+    }
+}
 
 //| ----------------------------------------------------------------------------
 //! IBAction that is called when the value of a checkbox in any row changes.
@@ -414,45 +528,13 @@ static CGFloat kActionButtonHeight = 35.0f;
 {
 	NSSet *touches = [event allTouches];
 	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:self.scheduleTableView];
+	CGPoint currentTouchPosition = [touch locationInView:self.tableView];
     
     // Lookup the index path of the cell whose checkbox was modified.
-	NSIndexPath *indexPath = [self.scheduleTableView indexPathForRowAtPoint:currentTouchPosition];
-    
-	if (indexPath != nil) {
-        // Configure the destination event view controller
-        EKEventViewController* eventViewController = [[EKEventViewController alloc] init];
-        eventViewController.delegate = self;
-        // Set the view controller to display the selected event
-        eventViewController.event = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-        
-        // Allow event editing
-        eventViewController.allowsEditing = YES;
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:eventViewController];
-        navigationController.delegate = self;
-        //now present this navigation controller as modally
-        [self presentViewController:navigationController animated:YES completion:nil];
-
-        
-//        UITableViewCell *targetCell = [self.scheduleTableView cellForRowAtIndexPath:indexPath];
-//        Checkbox *targetCheckbox = (Checkbox*)[targetCell accessoryView];
-//        
-//        EKEvent *selectedEvent = [[self.sections objectForKey:[self.sortedDays objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-//        
-//        if ([self.selectedEvents containsObject:selectedEvent]) {
-//            [self.selectedEvents removeObject:selectedEvent];
-//            targetCheckbox.checked = NO;
-//        }
-//        else{
-//            [self.selectedEvents addObject:selectedEvent];
-//            targetCheckbox.checked = YES;
-//        }
-    }
-
-//    // Accessibility
-//    [self updateAccessibilityForCell:[self.scheduleTableView cellForRowAtIndexPath:indexPath]];
+	NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
+    Event *anEvent = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self editEventButtonTapAction:anEvent];
 }
-
 
 //| ----------------------------------------------------------------------------
 //  Because a custom accessory view is used, this method is never invoked by
@@ -462,6 +544,7 @@ static CGFloat kActionButtonHeight = 35.0f;
 //
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+    
 }
 
 #pragma mark -
@@ -499,8 +582,6 @@ static CGFloat kActionButtonHeight = 35.0f;
         self.addButton.enabled = YES;
         // Fetch all events happening in the next 24 hours and put them into eventsList
         [self fetchEvents];
-        // Update the UI with the above events
-        [self.scheduleTableView reloadData];
     }
     
 }
@@ -508,7 +589,6 @@ static CGFloat kActionButtonHeight = 35.0f;
 
 #pragma mark -
 #pragma mark Fetch events
-
 - (void)fetchEvents
 {
     NSDateComponents *tomorrowDateComponents = [[NSDateComponents alloc] init];
@@ -558,29 +638,25 @@ static CGFloat kActionButtonHeight = 35.0f;
         NSMutableArray *events = [NSMutableArray arrayWithArray:[calendarManager.eventStore eventsMatchingPredicate:predicate]];
         
         // Initialize the events list
-        self.sections = [[NSMutableDictionary alloc] init];
         for (EKEvent *event in events)
         {
-            // Reduce event start date to date components (year, month, day)
-            NSDate *dateRepresentingThisDay = [self dateAtBeginningOfDayForDate:event.startDate];
-            
-            // If we don't yet have an array to hold the events for this day, create one
-            NSMutableArray *eventsOnThisDay = [self.sections objectForKey:dateRepresentingThisDay];
-            if (eventsOnThisDay == nil) {
-                eventsOnThisDay = [NSMutableArray array];
-                
-                // Use the reduced date as dictionary key to later retrieve the event list this day
-                [self.sections setObject:eventsOnThisDay forKey:dateRepresentingThisDay];
-            }
-            
-            // Add the event to the list for this day
-            [eventsOnThisDay addObject:event];
+            [[DataManager sharedInstance] addEventWithEKEvent:event
+                                                      context:self.managedObjectContext];
         }
-        
-        // Create a sorted list of days
-        NSArray *unsortedDays = [self.sections allKeys];
-        self.sortedDays = [unsortedDays sortedArrayUsingSelector:@selector(compare:)];
     }
+    
+    [self refreshScheduleTable];
+}
+
+- (void)refreshScheduleTable
+{
+    NSError *error = nil;
+    [self.fetchedResultsController.fetchRequest setPredicate:[self predicate]];
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    [self.tableView reloadData];
 }
 
 - (NSDate *)dateAtBeginningOfDayForDate:(NSDate *)inputDate
@@ -632,46 +708,42 @@ static CGFloat kActionButtonHeight = 35.0f;
 {
     CalendarViewController * __weak weakSelf = self;
 	// Dismiss the modal view controller
-    [controller dismissViewControllerAnimated:YES completion:^
-     {
-         if (action != EKEventEditViewActionCanceled)
-         {
+    [controller dismissViewControllerAnimated:YES completion:^{
+         if (action == EKEventEditViewActionSaved &&
+             controller.event) {
              dispatch_async(dispatch_get_main_queue(), ^{
-                 // Re-fetch all events happening in the next 24 hours
-                 [self fetchEvents];
-                 // Update the UI with the above events
-                 [weakSelf.scheduleTableView reloadData];
+                 [weakSelf saveEventButtonTapAction:controller.event];
              });
+         } else if (action == EKEventEditViewActionDeleted) {
+             Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                              context:self.managedObjectContext];
+             [weakSelf deleteEventButtonTapAction:event];
          }
      }];
 }
 
-
-- (void)eventViewController:(EKEventViewController *)controller didCompleteWithAction:(EKEventViewAction)action
+- (void)eventViewController:(EKEventViewController *)controller
+      didCompleteWithAction:(EKEventViewAction)action
 {
     CalendarViewController * __weak weakSelf = self;
 	// Dismiss the modal view controller
-    [controller dismissViewControllerAnimated:YES completion:^
-     {
-         dispatch_async(dispatch_get_main_queue(), ^{
-             // Re-fetch all events happening in the next 24 hours
-             [self fetchEvents];
-             // Update the UI with the above events
-             [weakSelf.scheduleTableView reloadData];
-             
-             //dismiss detail if event is deleted
-             if (action == EKEventViewActionDeleted) {
-                 [weakSelf performSelector: @selector(dismissDetail) withObject: weakSelf afterDelay: 0.5];
-             }
-         });
-     }];
-    
-    
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (action == EKEventViewActionDone &&
+            controller.event) {
+            EKEventStore *eventStore = [[EKEventStore alloc] init];
+            EKEvent *event = [eventStore eventWithIdentifier:controller.event.eventIdentifier];
+            if (event) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf saveEventButtonTapAction:controller.event];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                                     context:self.managedObjectContext];
+                    [weakSelf deleteEventButtonTapAction:event];
+                });
+            }
+        }
+    }];
 }
-
-- (void)dismissDetail
-{
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
 @end

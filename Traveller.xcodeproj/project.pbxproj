@@ -8,19 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76277B9118BD6053007D8100 /* MapKit.framework */; };
-		763B23D618CD7D0F0090EA8C /* calendar53.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23CE18CD7D0F0090EA8C /* calendar53.png */; };
-		763B23D718CD7D0F0090EA8C /* calendar70.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23CF18CD7D0F0090EA8C /* calendar70.png */; };
-		763B23D818CD7D0F0090EA8C /* day1.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D018CD7D0F0090EA8C /* day1.png */; };
-		763B23D918CD7D0F0090EA8C /* earth16.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D118CD7D0F0090EA8C /* earth16.png */; };
-		763B23DA18CD7D0F0090EA8C /* facebook30.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D218CD7D0F0090EA8C /* facebook30.png */; };
-		763B23DB18CD7D0F0090EA8C /* map35.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D318CD7D0F0090EA8C /* map35.png */; };
-		763B23DC18CD7D0F0090EA8C /* map49.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D418CD7D0F0090EA8C /* map49.png */; };
-		763B23DD18CD7D0F0090EA8C /* map54.png in Resources */ = {isa = PBXBuildFile; fileRef = 763B23D518CD7D0F0090EA8C /* map54.png */; };
-		767DD1F918BE842B00FCFCA9 /* TripEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 767DD1F818BE842B00FCFCA9 /* TripEvent.m */; };
-		767DD1FF18BE856400FCFCA9 /* TripFlightBooking.m in Sources */ = {isa = PBXBuildFile; fileRef = 767DD1FE18BE856400FCFCA9 /* TripFlightBooking.m */; };
-		767DD20218BE857000FCFCA9 /* TripHotelBooking.m in Sources */ = {isa = PBXBuildFile; fileRef = 767DD20118BE857000FCFCA9 /* TripHotelBooking.m */; };
-		767DD20518BE857D00FCFCA9 /* TripRentalCarBooking.m in Sources */ = {isa = PBXBuildFile; fileRef = 767DD20418BE857D00FCFCA9 /* TripRentalCarBooking.m */; };
-		767DD20B18BE868500FCFCA9 /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 767DD20A18BE868500FCFCA9 /* TripManager.m */; };
 		769D53C618B5377C0019888E /* DSLCalendarDayCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D53B718B5377C0019888E /* DSLCalendarDayCalloutView.m */; };
 		769D53C718B5377C0019888E /* DSLCalendarDayCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769D53B818B5377C0019888E /* DSLCalendarDayCalloutView.xib */; };
 		769D53C818B5377C0019888E /* DSLCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D53BA18B5377C0019888E /* DSLCalendarDayView.m */; };
@@ -44,7 +31,6 @@
 		769D541F18B57A040019888E /* MZNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D541E18B57A040019888E /* MZNavigationViewController.m */; };
 		769D542818B57AF30019888E /* AddDestinationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D542718B57AF30019888E /* AddDestinationViewController.m */; };
 		769F276118C8012F0022AA4F /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 769F276018C8012F0022AA4F /* Checkbox.m */; };
-		76A17A4C18BC37CE0050AAEA /* dustbin.png in Resources */ = {isa = PBXBuildFile; fileRef = 76A17A4B18BC37CE0050AAEA /* dustbin.png */; };
 		76A17A5518BD22BB0050AAEA /* BookingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A17A5418BD22BB0050AAEA /* BookingTableViewController.m */; };
 		76A17A5818BD22FD0050AAEA /* BookingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A17A5718BD22FD0050AAEA /* BookingViewController.m */; };
 		76C270B218B2A1E2003A49A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B118B2A1E2003A49A3 /* Foundation.framework */; };
@@ -64,12 +50,32 @@
 		76C2712218B2A60C003A49A3 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C2712118B2A60C003A49A3 /* EventKit.framework */; };
 		76C2712518B2DF15003A49A3 /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C2712418B2DF15003A49A3 /* CalendarManager.m */; };
 		76C2712818B2E496003A49A3 /* MyScheduleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C2712718B2E496003A49A3 /* MyScheduleTableCell.m */; };
-		76C2714518B43127003A49A3 /* arrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C2714118B43127003A49A3 /* arrowDown.png */; };
-		76C2714618B43127003A49A3 /* arrowUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C2714218B43127003A49A3 /* arrowUp.png */; };
-		76D875EB18B838C400B7AC79 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875EA18B838C400B7AC79 /* City.m */; };
-		76D875EE18B840B600B7AC79 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875ED18B840B600B7AC79 /* Trip.m */; };
 		76D875F118B841B500B7AC79 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875F018B841B500B7AC79 /* CalendarView.m */; };
 		76D875F418B8458900B7AC79 /* CalendarColorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D875F318B8458900B7AC79 /* CalendarColorManager.m */; };
+		9FC4183A18FFABCF001CC750 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4182B18FFABCE001CC750 /* City.m */; };
+		9FC4183B18FFABCF001CC750 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4182D18FFABCE001CC750 /* DataManager.m */; };
+		9FC4183C18FFABCF001CC750 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4182F18FFABCE001CC750 /* Event.m */; };
+		9FC4183D18FFABCF001CC750 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4183118FFABCE001CC750 /* Trip.m */; };
+		9FC4183E18FFABCF001CC750 /* TripDataStorage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4183218FFABCF001CC750 /* TripDataStorage.xcdatamodeld */; };
+		9FC4183F18FFABCF001CC750 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4183618FFABCF001CC750 /* LocationManager.m */; };
+		9FC4184018FFABCF001CC750 /* MockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4183918FFABCF001CC750 /* MockManager.m */; };
+		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
+		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
+		9FC4185318FFABFF001CC750 /* arrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184818FFABFF001CC750 /* arrowDown@2x.png */; };
+		9FC4185418FFABFF001CC750 /* arrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184918FFABFF001CC750 /* arrowUp@2x.png */; };
+		9FC4185518FFABFF001CC750 /* calendar53@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184A18FFABFF001CC750 /* calendar53@2x.png */; };
+		9FC4185618FFABFF001CC750 /* calendar70@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184B18FFABFF001CC750 /* calendar70@2x.png */; };
+		9FC4185718FFABFF001CC750 /* day1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184C18FFABFF001CC750 /* day1@2x.png */; };
+		9FC4185818FFABFF001CC750 /* dustbin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184D18FFABFF001CC750 /* dustbin@2x.png */; };
+		9FC4185918FFABFF001CC750 /* earth16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184E18FFABFF001CC750 /* earth16@2x.png */; };
+		9FC4185A18FFABFF001CC750 /* facebook30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4184F18FFABFF001CC750 /* facebook30@2x.png */; };
+		9FC4185B18FFABFF001CC750 /* map35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4185018FFABFF001CC750 /* map35@2x.png */; };
+		9FC4185C18FFABFF001CC750 /* map49@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4185118FFABFF001CC750 /* map49@2x.png */; };
+		9FC4185D18FFABFF001CC750 /* map54@@x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4185218FFABFF001CC750 /* map54@@x.png */; };
+		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
+		9FC4186118FFAC74001CC750 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4186018FFAC74001CC750 /* CoreLocation.framework */; };
+		9FC4186718FFACFC001CC750 /* CDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4186518FFACFC001CC750 /* CDTableViewController.m */; };
+		9FC4186818FFACFC001CC750 /* CDTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FC4186618FFACFC001CC750 /* CDTableViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,24 +90,6 @@
 
 /* Begin PBXFileReference section */
 		76277B9118BD6053007D8100 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		763B23CE18CD7D0F0090EA8C /* calendar53.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar53.png; sourceTree = "<group>"; };
-		763B23CF18CD7D0F0090EA8C /* calendar70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar70.png; sourceTree = "<group>"; };
-		763B23D018CD7D0F0090EA8C /* day1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day1.png; sourceTree = "<group>"; };
-		763B23D118CD7D0F0090EA8C /* earth16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = earth16.png; sourceTree = "<group>"; };
-		763B23D218CD7D0F0090EA8C /* facebook30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook30.png; sourceTree = "<group>"; };
-		763B23D318CD7D0F0090EA8C /* map35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map35.png; sourceTree = "<group>"; };
-		763B23D418CD7D0F0090EA8C /* map49.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map49.png; sourceTree = "<group>"; };
-		763B23D518CD7D0F0090EA8C /* map54.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map54.png; sourceTree = "<group>"; };
-		767DD1F718BE842B00FCFCA9 /* TripEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripEvent.h; sourceTree = "<group>"; };
-		767DD1F818BE842B00FCFCA9 /* TripEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripEvent.m; sourceTree = "<group>"; };
-		767DD1FD18BE856400FCFCA9 /* TripFlightBooking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripFlightBooking.h; sourceTree = "<group>"; };
-		767DD1FE18BE856400FCFCA9 /* TripFlightBooking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripFlightBooking.m; sourceTree = "<group>"; };
-		767DD20018BE857000FCFCA9 /* TripHotelBooking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripHotelBooking.h; sourceTree = "<group>"; };
-		767DD20118BE857000FCFCA9 /* TripHotelBooking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripHotelBooking.m; sourceTree = "<group>"; };
-		767DD20318BE857D00FCFCA9 /* TripRentalCarBooking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripRentalCarBooking.h; sourceTree = "<group>"; };
-		767DD20418BE857D00FCFCA9 /* TripRentalCarBooking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripRentalCarBooking.m; sourceTree = "<group>"; };
-		767DD20918BE868500FCFCA9 /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
-		767DD20A18BE868500FCFCA9 /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		769D53B618B5377C0019888E /* DSLCalendarDayCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSLCalendarDayCalloutView.h; sourceTree = "<group>"; };
 		769D53B718B5377C0019888E /* DSLCalendarDayCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSLCalendarDayCalloutView.m; sourceTree = "<group>"; };
 		769D53B818B5377C0019888E /* DSLCalendarDayCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLCalendarDayCalloutView.xib; sourceTree = "<group>"; };
@@ -146,7 +134,6 @@
 		769D542718B57AF30019888E /* AddDestinationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDestinationViewController.m; sourceTree = "<group>"; };
 		769F275F18C8012F0022AA4F /* Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkbox.h; sourceTree = "<group>"; };
 		769F276018C8012F0022AA4F /* Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkbox.m; sourceTree = "<group>"; };
-		76A17A4B18BC37CE0050AAEA /* dustbin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dustbin.png; sourceTree = "<group>"; };
 		76A17A5318BD22BB0050AAEA /* BookingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingTableViewController.h; sourceTree = "<group>"; };
 		76A17A5418BD22BB0050AAEA /* BookingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookingTableViewController.m; sourceTree = "<group>"; };
 		76A17A5618BD22FD0050AAEA /* BookingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookingViewController.h; sourceTree = "<group>"; };
@@ -175,16 +162,43 @@
 		76C2712418B2DF15003A49A3 /* CalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarManager.m; sourceTree = "<group>"; };
 		76C2712618B2E496003A49A3 /* MyScheduleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleTableCell.h; sourceTree = "<group>"; };
 		76C2712718B2E496003A49A3 /* MyScheduleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleTableCell.m; sourceTree = "<group>"; };
-		76C2714118B43127003A49A3 /* arrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowDown.png; sourceTree = "<group>"; };
-		76C2714218B43127003A49A3 /* arrowUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowUp.png; sourceTree = "<group>"; };
-		76D875E918B838C400B7AC79 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = City.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		76D875EA18B838C400B7AC79 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = City.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		76D875EC18B840B600B7AC79 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Trip.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		76D875ED18B840B600B7AC79 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		76D875EF18B841B500B7AC79 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 		76D875F018B841B500B7AC79 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
 		76D875F218B8458900B7AC79 /* CalendarColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarColorManager.h; sourceTree = "<group>"; };
 		76D875F318B8458900B7AC79 /* CalendarColorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarColorManager.m; sourceTree = "<group>"; };
+		9FC4182A18FFABCE001CC750 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		9FC4182B18FFABCE001CC750 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		9FC4182C18FFABCE001CC750 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		9FC4182D18FFABCE001CC750 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		9FC4182E18FFABCE001CC750 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		9FC4182F18FFABCE001CC750 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		9FC4183018FFABCE001CC750 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		9FC4183118FFABCE001CC750 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		9FC4183318FFABCF001CC750 /* TripDataStorage.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TripDataStorage.xcdatamodel; sourceTree = "<group>"; };
+		9FC4183518FFABCF001CC750 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		9FC4183618FFABCF001CC750 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		9FC4183818FFABCF001CC750 /* MockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockManager.h; sourceTree = "<group>"; };
+		9FC4183918FFABCF001CC750 /* MockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockManager.m; sourceTree = "<group>"; };
+		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
+		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
+		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
+		9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extensions.m"; sourceTree = "<group>"; };
+		9FC4184818FFABFF001CC750 /* arrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@2x.png"; sourceTree = "<group>"; };
+		9FC4184918FFABFF001CC750 /* arrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@2x.png"; sourceTree = "<group>"; };
+		9FC4184A18FFABFF001CC750 /* calendar53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar53@2x.png"; sourceTree = "<group>"; };
+		9FC4184B18FFABFF001CC750 /* calendar70@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar70@2x.png"; sourceTree = "<group>"; };
+		9FC4184C18FFABFF001CC750 /* day1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day1@2x.png"; sourceTree = "<group>"; };
+		9FC4184D18FFABFF001CC750 /* dustbin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dustbin@2x.png"; sourceTree = "<group>"; };
+		9FC4184E18FFABFF001CC750 /* earth16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earth16@2x.png"; sourceTree = "<group>"; };
+		9FC4184F18FFABFF001CC750 /* facebook30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook30@2x.png"; sourceTree = "<group>"; };
+		9FC4185018FFABFF001CC750 /* map35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map35@2x.png"; sourceTree = "<group>"; };
+		9FC4185118FFABFF001CC750 /* map49@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map49@2x.png"; sourceTree = "<group>"; };
+		9FC4185218FFABFF001CC750 /* map54@@x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map54@@x.png"; sourceTree = "<group>"; };
+		9FC4185E18FFAC6D001CC750 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		9FC4186018FFAC74001CC750 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9FC4186418FFACFC001CC750 /* CDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDTableViewController.h; sourceTree = "<group>"; };
+		9FC4186518FFACFC001CC750 /* CDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDTableViewController.m; sourceTree = "<group>"; };
+		9FC4186618FFACFC001CC750 /* CDTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CDTableViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +206,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FC4186118FFAC74001CC750 /* CoreLocation.framework in Frameworks */,
+				9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */,
 				76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */,
 				76C2712218B2A60C003A49A3 /* EventKit.framework in Frameworks */,
 				76C270B418B2A1E2003A49A3 /* CoreGraphics.framework in Frameworks */,
@@ -213,25 +229,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		767DD20618BE864200FCFCA9 /* Trip */ = {
-			isa = PBXGroup;
-			children = (
-				767DD20918BE868500FCFCA9 /* TripManager.h */,
-				767DD20A18BE868500FCFCA9 /* TripManager.m */,
-				76D875EC18B840B600B7AC79 /* Trip.h */,
-				76D875ED18B840B600B7AC79 /* Trip.m */,
-				767DD1F718BE842B00FCFCA9 /* TripEvent.h */,
-				767DD1F818BE842B00FCFCA9 /* TripEvent.m */,
-				767DD1FD18BE856400FCFCA9 /* TripFlightBooking.h */,
-				767DD1FE18BE856400FCFCA9 /* TripFlightBooking.m */,
-				767DD20018BE857000FCFCA9 /* TripHotelBooking.h */,
-				767DD20118BE857000FCFCA9 /* TripHotelBooking.m */,
-				767DD20318BE857D00FCFCA9 /* TripRentalCarBooking.h */,
-				767DD20418BE857D00FCFCA9 /* TripRentalCarBooking.m */,
-			);
-			name = Trip;
-			sourceTree = "<group>";
-		};
 		767DD20718BE865900FCFCA9 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,15 +238,6 @@
 				76D875F318B8458900B7AC79 /* CalendarColorManager.m */,
 			);
 			name = Calendar;
-			sourceTree = "<group>";
-		};
-		767DD20818BE866300FCFCA9 /* Geo */ = {
-			isa = PBXGroup;
-			children = (
-				76D875E918B838C400B7AC79 /* City.h */,
-				76D875EA18B838C400B7AC79 /* City.m */,
-			);
-			name = Geo;
 			sourceTree = "<group>";
 		};
 		769D53B518B5377C0019888E /* DSLCalendarView */ = {
@@ -351,6 +339,8 @@
 		76C270B018B2A1E2003A49A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FC4186018FFAC74001CC750 /* CoreLocation.framework */,
+				9FC4185E18FFAC6D001CC750 /* CoreData.framework */,
 				76277B9118BD6053007D8100 /* MapKit.framework */,
 				76C2712118B2A60C003A49A3 /* EventKit.framework */,
 				76C270B118B2A1E2003A49A3 /* Foundation.framework */,
@@ -364,6 +354,7 @@
 		76C270B718B2A1E2003A49A3 /* Traveller */ = {
 			isa = PBXGroup;
 			children = (
+				9FC4184118FFABD7001CC750 /* Utilities */,
 				76C2711D18B2A3BA003A49A3 /* Models */,
 				76C2711F18B2A3D3003A49A3 /* Controllers */,
 				76C2711E18B2A3C8003A49A3 /* Views */,
@@ -409,9 +400,10 @@
 		76C2711D18B2A3BA003A49A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				767DD20618BE864200FCFCA9 /* Trip */,
+				9FC4182918FFABCE001CC750 /* DataManager */,
+				9FC4183418FFABCF001CC750 /* LocationManager */,
+				9FC4183718FFABCF001CC750 /* MockManager */,
 				767DD20718BE865900FCFCA9 /* Calendar */,
-				767DD20818BE866300FCFCA9 /* Geo */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -433,6 +425,7 @@
 		76C2711F18B2A3D3003A49A3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9FC4186218FFACFC001CC750 /* Shared */,
 				76C270C618B2A1E2003A49A3 /* CalendarViewController.h */,
 				76C270C718B2A1E2003A49A3 /* CalendarViewController.m */,
 				769D542618B57AF30019888E /* AddDestinationViewController.h */,
@@ -458,19 +451,82 @@
 		76C2712918B40CF3003A49A3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				763B23CE18CD7D0F0090EA8C /* calendar53.png */,
-				763B23CF18CD7D0F0090EA8C /* calendar70.png */,
-				763B23D018CD7D0F0090EA8C /* day1.png */,
-				763B23D118CD7D0F0090EA8C /* earth16.png */,
-				763B23D218CD7D0F0090EA8C /* facebook30.png */,
-				763B23D318CD7D0F0090EA8C /* map35.png */,
-				763B23D418CD7D0F0090EA8C /* map49.png */,
-				763B23D518CD7D0F0090EA8C /* map54.png */,
-				76A17A4B18BC37CE0050AAEA /* dustbin.png */,
-				76C2714118B43127003A49A3 /* arrowDown.png */,
-				76C2714218B43127003A49A3 /* arrowUp.png */,
+				9FC4184818FFABFF001CC750 /* arrowDown@2x.png */,
+				9FC4184918FFABFF001CC750 /* arrowUp@2x.png */,
+				9FC4184A18FFABFF001CC750 /* calendar53@2x.png */,
+				9FC4184B18FFABFF001CC750 /* calendar70@2x.png */,
+				9FC4184C18FFABFF001CC750 /* day1@2x.png */,
+				9FC4184D18FFABFF001CC750 /* dustbin@2x.png */,
+				9FC4184E18FFABFF001CC750 /* earth16@2x.png */,
+				9FC4184F18FFABFF001CC750 /* facebook30@2x.png */,
+				9FC4185018FFABFF001CC750 /* map35@2x.png */,
+				9FC4185118FFABFF001CC750 /* map49@2x.png */,
+				9FC4185218FFABFF001CC750 /* map54@@x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		9FC4182918FFABCE001CC750 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4182A18FFABCE001CC750 /* City.h */,
+				9FC4182B18FFABCE001CC750 /* City.m */,
+				9FC4182C18FFABCE001CC750 /* DataManager.h */,
+				9FC4182D18FFABCE001CC750 /* DataManager.m */,
+				9FC4182E18FFABCE001CC750 /* Event.h */,
+				9FC4182F18FFABCE001CC750 /* Event.m */,
+				9FC4183018FFABCE001CC750 /* Trip.h */,
+				9FC4183118FFABCE001CC750 /* Trip.m */,
+				9FC4183218FFABCF001CC750 /* TripDataStorage.xcdatamodeld */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		9FC4183418FFABCF001CC750 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4183518FFABCF001CC750 /* LocationManager.h */,
+				9FC4183618FFABCF001CC750 /* LocationManager.m */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
+		9FC4183718FFABCF001CC750 /* MockManager */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4183818FFABCF001CC750 /* MockManager.h */,
+				9FC4183918FFABCF001CC750 /* MockManager.m */,
+			);
+			path = MockManager;
+			sourceTree = "<group>";
+		};
+		9FC4184118FFABD7001CC750 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */,
+				9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */,
+				9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */,
+				9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		9FC4186218FFACFC001CC750 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4186318FFACFC001CC750 /* CDTableViewController */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		9FC4186318FFACFC001CC750 /* CDTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9FC4186418FFACFC001CC750 /* CDTableViewController.h */,
+				9FC4186518FFACFC001CC750 /* CDTableViewController.m */,
+				9FC4186618FFACFC001CC750 /* CDTableViewController.xib */,
+			);
+			path = CDTableViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,22 +605,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				763B23DC18CD7D0F0090EA8C /* map49.png in Resources */,
+				9FC4185518FFABFF001CC750 /* calendar53@2x.png in Resources */,
+				9FC4185418FFABFF001CC750 /* arrowUp@2x.png in Resources */,
+				9FC4185918FFABFF001CC750 /* earth16@2x.png in Resources */,
 				769D53CA18B5377C0019888E /* DSLCalendarMonthSelectorView.xib in Resources */,
 				76C270CA18B2A1E2003A49A3 /* Images.xcassets in Resources */,
-				763B23DD18CD7D0F0090EA8C /* map54.png in Resources */,
-				763B23D818CD7D0F0090EA8C /* day1.png in Resources */,
-				76C2714618B43127003A49A3 /* arrowUp.png in Resources */,
-				763B23D618CD7D0F0090EA8C /* calendar53.png in Resources */,
-				763B23D918CD7D0F0090EA8C /* earth16.png in Resources */,
-				763B23DB18CD7D0F0090EA8C /* map35.png in Resources */,
-				763B23D718CD7D0F0090EA8C /* calendar70.png in Resources */,
-				76C2714518B43127003A49A3 /* arrowDown.png in Resources */,
+				9FC4185318FFABFF001CC750 /* arrowDown@2x.png in Resources */,
+				9FC4185C18FFABFF001CC750 /* map49@2x.png in Resources */,
+				9FC4185718FFABFF001CC750 /* day1@2x.png in Resources */,
+				9FC4185B18FFABFF001CC750 /* map35@2x.png in Resources */,
+				9FC4185618FFABFF001CC750 /* calendar70@2x.png in Resources */,
 				769D53C718B5377C0019888E /* DSLCalendarDayCalloutView.xib in Resources */,
-				76A17A4C18BC37CE0050AAEA /* dustbin.png in Resources */,
+				9FC4185818FFABFF001CC750 /* dustbin@2x.png in Resources */,
 				76C270BC18B2A1E2003A49A3 /* InfoPlist.strings in Resources */,
+				9FC4186818FFACFC001CC750 /* CDTableViewController.xib in Resources */,
 				76C270C518B2A1E2003A49A3 /* Main.storyboard in Resources */,
-				763B23DA18CD7D0F0090EA8C /* facebook30.png in Resources */,
+				9FC4185D18FFABFF001CC750 /* map54@@x.png in Resources */,
+				9FC4185A18FFABFF001CC750 /* facebook30@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +640,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FC4183E18FFABCF001CC750 /* TripDataStorage.xcdatamodeld in Sources */,
+				9FC4183C18FFABCF001CC750 /* Event.m in Sources */,
 				769D53C918B5377C0019888E /* DSLCalendarMonthSelectorView.m in Sources */,
 				769D53CE18B5377C0019888E /* NSDate+DSLCalendarView.m in Sources */,
 				76C2712518B2DF15003A49A3 /* CalendarManager.m in Sources */,
@@ -590,34 +649,35 @@
 				769F276118C8012F0022AA4F /* Checkbox.m in Sources */,
 				769D541118B578520019888E /* MZAppearance.m in Sources */,
 				76C270C818B2A1E2003A49A3 /* CalendarViewController.m in Sources */,
+				9FC4183D18FFABCF001CC750 /* Trip.m in Sources */,
 				769D541518B578520019888E /* MZFormSheetController.m in Sources */,
-				767DD1F918BE842B00FCFCA9 /* TripEvent.m in Sources */,
 				76A17A5518BD22BB0050AAEA /* BookingTableViewController.m in Sources */,
-				767DD20218BE857000FCFCA9 /* TripHotelBooking.m in Sources */,
+				9FC4183F18FFABCF001CC750 /* LocationManager.m in Sources */,
 				769D53C818B5377C0019888E /* DSLCalendarDayView.m in Sources */,
 				769D541818B578520019888E /* UIImage+Additional.m in Sources */,
-				767DD1FF18BE856400FCFCA9 /* TripFlightBooking.m in Sources */,
+				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
 				769D53C618B5377C0019888E /* DSLCalendarDayCalloutView.m in Sources */,
 				76C2712818B2E496003A49A3 /* MyScheduleTableCell.m in Sources */,
 				76D875F418B8458900B7AC79 /* CalendarColorManager.m in Sources */,
 				769D541618B578520019888E /* MZFormSheetSegue.m in Sources */,
-				767DD20518BE857D00FCFCA9 /* TripRentalCarBooking.m in Sources */,
-				767DD20B18BE868500FCFCA9 /* TripManager.m in Sources */,
 				769D541918B578520019888E /* UIViewController+TargetViewController.m in Sources */,
 				769D541318B578520019888E /* MZFormSheetBackgroundWindow.m in Sources */,
-				76D875EE18B840B600B7AC79 /* Trip.m in Sources */,
+				9FC4183A18FFABCF001CC750 /* City.m in Sources */,
 				769D542818B57AF30019888E /* AddDestinationViewController.m in Sources */,
 				769D541718B578520019888E /* MZTransition.m in Sources */,
-				76D875EB18B838C400B7AC79 /* City.m in Sources */,
 				769D53CD18B5377C0019888E /* DSLCalendarView.m in Sources */,
+				9FC4184018FFABCF001CC750 /* MockManager.m in Sources */,
 				769D53EF18B54DEE0019888E /* FXBlurView.m in Sources */,
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,
+				9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */,
 				769D53CC18B5377C0019888E /* DSLCalendarRange.m in Sources */,
 				769D541C18B578790019888E /* MZCustomTransition.m in Sources */,
+				9FC4186718FFACFC001CC750 /* CDTableViewController.m in Sources */,
 				76A17A5818BD22FD0050AAEA /* BookingViewController.m in Sources */,
 				769D541F18B57A040019888E /* MZNavigationViewController.m in Sources */,
 				769D53CB18B5377C0019888E /* DSLCalendarMonthView.m in Sources */,
 				76C270BE18B2A1E2003A49A3 /* main.m in Sources */,
+				9FC4183B18FFABCF001CC750 /* DataManager.m in Sources */,
 				769D541218B578520019888E /* NSInvocation+Copy.m in Sources */,
 				76D875F118B841B500B7AC79 /* CalendarView.m in Sources */,
 			);
@@ -838,6 +898,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9FC4183218FFABCF001CC750 /* TripDataStorage.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9FC4183318FFABCF001CC750 /* TripDataStorage.xcdatamodel */,
+			);
+			currentVersion = 9FC4183318FFABCF001CC750 /* TripDataStorage.xcdatamodel */;
+			path = TripDataStorage.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 76C270A618B2A1E2003A49A3 /* Project object */;
 }

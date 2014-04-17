@@ -32,7 +32,7 @@
 
 #import "DSLCalendarDayView.h"
 #import "NSDate+DSLCalendarView.h"
-#import "TripManager.h"
+//#import "TripManager.h"
 #import "CalendarManager.h"
 #import "CalendarColorManager.h"
 
@@ -137,10 +137,10 @@
 - (void)drawRect:(CGRect)rect {
     if ([self isMemberOfClass:[DSLCalendarDayView class]]) {
         //update trip info
-        TripManager *tripManager = [TripManager sharedManager];
-        self.activeTrip = [tripManager findActiveTripByDate:self.day.date];
+        //TripManager *tripManager = [TripManager sharedManager];
+        //self.activeTrip = [tripManager findActiveTripByDate:self.day.date];
         [self drawBackground];
-//        [self drawBorders];
+        //[self drawBorders];
         [self drawDayNumber];
         [self drawEventsDots];
         [self drawTripLocation];
@@ -152,15 +152,18 @@
 
 - (void)drawBackground {
     UIColor *cellColor = [[CalendarColorManager sharedManager] getSelectionHighlightColor];
+    /*
     if (self.activeTrip) {
         cellColor = self.activeTrip.defaultColor;
     }
+    */
     const CGFloat * colors = CGColorGetComponents( cellColor.CGColor );
     UIColor *cellColorHighlighted = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
     
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
         if (self.activeTrip) {
             //already has trip plans
+            /*
             if ([self.day.date compare:self.activeTrip.dateRange.startDay.date] == NSOrderedSame ||
                 [self.day.date compare:self.activeTrip.dateRange.endDay.date] == NSOrderedSame) {
                 [cellColorHighlighted setFill];
@@ -168,6 +171,8 @@
             else{
                 [cellColor setFill];
             }
+            */
+            [cellColor setFill];
         }
         else{
             if (self.isInCurrentMonth) {
@@ -273,6 +278,7 @@
 }
 
 - (void)drawTripLocation {
+    /*
     NSString *tripLocation = self.activeTrip.destinationCity.cityShortName;
     
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
@@ -289,6 +295,7 @@
     else{
         _tripLocation  = @"";
     }
+    */
     
     [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
 

@@ -7,7 +7,7 @@
 //
 
 #import "CalendarColorManager.h"
-#import "TripManager.h"
+//#import "TripManager.h"
 
 @interface CalendarColorManager ()
 
@@ -51,6 +51,7 @@
     return [self.defaultColorsArray objectAtIndex:randIndex];
 }
 
+/*
 - (UIColor *)nextColor
 {
     //TODO: find adjacent color and avoid using them
@@ -80,6 +81,7 @@
     }
     return self.activeColor;
 }
+*/
 
 - (UIColor *)getSelectionHighlightColor
 {
