@@ -31,12 +31,11 @@
 
 
 #import "DSLCalendarRange.h"
+#import "NSDate+DSLCalendarView.h"
 #import "DSLCalendarMonthView.h"
 #import "DSLCalendarDayView.h"
-#import "NSDate+DSLCalendarView.h"
 @protocol DSLCalendarViewDelegate;
 
-@class Trip;
 
 @interface DSLCalendarView : UIView
 
@@ -48,11 +47,8 @@
 + (Class)monthSelectorViewClass;
 + (Class)monthViewClass;
 + (Class)dayViewClass;
-- (void)updateCalendarView;
+
 - (void)setVisibleMonth:(NSDateComponents *)visibleMonth animated:(BOOL)animated;
-- (void)didTapMonthBack:(id)sender;
-- (void)didTapMonthForward:(id)sender;
-- (void)animateMoveToAdjacentMonth:(NSDateComponents *)day;
 - (DSLCalendarMonthView*)cachedOrCreatedMonthViewForMonth:(NSDateComponents*)month;
 @end
 
@@ -65,8 +61,5 @@
 - (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents*)month;
 - (DSLCalendarRange*)calendarView:(DSLCalendarView*)calendarView didDragToDay:(NSDateComponents*)day selectingRange:(DSLCalendarRange*)range;
 - (BOOL)calendarView:(DSLCalendarView *)calendarView shouldAnimateDragToMonth:(NSDateComponents*)month;
-
-- (void)calendarView:(DSLCalendarView *)calendarView shouldHighlightTrip:(Trip *)trip;
-- (void)calendarView:(DSLCalendarView *)calendarView didModifytrip:(Trip *)old toNewTrip:(Trip *)updatedTrip;
 
 @end

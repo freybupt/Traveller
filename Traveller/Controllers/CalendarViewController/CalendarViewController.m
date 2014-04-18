@@ -318,15 +318,15 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (void)updateTripInfo:(NSNotification *)userinfo
 {
-    [self.calendarView updateCalendarView];
+
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
-
+/*
 - (void)calendarView:(DSLCalendarView *)calendarView
  shouldHighlightTrip:(Trip *)trip
 {
-    //self.destinationTextField.text = trip.destinationCity.cityFullName;
+    self.destinationTextField.text = trip.destinationCity.cityFullName;
     [self showDestinationPanel:trip];
 
 }
@@ -335,10 +335,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
        didModifytrip:(Trip *)old
            toNewTrip:(Trip *)updatedTrip
 {
-    //updatedTrip.destinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
-    //[[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
-    [self.calendarView updateCalendarView];
+    updatedTrip.destinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
+    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
 }
+*/
 
 - (void)calendarView:(DSLCalendarView *)calendarView
       didSelectRange:(DSLCalendarRange *)range
@@ -563,7 +563,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         self.calendarView.hidden = YES;
     } else {
         self.hasLoadedCalendar = YES;
-        [self.calendarView updateCalendarView];
         // Enable the Add button
         self.addButton.enabled = YES;
         // Fetch all events happening in the next 24 hours and put them into eventsList

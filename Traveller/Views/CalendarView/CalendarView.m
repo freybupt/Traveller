@@ -28,6 +28,43 @@
 
 @implementation CalendarView
 
+#pragma mark - Events
+
+- (void)didTapMonthBack:(id)sender {
+    NSDateComponents *newMonth = self.visibleMonth;
+    newMonth.month--;
+    
+    [self setVisibleMonth:newMonth animated:YES];
+}
+
+- (void)didTapMonthForward:(id)sender {
+    NSDateComponents *newMonth = self.visibleMonth;
+    newMonth.month++;
+    
+    [self setVisibleMonth:newMonth animated:YES];
+}
+
+- (void)animateMoveToAdjacentMonth:(NSDateComponents *)day
+{
+    // Check if the user has dragged to a day in an adjacent month
+    if (day.year != self.visibleMonth.year || day.month != self.visibleMonth.month) {
+        // Ask the delegate if it's OK to animate to the adjacent month
+        BOOL animateToAdjacentMonth = YES;
+        if ([self.delegate respondsToSelector:@selector(calendarView:shouldAnimateDragToMonth:)]) {
+            animateToAdjacentMonth = [self.delegate calendarView:self shouldAnimateDragToMonth:[day.date dslCalendarView_monthWithCalendar:self.visibleMonth.calendar]];
+        }
+        
+        if (animateToAdjacentMonth) {
+            if ([day.date compare:self.visibleMonth.date] == NSOrderedAscending) {
+                [self didTapMonthBack:nil];
+            }
+            else {
+                [self didTapMonthForward:nil];
+            }
+        }
+    }
+}
+
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

@@ -13,4 +13,9 @@
 @property (nonatomic, strong) NSMutableArray *savedTripRanges;
 @property (nonatomic, strong) Trip *editingTrip;
 @property (nonatomic, strong) Trip *originalTrip;
+
+- (void)didTapMonthBack:(id)sender;
+- (void)didTapMonthForward:(id)sender;
+- (void)animateMoveToAdjacentMonth:(NSDateComponents *)day;
+
 @end
