@@ -296,7 +296,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self fetchEventsWithDateRange:nil];
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil
-               afterDelay:0.5f];
+               afterDelay:0.3f];
 }
 
 
@@ -354,7 +354,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [self fetchEventsWithDateRange:self.currentDateRange];
         [self performSelector:@selector(drawCalendarDayViewForEvent)
                    withObject:nil
-                   afterDelay:0.5f];
+                   afterDelay:0.3f];
     }
     else {
         self.currentDateRange = nil;
@@ -619,21 +619,18 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self fetchEventsWithDateRange:nil];
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil
-               afterDelay:0.5f];
+               afterDelay:0.3f];
 }
 
 - (void)fetchEventsWithDateRange:(DSLCalendarRange *)dateRange
 {
     NSPredicate *predicate = [self predicate];
     if (dateRange) {
-        NSDate *startDate = self.currentDateRange.startDay.date;
-        NSDate *endDate = self.currentDateRange.endDay.date;
-        if ([startDate isEqualToDate:endDate]) {
-            NSCalendar *calendar = [NSCalendar currentCalendar];
-            [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-            startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
-            endDate = [startDate dateByAddingTimeInterval:60 * 60 * 24];
-        }
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
+        NSDate *endDate = [calendar dateFromComponents:self.currentDateRange.endDay];
+        endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
         predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
     }
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
