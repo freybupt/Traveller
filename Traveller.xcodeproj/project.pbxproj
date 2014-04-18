@@ -73,6 +73,7 @@
 		9F3748421900F2E3003D67C8 /* MZTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482B1900F2E3003D67C8 /* MZTransition.m */; };
 		9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482D1900F2E3003D67C8 /* UIImage+Additional.m */; };
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
+		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
@@ -196,6 +197,8 @@
 		9F37482D1900F2E3003D67C8 /* UIImage+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Additional.m"; sourceTree = "<group>"; };
 		9F37482E1900F2E3003D67C8 /* UIViewController+TargetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TargetViewController.h"; sourceTree = "<group>"; };
 		9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TargetViewController.m"; sourceTree = "<group>"; };
+		9F37484819010F19003D67C8 /* CalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayView.h; sourceTree = "<group>"; };
+		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
 		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 			children = (
 				9F37478C1900F152003D67C8 /* CalendarView.h */,
 				9F37478D1900F152003D67C8 /* CalendarView.m */,
+				9F37484819010F19003D67C8 /* CalendarDayView.h */,
+				9F37484919010F19003D67C8 /* CalendarDayView.m */,
 			);
 			name = CalendarView;
 			path = Views/CalendarView;
@@ -763,6 +768,7 @@
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
 				9F3747C51900F213003D67C8 /* DataManager.m in Sources */,
 				9F3748361900F2E3003D67C8 /* DSLCalendarRange.m in Sources */,
+				9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */,
 				9F37483E1900F2E3003D67C8 /* MZFormSheetBackgroundWindow.m in Sources */,
 				9F3748421900F2E3003D67C8 /* MZTransition.m in Sources */,
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,

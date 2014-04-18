@@ -7,11 +7,9 @@
 //
 
 #import "CalendarView.h"
-#import "DSLCalendarDayView.h"
+#import "CalendarDayView.h"
 #import "DSLCalendarMonthSelectorView.h"
-#import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
-#import "DSLCalendarDayView.h"
 //#import "TripManager.h"
 
 @interface DSLCalendarView ()
@@ -68,7 +66,7 @@
 #pragma mark - Touches
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    DSLCalendarDayView *touchedView = [self dayViewForTouches:touches];
+    CalendarDayView *touchedView = [self dayViewForTouches:touches];
     if (touchedView == nil) {
         self.draggingStartDay = nil;
         return;
@@ -138,7 +136,7 @@
         return;
     }
     
-    DSLCalendarDayView *touchedView = [self dayViewForTouches:touches];
+    CalendarDayView *touchedView = [self dayViewForTouches:touches];
     if (touchedView == nil) {
         self.draggingStartDay = nil;
         return;
@@ -222,7 +220,7 @@
         return;
     }
     
-    DSLCalendarDayView *touchedView = [self dayViewForTouches:touches];
+    CalendarDayView *touchedView = [self dayViewForTouches:touches];
     if (touchedView == nil) {
         self.draggingStartDay = nil;
         return;
@@ -264,7 +262,7 @@
 }
 
 
-- (DSLCalendarDayView*)dayViewForTouches:(NSSet*)touches {
+- (CalendarDayView*)dayViewForTouches:(NSSet*)touches {
     if (touches.count != 1) {
         return nil;
     }
@@ -284,10 +282,9 @@
         }
         
         while (view != monthView) {
-            if ([view isKindOfClass:[DSLCalendarDayView class]]) {
-                return (DSLCalendarDayView*)view;
+            if ([view isKindOfClass:[CalendarDayView class]]) {
+                return (CalendarDayView *)view;
             }
-            
             view = view.superview;
         }
     }

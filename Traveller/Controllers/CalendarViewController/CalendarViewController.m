@@ -660,10 +660,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     DSLCalendarMonthView *calendarMonthView = (DSLCalendarMonthView *)[self.calendarView cachedOrCreatedMonthViewForMonth:self.calendarView.visibleMonth];
     [[calendarMonthView subviews] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[DSLCalendarDayView class]]) {
-            DSLCalendarDayView *dayView = (DSLCalendarDayView *)obj;
+        if ([obj isKindOfClass:[CalendarDayView class]]) {
+            CalendarDayView *dayView = (CalendarDayView *)obj;
             [dayView setDay:dayView.day];
-            // TODO: probably use DSLCalendarDayViewSelectionState to replace UIView tag assignation
+            // TODO: probably use CalendarDayViewSelectionState to replace UIView tag assignation
             dayView.tag = 0;
             [dayView setNeedsDisplay];
         }
@@ -674,8 +674,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:flags fromDate:event.startDate];
         
-        DSLCalendarDayView *dayView = (DSLCalendarDayView *)[calendarMonthView dayViewForDay:components];
-        // TODO: probably use DSLCalendarDayViewSelectionState to replace UIView tag assignation
+        CalendarDayView *dayView = (CalendarDayView *)[calendarMonthView dayViewForDay:components];
+        // TODO: probably use CalendarDayViewSelectionState to replace UIView tag assignation
         dayView.tag = components.year * 10000 + components.month * 100 + components.day;
         [dayView setNeedsDisplay];
     }];

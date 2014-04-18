@@ -33,7 +33,7 @@
 #import "DSLCalendarRange.h"
 #import "NSDate+DSLCalendarView.h"
 #import "DSLCalendarMonthView.h"
-#import "DSLCalendarDayView.h"
+#import "CalendarDayView.h"
 @protocol DSLCalendarViewDelegate;
 
 

@@ -31,12 +31,8 @@
 
 
 #import "DSLCalendarDayCalloutView.h"
-#import "DSLCalendarDayView.h"
 #import "DSLCalendarMonthSelectorView.h"
-#import "DSLCalendarMonthView.h"
 #import "DSLCalendarView.h"
-#import "DSLCalendarDayView.h"
-
 
 @interface DSLCalendarView ()
 
@@ -131,7 +127,7 @@
 }
 
 + (Class)dayViewClass {
-    return [DSLCalendarDayView class];
+    return [CalendarDayView class];
 }
 
 - (void)setSelectedRange:(DSLCalendarRange *)selectedRange {
