@@ -11,7 +11,7 @@
 #import "CDTableViewController.h"
 #import "MyScheduleTableCell.h"
 
-@interface EventViewController : CDTableViewController<EKEventEditViewDelegate, EKEventViewDelegate>
+@interface EventViewController : CDTableViewController<EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate>
 - (IBAction)addEventButtonTapAction:(id)sender;
 - (IBAction)saveEventButtonTapAction:(EKEvent *)event;
 - (IBAction)editEventButtonTapAction:(Event *)event;

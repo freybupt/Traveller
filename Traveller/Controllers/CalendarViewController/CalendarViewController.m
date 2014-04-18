@@ -17,7 +17,7 @@
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
 
-@interface CalendarViewController () <DSLCalendarViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
+@interface CalendarViewController () <DSLCalendarViewDelegate, MZFormSheetBackgroundWindowDelegate>
 
 @property (nonatomic, assign) BOOL hasLoadedCalendar;
 
@@ -33,8 +33,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 @end
 
 @implementation CalendarViewController
-- (void)awakeFromNib
+- (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     // The Add button is initially disabled
     self.addButton.enabled = NO;
     self.isScheduleExpanded = NO;
@@ -50,11 +52,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.departureLocationTextField addTarget:self
                                         action:@selector(departureCityUpdated:)
                               forControlEvents:UIControlEventEditingChanged];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
 }
 
 - (void)viewDidUnload

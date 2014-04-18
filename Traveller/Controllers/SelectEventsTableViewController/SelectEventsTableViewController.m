@@ -10,7 +10,7 @@
 #import "Checkbox.h"
 #import "MZFormSheetController.h"
 
-@interface SelectEventsTableViewController () <UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
+@interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate>
 @property (nonatomic, strong) NSMutableArray *selectedEvents;
 @end
 
