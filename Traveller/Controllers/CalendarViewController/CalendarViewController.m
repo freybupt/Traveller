@@ -664,6 +664,13 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         // TODO: probably use CalendarDayViewSelectionState to replace UIView tag assignation
         dayView.tag = components.year * 10000 + components.month * 100 + components.day;
         [dayView setNeedsDisplay];
+        [UIView transitionWithView:dayView duration:0.3f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [dayView.layer displayIfNeeded];
+        } completion:^(BOOL finished) {
+            
+        }];
     }];
 }
 
