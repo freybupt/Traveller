@@ -7,7 +7,6 @@
 //
 
 #import "CalendarDayView.h"
-#import "CalendarManager.h"
 
 @interface CalendarDayView ()
 @property (nonatomic, strong) Trip *activeTrip;

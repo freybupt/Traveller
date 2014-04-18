@@ -7,7 +7,6 @@
 //
 
 #import "CalendarManager.h"
-#import "Trip.h"
 
 @interface CalendarManager ()
 

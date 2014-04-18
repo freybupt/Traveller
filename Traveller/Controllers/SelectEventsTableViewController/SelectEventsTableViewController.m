@@ -11,7 +11,6 @@
 #import "SelectEventsTableViewController.h"
 #import "MyScheduleTableCell.h"
 #import "Checkbox.h"
-#import "CalendarManager.h"
 #import "MZFormSheetController.h"
 
 @interface SelectEventsTableViewController () <EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>

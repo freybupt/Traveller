@@ -9,7 +9,6 @@
 #import "CalendarViewController.h"
 
 #import <EventKit/EventKit.h>
-#import "CalendarManager.h"
 #import "CalendarView.h"
 #import "CalendarViewController.h"
 #import "MyScheduleTableCell.h"
