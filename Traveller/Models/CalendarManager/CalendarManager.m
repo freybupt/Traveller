@@ -91,6 +91,22 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kGrantCalendarAccessNotification object:self userInfo:accessDict];
 }
 
-
+- (NSArray *)fetchEventsFromStartDate:(NSDate *)startDate
+                            toEndDate:(NSDate *)endDate
+{
+    // We will only search the default calendar for our events
+    if (!self.eventStore.defaultCalendarForNewEvents) {
+        return [NSArray array];
+    }
+    
+    NSArray *calendarArray = [NSArray arrayWithObject:self.eventStore.defaultCalendarForNewEvents];
+    // Create the predicate
+    NSPredicate *predicate = [self.eventStore predicateForEventsWithStartDate:startDate
+                                                                      endDate:endDate
+                                                                    calendars:calendarArray];
+    // Fetch all events that match the predicate
+    NSMutableArray *events = [NSMutableArray arrayWithArray:[self.eventStore eventsMatchingPredicate:predicate]];
+    return events;
+}
 
 @end

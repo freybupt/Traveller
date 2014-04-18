@@ -20,5 +20,6 @@ static NSString *const kGrantCalendarAccessNotification = @"grantCalendarAccessN
 
 + (id)sharedManager;
 - (void)checkEventStoreAccessForCalendar;
-
+- (NSArray *)fetchEventsFromStartDate:(NSDate *)startDate
+                            toEndDate:(NSDate *)endDate;
 @end

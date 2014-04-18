@@ -160,39 +160,27 @@
 #pragma mark Fetch events
 - (void)fetchEvents
 {
+    NSDate *startDate = [NSDate date];
+    NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:3600000000];
+    NSArray *events = [[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
+                                                                      toEndDate:endDate];
         
-    CalendarManager *calendarManager = [CalendarManager sharedManager];
-    // We will only search the default calendar for our events
-    if (calendarManager.eventStore.defaultCalendarForNewEvents) {
-        NSArray *calendarArray = [NSArray arrayWithObject:calendarManager.eventStore.defaultCalendarForNewEvents];
-
-        NSDate *startDate = [NSDate date];
-        NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:3600000000];
-        
-        // Create the predicate
-        NSPredicate *predicate = [calendarManager.eventStore predicateForEventsWithStartDate:startDate
-                                                                                     endDate:endDate
-                                                                                   calendars:calendarArray];
-        // Fetch all events that match the predicate
-        NSMutableArray *events = [NSMutableArray arrayWithArray:[calendarManager.eventStore eventsMatchingPredicate:predicate]];
-        
-        // Initialize the events list for synchronizing
-        // Add events for those not in local storage
-        for (EKEvent *event in events)
-        {
-            [[DataManager sharedInstance] addEventWithEKEvent:event
-                                                      context:self.managedObjectContext];
-        }
-        
-        // Remove events for those not in calendar
-        [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-            EKEventStore *eventStore = [[EKEventStore alloc] init];
-            EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
-            if (!ekEvent) {
-                [self deleteEventButtonTapAction:event];
-            }
-        }];
+    // Initialize the events list for synchronizing
+    // Add events for those not in local storage
+    for (EKEvent *event in events)
+    {
+        [[DataManager sharedInstance] addEventWithEKEvent:event
+                                                  context:self.managedObjectContext];
     }
+    
+    // Remove events for those not in calendar
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        EKEventStore *eventStore = [[EKEventStore alloc] init];
+        EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
+        if (!ekEvent) {
+            [self deleteEventButtonTapAction:event];
+        }
+    }];
     
     [self refreshScheduleTable];
 }
@@ -205,8 +193,8 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+    
     [self.tableView reloadData];
-
 }
 
 

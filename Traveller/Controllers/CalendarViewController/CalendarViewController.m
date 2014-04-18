@@ -293,6 +293,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         self.calendarView.originalTrip = nil;
     }
     [self hideDestinationPanel:nil];
+    [self fetchEventsWithDateRange:nil];
+    [self performSelector:@selector(drawCalendarDayViewForEvent)
+               withObject:nil
+               afterDelay:0.5f];
 }
 
 
@@ -347,6 +351,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
+        [self fetchEventsWithDateRange:self.currentDateRange];
+        [self performSelector:@selector(drawCalendarDayViewForEvent)
+                   withObject:nil
+                   afterDelay:0.5f];
     }
     else {
         self.currentDateRange = nil;
@@ -590,70 +598,52 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     
     NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:firstDayComponent];
     NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:lastDateComponent];
-    
-    CalendarManager *calendarManager = [CalendarManager sharedManager];
-    // We will only search the default calendar for our events
-    if (calendarManager.eventStore.defaultCalendarForNewEvents) {
-        NSArray *calendarArray = [NSArray arrayWithObject:calendarManager.eventStore.defaultCalendarForNewEvents];
-        
-        //if user has selected a date range, show the evnets in between
-        if (self.currentDateRange) {
-            startDate = self.currentDateRange.startDay.date;
-            endDate = self.currentDateRange.endDay.date;
-            if ([endDate isEqualToDate: startDate]) {
-                //show one full day
-                endDate = [[NSCalendar currentCalendar] dateByAddingComponents:tomorrowDateComponents
-                                                                        toDate:startDate
-                                                                       options:0];
-            }
-            else{
-                //show to the end of the day
-                endDate = [[NSCalendar currentCalendar] dateByAddingComponents:tomorrowDateComponents
-                                                                        toDate:endDate
-                                                                       options:0];
-            }
-        }
-        
-        // Create the predicate
-        NSPredicate *predicate = [calendarManager.eventStore predicateForEventsWithStartDate:startDate
-                                                                                     endDate:endDate
-                                                                                   calendars:calendarArray];
-        // Fetch all events that match the predicate
-        NSMutableArray *events = [NSMutableArray arrayWithArray:[calendarManager.eventStore eventsMatchingPredicate:predicate]];
-        
-        // Initialize the events list for synchronizing
-        // Add events for those not in local storage
-        for (EKEvent *event in events)
-        {
-            [[DataManager sharedInstance] addEventWithEKEvent:event
-                                                      context:self.managedObjectContext];
-        }
-        
-        // Remove events for those not in calendar
-        [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-            EKEventStore *eventStore = [[EKEventStore alloc] init];
-            EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
-            if (!ekEvent) {
-                [self deleteEventButtonTapAction:event];
-            }
-        }];
+    NSArray *events = [[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
+                                                                      toEndDate:endDate];
+    // Initialize the events list for synchronizing
+    // Add events for those not in local storage
+    for (EKEvent *event in events)
+    {
+        [[DataManager sharedInstance] addEventWithEKEvent:event
+                                                  context:self.managedObjectContext];
     }
     
-    [self refreshScheduleTable];
+    // Remove events for those not in calendar
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        EKEventStore *eventStore = [[EKEventStore alloc] init];
+        EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
+        if (!ekEvent) {
+            [self deleteEventButtonTapAction:event];
+        }
+    }];
+    [self fetchEventsWithDateRange:nil];
+    [self performSelector:@selector(drawCalendarDayViewForEvent)
+               withObject:nil
+               afterDelay:0.5f];
 }
 
-- (void)refreshScheduleTable
+- (void)fetchEventsWithDateRange:(DSLCalendarRange *)dateRange
 {
+    NSPredicate *predicate = [self predicate];
+    if (dateRange) {
+        NSDate *startDate = self.currentDateRange.startDay.date;
+        NSDate *endDate = self.currentDateRange.endDay.date;
+        if ([startDate isEqualToDate:endDate]) {
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
+            endDate = [startDate dateByAddingTimeInterval:60 * 60 * 24];
+        }
+        predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
+    }
+    [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    
     NSError *error = nil;
-    [self.fetchedResultsController.fetchRequest setPredicate:[self predicate]];
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     [self.tableView reloadData];
-    [self performSelector:@selector(drawCalendarDayViewForEvent)
-               withObject:nil
-               afterDelay:0.5f];
 }
 
 - (void)drawCalendarDayViewForEvent
