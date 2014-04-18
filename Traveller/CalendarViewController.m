@@ -134,6 +134,11 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     }
 }
 
+- (IBAction)editMySchedule:(id)sender
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (IBAction)adjustScheduleView:(id)sender
 {
     [self hideDestinationPanel:nil];

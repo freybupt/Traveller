@@ -49,19 +49,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn5-zO-Cyt">
-                                                    <rect key="frame" x="288" y="1" width="30" height="30"/>
+                                                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn5-zO-Cyt">
+                                                    <rect key="frame" x="290" y="6" width="26" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="26"/>
-                                                    <state key="normal" title="+">
-                                                        <color key="titleColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="27"/>
+                                                    <state key="normal" title="+"/>
                                                     <connections>
-                                                        <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mfc-DX-Nb3"/>
+                                                        <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xOq-EP-8Bz"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSM-fL-UYl">
-                                                    <rect key="frame" x="15" y="5" width="300" height="21"/>
+                                                    <rect key="frame" x="15" y="5" width="234" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                                     <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
@@ -226,40 +224,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Book Trip" id="qRu-rj-Pjs">
-                        <barButtonItem key="leftBarButtonItem" id="nas-ID-edR">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9E5-A7-l5c">
-                                <rect key="frame" x="16" y="7" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                                <state key="normal" title="Calendar" image="calendar53.png">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="switchDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="jgZ-Gn-n7K"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="z08-0B-SbE">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fnf-QY-WmT">
-                                <rect key="frame" x="269" y="4" width="35" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
-                                <state key="normal" title="Map" image="map35.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="switchDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="EbI-zr-Ywh"/>
-                                </connections>
-                            </button>
+                    <navigationItem key="navigationItem" title="Plan Trip" id="qRu-rj-Pjs">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="5xJ-kc-wz6">
+                            <connections>
+                                <action selector="editMySchedule:" destination="vXZ-lx-hvc" id="VbL-z4-ZT8"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="addButton" destination="Fn5-zO-Cyt" id="Fdy-Kq-IC2"/>
+                        <outlet property="addButton" destination="Fn5-zO-Cyt" id="ltW-pq-q3H"/>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
                         <outlet property="cancelEditDestinationButton" destination="XxS-p1-oQ0" id="o85-Oj-7Cn"/>
                         <outlet property="confirmDestinationButton" destination="dWL-HE-vlq" id="3BM-rt-fBC"/>
@@ -268,9 +242,7 @@
                         <outlet property="destinationPanel" destination="Bys-zB-5FN" id="fKu-WL-gkS"/>
                         <outlet property="destinationTextField" destination="NiG-jb-JhX" id="ICK-rq-Y0z"/>
                         <outlet property="expandButton" destination="pY5-99-my6" id="Zvc-Ec-Sah"/>
-                        <outlet property="mapSwitch" destination="fnf-QY-WmT" id="cYz-jO-wzs"/>
                         <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
-                        <outlet property="planTripSwitch" destination="9E5-A7-l5c" id="17c-kM-P16"/>
                         <outlet property="planTripView" destination="wLi-nh-koY" id="Auc-kb-Dy1"/>
                         <outlet property="removeTripButton" destination="moQ-Xh-Hpz" id="K2C-aE-9EH"/>
                         <outlet property="tabView" destination="Q5S-ke-8Eo" id="h9Q-7I-O7q"/>
@@ -357,7 +329,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ALL CALENDAR EVENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2h-LM-j0l">
-                                        <rect key="frame" x="15" y="5" width="300" height="21"/>
+                                        <rect key="frame" x="15" y="5" width="216" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
                                         <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -433,7 +405,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pick Trip Events" id="OHP-9f-k7F">
-                        <barButtonItem key="rightBarButtonItem" title="Next" id="cWu-PN-fSK">
+                        <barButtonItem key="leftBarButtonItem" title="Next" id="cWu-PN-fSK">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="push" id="GhQ-r9-wnu"/>
                             </connections>
@@ -568,9 +540,7 @@
     </scenes>
     <resources>
         <image name="arrowUp.png" width="256" height="256"/>
-        <image name="calendar53.png" width="256" height="256"/>
         <image name="dustbin.png" width="32" height="32"/>
-        <image name="map35.png" width="256" height="256"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

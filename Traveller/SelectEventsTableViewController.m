@@ -217,10 +217,13 @@
 // A new event is added to Calendar when the user taps the "Done" button in the above view controller.
 - (IBAction)addEvent:(id)sender
 {
+	CalendarManager *calendarManager = [CalendarManager sharedManager];
+    
 	// Create an instance of EKEventEditViewController
 	EKEventEditViewController *addController = [[EKEventEditViewController alloc] init];
 	
 	// Set addController's event store to the current event store
+	addController.eventStore = calendarManager.eventStore;
     addController.editViewDelegate = self;
     [self presentViewController:addController animated:YES completion:nil];
 }
@@ -294,17 +297,50 @@
 #pragma mark -
 #pragma mark EKEventEditViewDelegate
 
+
 // Overriding EKEventEditViewDelegate method to update event store according to user actions.
 - (void)eventEditViewController:(EKEventEditViewController *)controller
 		  didCompleteWithAction:(EKEventEditViewAction)action
 {
-   
+    SelectEventsTableViewController * __weak weakSelf = self;
+	// Dismiss the modal view controller
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (action == EKEventEditViewActionSaved &&
+            controller.event) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf saveEventButtonTapAction:controller.event];
+            });
+        } else if (action == EKEventEditViewActionDeleted) {
+            Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                             context:self.managedObjectContext];
+            [weakSelf deleteEventButtonTapAction:event];
+        }
+    }];
 }
 
 - (void)eventViewController:(EKEventViewController *)controller
       didCompleteWithAction:(EKEventViewAction)action
 {
-
+    SelectEventsTableViewController * __weak weakSelf = self;
+	// Dismiss the modal view controller
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (action == EKEventViewActionDone &&
+            controller.event) {
+            EKEventStore *eventStore = [[EKEventStore alloc] init];
+            EKEvent *event = [eventStore eventWithIdentifier:controller.event.eventIdentifier];
+            if (event) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf saveEventButtonTapAction:controller.event];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                                     context:self.managedObjectContext];
+                    [weakSelf deleteEventButtonTapAction:event];
+                });
+            }
+        }
+    }];
 }
 
 #pragma mark - NSFetchedResultController configuration

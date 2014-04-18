@@ -38,6 +38,7 @@
 
 - (IBAction)addEvent:(id)sender;
 - (IBAction)adjustScheduleView:(id)sender;
+- (IBAction)editMySchedule:(id)sender;
 
 - (IBAction)showDestinationPanel:(id)sender;
 - (IBAction)hideDestinationPanel:(id)sender;
