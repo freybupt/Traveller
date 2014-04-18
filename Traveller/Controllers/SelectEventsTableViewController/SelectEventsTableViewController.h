@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
-#import "CDTableViewController.h"
+#import "EventViewController.h"
 
 
-@interface SelectEventsTableViewController : CDTableViewController
+@interface SelectEventsTableViewController : EventViewController
 
 @end

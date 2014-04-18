@@ -177,12 +177,13 @@
     }
     else {
         [[UIColor whiteColor] set];
-        
-        // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-        if (self.tag != 0) {
-            attributes = @{ NSFontAttributeName : textFont ,
-                            NSForegroundColorAttributeName : [UIColor whiteColor] };
-        }
+    }
+
+    // TODO: probably add one more DSLCalendarDayViewSelectionState for event
+    if (self.tag != 0 &&
+        self.selectionState != DSLCalendarDayViewNotSelected) {
+        attributes = @{ NSFontAttributeName : textFont ,
+                        NSForegroundColorAttributeName : [UIColor whiteColor] };
     }
     
     CGSize textSize = [_labelText sizeWithAttributes:attributes];
@@ -210,12 +211,13 @@
     }
     else {
         [[UIColor whiteColor] set];
-        
-        // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-        if (self.tag != 0) {
-            attributes = @{ NSFontAttributeName : textFont ,
-                            NSForegroundColorAttributeName : [UIColor whiteColor] };
-        }
+    }
+    
+    // TODO: probably add one more DSLCalendarDayViewSelectionState for event
+    if (self.tag != 0 &&
+        self.selectionState != DSLCalendarDayViewNotSelected) {
+        attributes = @{ NSFontAttributeName : textFont ,
+                        NSForegroundColorAttributeName : [UIColor whiteColor] };
     }
     
     CGSize textSize = [_eventDots sizeWithFont:textFont];

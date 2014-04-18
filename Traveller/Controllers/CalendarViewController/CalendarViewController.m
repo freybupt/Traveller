@@ -7,11 +7,7 @@
 //
 
 #import "CalendarViewController.h"
-
-#import <EventKit/EventKit.h>
 #import "CalendarView.h"
-#import "CalendarViewController.h"
-#import "MyScheduleTableCell.h"
 #import "MZFormSheetController.h"
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
@@ -21,10 +17,9 @@
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
 
-@interface CalendarViewController () <DSLCalendarViewDelegate, EKEventEditViewDelegate, EKEventViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
+@interface CalendarViewController () <DSLCalendarViewDelegate, UINavigationControllerDelegate, MZFormSheetBackgroundWindowDelegate>
 
 @property (nonatomic, assign) BOOL hasLoadedCalendar;
-@property (nonatomic, strong) NSDateFormatter *sectionDateFormatter;
 
 //Customized Calendar View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
@@ -38,44 +33,32 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 @end
 
 @implementation CalendarViewController
+- (void)awakeFromNib
+{
+    // The Add button is initially disabled
+    self.addButton.enabled = NO;
+    self.isScheduleExpanded = NO;
+    
+    // Init calendar view
+    self.calendarView.delegate = self;
+    
+    self.selectedEvents = [[NSMutableArray alloc] init];
+    
+    [self.destinationTextField addTarget:self
+                                  action:@selector(destinationUpdated:)
+                        forControlEvents:UIControlEventEditingChanged];
+    [self.departureLocationTextField addTarget:self
+                                        action:@selector(departureCityUpdated:)
+                              forControlEvents:UIControlEventEditingChanged];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    // The Add button is initially disabled
-    self.addButton.enabled = NO;
-    self.isScheduleExpanded = NO;
-    //init calendar view
-    self.calendarView.delegate = self;
-
-    //set up default date formatter
-    self.sectionDateFormatter = [[NSDateFormatter alloc] init];
-    [self.sectionDateFormatter setDateFormat:@"EEE, MMM dd"];
-    
-    self.selectedEvents = [[NSMutableArray alloc] init];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accessGrantedForCalendar:) name:kGrantCalendarAccessNotification object:[CalendarManager sharedManager]];
-    
-    [self.destinationTextField addTarget:self
-                    action:@selector(destinationUpdated:)
-          forControlEvents:UIControlEventEditingChanged];
-    [self.departureLocationTextField addTarget:self
-                                        action:@selector(departureCityUpdated:)
-                              forControlEvents:UIControlEventEditingChanged];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(fetchEvents)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
 }
 
 - (void)viewDidUnload
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:nil];
-    
     [super viewDidUnload];
 }
 
@@ -160,68 +143,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [self.expandButton setImage:[UIImage imageNamed:@"arrowDown.png"] forState:UIControlStateNormal];
     }
     
-}
-
-- (IBAction)saveEventButtonTapAction:(EKEvent *)event
-{
-    if ([[DataManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
-                                                          context:self.managedObjectContext]) {
-        [self updateEventButtonTapAction:event];
-        return;
-    }
-    
-    if (![[DataManager sharedInstance] addEventWithEKEvent:event
-                                                  context:self.managedObjectContext]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DataManager", nil)
-                                                            message:NSLocalizedString(@"An error just occurred when inserting an event item", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
-
-- (IBAction)editEventButtonTapAction:(Event *)event
-{
-    /* Create an eventStore with an event associated with eventIdentifier for EKEventEditViewController */
-    EKEventStore *eventStore = [[EKEventStore alloc] init];
-    EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
-    
-    if (!event) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Calendar", nil)
-                                                            message:NSLocalizedString(@"The event item is not in Calendar anymore.", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-        return;
-    }
-    
-    EKEventViewController *vc = [[EKEventViewController alloc] init];
-    vc.allowsEditing = YES;
-    vc.event = ekEvent;
-    vc.delegate = self;
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nc animated:YES completion:^{}];
-}
-
-- (IBAction)updateEventButtonTapAction:(EKEvent *)event
-{
-    if (![[DataManager sharedInstance] updateEventWithEKEvent:event
-                                                     context:self.managedObjectContext]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DataManager", nil)
-                                                            message:NSLocalizedString(@"An error just occurred when inserting an event item", nil)
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-    }
-}
-
-- (IBAction)deleteEventButtonTapAction:(Event *)event
-{
-    [[DataManager sharedInstance] deleteEvent:event
-                                      context:self.managedObjectContext];
 }
 
 #pragma mark - Destination Panel
@@ -412,18 +333,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 }
 
 #pragma mark - NSFetchedResultController configuration
-
-- (NSString *)entityName
-{
-    return @"Event";
-}
-
-- (NSEntityDescription *)entityDescription
-{
-    return [NSEntityDescription entityForName:[self entityName]
-                       inManagedObjectContext:self.managedObjectContext];
-}
-
 - (NSPredicate *)predicate
 {
     NSDateComponents *oneMonth = [NSDateComponents new];
@@ -435,57 +344,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
 }
 
-- (NSArray *)sortDescriptors
-{
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:YES];
-    return [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-}
-
-- (NSString *)sectionNameKeyPath
-{
-    return @"startDate";
-}
-
 #pragma mark - UITableViewDelegate
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *dateString = [[[self.fetchedResultsController sections] objectAtIndex:section] name];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    // Raw Date String -> NSDate
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZ"];
-    NSDate *date = [formatter dateFromString:dateString];
-    
-    // NSDate -> Formatted Date String
-    [formatter setDateFormat:@"EEE, MMM dd"];
-    NSString *formattedDateString = [formatter stringFromDate:date];
-    
-    return formattedDateString;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
-{
-    if([view isKindOfClass:[UITableViewHeaderFooterView class]]){
-        UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
-        tableViewHeaderFooterView.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
-        tableViewHeaderFooterView.textLabel.textColor = [UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
-    if (!cell) {
-        cell = [[MyScheduleTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                      reuseIdentifier:@"eventCell"];
-    }
-    [self configureCell:cell
-            atIndexPath:indexPath];
-    
-    return cell;
-}
-
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -516,6 +375,17 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 }
 
 //| ----------------------------------------------------------------------------
+//  Because a custom accessory view is used, this method is never invoked by
+//  the table view.  If one of the standard UITableViewCellAccessoryTypes were
+//  used instead, the table view would invoke this method in response to a tap
+//  on the accessory.
+//
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+//| ----------------------------------------------------------------------------
 //! IBAction that is called when the value of a checkbox in any row changes.
 //
 - (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event
@@ -528,17 +398,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 	NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
     Event *anEvent = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     [self editEventButtonTapAction:anEvent];
-}
-
-//| ----------------------------------------------------------------------------
-//  Because a custom accessory view is used, this method is never invoked by
-//  the table view.  If one of the standard UITableViewCellAccessoryTypes were
-//  used instead, the table view would invoke this method in response to a tap
-//  on the accessory.
-//
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 #pragma mark -
@@ -673,25 +532,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }];
     }];
 }
-
-#pragma mark -
-#pragma mark Add a new event
-
-// Display an event edit view controller when the user taps the "+" button.
-// A new event is added to Calendar when the user taps the "Done" button in the above view controller.
-- (IBAction)addEvent:(id)sender
-{
-    CalendarManager *calendarManager = [CalendarManager sharedManager];
-    
-	// Create an instance of EKEventEditViewController
-	EKEventEditViewController *addController = [[EKEventEditViewController alloc] init];
-	
-	// Set addController's event store to the current event store
-	addController.eventStore = calendarManager.eventStore;
-    addController.editViewDelegate = self;
-    [self presentViewController:addController animated:YES completion:nil];
-}
-
 
 #pragma mark -
 #pragma mark EKEventEditViewDelegate

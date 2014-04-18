@@ -74,6 +74,7 @@
 		9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482D1900F2E3003D67C8 /* UIImage+Additional.m */; };
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
 		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
+		9F54EB611901771600ABB05F /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F54EB601901771600ABB05F /* EventViewController.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
@@ -199,6 +200,8 @@
 		9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TargetViewController.m"; sourceTree = "<group>"; };
 		9F37484819010F19003D67C8 /* CalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayView.h; sourceTree = "<group>"; };
 		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
+		9F54EB5F1901771600ABB05F /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
+		9F54EB601901771600ABB05F /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
 		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
@@ -504,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				9F3747CC1900F231003D67C8 /* CDTableViewController */,
+				9F54EB5E1901770400ABB05F /* EventViewController */,
 			);
 			name = Shared;
 			path = Controllers/Shared;
@@ -615,6 +619,15 @@
 				9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */,
 			);
 			path = MZFormSheetController;
+			sourceTree = "<group>";
+		};
+		9F54EB5E1901770400ABB05F /* EventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F54EB5F1901771600ABB05F /* EventViewController.h */,
+				9F54EB601901771600ABB05F /* EventViewController.m */,
+			);
+			path = EventViewController;
 			sourceTree = "<group>";
 		};
 		9FC4184118FFABD7001CC750 /* Utilities */ = {
@@ -748,6 +761,7 @@
 				9F3747C81900F213003D67C8 /* TripDataStorage.xcdatamodeld in Sources */,
 				9F3747C61900F213003D67C8 /* Event.m in Sources */,
 				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
+				9F54EB611901771600ABB05F /* EventViewController.m in Sources */,
 				9F3747A71900F168003D67C8 /* AddDestinationViewController.m in Sources */,
 				9F3747C91900F213003D67C8 /* LocationManager.m in Sources */,
 				9F3747C31900F213003D67C8 /* CalendarManager.m in Sources */,

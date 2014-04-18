@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
-#import "CDTableViewController.h"
+#import "EventViewController.h"
 
-@interface CalendarViewController : CDTableViewController <UITextFieldDelegate>
+@interface CalendarViewController : EventViewController <UITextFieldDelegate>
 
 
 @property (nonatomic, weak) IBOutlet UIView *planTripView;
@@ -35,8 +35,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *cancelEditDestinationButton;
 
 
-
-- (IBAction)addEvent:(id)sender;
 - (IBAction)adjustScheduleView:(id)sender;
 - (IBAction)editMySchedule:(id)sender;
 

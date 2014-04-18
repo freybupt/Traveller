@@ -51,7 +51,7 @@
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="27"/>
                                                     <state key="normal" title="+"/>
                                                     <connections>
-                                                        <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xOq-EP-8Bz"/>
+                                                        <action selector="addEventButtonTapAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rnu-Ao-t4V"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lSM-fL-UYl">
@@ -316,8 +316,7 @@
                                             <color key="titleColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="addEvent:" destination="pT3-Uf-r2c" eventType="touchUpInside" id="3CE-qg-b4E"/>
-                                            <action selector="addEvent:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="oco-0m-583"/>
+                                            <action selector="addEventButtonTapAction:" destination="pT3-Uf-r2c" eventType="touchUpInside" id="vQa-2Z-Q2a"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL CALENDAR EVENTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d2h-LM-j0l">
