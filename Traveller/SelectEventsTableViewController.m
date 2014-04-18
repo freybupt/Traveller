@@ -358,13 +358,7 @@
 
 - (NSPredicate *)predicate
 {
-    NSDateComponents *oneMonth = [NSDateComponents new];
-    oneMonth.month = 1;
-    NSDate *startDate = [NSDate date];
-    NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:oneMonth
-                                                                    toDate:startDate
-                                                                   options:0];
-    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
+    return [NSPredicate predicateWithFormat:@"(uid == %@)", [MockManager userid]];
 }
 
 - (NSArray *)sortDescriptors

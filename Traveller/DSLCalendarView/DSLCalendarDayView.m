@@ -195,11 +195,11 @@
             default:
                 break;
         }
-    }
-    
-    // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-    if (self.tag != 0) {
-        [[UIColor redColor] setFill];
+        
+        // TODO: probably add one more DSLCalendarDayViewSelectionState for event
+        if (self.tag != 0) {
+            [[UIColor redColor] setFill];
+        }
     }
     
     UIRectFill(self.bounds);
@@ -239,6 +239,10 @@
     NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
     NSDate* today = [calendar dateFromComponents:components];
     
+    UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
+    NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
+                                  NSForegroundColorAttributeName : [UIColor darkTextColor]};
+    
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
@@ -247,13 +251,14 @@
     }
     else {
         [[UIColor whiteColor] set];
+        
+        // TODO: probably add one more DSLCalendarDayViewSelectionState for event
+        if (self.tag != 0) {
+            attributes = @{ NSFontAttributeName : textFont ,
+                            NSForegroundColorAttributeName : [UIColor whiteColor] };
+        }
     }
 
-    
-    UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
-    // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-    NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
-                                  NSForegroundColorAttributeName : (self.tag != 0) ? [UIColor whiteColor] : [UIColor darkTextColor]};
     CGSize textSize = [_labelText sizeWithAttributes:attributes];
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), ceilf(CGRectGetMidY(self.bounds) - (textSize.height / 2.0)), textSize.width, textSize.height);
     [_labelText drawInRect:textRect withAttributes:attributes];
@@ -267,6 +272,10 @@
     NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
     NSDate* today = [calendar dateFromComponents:components];
     
+    UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:17.0];
+    NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
+                                  NSForegroundColorAttributeName : [UIColor darkTextColor]};
+    
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
@@ -275,12 +284,14 @@
     }
     else {
         [[UIColor whiteColor] set];
+        
+        // TODO: probably add one more DSLCalendarDayViewSelectionState for event
+        if (self.tag != 0) {
+            attributes = @{ NSFontAttributeName : textFont ,
+                            NSForegroundColorAttributeName : [UIColor whiteColor] };
+        }
     }
     
-    UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:17.0];
-    // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-    NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
-                                  NSForegroundColorAttributeName : (self.tag != 0) ? [UIColor whiteColor] : [UIColor darkTextColor]};
     CGSize textSize = [_eventDots sizeWithFont:textFont];
     
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), ceilf(CGRectGetMidY(self.bounds)), textSize.width, textSize.height);
