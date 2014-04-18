@@ -7,7 +7,6 @@
 //
 
 #import "BookingTableViewController.h"
-#import "CalendarColorManager.h"
 
 #define NUM_TOP_ITEMS 20
 #define NUM_SUBITEMS 5

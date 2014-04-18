@@ -17,4 +17,5 @@
     #import "LocationManager.h"
     #import "MockManager.h"
     #import "NSObject+Extensions.h"
+    #import "CalendarColorManager.h"
 #endif

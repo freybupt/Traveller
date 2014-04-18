@@ -34,7 +34,6 @@
 #import "NSDate+DSLCalendarView.h"
 //#import "TripManager.h"
 #import "CalendarManager.h"
-#import "CalendarColorManager.h"
 
 @interface DSLCalendarDayView ()
 

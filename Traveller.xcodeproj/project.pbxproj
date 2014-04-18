@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76277B9118BD6053007D8100 /* MapKit.framework */; };
+		768263CD1900970B00089319 /* SelectEventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 768263CC1900970B00089319 /* SelectEventsTableViewController.m */; };
 		769D53C618B5377C0019888E /* DSLCalendarDayCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D53B718B5377C0019888E /* DSLCalendarDayCalloutView.m */; };
 		769D53C718B5377C0019888E /* DSLCalendarDayCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 769D53B818B5377C0019888E /* DSLCalendarDayCalloutView.xib */; };
 		769D53C818B5377C0019888E /* DSLCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 769D53BA18B5377C0019888E /* DSLCalendarDayView.m */; };
@@ -90,6 +91,8 @@
 
 /* Begin PBXFileReference section */
 		76277B9118BD6053007D8100 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		768263CB1900970B00089319 /* SelectEventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectEventsTableViewController.h; sourceTree = "<group>"; };
+		768263CC1900970B00089319 /* SelectEventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectEventsTableViewController.m; sourceTree = "<group>"; };
 		769D53B618B5377C0019888E /* DSLCalendarDayCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSLCalendarDayCalloutView.h; sourceTree = "<group>"; };
 		769D53B718B5377C0019888E /* DSLCalendarDayCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSLCalendarDayCalloutView.m; sourceTree = "<group>"; };
 		769D53B818B5377C0019888E /* DSLCalendarDayCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLCalendarDayCalloutView.xib; sourceTree = "<group>"; };
@@ -428,6 +431,8 @@
 				9FC4186218FFACFC001CC750 /* Shared */,
 				76C270C618B2A1E2003A49A3 /* CalendarViewController.h */,
 				76C270C718B2A1E2003A49A3 /* CalendarViewController.m */,
+				768263CB1900970B00089319 /* SelectEventsTableViewController.h */,
+				768263CC1900970B00089319 /* SelectEventsTableViewController.m */,
 				769D542618B57AF30019888E /* AddDestinationViewController.h */,
 				769D542718B57AF30019888E /* AddDestinationViewController.m */,
 				76A17A5318BD22BB0050AAEA /* BookingTableViewController.h */,
@@ -648,6 +653,7 @@
 				769D541418B578520019888E /* MZFormSheetBackgroundWindowViewController.m in Sources */,
 				769F276118C8012F0022AA4F /* Checkbox.m in Sources */,
 				769D541118B578520019888E /* MZAppearance.m in Sources */,
+				768263CD1900970B00089319 /* SelectEventsTableViewController.m in Sources */,
 				76C270C818B2A1E2003A49A3 /* CalendarViewController.m in Sources */,
 				9FC4183D18FFABCF001CC750 /* Trip.m in Sources */,
 				769D541518B578520019888E /* MZFormSheetController.m in Sources */,
