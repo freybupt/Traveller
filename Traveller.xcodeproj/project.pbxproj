@@ -75,6 +75,8 @@
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
 		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
 		9F54EB611901771600ABB05F /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F54EB601901771600ABB05F /* EventViewController.m */; };
+		9F8F2F1B1903E6290031B8FF /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F2F1A1903E6290031B8FF /* ModalView.m */; };
+		9F8F2F1E1903E6B30031B8FF /* DestinationModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F2F1D1903E6B30031B8FF /* DestinationModalView.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
@@ -202,6 +204,10 @@
 		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
 		9F54EB5F1901771600ABB05F /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F54EB601901771600ABB05F /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		9F8F2F191903E6290031B8FF /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
+		9F8F2F1A1903E6290031B8FF /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
+		9F8F2F1C1903E6B30031B8FF /* DestinationModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationModalView.h; sourceTree = "<group>"; };
+		9F8F2F1D1903E6B30031B8FF /* DestinationModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationModalView.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
 		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
@@ -389,6 +395,10 @@
 		9F3747911900F152003D67C8 /* ModalView */ = {
 			isa = PBXGroup;
 			children = (
+				9F8F2F191903E6290031B8FF /* ModalView.h */,
+				9F8F2F1A1903E6290031B8FF /* ModalView.m */,
+				9F8F2F1C1903E6B30031B8FF /* DestinationModalView.h */,
+				9F8F2F1D1903E6B30031B8FF /* DestinationModalView.m */,
 			);
 			name = ModalView;
 			path = Views/ModalView;
@@ -753,6 +763,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F3748301900F2E3003D67C8 /* DSLCalendarDayCalloutView.m in Sources */,
+				9F8F2F1E1903E6B30031B8FF /* DestinationModalView.m in Sources */,
 				9F37483A1900F2E3003D67C8 /* MZAppearance.m in Sources */,
 				9F3747C71900F213003D67C8 /* Trip.m in Sources */,
 				9F3747951900F152003D67C8 /* CalendarView.m in Sources */,
@@ -770,6 +781,7 @@
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
 				9F3748321900F2E3003D67C8 /* DSLCalendarDayView.m in Sources */,
 				9F3747A81900F168003D67C8 /* BookingTableViewController.m in Sources */,
+				9F8F2F1B1903E6290031B8FF /* ModalView.m in Sources */,
 				9F3748331900F2E3003D67C8 /* DSLCalendarMonthSelectorView.m in Sources */,
 				9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */,
 				9F3747961900F152003D67C8 /* Checkbox.m in Sources */,
