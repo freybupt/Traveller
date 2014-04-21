@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76277B9118BD6053007D8100 /* MapKit.framework */; };
+		768263CF1905C14B00089319 /* map5.png in Resources */ = {isa = PBXBuildFile; fileRef = 768263CE1905C14B00089319 /* map5.png */; };
 		76C270B218B2A1E2003A49A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B118B2A1E2003A49A3 /* Foundation.framework */; };
 		76C270B418B2A1E2003A49A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B318B2A1E2003A49A3 /* CoreGraphics.framework */; };
 		76C270B618B2A1E2003A49A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B518B2A1E2003A49A3 /* UIKit.framework */; };
@@ -100,6 +101,7 @@
 
 /* Begin PBXFileReference section */
 		76277B9118BD6053007D8100 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		768263CE1905C14B00089319 /* map5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map5.png; sourceTree = "<group>"; };
 		76C270AE18B2A1E2003A49A3 /* Traveller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Traveller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C270B118B2A1E2003A49A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		76C270B318B2A1E2003A49A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -558,6 +560,7 @@
 		9F3747EC1900F290003D67C8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				768263CE1905C14B00089319 /* map5.png */,
 				9F3747ED1900F290003D67C8 /* arrowDown@2x.png */,
 				9F3747EE1900F290003D67C8 /* arrowUp@2x.png */,
 				9F3747EF1900F290003D67C8 /* calendar53@2x.png */,
@@ -763,6 +766,7 @@
 			files = (
 				9F3747FF1900F290003D67C8 /* facebook30@2x.png in Resources */,
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
+				768263CF1905C14B00089319 /* map5.png in Resources */,
 				9F3748341900F2E3003D67C8 /* DSLCalendarMonthSelectorView.xib in Resources */,
 				76C270CA18B2A1E2003A49A3 /* Images.xcassets in Resources */,
 				9F3748011900F290003D67C8 /* map49@2x.png in Resources */,
