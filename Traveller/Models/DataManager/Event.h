@@ -14,6 +14,7 @@
 @interface Event : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * allDay;
+@property (nonatomic, retain) NSNumber * isSelected;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * eventIdentifier;
 @property (nonatomic, retain) NSString * location;

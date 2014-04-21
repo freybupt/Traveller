@@ -344,6 +344,8 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     event.allDay = [NSNumber numberWithBool:ekEvent.allDay];
     
+    event.isSelected = [NSNumber numberWithBool:YES];
+    
     if ([ekEvent.startDate isDateObject]) {
         event.startDate = ekEvent.startDate;
     }

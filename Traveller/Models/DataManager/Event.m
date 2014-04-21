@@ -14,6 +14,7 @@
 @implementation Event
 
 @dynamic allDay;
+@dynamic isSelected;
 @dynamic endDate;
 @dynamic eventIdentifier;
 @dynamic location;

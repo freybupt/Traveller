@@ -24,4 +24,14 @@
 {
     [super setSelected:selected animated:animated];
 }
+
+- (void)checkBoxClicked
+{
+    if (self.event) {
+        //change event isSelect status - didn't work
+//        BOOL isSelected = !self.checkBox.isSelected;
+//        self.event.isSelected = [NSNumber numberWithBool: isSelected];
+    }
+}
+
 @end

@@ -9,7 +9,7 @@
 #import "EventViewController.h"
 
 @interface EventViewController ()
-
+@property (nonatomic, assign) BOOL hasLoadedCalendar;
 @end
 
 @implementation EventViewController
@@ -26,8 +26,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    [self registerNotification];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(accessGrantedForCalendar:)
+                                                 name:kGrantCalendarAccessNotification
+                                               object:[CalendarManager sharedManager]];
 }
 
 - (void)viewDidUnload
@@ -40,6 +42,38 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (!self.hasLoadedCalendar) {
+        CalendarManager *calendarManager = [CalendarManager sharedManager];
+        [calendarManager checkEventStoreAccessForCalendar];
+    }
+}
+
+#pragma mark -
+#pragma mark Access Calendar
+// This method is called when the user has granted permission to Calendar
+-(void)accessGrantedForCalendar:(NSNotification *)notification
+{
+    
+    NSDictionary *dict = [notification userInfo];
+    BOOL isGranted = [[dict objectForKey:@"hasAccess"] boolValue];
+    if (!isGranted) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cal need permission for Calendar" message:@"You can edit it in Settings -> Privacy"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        self.hasLoadedCalendar = YES;
+        // Enable the Add button
+        // Fetch all events happening in the next 24 hours and put them into eventsList
+        [self fetchEvents];
+    }
+    
 }
 
 #pragma mark - UI IBAction
@@ -221,28 +255,9 @@
     // Overriding the method in subclass
 }
 
-#pragma mark - Access Calendar
-// This method is called when the user has granted permission to Calendar
--(void)accessGrantedForCalendar:(NSNotification *)notification
-{
-    NSDictionary *dict = [notification userInfo];
-    BOOL isGranted = [[dict objectForKey:@"hasAccess"] boolValue];
-    if (!isGranted) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cal need permission for Calendar" message:@"You can edit it in Settings -> Privacy"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
-}
-
 #pragma mark - NSNotificationCenter
 - (void)registerNotification
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(accessGrantedForCalendar:)
-                                                 name:kGrantCalendarAccessNotification
-                                               object:[CalendarManager sharedManager]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchEvents)
                                                  name:UIApplicationDidBecomeActiveNotification

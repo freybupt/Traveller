@@ -11,9 +11,12 @@
 
 @interface MyScheduleTableCell : UITableViewCell
 
+@property (nonatomic, weak) Event *event;
 @property (nonatomic, strong) IBOutlet UILabel *eventTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventLocationLabel;
 @property (nonatomic, strong) IBOutlet Checkbox *checkBox;
+
+- (void)checkBoxClicked;
 
 @end

@@ -11,7 +11,6 @@
 #import "MZFormSheetController.h"
 
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate>
-@property (nonatomic, strong) NSMutableArray *selectedEvents;
 @end
 
 @implementation SelectEventsTableViewController
@@ -34,7 +33,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self fetchEvents];
+    [super viewDidAppear:animated];
+    
 }
 
 
@@ -43,6 +43,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
@@ -55,6 +57,7 @@
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.event = event;
     cell.eventTitleLabel.text = event.title;
     if ([event.allDay boolValue]) {
         cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
@@ -65,20 +68,19 @@
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
     cell.eventLocationLabel.text = event.location;
-    cell.checkBox.checked = [self.selectedEvents containsObject:event];
-    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
+    [cell.checkBox addTarget:cell action:@selector(checkBoxClicked) forControlEvents:UIControlEventValueChanged];
+//    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.checkBox.checked = !cell.checkBox.checked;
-    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
+    [cell checkBoxClicked];
     
-    [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
+//    [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 //| ----------------------------------------------------------------------------
@@ -91,6 +93,7 @@
 {
     
 }
+
 
 //| ----------------------------------------------------------------------------
 //! IBAction that is called when the value of a checkbox in any row changes.

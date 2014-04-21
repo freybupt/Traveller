@@ -20,15 +20,12 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 @interface CalendarViewController () <DSLCalendarViewDelegate, MZFormSheetBackgroundWindowDelegate, ModalViewDelegate>
 
-@property (nonatomic, assign) BOOL hasLoadedCalendar;
-
 //Customized Calendar View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
 @property (nonatomic, strong) DSLCalendarRange *currentDateRange;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
-@property (nonatomic, strong) NSMutableArray *selectedEvents;
 @property (nonatomic, strong) NSMutableArray *numberOutput;
 
 @end
@@ -44,8 +41,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     
     // Init calendar view
     self.calendarView.delegate = self;
-    
-    self.selectedEvents = [[NSMutableArray alloc] init];
     
     [self.destinationTextField addTarget:self
                                   action:@selector(destinationUpdated:)
@@ -63,13 +58,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    if (!self.hasLoadedCalendar) {
-        CalendarManager *calendarManager = [CalendarManager sharedManager];
-        [calendarManager checkEventStoreAccessForCalendar];
-    }
-
-    //[self performSelector:@selector(adjustScheduleView:) withObject:self afterDelay:0.5];
+    
     [self fetchEvents];
 }
 
@@ -184,13 +173,15 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    DestinationModalView *modalView = [[DestinationModalView alloc] initWithTitle:NSLocalizedString(@"I'M GOING TO BE IN...", nil)
-                                                                         delegate:self
-                                                                cancelButtonTitle:NSLocalizedString(@"Go Back", nil)
-                                                                 otherButtonTitle:NSLocalizedString(@"Confirm", nil)];
-    [modalView show];
     
-    return;
+    //No need to show the modal view, use drop down Add destination instead
+//    DestinationModalView *modalView = [[DestinationModalView alloc] initWithTitle:NSLocalizedString(@"I'M GOING TO BE IN...", nil)
+//                                                                         delegate:self
+//                                                                cancelButtonTitle:NSLocalizedString(@"Go Back", nil)
+//                                                                 otherButtonTitle:NSLocalizedString(@"Confirm", nil)];
+//    [modalView show];
+//    
+//    return;
     
     if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
         //save trip
@@ -364,7 +355,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
     cell.eventLocationLabel.text = event.location;
-    cell.checkBox.checked = [self.selectedEvents containsObject:event];
     cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
 }
 
@@ -373,11 +363,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.checkBox.checked = !cell.checkBox.checked;
-    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
-
-    [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
+    [self editEventButtonTapAction:event];
 }
 
 //| ----------------------------------------------------------------------------
@@ -419,29 +405,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     cell.accessibilityValue = cell.accessoryView.accessibilityValue;
 }
 
-#pragma mark -
-#pragma mark Access Calendar
-// This method is called when the user has granted permission to Calendar
--(void)accessGrantedForCalendar:(NSNotification *)notification
-{
-    NSDictionary *dict = [notification userInfo];
-    BOOL isGranted = [[dict objectForKey:@"hasAccess"] boolValue];
-    if (!isGranted) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cal need permission for Calendar" message:@"You can edit it in Settings -> Privacy"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-        self.calendarView.hidden = YES;
-    } else {
-        self.hasLoadedCalendar = YES;
-        // Enable the Add button
-        self.addButton.enabled = YES;
-        // Fetch all events happening in the next 24 hours and put them into eventsList
-        [self fetchEvents];
-    }
-    
-}
 
 #pragma mark -
 #pragma mark Fetch events
@@ -495,7 +458,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
         NSDate *endDate = [calendar dateFromComponents:self.currentDateRange.endDay];
         endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
-        predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
+        predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@) AND isSelected == '1'", [MockManager userid], startDate, endDate];
     }
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     
