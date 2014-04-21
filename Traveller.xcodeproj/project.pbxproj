@@ -75,6 +75,11 @@
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
 		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
 		9F54EB611901771600ABB05F /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F54EB601901771600ABB05F /* EventViewController.m */; };
+		9F7D12721904B19700898FDE /* BDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D12711904B19700898FDE /* BDTextField.m */; };
+		9F7D12751904BC1A00898FDE /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D12741904BC1A00898FDE /* UIButton+Extensions.m */; };
+		9F7D127C1905358700898FDE /* RangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D127B1905358700898FDE /* RangeTableViewCell.m */; };
+		9F7D127F1905381600898FDE /* DestinationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D127E1905381600898FDE /* DestinationTableViewCell.m */; };
+		9F7D12821905393F00898FDE /* DepartureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7D12811905393F00898FDE /* DepartureTableViewCell.m */; };
 		9F8F2F1B1903E6290031B8FF /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F2F1A1903E6290031B8FF /* ModalView.m */; };
 		9F8F2F1E1903E6B30031B8FF /* DestinationModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8F2F1D1903E6B30031B8FF /* DestinationModalView.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
@@ -204,6 +209,16 @@
 		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
 		9F54EB5F1901771600ABB05F /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F54EB601901771600ABB05F /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		9F7D12701904B19700898FDE /* BDTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTextField.h; sourceTree = "<group>"; };
+		9F7D12711904B19700898FDE /* BDTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDTextField.m; sourceTree = "<group>"; };
+		9F7D12731904BC1A00898FDE /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extensions.h"; sourceTree = "<group>"; };
+		9F7D12741904BC1A00898FDE /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extensions.m"; sourceTree = "<group>"; };
+		9F7D127A1905358700898FDE /* RangeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeTableViewCell.h; sourceTree = "<group>"; };
+		9F7D127B1905358700898FDE /* RangeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeTableViewCell.m; sourceTree = "<group>"; };
+		9F7D127D1905381600898FDE /* DestinationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationTableViewCell.h; sourceTree = "<group>"; };
+		9F7D127E1905381600898FDE /* DestinationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationTableViewCell.m; sourceTree = "<group>"; };
+		9F7D12801905393F00898FDE /* DepartureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartureTableViewCell.h; sourceTree = "<group>"; };
+		9F7D12811905393F00898FDE /* DepartureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureTableViewCell.m; sourceTree = "<group>"; };
 		9F8F2F191903E6290031B8FF /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
 		9F8F2F1A1903E6290031B8FF /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
 		9F8F2F1C1903E6B30031B8FF /* DestinationModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationModalView.h; sourceTree = "<group>"; };
@@ -338,6 +353,7 @@
 		76C2711E18B2A3C8003A49A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F7D126F1904B17400898FDE /* BDTextField */,
 				9F37478B1900F152003D67C8 /* CalendarView */,
 				9F37478E1900F152003D67C8 /* Checkbox */,
 				9F3747911900F152003D67C8 /* ModalView */,
@@ -399,6 +415,12 @@
 				9F8F2F1A1903E6290031B8FF /* ModalView.m */,
 				9F8F2F1C1903E6B30031B8FF /* DestinationModalView.h */,
 				9F8F2F1D1903E6B30031B8FF /* DestinationModalView.m */,
+				9F7D127A1905358700898FDE /* RangeTableViewCell.h */,
+				9F7D127B1905358700898FDE /* RangeTableViewCell.m */,
+				9F7D127D1905381600898FDE /* DestinationTableViewCell.h */,
+				9F7D127E1905381600898FDE /* DestinationTableViewCell.m */,
+				9F7D12801905393F00898FDE /* DepartureTableViewCell.h */,
+				9F7D12811905393F00898FDE /* DepartureTableViewCell.m */,
 			);
 			name = ModalView;
 			path = Views/ModalView;
@@ -640,6 +662,16 @@
 			path = EventViewController;
 			sourceTree = "<group>";
 		};
+		9F7D126F1904B17400898FDE /* BDTextField */ = {
+			isa = PBXGroup;
+			children = (
+				9F7D12701904B19700898FDE /* BDTextField.h */,
+				9F7D12711904B19700898FDE /* BDTextField.m */,
+			);
+			name = BDTextField;
+			path = Views/BDTextField;
+			sourceTree = "<group>";
+		};
 		9FC4184118FFABD7001CC750 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -647,6 +679,8 @@
 				9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */,
 				9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */,
 				9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */,
+				9F7D12731904BC1A00898FDE /* UIButton+Extensions.h */,
+				9F7D12741904BC1A00898FDE /* UIButton+Extensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -773,9 +807,11 @@
 				9F3747C61900F213003D67C8 /* Event.m in Sources */,
 				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
 				9F54EB611901771600ABB05F /* EventViewController.m in Sources */,
+				9F7D12751904BC1A00898FDE /* UIButton+Extensions.m in Sources */,
 				9F3747A71900F168003D67C8 /* AddDestinationViewController.m in Sources */,
 				9F3747C91900F213003D67C8 /* LocationManager.m in Sources */,
 				9F3747C31900F213003D67C8 /* CalendarManager.m in Sources */,
+				9F7D127C1905358700898FDE /* RangeTableViewCell.m in Sources */,
 				9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */,
 				9F3747971900F152003D67C8 /* MyScheduleTableCell.m in Sources */,
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
@@ -787,18 +823,21 @@
 				9F3747961900F152003D67C8 /* Checkbox.m in Sources */,
 				9F3748391900F2E3003D67C8 /* FXBlurView.m in Sources */,
 				9F37483C1900F2E3003D67C8 /* MZNavigationViewController.m in Sources */,
+				9F7D12721904B19700898FDE /* BDTextField.m in Sources */,
 				9F3747CA1900F213003D67C8 /* MockManager.m in Sources */,
 				9F37483F1900F2E3003D67C8 /* MZFormSheetBackgroundWindowViewController.m in Sources */,
 				9F3748381900F2E3003D67C8 /* NSDate+DSLCalendarView.m in Sources */,
 				9F3747AA1900F168003D67C8 /* CalendarViewController.m in Sources */,
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
 				9F3747C51900F213003D67C8 /* DataManager.m in Sources */,
+				9F7D12821905393F00898FDE /* DepartureTableViewCell.m in Sources */,
 				9F3748361900F2E3003D67C8 /* DSLCalendarRange.m in Sources */,
 				9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */,
 				9F37483E1900F2E3003D67C8 /* MZFormSheetBackgroundWindow.m in Sources */,
 				9F3748421900F2E3003D67C8 /* MZTransition.m in Sources */,
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,
 				9F3748351900F2E3003D67C8 /* DSLCalendarMonthView.m in Sources */,
+				9F7D127F1905381600898FDE /* DestinationTableViewCell.m in Sources */,
 				9F3748401900F2E3003D67C8 /* MZFormSheetController.m in Sources */,
 				9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */,
 				9F3748371900F2E3003D67C8 /* DSLCalendarView.m in Sources */,

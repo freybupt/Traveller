@@ -41,13 +41,13 @@
 }
 
 /*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
 
 #pragma mark - Configuration
 
@@ -83,7 +83,8 @@
                                                                   self.frame.size.height - BOTTOM_BUTTON_HEIGHT - MODAL_VIEW_PADDING,
                                                                   (self.frame.size.width - MODAL_VIEW_PADDING * 4)/2,
                                                                   BOTTOM_BUTTON_HEIGHT)];
-    [button setBackgroundColor:UIColorFromRGB(0xEDEDEF)];
+    [button setBackgroundColor:UIColorFromRGB(0xEDEDEF) forState:UIControlStateNormal];
+    [button setBackgroundColor:UIColorFromRGB(0x458A67) forState:UIControlStateHighlighted];
     [button setTitle:NSLocalizedString(@"Right Button", nil) forState:UIControlStateNormal];
     [button setTitleColor:UIColorFromRGB(0xD3D5D8) forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
