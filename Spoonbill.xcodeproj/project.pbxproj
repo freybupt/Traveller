@@ -132,6 +132,15 @@
 		9FC055A918E2B46300743E16 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055A018E2B46300743E16 /* UIRefreshControl+AFNetworking.m */; };
 		9FC055AA18E2B46300743E16 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */; };
 		9FC055B218E2B6D300743E16 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC055B118E2B6D300743E16 /* MapKit.framework */; };
+		9FDA52DD1906608D0025150E /* DepartureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52D41906608D0025150E /* DepartureTableViewCell.m */; };
+		9FDA52DE1906608D0025150E /* DestinationModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52D61906608D0025150E /* DestinationModalView.m */; };
+		9FDA52DF1906608D0025150E /* DestinationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52D81906608D0025150E /* DestinationTableViewCell.m */; };
+		9FDA52E01906608D0025150E /* RangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52DA1906608D0025150E /* RangeTableViewCell.m */; };
+		9FDA52E11906608D0025150E /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52DC1906608D0025150E /* ModalView.m */; };
+		9FDA52E4190660EB0025150E /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52E3190660EB0025150E /* UIButton+Extensions.m */; };
+		9FDA52E81906612A0025150E /* BDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52E71906612A0025150E /* BDTextField.m */; };
+		9FDA52EC190661630025150E /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52EA190661630025150E /* ModalViewController.m */; };
+		9FDA52ED190661630025150E /* ModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA52EB190661630025150E /* ModalViewController.xib */; };
 		9FFE21AC18E260DB00AF78AF /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */; };
 		9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */; };
 		9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21AB18E260DB00AF78AF /* Icon@2x.png */; };
@@ -340,6 +349,23 @@
 		9FC055A118E2B46300743E16 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		9FC055B118E2B6D300743E16 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9FDA52D31906608D0025150E /* DepartureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepartureTableViewCell.h; sourceTree = "<group>"; };
+		9FDA52D41906608D0025150E /* DepartureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DepartureTableViewCell.m; sourceTree = "<group>"; };
+		9FDA52D51906608D0025150E /* DestinationModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationModalView.h; sourceTree = "<group>"; };
+		9FDA52D61906608D0025150E /* DestinationModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationModalView.m; sourceTree = "<group>"; };
+		9FDA52D71906608D0025150E /* DestinationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationTableViewCell.h; sourceTree = "<group>"; };
+		9FDA52D81906608D0025150E /* DestinationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationTableViewCell.m; sourceTree = "<group>"; };
+		9FDA52D91906608D0025150E /* RangeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeTableViewCell.h; sourceTree = "<group>"; };
+		9FDA52DA1906608D0025150E /* RangeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeTableViewCell.m; sourceTree = "<group>"; };
+		9FDA52DB1906608D0025150E /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
+		9FDA52DC1906608D0025150E /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
+		9FDA52E2190660EB0025150E /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extensions.h"; sourceTree = "<group>"; };
+		9FDA52E3190660EB0025150E /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extensions.m"; sourceTree = "<group>"; };
+		9FDA52E61906612A0025150E /* BDTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTextField.h; sourceTree = "<group>"; };
+		9FDA52E71906612A0025150E /* BDTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDTextField.m; sourceTree = "<group>"; };
+		9FDA52E9190661630025150E /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
+		9FDA52EA190661630025150E /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
+		9FDA52EB190661630025150E /* ModalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalViewController.xib; sourceTree = "<group>"; };
 		9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		9FFE21AB18E260DB00AF78AF /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -695,6 +721,7 @@
 		9F7F702618F0FDC800904AA5 /* Stylish */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA52D0190660510025150E /* ModalViewController */,
 			);
 			path = Stylish;
 			sourceTree = "<group>";
@@ -848,6 +875,8 @@
 		9F9F33C118E111890077C85A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA52E51906612A0025150E /* BDTextField */,
+				9FDA52D11906608D0025150E /* ModalView */,
 				9F7F706118F17AC000904AA5 /* Checkbox */,
 			);
 			name = View;
@@ -882,6 +911,8 @@
 		9F9F33E218E1616F0077C85A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA52E2190660EB0025150E /* UIButton+Extensions.h */,
+				9FDA52E3190660EB0025150E /* UIButton+Extensions.m */,
 				9F9F33E318E1619E0077C85A /* NSObject+Extensions.h */,
 				9F9F33E418E1619E0077C85A /* NSObject+Extensions.m */,
 				9F4F9AE518E43EC800C55A5D /* NSDate+Extensions.h */,
@@ -959,6 +990,50 @@
 				9FC055A218E2B46300743E16 /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
+			sourceTree = "<group>";
+		};
+		9FDA52D0190660510025150E /* ModalViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52E9190661630025150E /* ModalViewController.h */,
+				9FDA52EA190661630025150E /* ModalViewController.m */,
+				9FDA52EB190661630025150E /* ModalViewController.xib */,
+			);
+			path = ModalViewController;
+			sourceTree = "<group>";
+		};
+		9FDA52D11906608D0025150E /* ModalView */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52D21906608D0025150E /* DestinationModalView */,
+				9FDA52DB1906608D0025150E /* ModalView.h */,
+				9FDA52DC1906608D0025150E /* ModalView.m */,
+			);
+			path = ModalView;
+			sourceTree = "<group>";
+		};
+		9FDA52D21906608D0025150E /* DestinationModalView */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52D31906608D0025150E /* DepartureTableViewCell.h */,
+				9FDA52D41906608D0025150E /* DepartureTableViewCell.m */,
+				9FDA52D51906608D0025150E /* DestinationModalView.h */,
+				9FDA52D61906608D0025150E /* DestinationModalView.m */,
+				9FDA52D71906608D0025150E /* DestinationTableViewCell.h */,
+				9FDA52D81906608D0025150E /* DestinationTableViewCell.m */,
+				9FDA52D91906608D0025150E /* RangeTableViewCell.h */,
+				9FDA52DA1906608D0025150E /* RangeTableViewCell.m */,
+			);
+			path = DestinationModalView;
+			sourceTree = "<group>";
+		};
+		9FDA52E51906612A0025150E /* BDTextField */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52E61906612A0025150E /* BDTextField.h */,
+				9FDA52E71906612A0025150E /* BDTextField.m */,
+			);
+			path = BDTextField;
 			sourceTree = "<group>";
 		};
 		9FFE21A418E260DB00AF78AF /* Resources */ = {
@@ -1079,6 +1154,7 @@
 				9F093C8B18FE2F0A00530C11 /* DSLCalendarDaySelection-right.png in Resources */,
 				9F093C8318FE2F0A00530C11 /* DSLCalendar-previousMonth.png in Resources */,
 				9F093C8718FE2F0A00530C11 /* DSLCalendarDaySelection-left.png in Resources */,
+				9FDA52ED190661630025150E /* ModalViewController.xib in Resources */,
 				9F7F704D18F0FE4400904AA5 /* PLPlanTripViewController.xib in Resources */,
 				9F7F703318F0FDC800904AA5 /* EventViewController.xib in Resources */,
 				9F2F85FD18EAA80300BA98AA /* ColorMap@2x.png in Resources */,
@@ -1134,9 +1210,11 @@
 				9F7F703218F0FDC800904AA5 /* EventViewController.m in Sources */,
 				9F2F85E618EA70F000BA98AA /* Trip.m in Sources */,
 				9FC055A618E2B46300743E16 /* UIButton+AFNetworking.m in Sources */,
+				9FDA52E81906612A0025150E /* BDTextField.m in Sources */,
 				9FC055A518E2B46300743E16 /* UIAlertView+AFNetworking.m in Sources */,
 				9F9F33E518E1619E0077C85A /* NSObject+Extensions.m in Sources */,
 				9F7F702718F0FDC800904AA5 /* AddCityTableViewCell.m in Sources */,
+				9FDA52E11906608D0025150E /* ModalView.m in Sources */,
 				9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */,
 				9F093C8F18FE2F0A00530C11 /* NSDate+DSLCalendarView.m in Sources */,
 				9F24752C18F3990500A290BE /* PLPlanTripCalendarMapViewController.m in Sources */,
@@ -1167,6 +1245,7 @@
 				9FC0558E18E2B31600743E16 /* AFURLRequestSerialization.m in Sources */,
 				9FC0558B18E2B31600743E16 /* AFNetworkReachabilityManager.m in Sources */,
 				9F7F705C18F1673A00904AA5 /* PLPlanTripCalendarViewController.m in Sources */,
+				9FDA52E01906608D0025150E /* RangeTableViewCell.m in Sources */,
 				9F7F702A18F0FDC800904AA5 /* CityMapViewController.m in Sources */,
 				9F9F339B18E108010077C85A /* AppDelegate.m in Sources */,
 				9F4F9AE718E43EC800C55A5D /* NSDate+Extensions.m in Sources */,
@@ -1177,7 +1256,11 @@
 				9FC0558818E2B31600743E16 /* AFHTTPRequestOperation.m in Sources */,
 				9F9F339718E108010077C85A /* main.m in Sources */,
 				9F7F703C18F0FDC800904AA5 /* DestinationCityViewController.m in Sources */,
+				9FDA52E4190660EB0025150E /* UIButton+Extensions.m in Sources */,
 				9FC055A318E2B46300743E16 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				9FDA52DD1906608D0025150E /* DepartureTableViewCell.m in Sources */,
+				9FDA52DF1906608D0025150E /* DestinationTableViewCell.m in Sources */,
+				9FDA52DE1906608D0025150E /* DestinationModalView.m in Sources */,
 				9F7F703018F0FDC800904AA5 /* EventDetailViewController.m in Sources */,
 				9F2F85F918EAA5E600BA98AA /* FCBrightDarkGradView.m in Sources */,
 				9FC0558A18E2B31600743E16 /* AFHTTPSessionManager.m in Sources */,
@@ -1185,6 +1268,7 @@
 				9F7F703418F0FDC800904AA5 /* AddTripTableViewCell.m in Sources */,
 				9FC055AA18E2B46300743E16 /* UIWebView+AFNetworking.m in Sources */,
 				9F2F85F718EAA5E600BA98AA /* FCColorPickerViewController.m in Sources */,
+				9FDA52EC190661630025150E /* ModalViewController.m in Sources */,
 				9FC0559018E2B31600743E16 /* AFURLSessionManager.m in Sources */,
 				9F7F706518F17AC000904AA5 /* Checkbox.m in Sources */,
 				9F7F704C18F0FE4400904AA5 /* PLPlanTripViewController.m in Sources */,

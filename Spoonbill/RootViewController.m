@@ -8,6 +8,9 @@
 
 #import "RootViewController.h"
 
+/* Stylish */
+#import "ModalViewController.h"
+
 /* Plain */
 #import "PLPlanTripViewController.h"
 #import "PLPlanTripCalendarViewController.h"
@@ -28,7 +31,7 @@ typedef NS_ENUM(NSInteger, RootTableSection) {
 };
 
 typedef NS_ENUM(NSInteger, StylishTableRow) {
-    StylishTableRowPending,
+    StylishTableRowModalView,
     StylishTableRowCount
 };
 
@@ -74,6 +77,13 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 }
 
 #pragma mark - Button tap action
+/* Stylish */
+- (IBAction)modalViewButtonTapAction:(id)sender
+{
+    ModalViewController *vc = [[ModalViewController alloc] initWithNibName:@"ModalViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 /* Plain */
 - (IBAction)planTripButtonTapAction:(id)sender
 {
@@ -149,6 +159,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     switch (indexPath.section) {
+        case RootTableSectionStylish:
+            [self tapStylishCellAtIndexPath:indexPath];
+            break;
         case RootTableSectionPlain:
             [self tapPlainCellAtIndexPath:indexPath];
             break;
@@ -159,6 +172,15 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 }
 
 #pragma mark - UITableView tap action
+- (void)tapStylishCellAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case StylishTableRowModalView:
+            [self modalViewButtonTapAction:nil];
+            break;
+    }
+}
+
 - (void)tapPlainCellAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
@@ -221,8 +243,8 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     NSMutableArray *mArray = [NSMutableArray arrayWithCapacity:StylishTableRowCount];
     for (NSUInteger idx = 0; idx < StylishTableRowCount; idx++) {
         switch (idx) {
-            case StylishTableRowPending:
-                [mArray insertObject:@"Pending" atIndex:StylishTableRowPending];
+            case StylishTableRowModalView:
+                [mArray insertObject:@"Modal View" atIndex:StylishTableRowModalView];
                 break;
         }
     }

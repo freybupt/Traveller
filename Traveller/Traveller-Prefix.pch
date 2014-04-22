@@ -19,5 +19,4 @@
     #import "LocationManager.h"
     #import "MockManager.h"
     #import "NSObject+Extensions.h"
-    #import "UIButton+Extensions.h"
 #endif

@@ -13,12 +13,11 @@
 #import "AddDestinationViewController.h"
 #import "Checkbox.h"
 #import "DSLCalendarView.h"
-#import "DestinationModalView.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 280.0f;
 
-@interface CalendarViewController () <DSLCalendarViewDelegate, MZFormSheetBackgroundWindowDelegate, ModalViewDelegate>
+@interface CalendarViewController () <DSLCalendarViewDelegate, MZFormSheetBackgroundWindowDelegate>
 
 //Customized Calendar View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
@@ -173,16 +172,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    
-    //No need to show the modal view, use drop down Add destination instead
-//    DestinationModalView *modalView = [[DestinationModalView alloc] initWithTitle:NSLocalizedString(@"I'M GOING TO BE IN...", nil)
-//                                                                         delegate:self
-//                                                                cancelButtonTitle:NSLocalizedString(@"Go Back", nil)
-//                                                                 otherButtonTitle:NSLocalizedString(@"Confirm", nil)];
-//    [modalView show];
-//    
-//    return;
-    
     if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
         //save trip
         /*
@@ -542,18 +531,5 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             }
         }
     }];
-}
-
-#pragma mark - ModalView delegate
-- (void)modalView:(ModalView *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case ModalViewButtonCancelIndex:
-            NSLog(@"Cancel");
-            break;
-        case ModalViewButtonFirstOtherIndex:
-            NSLog(@"Confirm");
-            break;
-    }
 }
 @end
