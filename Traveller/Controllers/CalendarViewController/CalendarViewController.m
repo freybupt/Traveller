@@ -332,13 +332,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
 {
-    NSDateComponents *oneMonth = [NSDateComponents new];
-    oneMonth.month = 1;
-    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:self.calendarView.visibleMonth];
-    NSDate *endDate = [[NSCalendar currentCalendar] dateByAddingComponents:oneMonth
-                                                                    toDate:startDate
-                                                                   options:0];
-    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@)", [MockManager userid], startDate, endDate];
+    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (isSelected = %@)", [MockManager userid], [NSNumber numberWithBool:YES]];
 }
 
 #pragma mark - UITableViewDelegate

@@ -18,6 +18,4 @@
 @property (nonatomic, strong) IBOutlet UITextField *eventLocationTextField;
 @property (nonatomic, strong) IBOutlet Checkbox *checkBox;
 
-- (void)checkBoxClicked;
-
 @end

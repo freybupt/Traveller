@@ -44,7 +44,19 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+#pragma mark - Button tap action
+- (IBAction)checkBoxTapAction:(id)sender
+{
+    Checkbox *checkbox = (Checkbox *)sender;
+    
+    CGPoint position = [checkbox convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:position];
+    
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    event.isSelected = [NSNumber numberWithBool:checkbox.checked];
+    [[DataManager sharedInstance] saveEvent:event
+                                    context:self.managedObjectContext];
+}
 
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
@@ -68,18 +80,19 @@
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
     cell.eventLocationLabel.text = event.location;
-    [cell.checkBox addTarget:cell action:@selector(checkBoxClicked) forControlEvents:UIControlEventValueChanged];
-//    cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
+    
+    cell.checkBox.checked = [event.isSelected boolValue];
+    [cell.checkBox addTarget:self
+                      action:@selector(checkBoxTapAction:)
+            forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.checkBox.checked = !cell.checkBox.checked;
-    [cell checkBoxClicked];
-    
-//    [self.selectedEvents containsObject:event] ? [self.selectedEvents removeObject:event] : [self.selectedEvents addObject:event];
-    
+    [self checkBoxTapAction:cell.checkBox];
+
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
