@@ -15,7 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
+        
     }
     return self;
 }
@@ -24,4 +24,6 @@
 {
     [super setSelected:selected animated:animated];
 }
+
+
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tjR-tg-0cD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tjR-tg-0cD">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
@@ -358,7 +358,7 @@
                                                     <rect key="frame" x="51" y="36" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" id="ajk-6t-WoQ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" id="ajk-6t-WoQ" customClass="HTAutocompleteTextField">
                                                     <rect key="frame" x="79" y="31" width="192" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -368,9 +368,10 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="checkBox" destination="ixF-qq-GYf" id="GnR-LH-Z5J"/>
-                                            <outlet property="eventLocationTextField" destination="ajk-6t-WoQ" id="5dA-2k-nh1"/>
+                                            <outlet property="eventLocationTextField" destination="ajk-6t-WoQ" id="e6k-7j-tNp"/>
                                             <outlet property="eventTimeLabel" destination="nly-zA-fMz" id="7Ae-JM-EYy"/>
                                             <outlet property="eventTitleLabel" destination="4XW-vn-xwq" id="0lX-R7-hX1"/>
+                                            <outlet property="locationImageView" destination="mNV-cX-0Eh" id="Xb1-7Y-u46"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

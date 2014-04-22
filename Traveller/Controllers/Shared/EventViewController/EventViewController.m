@@ -72,6 +72,7 @@
         // Enable the Add button
         // Fetch all events happening in the next 24 hours and put them into eventsList
         [self fetchEvents];
+        [MockManager sharedInstance];
     }
     
 }

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Checkbox.h"
+#import "HTAutocompleteTextField.h"
+#import "HTAutocompleteManager.h"
 
 @interface MyScheduleTableCell : UITableViewCell
 
@@ -15,7 +17,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *eventTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventLocationLabel;
-@property (nonatomic, strong) IBOutlet UITextField *eventLocationTextField;
+@property (nonatomic, strong) IBOutlet HTAutocompleteTextField *eventLocationTextField;
+@property (nonatomic, strong) IBOutlet UIImageView *locationImageView;
 @property (nonatomic, strong) IBOutlet Checkbox *checkBox;
 
 @end

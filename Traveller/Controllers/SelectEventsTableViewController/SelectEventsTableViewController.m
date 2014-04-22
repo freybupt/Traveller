@@ -10,7 +10,7 @@
 #import "Checkbox.h"
 #import "MZFormSheetController.h"
 
-@interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate>
+@interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
 @end
 
 @implementation SelectEventsTableViewController
@@ -28,6 +28,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [HTAutocompleteTextField setDefaultAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
 }
 
 
@@ -80,7 +81,8 @@
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
     cell.eventLocationLabel.text = event.location;
-    
+    cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
+    cell.eventLocationTextField.delegate = self;
     cell.checkBox.checked = [event.isSelected boolValue];
     [cell.checkBox addTarget:self
                       action:@selector(checkBoxTapAction:)
@@ -121,6 +123,13 @@
 	NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
     Event *anEvent = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     [self editEventButtonTapAction:anEvent];
+}
+
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return NO;
 }
 
 #pragma mark -
