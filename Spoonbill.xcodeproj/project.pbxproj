@@ -141,6 +141,13 @@
 		9FDA52E81906612A0025150E /* BDTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52E71906612A0025150E /* BDTextField.m */; };
 		9FDA52EC190661630025150E /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52EA190661630025150E /* ModalViewController.m */; };
 		9FDA52ED190661630025150E /* ModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA52EB190661630025150E /* ModalViewController.xib */; };
+		9FDA52F819066D390025150E /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52F719066D390025150E /* CHCSVParser.m */; };
+		9FDA52FB19066FC20025150E /* CanadaCities.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA52FA19066FC20025150E /* CanadaCities.csv */; };
+		9FDA530119068FC30025150E /* HTAutocompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA52FE19068FC30025150E /* HTAutocompleteTextField.m */; };
+		9FDA530219068FC30025150E /* HTEmailAutocompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA530019068FC30025150E /* HTEmailAutocompleteTextField.m */; };
+		9FDA5306190690210025150E /* HTAutocompleteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA5305190690210025150E /* HTAutocompleteManager.m */; };
+		9FDA530B190690E50025150E /* PLAutocompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FDA5309190690E50025150E /* PLAutocompleteViewController.m */; };
+		9FDA530C190690E50025150E /* PLAutocompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FDA530A190690E50025150E /* PLAutocompleteViewController.xib */; };
 		9FFE21AC18E260DB00AF78AF /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */; };
 		9FFE21AD18E260DB00AF78AF /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */; };
 		9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FFE21AB18E260DB00AF78AF /* Icon@2x.png */; };
@@ -366,6 +373,18 @@
 		9FDA52E9190661630025150E /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
 		9FDA52EA190661630025150E /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
 		9FDA52EB190661630025150E /* ModalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModalViewController.xib; sourceTree = "<group>"; };
+		9FDA52F619066D390025150E /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		9FDA52F719066D390025150E /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		9FDA52FA19066FC20025150E /* CanadaCities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CanadaCities.csv; sourceTree = "<group>"; };
+		9FDA52FD19068FC30025150E /* HTAutocompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAutocompleteTextField.h; sourceTree = "<group>"; };
+		9FDA52FE19068FC30025150E /* HTAutocompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteTextField.m; sourceTree = "<group>"; };
+		9FDA52FF19068FC30025150E /* HTEmailAutocompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTEmailAutocompleteTextField.h; sourceTree = "<group>"; };
+		9FDA530019068FC30025150E /* HTEmailAutocompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTEmailAutocompleteTextField.m; sourceTree = "<group>"; };
+		9FDA5304190690210025150E /* HTAutocompleteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAutocompleteManager.h; sourceTree = "<group>"; };
+		9FDA5305190690210025150E /* HTAutocompleteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteManager.m; sourceTree = "<group>"; };
+		9FDA5308190690E50025150E /* PLAutocompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLAutocompleteViewController.h; sourceTree = "<group>"; };
+		9FDA5309190690E50025150E /* PLAutocompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLAutocompleteViewController.m; sourceTree = "<group>"; };
+		9FDA530A190690E50025150E /* PLAutocompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PLAutocompleteViewController.xib; sourceTree = "<group>"; };
 		9FFE21A618E260DB00AF78AF /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		9FFE21A718E260DB00AF78AF /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
 		9FFE21AB18E260DB00AF78AF /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
@@ -671,6 +690,7 @@
 		9F7F701818F0FDC800904AA5 /* Plain */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA5307190690D10025150E /* PLAutocompleteViewController */,
 				9F24752818F398E500A290BE /* PLPlanTripCalendarMapViewController */,
 				9F7F705818F1670900904AA5 /* PLPlanTripCalendarViewController */,
 				9F7F704818F0FE1300904AA5 /* PLPlanTripViewController */,
@@ -864,6 +884,7 @@
 		9F9F33C018E111890077C85A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA5303190690210025150E /* AutocompleteManager */,
 				9F9F33CD18E13B930077C85A /* LocationManager */,
 				9FC0556F18E2AA5100743E16 /* MockManager */,
 				9F9F33C418E1128F0077C85A /* TripManager */,
@@ -934,6 +955,8 @@
 		9FC0557318E2B31600743E16 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA52FC19068FC30025150E /* HTAutocompleteTextField */,
+				9FDA52F519066D390025150E /* CHCSVParser */,
 				9F093C5918FE2F0A00530C11 /* DSLCalendarView */,
 				9FC0557418E2B31600743E16 /* AFNetworking */,
 				9F2F85EA18EAA5E600BA98AA /* Color Picker */,
@@ -1036,9 +1059,57 @@
 			path = BDTextField;
 			sourceTree = "<group>";
 		};
+		9FDA52F519066D390025150E /* CHCSVParser */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52F619066D390025150E /* CHCSVParser.h */,
+				9FDA52F719066D390025150E /* CHCSVParser.m */,
+			);
+			path = CHCSVParser;
+			sourceTree = "<group>";
+		};
+		9FDA52F919066FC20025150E /* CanadaCities */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52FA19066FC20025150E /* CanadaCities.csv */,
+			);
+			path = CanadaCities;
+			sourceTree = "<group>";
+		};
+		9FDA52FC19068FC30025150E /* HTAutocompleteTextField */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA52FD19068FC30025150E /* HTAutocompleteTextField.h */,
+				9FDA52FE19068FC30025150E /* HTAutocompleteTextField.m */,
+				9FDA52FF19068FC30025150E /* HTEmailAutocompleteTextField.h */,
+				9FDA530019068FC30025150E /* HTEmailAutocompleteTextField.m */,
+			);
+			path = HTAutocompleteTextField;
+			sourceTree = "<group>";
+		};
+		9FDA5303190690210025150E /* AutocompleteManager */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA5304190690210025150E /* HTAutocompleteManager.h */,
+				9FDA5305190690210025150E /* HTAutocompleteManager.m */,
+			);
+			path = AutocompleteManager;
+			sourceTree = "<group>";
+		};
+		9FDA5307190690D10025150E /* PLAutocompleteViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9FDA5308190690E50025150E /* PLAutocompleteViewController.h */,
+				9FDA5309190690E50025150E /* PLAutocompleteViewController.m */,
+				9FDA530A190690E50025150E /* PLAutocompleteViewController.xib */,
+			);
+			path = PLAutocompleteViewController;
+			sourceTree = "<group>";
+		};
 		9FFE21A418E260DB00AF78AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FDA52F919066FC20025150E /* CanadaCities */,
 				9F24752518F382DC00A290BE /* Add */,
 				9FFE21A518E260DB00AF78AF /* AppIcon */,
 				9F24752018F37A4500A290BE /* Arrow */,
@@ -1135,6 +1206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F7F703918F0FDC800904AA5 /* ChooseEventViewController.xib in Resources */,
+				9FDA52FB19066FC20025150E /* CanadaCities.csv in Resources */,
 				9F7F704118F0FDC800904AA5 /* TripViewController.xib in Resources */,
 				9F7F703B18F0FDC800904AA5 /* DepartureCityViewController.xib in Resources */,
 				9F093C8C18FE2F0A00530C11 /* DSLCalendarDaySelection-right@2x.png in Resources */,
@@ -1163,6 +1235,7 @@
 				9F7F702F18F0FDC800904AA5 /* ChooseCityViewController.xib in Resources */,
 				9F7F702B18F0FDC800904AA5 /* CityMapViewController.xib in Resources */,
 				9F093C8E18FE2F0A00530C11 /* DSLCalendarDaySelection@2x.png in Resources */,
+				9FDA530C190690E50025150E /* PLAutocompleteViewController.xib in Resources */,
 				9F24752318F37A4500A290BE /* arrowDown@2x.png in Resources */,
 				9F7F705D18F1673A00904AA5 /* PLPlanTripCalendarViewController.xib in Resources */,
 				9F7F703118F0FDC800904AA5 /* EventDetailViewController.xib in Resources */,
@@ -1202,6 +1275,8 @@
 			files = (
 				9F7F703518F0FDC800904AA5 /* AddTripViewController.m in Sources */,
 				9F093C7B18FE2F0A00530C11 /* DSLCalendarDayView.m in Sources */,
+				9FDA530219068FC30025150E /* HTEmailAutocompleteTextField.m in Sources */,
+				9FDA5306190690210025150E /* HTAutocompleteManager.m in Sources */,
 				9F093C7F18FE2F0A00530C11 /* DSLCalendarRange.m in Sources */,
 				9FC055A418E2B46300743E16 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F093C8018FE2F0A00530C11 /* DSLCalendarView.m in Sources */,
@@ -1218,6 +1293,7 @@
 				9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */,
 				9F093C8F18FE2F0A00530C11 /* NSDate+DSLCalendarView.m in Sources */,
 				9F24752C18F3990500A290BE /* PLPlanTripCalendarMapViewController.m in Sources */,
+				9FDA530B190690E50025150E /* PLAutocompleteViewController.m in Sources */,
 				9FC0558F18E2B31600743E16 /* AFURLResponseSerialization.m in Sources */,
 				9FC0558D18E2B31600743E16 /* AFURLConnectionOperation.m in Sources */,
 				9F093C5518FE286800530C11 /* PLPlanTripCalendarDayView.m in Sources */,
@@ -1225,6 +1301,7 @@
 				9F7F704618F0FDC800904AA5 /* SBViewController.m in Sources */,
 				9F7F704418F0FDC800904AA5 /* MKTableViewController.m in Sources */,
 				9F093C7E18FE2F0A00530C11 /* DSLCalendarMonthView.m in Sources */,
+				9FDA530119068FC30025150E /* HTAutocompleteTextField.m in Sources */,
 				9F7F703818F0FDC800904AA5 /* ChooseEventViewController.m in Sources */,
 				9F7F703E18F0FDC800904AA5 /* TripDetailViewController.m in Sources */,
 				9F7F704018F0FDC800904AA5 /* TripViewController.m in Sources */,
@@ -1255,6 +1332,7 @@
 				9F2F85E918EA70F000BA98AA /* Event.m in Sources */,
 				9FC0558818E2B31600743E16 /* AFHTTPRequestOperation.m in Sources */,
 				9F9F339718E108010077C85A /* main.m in Sources */,
+				9FDA52F819066D390025150E /* CHCSVParser.m in Sources */,
 				9F7F703C18F0FDC800904AA5 /* DestinationCityViewController.m in Sources */,
 				9FDA52E4190660EB0025150E /* UIButton+Extensions.m in Sources */,
 				9FC055A318E2B46300743E16 /* AFNetworkActivityIndicatorManager.m in Sources */,

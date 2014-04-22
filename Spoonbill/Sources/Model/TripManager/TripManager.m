@@ -96,6 +96,26 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
 
 
 #pragma mark - City
+- (NSArray *)getCityWithUserid:(NSNumber *)userid
+                       context:(NSManagedObjectContext *)moc
+{
+    if (!userid || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"uid == %@", [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"City"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    return fetchResult;
+}
+
 - (City *)getCityWithCityName:(NSString *)cityName
                       context:(NSManagedObjectContext *)moc
 {
@@ -206,12 +226,20 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
         city.latitude = dictionary[@"Latitude"];
     }
     
+    if ([dictionary[@"Latitude"] isStringObject]) {
+        city.latitude = [NSNumber numberWithDouble:[dictionary[@"Latitude"] doubleValue]];
+    }
+    
     if ([dictionary[@"LatitudeRef"] isStringObject]) {
         city.latitudeRef = dictionary[@"LatitudeRef"];
     }
     
     if ([dictionary[@"Longitude"] isNumberObject]) {
         city.longitude = dictionary[@"Longitude"];
+    }
+    
+    if ([dictionary[@"Longitude"] isStringObject]) {
+        city.longitude = [NSNumber numberWithDouble:[dictionary[@"Longitude"] doubleValue]];
     }
     
     if ([dictionary[@"LongitudeRef"] isStringObject]) {

@@ -22,6 +22,8 @@ extern NSString * const TripManagerOperationDidDeleteEventNotification;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 
 /* City */
+- (NSArray *)getCityWithUserid:(NSNumber *)userid
+                       context:(NSManagedObjectContext *)moc;
 - (City *)getCityWithCityName:(NSString *)cityName
                       context:(NSManagedObjectContext *)moc;
 - (BOOL)addCityWithDictionary:(NSDictionary *)dictionary

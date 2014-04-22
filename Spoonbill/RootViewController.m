@@ -15,6 +15,7 @@
 #import "PLPlanTripViewController.h"
 #import "PLPlanTripCalendarViewController.h"
 #import "PLPlanTripCalendarMapViewController.h"
+#import "PLAutocompleteViewController.h"
 
 /* Core Data */
 #import "CityViewController.h"
@@ -39,6 +40,7 @@ typedef NS_ENUM(NSInteger, PlainTableRow) {
     PlainTableRowPlanTrip,
     PlainTableRowPlanTripCalendar,
     PlainTableRowPlanTripCalendarMap,
+    PlainTableRowPlanAutocomplete,
     PlainTableRowCount
 };
 
@@ -58,6 +60,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    /* Generate preset city if there is no any city object*/
+    [MockManager sharedInstance];
     
     self.title = NSLocalizedString(@"Spoonbill", nil);
     
@@ -100,6 +105,12 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 - (IBAction)planTripCalendarMapButtonTapAction:(id)sender
 {
     PLPlanTripCalendarMapViewController *vc = [[PLPlanTripCalendarMapViewController alloc] initWithNibName:@"PLPlanTripCalendarMapViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)autocompleteButtonTapAction:(id)sender
+{
+    PLAutocompleteViewController *vc = [[PLAutocompleteViewController alloc] initWithNibName:@"PLAutocompleteViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -193,6 +204,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
         case PlainTableRowPlanTripCalendarMap:
             [self planTripCalendarMapButtonTapAction:nil];
             break;
+        case PlainTableRowPlanAutocomplete:
+            [self autocompleteButtonTapAction:nil];
+            break;
     }
 }
 
@@ -264,6 +278,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
                 break;
             case PlainTableRowPlanTripCalendarMap:
                 [mArray insertObject:@"Plan Trip + Calendar + Map" atIndex:PlainTableRowPlanTripCalendarMap];
+                break;
+            case PlainTableRowPlanAutocomplete:
+                [mArray insertObject:@"Autocomplete" atIndex:PlainTableRowPlanAutocomplete];
                 break;
         }
     }
