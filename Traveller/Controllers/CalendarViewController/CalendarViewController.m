@@ -328,6 +328,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+
     cell.eventTitleLabel.text = event.title;
     if ([event.allDay boolValue]) {
         cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
@@ -337,7 +338,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
-    cell.eventLocationLabel.text = event.location;
+    cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
     cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
 }
 
