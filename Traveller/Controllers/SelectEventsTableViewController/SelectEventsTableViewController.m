@@ -24,7 +24,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        keyboardIsVisible = NO;
+        keyboardHeight = 0.0f;
     }
     return self;
 }
