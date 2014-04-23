@@ -360,7 +360,7 @@ static HTAutocompleteManager *sharedManager;
         
         for (City *city in cityAutocompleteArray)
         {
-            NSString *stringFromReference = city.cityName;
+            NSString *stringFromReference = [NSString stringWithFormat:@"%@, %@", city.cityName, city.countryName];
             NSString *stringToCompare;
             if (ignoreCase)
             {
@@ -373,12 +373,14 @@ static HTAutocompleteManager *sharedManager;
             
             if ([stringToCompare hasPrefix:stringToLookFor])
             {
+                self.activeCity = city;
+                NSLog(@"Active City:  %@", self.activeCity);
                 return [stringFromReference stringByReplacingCharactersInRange:[stringToCompare rangeOfString:stringToLookFor] withString:@""];
             }
             
         }
     }
-    
+    self.activeCity = nil;
     return @"";
 }
 

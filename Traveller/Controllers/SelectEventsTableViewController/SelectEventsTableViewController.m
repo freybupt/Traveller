@@ -57,6 +57,15 @@
     event.isSelected = [NSNumber numberWithBool:checkbox.checked];
     [[DataManager sharedInstance] saveEvent:event
                                     context:self.managedObjectContext];
+    MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    if ([event.isSelected boolValue]) {
+        [cell.eventLocationTextField becomeFirstResponder];
+        
+        //move cell to view top
+        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height/2.2)];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+
 }
 
 #pragma mark - NSFetchedResultController configuration
@@ -80,10 +89,16 @@
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
+    if (event.toCity) {
+        cell.eventLocationTextField.text = [NSString stringWithFormat:@"%@, %@",
+                                            event.toCity.cityName, event.toCity.countryName];
+    }
+    
     cell.eventLocationLabel.text = event.location;
     cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
     cell.eventLocationTextField.delegate = self;
     cell.checkBox.checked = [event.isSelected boolValue];
+    
     [cell.checkBox addTarget:self
                       action:@selector(checkBoxTapAction:)
             forControlEvents:UIControlEventValueChanged];
@@ -128,7 +143,34 @@
 #pragma mark - UITextField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    
     [textField resignFirstResponder];
+    [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height)];
+    
+    //TODO: save active city to event, doesn't work due to NSManagedObjectContext?
+    City *activeCity = [[HTAutocompleteManager sharedManager] activeCity];
+    if (activeCity) {
+        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:textField.frame.origin];
+        Event *anEvent = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"City"
+                                                  inManagedObjectContext:self.managedObjectContext];
+        City *toCity = [[City alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext];
+        
+        toCity.cityCode = activeCity.cityCode;
+        toCity.cityName = activeCity.cityName;
+        toCity.countryCode = activeCity.countryCode;
+        toCity.countryName = activeCity.countryName;
+        toCity.latitude = activeCity.latitude;
+        toCity.latitudeRef = activeCity.latitudeRef;
+        toCity.longitude = activeCity.longitude;
+        toCity.longitudeRef = activeCity.longitudeRef;
+        toCity.uid = activeCity.uid;
+        [anEvent setToCity:toCity];
+        [[DataManager sharedInstance] saveEvent:anEvent
+                                        context:self.managedObjectContext];
+    }
+	
+    
     return NO;
 }
 

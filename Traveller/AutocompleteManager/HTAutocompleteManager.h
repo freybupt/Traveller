@@ -15,7 +15,11 @@ typedef enum {
     HTAutocompleteTypeCity
 } HTAutocompleteType;
 
+@class City;
+
 @interface HTAutocompleteManager : NSObject <HTAutocompleteDataSource>
+
+@property (nonatomic, strong) City *activeCity;
 
 + (HTAutocompleteManager *)sharedManager;
 

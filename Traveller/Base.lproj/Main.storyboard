@@ -350,19 +350,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" id="ixF-qq-GYf" customClass="Checkbox">
-                                                    <rect key="frame" x="283" y="6" width="26" height="58"/>
+                                                    <rect key="frame" x="284" y="-16" width="26" height="106"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map5.png" id="mNV-cX-0Eh">
-                                                    <rect key="frame" x="51" y="36" width="20" height="20"/>
+                                                    <rect key="frame" x="51" y="35" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" id="ajk-6t-WoQ" customClass="HTAutocompleteTextField">
-                                                    <rect key="frame" x="79" y="31" width="192" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add City" minimumFontSize="17" id="ajk-6t-WoQ" customClass="HTAutocompleteTextField">
+                                                    <rect key="frame" x="79" y="30" width="172" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -384,7 +384,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pick Trip Events" id="OHP-9f-k7F">
-                        <barButtonItem key="leftBarButtonItem" title="Next" id="cWu-PN-fSK">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="cWu-PN-fSK">
                             <connections>
                                 <segue destination="vXZ-lx-hvc" kind="push" id="GhQ-r9-wnu"/>
                             </connections>
