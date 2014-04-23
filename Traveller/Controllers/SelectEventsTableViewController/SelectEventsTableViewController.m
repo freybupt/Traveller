@@ -11,6 +11,11 @@
 #import "MZFormSheetController.h"
 
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
+{
+    BOOL keyboardIsVisible;
+    CGFloat keyboardHeight;
+}
+@property (nonatomic, strong) NSIndexPath *processingIndexPath;
 @end
 
 @implementation SelectEventsTableViewController
@@ -19,7 +24,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -27,22 +32,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
     [HTAutocompleteTextField setDefaultAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+    [self registerKeyboardNotification];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self unregisterKeyboardNotification];
+    
+    [super viewWillDisappear:animated];
+}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Button tap action
@@ -50,20 +60,14 @@
 {
     Checkbox *checkbox = (Checkbox *)sender;
     
-    CGPoint position = [checkbox convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:position];
-    
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
     event.isSelected = [NSNumber numberWithBool:checkbox.checked];
     [[DataManager sharedInstance] saveEvent:event
                                     context:self.managedObjectContext];
-    MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    if ([event.isSelected boolValue]) {
+    MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:_processingIndexPath];
+    if ([event.isSelected boolValue] &&
+        [cell.eventLocationTextField.text length] == 0) {
         [cell.eventLocationTextField becomeFirstResponder];
-        
-        //move cell to view top
-        [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height/2.2)];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }
 
 }
@@ -71,7 +75,13 @@
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
 {
-    return [NSPredicate predicateWithFormat:@"(uid == %@)", [MockManager userid]];
+    NSDate *today = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit)
+                                                   fromDate:today];
+    today = [today dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
+    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@)", [MockManager userid], today];
 }
 
 #pragma mark - UITableViewDelegate
@@ -89,23 +99,21 @@
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
-    if (event.toCity) {
-        cell.eventLocationTextField.text = [NSString stringWithFormat:@"%@, %@",
-                                            event.toCity.cityName, event.toCity.countryName];
-    }
-    
+
     cell.eventLocationLabel.text = event.location;
+    cell.eventLocationTextField.text = (event.toCity) ? [NSString stringWithFormat:@"%@, %@",
+                                                         event.toCity.cityName, event.toCity.countryName] : nil;
     cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
     cell.eventLocationTextField.delegate = self;
-    cell.checkBox.checked = [event.isSelected boolValue];
     
-    [cell.checkBox addTarget:self
-                      action:@selector(checkBoxTapAction:)
-            forControlEvents:UIControlEventValueChanged];
+    cell.checkBox.checked = [event.isSelected boolValue];
+    cell.checkBox.userInteractionEnabled = NO;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    _processingIndexPath = indexPath;
+    
     MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.checkBox.checked = !cell.checkBox.checked;
     [self checkBoxTapAction:cell.checkBox];
@@ -140,31 +148,54 @@
     [self editEventButtonTapAction:anEvent];
 }
 
-#pragma mark - UITextField delegate
+#pragma mark - UITextField
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    CGPoint position = [textField convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:position];
+    _processingIndexPath = indexPath;
+
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    
+    textField.text = [textField.text uppercaseStringToIndex:1];
     [textField resignFirstResponder];
-    [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height)];
+    
+    [self addToCityWithTextField:textField];
+	
+    return NO;
+}
+
+- (void)addToCityWithTextField:(UITextField *)textField
+{
+    if (!textField) {
+        [self.tableView reloadRowsAtIndexPaths:@[_processingIndexPath]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
+    }
     
     NSArray *array = [textField.text componentsSeparatedByString:@", "];
     if ([array count] == 0) {
-        return NO;
+        [self.tableView reloadRowsAtIndexPaths:@[_processingIndexPath]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
     }
     
     NSString *cityName = [[array objectAtIndex:0] uppercaseStringToIndex:1];
-    City *city = [[DataManager sharedInstance] getCityWithCityName:cityName
-                                                           context:self.managedObjectContext];
-    if (city) {
-        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:textField.frame.origin];
-        Event *anEvent = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        anEvent.toCity = city;
-        [[DataManager sharedInstance] saveEvent:anEvent
-                                        context:self.managedObjectContext];
+    City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                             context:self.managedObjectContext];
+    if (!toCity) {
+        [self.tableView reloadRowsAtIndexPaths:@[_processingIndexPath]
+                              withRowAnimation:UITableViewRowAnimationAutomatic];
+        return;
     }
-	
-    
-    return NO;
+
+    Event *anEvent = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
+    anEvent.toCity = toCity;
+    [[DataManager sharedInstance] saveEvent:anEvent
+                                    context:self.managedObjectContext];
 }
 
 #pragma mark -
@@ -262,4 +293,114 @@
         }
     }];
 }
+
+#pragma mark - NSNotificationCenter for keyboard
+- (void)registerKeyboardNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidChangeFrame:)
+                                                 name:UIKeyboardDidChangeFrameNotification object:nil];
+}
+
+- (void)unregisterKeyboardNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidChangeFrameNotification
+                                                  object:nil];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if (keyboardIsVisible) {
+        return;
+    }
+    
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSTimeInterval duration = [[keyboardInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
+    
+    keyboardHeight = keyboardFrameEndRect.size.height + 32.0f;
+    
+    // Adjust frame when keyboard is opened
+    [UIView transitionWithView:self.tableView
+                      duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.tableView.frame = CGRectMake(0.0f,
+                                                          self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 32.0f,
+                                                          self.tableView.frame.size.width,
+                                                          [UIScreen mainScreen].applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height - keyboardHeight);
+                    } completion:^(BOOL finished) {
+                        if (finished) {
+                            keyboardIsVisible = YES;
+                            [self.tableView scrollToRowAtIndexPath:_processingIndexPath
+                                                  atScrollPosition:UITableViewScrollPositionTop
+                                                          animated:NO];
+                        }
+                    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    if (!keyboardIsVisible) {
+        return;
+    }
+    NSDictionary* keyboardInfo = [notification userInfo];
+    
+    NSTimeInterval duration = [[keyboardInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationCurve curve = [[keyboardInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    
+    NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
+    
+    //Adjust frame when keyboard is closed
+    [UIView animateWithDuration:duration animations:^{
+        [UIView setAnimationCurve:curve];
+        self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + keyboardFrameEndRect.size.height);
+    }];
+    keyboardIsVisible = NO;
+}
+
+- (void)keyboardDidChangeFrame:(NSNotification *)notification
+{
+    if (!keyboardIsVisible) {
+        return;
+    }
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSTimeInterval duration = [[keyboardInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
+    
+    keyboardHeight = keyboardFrameEndRect.size.height + 32.0f;
+    
+    // Adjust frame when keyboard is opened
+    [UIView transitionWithView:self.tableView
+                      duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.tableView.frame = CGRectMake(0.0f,
+                                                          self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 32.0f,
+                                                          self.tableView.frame.size.width,
+                                                          [UIScreen mainScreen].applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height - keyboardHeight);
+                    } completion:^(BOOL finished) {
+                        if (finished) {
+                            [self.tableView scrollToRowAtIndexPath:_processingIndexPath
+                                                  atScrollPosition:UITableViewScrollPositionTop
+                                                          animated:NO];
+                        }
+                    }];
+}
+
 @end

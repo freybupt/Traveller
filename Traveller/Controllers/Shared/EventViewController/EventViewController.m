@@ -26,10 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(accessGrantedForCalendar:)
-                                                 name:kGrantCalendarAccessNotification
-                                               object:[CalendarManager sharedManager]];
+    
+    [self registerNotification];
 }
 
 - (void)viewDidUnload
@@ -56,7 +54,7 @@
 #pragma mark -
 #pragma mark Access Calendar
 // This method is called when the user has granted permission to Calendar
--(void)accessGrantedForCalendar:(NSNotification *)notification
+- (void)accessGrantedForCalendar:(NSNotification *)notification
 {
     
     NSDictionary *dict = [notification userInfo];
@@ -259,10 +257,17 @@
 #pragma mark - NSNotificationCenter
 - (void)registerNotification
 {
+    // Enable this if we would like to sync after users edit events in the system Calendar
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fetchEvents)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+    */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(accessGrantedForCalendar:)
+                                                 name:kGrantCalendarAccessNotification
+                                               object:[CalendarManager sharedManager]];
 }
 
 - (void)unregisterNotification
