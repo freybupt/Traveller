@@ -19,8 +19,6 @@ typedef enum {
 
 @interface HTAutocompleteManager : NSObject <HTAutocompleteDataSource>
 
-@property (nonatomic, strong) City *activeCity;
-
 + (HTAutocompleteManager *)sharedManager;
 
 @end

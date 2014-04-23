@@ -29,7 +29,7 @@ static HTAutocompleteManager *sharedManager;
 	{
         NSLog(@"Initializing Autocomplete Manager");
         
-        NSPersistentStoreCoordinator *coordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
+        NSPersistentStoreCoordinator *coordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
         if (coordinator != nil) {
             _managedObjectContext = [NSManagedObjectContext new];
             _managedObjectContext.undoManager = nil;
@@ -342,7 +342,7 @@ static HTAutocompleteManager *sharedManager;
         static NSArray *cityAutocompleteArray;
         dispatch_once(&cityOnceToken, ^
                       {
-                          cityAutocompleteArray = [[TripManager sharedInstance] getCityWithUserid:[MockManager userid]
+                          cityAutocompleteArray = [[DataManager sharedInstance] getCityWithUserid:[MockManager userid]
                                                                                           context:_managedObjectContext];
                       });
         
@@ -373,14 +373,11 @@ static HTAutocompleteManager *sharedManager;
             
             if ([stringToCompare hasPrefix:stringToLookFor])
             {
-                self.activeCity = city;
-                NSLog(@"Active City:  %@", self.activeCity);
                 return [stringFromReference stringByReplacingCharactersInRange:[stringToCompare rangeOfString:stringToLookFor] withString:@""];
             }
             
         }
     }
-    self.activeCity = nil;
     return @"";
 }
 

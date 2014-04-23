@@ -30,7 +30,6 @@
 		768264131906ED0900089319 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 768264001906ED0900089319 /* UIProgressView+AFNetworking.m */; };
 		768264141906ED0900089319 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 768264021906ED0900089319 /* UIRefreshControl+AFNetworking.m */; };
 		768264151906ED0900089319 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 768264041906ED0900089319 /* UIWebView+AFNetworking.m */; };
-		768264281906EF5C00089319 /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 768264271906EF5C00089319 /* TripManager.m */; };
 		76B9443719071436001B08DB /* add-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442919071436001B08DB /* add-item@2x.png */; };
 		76B9443819071436001B08DB /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442B19071436001B08DB /* Icon-40@2x.png */; };
 		76B9443919071436001B08DB /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442C19071436001B08DB /* Icon-60@2x.png */; };
@@ -106,6 +105,7 @@
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
 		9FC4186118FFAC74001CC750 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4186018FFAC74001CC750 /* CoreLocation.framework */; };
+		9FFA7FCC19075FD100F55345 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,8 +165,6 @@
 		768264021906ED0900089319 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		768264031906ED0900089319 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		768264041906ED0900089319 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		768264261906EF5C00089319 /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
-		768264271906EF5C00089319 /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		76B9442919071436001B08DB /* add-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-item@2x.png"; sourceTree = "<group>"; };
 		76B9442B19071436001B08DB /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		76B9442C19071436001B08DB /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -286,6 +284,8 @@
 		9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extensions.m"; sourceTree = "<group>"; };
 		9FC4185E18FFAC6D001CC750 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9FC4186018FFAC74001CC750 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9FFA7FCA19075FD100F55345 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,8 +709,6 @@
 				9F3747B71900F213003D67C8 /* Event.m */,
 				9F3747B81900F213003D67C8 /* Trip.h */,
 				9F3747B91900F213003D67C8 /* Trip.m */,
-				768264261906EF5C00089319 /* TripManager.h */,
-				768264271906EF5C00089319 /* TripManager.m */,
 				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
 			);
 			name = DataManager;
@@ -853,6 +851,8 @@
 				9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */,
 				9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */,
 				9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */,
+				9FFA7FCA19075FD100F55345 /* NSString+Extensions.h */,
+				9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -988,6 +988,7 @@
 				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
 				9F54EB611901771600ABB05F /* EventViewController.m in Sources */,
 				9F3747A71900F168003D67C8 /* AddDestinationViewController.m in Sources */,
+				9FFA7FCC19075FD100F55345 /* NSString+Extensions.m in Sources */,
 				9F3747C91900F213003D67C8 /* LocationManager.m in Sources */,
 				9F3747C31900F213003D67C8 /* CalendarManager.m in Sources */,
 				9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */,
@@ -1015,7 +1016,6 @@
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
 				9F3747C51900F213003D67C8 /* DataManager.m in Sources */,
 				9F3748361900F2E3003D67C8 /* DSLCalendarRange.m in Sources */,
-				768264281906EF5C00089319 /* TripManager.m in Sources */,
 				9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */,
 				768264131906ED0900089319 /* UIProgressView+AFNetworking.m in Sources */,
 				9F37483E1900F2E3003D67C8 /* MZFormSheetBackgroundWindow.m in Sources */,

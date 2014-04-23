@@ -33,7 +33,7 @@
 	{
         NSLog(@"Initializing Mock Manager");
         
-        NSPersistentStoreCoordinator *coordinator = [[TripManager sharedInstance] persistentStoreCoordinator];
+        NSPersistentStoreCoordinator *coordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
         if (coordinator != nil) {
             _managedObjectContext = [NSManagedObjectContext new];
             _managedObjectContext.undoManager = nil;
@@ -93,7 +93,7 @@
                 [mDictionary addEntriesFromDictionary:@{ @"id" : [MockManager userid] }];
             }
             
-            [[TripManager sharedInstance] addCityWithDictionary:mDictionary context:_managedObjectContext];
+            [[DataManager sharedInstance] addCityWithDictionary:mDictionary context:_managedObjectContext];
         }
     }];
     

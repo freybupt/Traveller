@@ -96,6 +96,26 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
 
 
 #pragma mark - City
+- (NSArray *)getCityWithUserid:(NSNumber *)userid
+                       context:(NSManagedObjectContext *)moc
+{
+    if (!userid || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"uid == %@", [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"City"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    return fetchResult;
+}
+
 - (City *)getCityWithCityName:(NSString *)cityName
                       context:(NSManagedObjectContext *)moc
 {
@@ -187,7 +207,8 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     }
     
     if ([dictionary[@"City"] isStringObject]) {
-        city.cityName = dictionary[@"City"];
+        NSString *cityName = dictionary[@"City"];
+        city.cityName = [cityName uppercaseStringToIndex:1];
     }
     
     if ([dictionary[@"CityCode"] isStringObject]) {

@@ -147,25 +147,18 @@
     [textField resignFirstResponder];
     [self.tableView setFrame:CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.view.frame.size.height)];
     
-    //TODO: save active city to event, doesn't work due to NSManagedObjectContext?
-    City *activeCity = [[HTAutocompleteManager sharedManager] activeCity];
-    if (activeCity) {
+    NSArray *array = [textField.text componentsSeparatedByString:@", "];
+    if ([array count] == 0) {
+        return NO;
+    }
+    
+    NSString *cityName = [[array objectAtIndex:0] uppercaseStringToIndex:1];
+    City *city = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                           context:self.managedObjectContext];
+    if (city) {
         NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:textField.frame.origin];
         Event *anEvent = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"City"
-                                                  inManagedObjectContext:self.managedObjectContext];
-        City *toCity = [[City alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext];
-        
-        toCity.cityCode = activeCity.cityCode;
-        toCity.cityName = activeCity.cityName;
-        toCity.countryCode = activeCity.countryCode;
-        toCity.countryName = activeCity.countryName;
-        toCity.latitude = activeCity.latitude;
-        toCity.latitudeRef = activeCity.latitudeRef;
-        toCity.longitude = activeCity.longitude;
-        toCity.longitudeRef = activeCity.longitudeRef;
-        toCity.uid = activeCity.uid;
-        [anEvent setToCity:toCity];
+        anEvent.toCity = city;
         [[DataManager sharedInstance] saveEvent:anEvent
                                         context:self.managedObjectContext];
     }
