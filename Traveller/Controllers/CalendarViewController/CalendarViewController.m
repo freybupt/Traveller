@@ -49,16 +49,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                               forControlEvents:UIControlEventEditingChanged];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self fetchEvents];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -452,6 +446,9 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         abort();
     }
     [self.tableView reloadData];
+    
+    //TODO: calculate trip plan
+    [self showActivityIndicatorWithText:@"Planning for your trip..."];
 }
 
 - (void)drawCalendarDayViewForEvent

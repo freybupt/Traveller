@@ -10,4 +10,11 @@
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic, retain) UIActivityIndicatorView * activityView;
+@property (nonatomic, retain) UIView *loadingView;
+@property (nonatomic, retain) UILabel *loadingLabel;
+
+- (void)showActivityIndicatorWithText:(NSString *)text;
+- (void)hideActivityIndicator;
 @end

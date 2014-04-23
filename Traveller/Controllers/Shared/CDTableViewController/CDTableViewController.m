@@ -30,6 +30,8 @@
     [super viewDidLoad];
     
     [self setTableView];
+    
+    [self initActivityView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,6 +47,47 @@
     _tableView.dataSource = nil;
     _tableView.delegate = nil;
     _fetchedResultsController.delegate = nil;
+}
+
+- (void)initActivityView
+{
+    self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+    self.loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    self.loadingView.clipsToBounds = YES;
+    self.loadingView.layer.cornerRadius = 10.0;
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityView.frame = CGRectMake(0, 0, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
+    self.activityView.center = CGPointMake(self.loadingView.frame.size.width/2, self.loadingView.frame.size.height/3);
+    [self.loadingView addSubview:self.activityView];
+    
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.loadingView.frame.size.height - 60, 200, 22)];
+    self.loadingLabel.backgroundColor = [UIColor clearColor];
+    self.loadingLabel.textColor = [UIColor whiteColor];
+    self.loadingLabel.font = [UIFont fontWithName:@"Avenir-Bold" size:18];
+    self.loadingLabel.adjustsFontSizeToFitWidth = YES;
+    self.loadingLabel.textAlignment = NSTextAlignmentCenter;
+    self.loadingLabel.text = @"Loading...";
+    [self.loadingView addSubview:self.loadingLabel];
+    self.loadingView.center = self.view.center;
+    
+    
+}
+
+- (void)showActivityIndicatorWithText:(NSString *)text
+{
+    if ([text length] > 0) {
+        self.loadingLabel.text = text;
+    }
+    
+    [self.view addSubview:self.loadingView];
+    [self.activityView startAnimating];
+}
+
+- (void)hideActivityIndicator
+{
+    [self.activityView stopAnimating];
+    [self.activityView removeFromSuperview];
 }
 
 #pragma mark - UITableView configuration
