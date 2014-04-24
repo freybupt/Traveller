@@ -10,7 +10,7 @@
 
 @interface CalendarDayView ()
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong) Trip *activeTrip;
+@property (nonatomic, strong) __block Trip *activeTrip;
 @end
 
 @implementation CalendarDayView
@@ -75,9 +75,10 @@
 
 - (void)drawRect:(CGRect)rect {
     if ([self isMemberOfClass:[CalendarDayView class]]) {
-        //update trip info
-        self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
-                                                                     userid:[MockManager userid] context:_managedObjectContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
+                                                                         userid:[MockManager userid] context:_managedObjectContext];
+        });
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];
