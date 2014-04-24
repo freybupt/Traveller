@@ -12,7 +12,7 @@
 #import "DSLCalendarView.h"
 
 
-@interface DSLCalendarView ()
+@interface CalendarView ()
 
 @property (nonatomic, copy) NSDateComponents *draggingFixedDay;
 @property (nonatomic, copy) NSDateComponents *draggingStartDay;
@@ -64,7 +64,7 @@
 }
 
 #pragma mark - Touches
-
+/*
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     CalendarDayView *touchedView = [self dayViewForTouches:touches];
     if (touchedView == nil) {
@@ -76,10 +76,13 @@
     self.draggingFixedDay = touchedView.day;
     self.draggedOffStartDay = NO;
     
-    self.editingTrip = nil;
+    //self.editingTrip = nil;
     //already have trip
-    
-    Trip *activeTrip = [[TripManager sharedManager] findActiveTripByDate:touchedView.day.date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDate *touchedDate = [calendar dateFromComponents:touchedView.day];
+    Trip *activeTrip = [[DataManager sharedInstance] getActiveTripByDate:touchedDate
+                                                                  userid:[MockManager userid] context:_managedObjectContext];
     if (activeTrip) {
         [self.delegate calendarView:self shouldHighlightTrip:activeTrip];
         self.originalTrip = activeTrip;
@@ -152,7 +155,6 @@
     
     //TODO: check within current range whether there is trip plan already?
     //modify current trip
-    
     if (self.editingTrip) {
         DSLCalendarRange *newRange;
         NSCalendar *gregorian = [[NSCalendar alloc]
@@ -188,7 +190,8 @@
             }
         }
     }
-    else if ([[TripManager sharedManager] findActiveTripByDate:touchedView.day.date]) {
+    else if ([[DataManager sharedInstance] getActiveTripByDate:touchedView.day.date
+                                                        userid:[MockManager userid] context:_managedObjectContext]) {
         self.selectedRange = nil;
     }
     else{
@@ -252,7 +255,8 @@
             [self.delegate calendarView:self didModifytrip:self.originalTrip toNewTrip:updatedTrip];
         }
     }
-    else if([[TripManager sharedManager] findActiveTripByDate:touchedView.day.date]) {
+    else if([[DataManager sharedInstance] getActiveTripByDate:touchedView.day.date
+                                                       userid:[MockManager userid] context:_managedObjectContext]) {
         //don't create new trip on existing one
         return;
     }
@@ -308,4 +312,5 @@
     
     return nil;
 }
+*/
 @end

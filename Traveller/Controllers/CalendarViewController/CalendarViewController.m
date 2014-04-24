@@ -28,8 +28,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 @property (nonatomic, strong) NSMutableArray *numberOutput;
 
-@property (nonatomic, strong) NSMutableArray *tripArray;
-
 @end
 
 @implementation CalendarViewController
@@ -43,8 +41,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     
     // Init calendar view
     self.calendarView.delegate = self;
-    self.tripArray = [[NSMutableArray alloc] init];
-    
+    self.calendarView.showDayCalloutView = NO;
+
     [self.destinationTextField addTarget:self
                                   action:@selector(destinationUpdated:)
                         forControlEvents:UIControlEventEditingChanged];
@@ -134,8 +132,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 - (IBAction)showDestinationPanel:(id)sender
 {
     if ([sender isKindOfClass:[Trip class]]) {
-        //Trip *activeTrip = (Trip *)sender;
-        //self.destinationTextField.text = activeTrip.destinationCity.cityFullName;
+        Trip *activeTrip = (Trip *)sender;
+        self.destinationTextField.text = activeTrip.title;
         self.removeTripButton.hidden = NO;
     }
     else{
@@ -174,46 +172,63 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
-        //save trip
-        
-        Trip *trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        trip.title = self.destinationTextField.text;
-        trip.startDate = self.currentDateRange.startDay.date;
-        trip.endDate = self.currentDateRange.endDay.date;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
+    NSDate *endDate = [calendar dateFromComponents:self.currentDateRange.endDay];
+    Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:startDate
+                                                            userid:[MockManager userid] context:self.managedObjectContext];
+    if (!trip) {
+        // new trip
+        trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
+        trip.endDate = endDate; // Trip's endDate has to be equal to actually selected end day
+
         //TODO: add trip destination
         [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         trip.isRoundTrip = [NSNumber numberWithBool:NO];
         
-        if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
-            TripManager *tripManager = [TripManager sharedManager];
-            [tripManager addTripToActiveList:trip];
-        }
+        // TODO: Probably move the part of color control from trip manager to calendar color manager
+        [[TripManager sharedManager] addTripToActiveList:trip];
     }
     
-    self.calendarView.selectedRange = self.currentDateRange;
-    [self hideDestinationPanel:nil];
+    if ([self.destinationTextField.text length] > 0) {
+        trip.title = self.destinationTextField.text;
+    }
+    
+    //save trip
+    if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
+        self.calendarView.selectedRange = self.currentDateRange;
+        [self hideDestinationPanel:nil];
+    }
 }
 
 - (IBAction)cancelTripChange:(id)sender
 {
     self.currentDateRange = nil;
     self.calendarView.selectedRange = nil;
-    if (self.calendarView.editingTrip && self.calendarView.originalTrip) {
-        //[[TripManager sharedManager] modifyTrip:self.calendarView.editingTrip toNewTrip:self.calendarView.originalTrip];
-        self.calendarView.editingTrip = nil;
-        self.calendarView.originalTrip = nil;
-    }
     [self hideDestinationPanel:nil];
 }
 
 
 - (IBAction)deleteCurrentTrip:(id)sender
 {
-    if (self.calendarView.originalTrip) {
-        //[[TripManager sharedManager] deleteTrip:self.calendarView.originalTrip];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
+    Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:startDate
+                                                            userid:[MockManager userid] context:self.managedObjectContext];
+    if (!trip) {
+        return;
+    }
+    
+    if ([[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext]) {
         self.calendarView.selectedRange = nil;
         [self hideDestinationPanel:nil];
+        
+        // TODO: Probably move the part of color control from trip manager to calendar color manager
+        [[TripManager sharedManager] deleteTrip:trip];
     }
 }
 
@@ -240,7 +255,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     self.destinationTextField.text = trip.toCityDestinationCity.cityName;
     [self showDestinationPanel:trip];
-
 }
 
 - (void)calendarView:(DSLCalendarView *)calendarView
@@ -248,12 +262,11 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
            toNewTrip:(Trip *)updatedTrip
 {
     //TODO: autocomplete for city name
-//    updatedTrip.toCityDestinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
+    //    updatedTrip.toCityDestinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
     
     //TODO: save updatedTrip to db
-//    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
+    //    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
 }
-
 
 - (void)calendarView:(DSLCalendarView *)calendarView
       didSelectRange:(DSLCalendarRange *)range
@@ -261,11 +274,18 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     if (range != nil) {
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
-        [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        NSDate *touchedDate = [calendar dateFromComponents:range.startDay];
+        
+        Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:touchedDate
+                                                                userid:[MockManager userid] context:self.managedObjectContext];
+        [self performSelector:@selector(showDestinationPanel:)
+                   withObject:trip
+                   afterDelay:0.1];
+        
         [self fetchEventsWithDateRange:self.currentDateRange];
-        [self performSelector:@selector(drawCalendarDayViewForEvent)
-                   withObject:nil
-                   afterDelay:0.3f];
     }
     else {
         self.currentDateRange = nil;

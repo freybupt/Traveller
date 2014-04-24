@@ -410,13 +410,21 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
                        userid:(NSNumber *)userid
                       context:(NSManagedObjectContext *)moc
 {
-    for (Trip *trip in [self getTripWithUserid:userid context:moc]) {
-        if (([date compare:trip.startDate] != NSOrderedAscending) &&
-            ([date compare:trip.endDate] != NSOrderedDescending)){
-            return trip;
-        }
+    if (!userid || !moc ) {
+        return nil;
     }
-    return nil;
+
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate <= %@) AND (endDate >= %@)", [MockManager userid], date, date];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Trip"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    return ([fetchResult count] == 0) ? nil : [fetchResult lastObject];
 }
 
 - (BOOL)saveTrip:(Trip *)trip
