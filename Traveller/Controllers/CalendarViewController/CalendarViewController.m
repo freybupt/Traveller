@@ -27,6 +27,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 @property (nonatomic, strong) NSMutableArray *numberOutput;
 
+@property (nonatomic, strong) NSMutableArray *tripArray;
+
 @end
 
 @implementation CalendarViewController
@@ -40,6 +42,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     
     // Init calendar view
     self.calendarView.delegate = self;
+    self.tripArray = [[NSMutableArray alloc] init];
     
     [self.destinationTextField addTarget:self
                                   action:@selector(destinationUpdated:)
@@ -168,15 +171,16 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     if ([self.destinationTextField.text length] > 0 &&  self.calendarView.editingTrip == nil) {
         //save trip
-        /*
-        Trip *trip = [[Trip alloc] initWithDateRange:self.currentDateRange
-                                       departureCity:self.departureLocationTextField.text
-                                      andDestination:self.destinationTextField.text
-                                         isRoundTrip:NO];
+        
+        Trip *trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        trip.startDate = self.currentDateRange.startDay.date;
+        trip.endDate = self.currentDateRange.endDay.date;
+        //TODO: add trip destination
+        trip.isRoundTrip = [NSNumber numberWithBool:NO];
         
         TripManager *tripManager = [TripManager sharedManager];
         [tripManager addTripToActiveList:trip];
-        */
+        
     }
     
     self.calendarView.selectedRange = self.currentDateRange;
@@ -193,7 +197,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         self.calendarView.originalTrip = nil;
     }
     [self hideDestinationPanel:nil];
-    [self fetchEventsWithDateRange:nil];
+//    [self fetchEventsWithDateRange:nil];
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil
                afterDelay:0.3f];
@@ -226,11 +230,11 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
-/*
+
 - (void)calendarView:(DSLCalendarView *)calendarView
  shouldHighlightTrip:(Trip *)trip
 {
-    self.destinationTextField.text = trip.destinationCity.cityFullName;
+    self.destinationTextField.text = trip.toCityDestinationCity.cityName;
     [self showDestinationPanel:trip];
 
 }
@@ -239,10 +243,13 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
        didModifytrip:(Trip *)old
            toNewTrip:(Trip *)updatedTrip
 {
-    updatedTrip.destinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
-    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
+    //TODO: autocomplete for city name
+//    updatedTrip.toCityDestinationCity = [[City alloc] initWithCityName:self.destinationTextField.text];
+    
+    //TODO: save updatedTrip to db
+//    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
 }
-*/
+
 
 - (void)calendarView:(DSLCalendarView *)calendarView
       didSelectRange:(DSLCalendarRange *)range
@@ -251,7 +258,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
-        [self fetchEventsWithDateRange:self.currentDateRange];
+//        [self fetchEventsWithDateRange:self.currentDateRange];
         [self performSelector:@selector(drawCalendarDayViewForEvent)
                    withObject:nil
                    afterDelay:0.3f];
@@ -317,6 +324,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     return [NSPredicate predicateWithFormat:@"(uid == %@) AND (isSelected = %@)", [MockManager userid], [NSNumber numberWithBool:YES]];
 }
+
 
 #pragma mark - UITableViewDelegate
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -422,9 +430,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }
     }];
     [self fetchEventsWithDateRange:nil];
-    [self performSelector:@selector(drawCalendarDayViewForEvent)
-               withObject:nil
-               afterDelay:0.3f];
 }
 
 - (void)fetchEventsWithDateRange:(DSLCalendarRange *)dateRange
@@ -448,7 +453,55 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.tableView reloadData];
     
     //TODO: calculate trip plan
-    [self showActivityIndicatorWithText:@"Planning for your trip..."];
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        [self showActivityIndicatorWithText:@"Planning for your trip..."];
+        
+        //TODO: get city of current location
+        NSString *cityName = @"Vancouver";
+        City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                                        context:self.managedObjectContext];
+        //trip from departure city to first destination
+        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
+        newTrip.toCityDepartureCity = departureCity;
+        newTrip.toCityDestinationCity = lastEvent.toCity;
+        NSDate *startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*24]; //one day before first event
+        newTrip.startDate = startDate;
+        newTrip.endDate = lastEvent.endDate;
+        [self.tripArray addObject:newTrip];
+        [[DataManager sharedInstance] saveTrip:newTrip
+                                       context:self.managedObjectContext];
+        
+        
+        City *lastCity = departureCity;
+        for (NSUInteger index = 0; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
+            Event *event = [self.fetchedResultsController fetchedObjects][index];
+            if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
+                //create a new trip
+                Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+                newTrip.toCityDepartureCity = lastCity;
+                newTrip.toCityDestinationCity = event.toCity;
+                newTrip.startDate = lastEvent.endDate;
+                newTrip.endDate = event.endDate;
+                [self.tripArray addObject:newTrip];
+                [[DataManager sharedInstance] saveTrip:newTrip
+                                               context:self.managedObjectContext];
+            }
+            else{
+                //get current Trip
+                Trip *currentTrip = [self.tripArray lastObject];
+                currentTrip.endDate = event.endDate;
+                [self.tripArray replaceObjectAtIndex:[self.tripArray count]-1 withObject:currentTrip];
+            }
+            lastCity = event.toCity;
+            lastEvent = event;
+        }
+    }
+    
+    
+    [self performSelector:@selector(drawCalendarDayViewForEvent)
+               withObject:nil
+               afterDelay:0.3f];
 }
 
 - (void)drawCalendarDayViewForEvent
@@ -481,6 +534,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             
         }];
     }];
+    
+    [self hideActivityIndicator];
 }
 
 #pragma mark -

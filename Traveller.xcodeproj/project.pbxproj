@@ -39,6 +39,7 @@
 		76B9443D19071436001B08DB /* calendar53@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9443219071436001B08DB /* calendar53@2x.png */; };
 		76B9443E19071436001B08DB /* CanadaCities.csv in Resources */ = {isa = PBXBuildFile; fileRef = 76B9443419071436001B08DB /* CanadaCities.csv */; };
 		76B9443F19071436001B08DB /* map35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9443619071436001B08DB /* map35@2x.png */; };
+		76B9444419088387001B08DB /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9444319088387001B08DB /* TripManager.m */; };
 		76C270B218B2A1E2003A49A3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B118B2A1E2003A49A3 /* Foundation.framework */; };
 		76C270B418B2A1E2003A49A3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B318B2A1E2003A49A3 /* CoreGraphics.framework */; };
 		76C270B618B2A1E2003A49A3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C270B518B2A1E2003A49A3 /* UIKit.framework */; };
@@ -174,6 +175,8 @@
 		76B9443219071436001B08DB /* calendar53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar53@2x.png"; sourceTree = "<group>"; };
 		76B9443419071436001B08DB /* CanadaCities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CanadaCities.csv; sourceTree = "<group>"; };
 		76B9443619071436001B08DB /* map35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map35@2x.png"; sourceTree = "<group>"; };
+		76B9444219088387001B08DB /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
+		76B9444319088387001B08DB /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
 		76C270AE18B2A1E2003A49A3 /* Traveller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Traveller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76C270B118B2A1E2003A49A3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		76C270B318B2A1E2003A49A3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -474,6 +477,15 @@
 			name = Delete;
 			sourceTree = "<group>";
 		};
+		76B9444119088375001B08DB /* TripManager */ = {
+			isa = PBXGroup;
+			children = (
+				76B9444219088387001B08DB /* TripManager.h */,
+				76B9444319088387001B08DB /* TripManager.m */,
+			);
+			name = TripManager;
+			sourceTree = "<group>";
+		};
 		76C270A518B2A1E2003A49A3 = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +569,7 @@
 		76C2711D18B2A3BA003A49A3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				76B9444119088375001B08DB /* TripManager */,
 				768263D01906EC5100089319 /* AutocompleteManager */,
 				9F3747AC1900F213003D67C8 /* CalendarManager */,
 				9F3747B11900F213003D67C8 /* DataManager */,
@@ -997,6 +1010,7 @@
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
 				9F3748321900F2E3003D67C8 /* DSLCalendarDayView.m in Sources */,
 				9F3747A81900F168003D67C8 /* BookingTableViewController.m in Sources */,
+				76B9444419088387001B08DB /* TripManager.m in Sources */,
 				9F3748331900F2E3003D67C8 /* DSLCalendarMonthSelectorView.m in Sources */,
 				7682640F1906ED0900089319 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */,

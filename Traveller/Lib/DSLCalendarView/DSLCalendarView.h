@@ -61,5 +61,7 @@
 - (void)calendarView:(DSLCalendarView *)calendarView didChangeToVisibleMonth:(NSDateComponents*)month;
 - (DSLCalendarRange*)calendarView:(DSLCalendarView*)calendarView didDragToDay:(NSDateComponents*)day selectingRange:(DSLCalendarRange*)range;
 - (BOOL)calendarView:(DSLCalendarView *)calendarView shouldAnimateDragToMonth:(NSDateComponents*)month;
+- (void)calendarView:(DSLCalendarView *)calendarView shouldHighlightTrip:(Trip *)trip;
 
+- (void)calendarView:(DSLCalendarView *)calendarView didModifytrip:(Trip *)old toNewTrip:(Trip *)updatedTrip;
 @end

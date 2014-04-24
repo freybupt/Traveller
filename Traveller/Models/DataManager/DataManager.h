@@ -50,4 +50,5 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
          context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteTrip:(Trip *)trip
            context:(NSManagedObjectContext *)moc;
+- (Trip *)newTripWithContext:(NSManagedObjectContext *)moc;
 @end

@@ -425,4 +425,18 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     NSLog(@"Deleted a trip");
     return YES;
 }
+
+- (Trip *)newTripWithContext:(NSManagedObjectContext *)moc
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Trip"
+                                              inManagedObjectContext:moc];
+    Trip *trip = [[Trip alloc] initWithEntity:entity
+               insertIntoManagedObjectContext:moc];
+    trip.title = NSLocalizedString(@"New Trip", nil);
+    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[[CalendarColorManager sharedManager] randomColor]];
+    trip.uid = [MockManager userid];
+    
+    return trip;
+}
+
 @end

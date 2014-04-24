@@ -78,15 +78,23 @@
     
     self.editingTrip = nil;
     //already have trip
-    /*
+    
     Trip *activeTrip = [[TripManager sharedManager] findActiveTripByDate:touchedView.day.date];
     if (activeTrip) {
         [self.delegate calendarView:self shouldHighlightTrip:activeTrip];
-        self.originalTrip = [[Trip alloc] initWithExistingTrip:activeTrip];
-        self.selectedRange = activeTrip.dateRange;
-        if ([touchedView.day.date isEqualToDate:activeTrip.dateRange.startDay.date] ||
-            [touchedView.day.date isEqualToDate:activeTrip.dateRange.endDay.date]) {
-            self.editingTrip = [[Trip alloc] initWithExistingTrip:activeTrip];
+        self.originalTrip = activeTrip;
+        NSCalendar *gregorian = [[NSCalendar alloc]
+                                 initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *startDate =
+        [gregorian components:(NSDayCalendarUnit |
+                               NSWeekdayCalendarUnit) fromDate:activeTrip.startDate];
+        NSDateComponents *endDate =
+        [gregorian components:(NSDayCalendarUnit |
+                               NSWeekdayCalendarUnit) fromDate:activeTrip.endDate];
+        self.selectedRange = [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:endDate];
+        if ([touchedView.day.date isEqualToDate:activeTrip.startDate] ||
+            [touchedView.day.date isEqualToDate:activeTrip.endDate]) {
+            self.editingTrip = activeTrip;
         }
     }
     else{
@@ -109,7 +117,7 @@
         }
         self.selectedRange = newRange;
     }
-    */
+    
     
     DSLCalendarRange *newRange = self.selectedRange;
     if (self.selectedRange == nil) {
@@ -144,20 +152,29 @@
     
     //TODO: check within current range whether there is trip plan already?
     //modify current trip
-    /*
+    
     if (self.editingTrip) {
         DSLCalendarRange *newRange;
-        if ([touchedView.day.date compare:self.editingTrip.dateRange.startDay.date] == NSOrderedAscending){
-            newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:self.editingTrip.dateRange.endDay];
+        NSCalendar *gregorian = [[NSCalendar alloc]
+                                 initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *startDate =
+        [gregorian components:(NSDayCalendarUnit |
+                               NSWeekdayCalendarUnit) fromDate:self.editingTrip.startDate];
+        NSDateComponents *endDate =
+        [gregorian components:(NSDayCalendarUnit |
+                               NSWeekdayCalendarUnit) fromDate:self.editingTrip.endDate];
+        
+        if ([touchedView.day.date compare:self.editingTrip.startDate] == NSOrderedAscending){
+            newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:endDate];
         }
-        else if ([touchedView.day.date compare:self.editingTrip.dateRange.endDay.date] == NSOrderedDescending) {
-            newRange = [[DSLCalendarRange alloc] initWithStartDay:self.editingTrip.dateRange.startDay endDay:touchedView.day];
+        else if ([touchedView.day.date compare:self.editingTrip.endDate] == NSOrderedDescending) {
+            newRange = [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:touchedView.day];
         }
-        else if([self.draggingStartDay isEqual:self.editingTrip.dateRange.startDay]){
-            newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:self.editingTrip.dateRange.endDay];
+        else if([self.draggingStartDay isEqual:self.editingTrip.startDate]){
+            newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:endDate];
         }
-        else if([self.draggingStartDay isEqual:self.editingTrip.dateRange.endDay]){
-            newRange = [[DSLCalendarRange alloc] initWithStartDay:self.editingTrip.dateRange.startDay endDay:touchedView.day];
+        else if([self.draggingStartDay isEqual:self.editingTrip.endDate]){
+            newRange = [[DSLCalendarRange alloc] initWithStartDay:startDate endDay:touchedView.day];
         }
         
         if ([self.delegate respondsToSelector:@selector(calendarView:didDragToDay:selectingRange:)]) {
@@ -194,7 +211,7 @@
             }
         }
     }
-    */
+    
     DSLCalendarRange *newRange;
     if ([touchedView.day.date compare:self.draggingFixedDay.date] == NSOrderedAscending) {
         newRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:self.draggingFixedDay];
@@ -226,10 +243,10 @@
         return;
     }
     
-    /*
     if (self.editingTrip) {
-        Trip *updatedTrip = [[Trip alloc] initWithExistingTrip:self.editingTrip];
-        updatedTrip.dateRange = self.selectedRange;
+        Trip *updatedTrip = self.editingTrip;
+        updatedTrip.startDate = self.selectedRange.startDay.date;
+        updatedTrip.endDate = self.selectedRange.endDay.date;
         self.editingTrip = updatedTrip;
         if ([self.delegate respondsToSelector:@selector(calendarView:didModifytrip:toNewTrip:)]) {
             [self.delegate calendarView:self didModifytrip:self.originalTrip toNewTrip:updatedTrip];
@@ -248,7 +265,7 @@
             [self.delegate calendarView:self didSelectRange:self.selectedRange];
         }
     }
-    */
+    
     if (!self.draggedOffStartDay && [self.draggingStartDay isEqual:touchedView.day]) {
         self.selectedRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
     }

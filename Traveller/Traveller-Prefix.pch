@@ -18,6 +18,7 @@
     #import "DataManager.h"
     #import "LocationManager.h"
     #import "MockManager.h"
+    #import "TripManager.h"
     #import "NSObject+Extensions.h"
     #import "NSString+Extensions.h"
 #endif

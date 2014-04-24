@@ -51,7 +51,7 @@
     return [self.defaultColorsArray objectAtIndex:randIndex];
 }
 
-/*
+
 - (UIColor *)nextColor
 {
     //TODO: find adjacent color and avoid using them
@@ -81,7 +81,7 @@
     }
     return self.activeColor;
 }
-*/
+
 
 - (UIColor *)getSelectionHighlightColor
 {
