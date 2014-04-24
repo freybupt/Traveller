@@ -163,7 +163,11 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
         weakSelf.destinationPanel.frame = CGRectMake(0, -weakSelf.destinationPanel.frame.size.height, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
         [weakSelf.tabView setAlpha:1.0];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self fetchEventsWithDateRange:nil];
+        }
+    }];
     
     [self updateTripInfo:nil];
 }
@@ -201,10 +205,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         self.calendarView.originalTrip = nil;
     }
     [self hideDestinationPanel:nil];
-//    [self fetchEventsWithDateRange:nil];
-    [self performSelector:@selector(drawCalendarDayViewForEvent)
-               withObject:nil
-               afterDelay:0.3f];
 }
 
 
