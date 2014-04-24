@@ -486,6 +486,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                 newTrip.toCityDestinationCity = event.toCity;
                 newTrip.startDate = lastEvent.endDate;
                 newTrip.endDate = event.endDate;
+                //Uncomment if we would like to add an event to trip at the same time
+                //[newTrip addToEventObject:event];
                 [self.tripArray addObject:newTrip];
                 [[DataManager sharedInstance] saveTrip:newTrip
                                                context:self.managedObjectContext];
