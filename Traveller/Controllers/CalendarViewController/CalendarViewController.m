@@ -470,6 +470,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         newTrip.startDate = startDate;
         newTrip.endDate = lastEvent.endDate;
         [self.tripArray addObject:newTrip];
+        //Uncomment if we would like to add events to trip at the same time
+        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
         

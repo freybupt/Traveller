@@ -386,6 +386,26 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
 }
 
 #pragma mark - Trip
+- (NSArray *)getTripWithUserid:(NSNumber *)userid
+                       context:(NSManagedObjectContext *)moc
+{
+    if (!userid || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"uid == %@", [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Trip"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    return fetchResult;
+}
+
 - (BOOL)saveTrip:(Trip *)trip
          context:(NSManagedObjectContext *)moc
 {
