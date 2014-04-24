@@ -163,11 +163,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [weakSelf.tabView setAlpha:1.0];
     } completion:^(BOOL finished) {
         if (finished) {
-            [self fetchEventsWithDateRange:nil];
+//            [self fetchEventsWithDateRange:nil];
         }
     }];
     
-    [self updateTripInfo:nil];
 }
 
 - (IBAction)confirmTripChange:(id)sender
@@ -285,7 +284,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                    withObject:trip
                    afterDelay:0.1];
         
-        [self fetchEventsWithDateRange:self.currentDateRange];
+//        [self fetchEventsWithDateRange:self.currentDateRange];
     }
     else {
         self.currentDateRange = nil;
@@ -476,7 +475,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     }
     [self.tableView reloadData];
     
-    /*
+    
     //TODO: calculate trip plan
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         [self showActivityIndicatorWithText:@"Planning for your trip..."];
@@ -493,7 +492,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSDate *startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*24]; //one day before first event
         newTrip.startDate = startDate;
         newTrip.endDate = lastEvent.endDate;
-        [self.tripArray addObject:newTrip];
+        [[TripManager sharedManager] addTripToActiveList:newTrip];
         //Uncomment if we would like to add events to trip at the same time
         //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:newTrip
@@ -512,21 +511,21 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                 newTrip.endDate = event.endDate;
                 //Uncomment if we would like to add an event to trip at the same time
                 //[newTrip addToEventObject:event];
-                [self.tripArray addObject:newTrip];
+                [[TripManager sharedManager] addTripToActiveList:newTrip];
                 [[DataManager sharedInstance] saveTrip:newTrip
                                                context:self.managedObjectContext];
             }
             else{
-                //get current Trip
-                Trip *currentTrip = [self.tripArray lastObject];
-                currentTrip.endDate = event.endDate;
-                [self.tripArray replaceObjectAtIndex:[self.tripArray count]-1 withObject:currentTrip];
+                //TODO: update trip end date
+//                Trip *currentTrip = [self.tripArray lastObject];
+//                currentTrip.endDate = event.endDate;
+//                [self.tripArray replaceObjectAtIndex:[self.tripArray count]-1 withObject:currentTrip];
             }
             lastCity = event.toCity;
             lastEvent = event;
         }
     }
-    */
+    
     
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil
@@ -563,7 +562,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             
         }];
     }];
-    
+
+    [self confirmTripChange:nil];
     [self hideActivityIndicator];
 }
 
