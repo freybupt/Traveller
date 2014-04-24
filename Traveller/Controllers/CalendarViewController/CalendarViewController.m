@@ -133,7 +133,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     if ([sender isKindOfClass:[Trip class]]) {
         Trip *activeTrip = (Trip *)sender;
-        self.destinationTextField.text = activeTrip.title;
+        self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
         self.removeTripButton.hidden = NO;
     }
     else{
@@ -476,7 +476,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.tableView reloadData];
     
     
-    //TODO: calculate trip plan
+    //calculate trip plan
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         [self showActivityIndicatorWithText:@"Planning for your trip..."];
         
@@ -500,6 +500,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         
         
         City *lastCity = departureCity;
+        Trip *currentTrip;
         for (NSUInteger index = 0; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
             Event *event = [self.fetchedResultsController fetchedObjects][index];
             if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
@@ -512,14 +513,14 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                 //Uncomment if we would like to add an event to trip at the same time
                 //[newTrip addToEventObject:event];
                 [[TripManager sharedManager] addTripToActiveList:newTrip];
+                currentTrip = newTrip;
                 [[DataManager sharedInstance] saveTrip:newTrip
                                                context:self.managedObjectContext];
             }
             else{
                 //TODO: update trip end date
-//                Trip *currentTrip = [self.tripArray lastObject];
-//                currentTrip.endDate = event.endDate;
-//                [self.tripArray replaceObjectAtIndex:[self.tripArray count]-1 withObject:currentTrip];
+                currentTrip.endDate = event.endDate;
+                [[DataManager sharedInstance] saveTrip:currentTrip context:self.managedObjectContext];
             }
             lastCity = event.toCity;
             lastEvent = event;

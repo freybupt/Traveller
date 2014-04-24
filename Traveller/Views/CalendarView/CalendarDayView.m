@@ -79,6 +79,7 @@
             self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
                                                                          userid:[MockManager userid] context:_managedObjectContext];
         });
+
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];
