@@ -9,6 +9,7 @@
 #import "CalendarDayView.h"
 
 @interface CalendarDayView ()
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) Trip *activeTrip;
 @end
 
@@ -16,6 +17,17 @@
 {
     __strong NSString *_eventDots;
     __strong NSString *_tripLocation;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self != nil) {
+        _managedObjectContext = [NSManagedObjectContext new];
+        _managedObjectContext.undoManager = nil;
+        _managedObjectContext.persistentStoreCoordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
+    }
+    return self;
 }
 
 - (void)setDay:(NSDateComponents *)day {
@@ -64,8 +76,8 @@
 - (void)drawRect:(CGRect)rect {
     if ([self isMemberOfClass:[CalendarDayView class]]) {
         //update trip info
-        //TripManager *tripManager = [TripManager sharedManager];
-        //self.activeTrip = [tripManager findActiveTripByDate:self.day.date];
+        self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
+                                                                     userid:[MockManager userid] context:_managedObjectContext];
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];
@@ -74,14 +86,13 @@
 }
 
 #pragma mark Drawing
-
-- (void)drawBackground {
+- (void)drawBackground
+{
     UIColor *cellColor = [[CalendarColorManager sharedManager] getSelectionHighlightColor];
-    /*
     if (self.activeTrip) {
-        cellColor = self.activeTrip.defaultColor;
+        cellColor = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:self.activeTrip.defaultColor];
     }
-    */
+    
     const CGFloat * colors = CGColorGetComponents( cellColor.CGColor );
     UIColor *cellColorHighlighted = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
     
@@ -122,7 +133,8 @@
         }
         
         // TODO: probably add one more DSLCalendarDayViewSelectionState for event
-        if (self.tag != 0) {
+        if (self.tag != 0 &&
+            !self.activeTrip) {
             [[UIColor redColor] setFill];
         }
     }
@@ -180,6 +192,7 @@
 
     // TODO: probably add one more DSLCalendarDayViewSelectionState for event
     if (self.tag != 0 &&
+        !self.activeTrip &&
         self.selectionState != DSLCalendarDayViewNotSelected) {
         attributes = @{ NSFontAttributeName : textFont ,
                         NSForegroundColorAttributeName : [UIColor whiteColor] };
@@ -214,6 +227,7 @@
     
     // TODO: probably add one more DSLCalendarDayViewSelectionState for event
     if (self.tag != 0 &&
+        !self.activeTrip &&
         self.selectionState != DSLCalendarDayViewNotSelected) {
         attributes = @{ NSFontAttributeName : textFont ,
                         NSForegroundColorAttributeName : [UIColor whiteColor] };

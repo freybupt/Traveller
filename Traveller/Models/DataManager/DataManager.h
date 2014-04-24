@@ -48,6 +48,9 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
 /* Trip */
 - (NSArray *)getTripWithUserid:(NSNumber *)userid
                        context:(NSManagedObjectContext *)moc;
+- (Trip *)getActiveTripByDate:(NSDate *)date
+                       userid:(NSNumber *)userid
+                      context:(NSManagedObjectContext *)moc;
 - (BOOL)saveTrip:(Trip *)trip
          context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteTrip:(Trip *)trip

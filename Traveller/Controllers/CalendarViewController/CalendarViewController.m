@@ -174,14 +174,17 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         //save trip
         
         Trip *trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        trip.title = self.destinationTextField.text;
         trip.startDate = self.currentDateRange.startDay.date;
         trip.endDate = self.currentDateRange.endDay.date;
         //TODO: add trip destination
+        [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         trip.isRoundTrip = [NSNumber numberWithBool:NO];
         
-        TripManager *tripManager = [TripManager sharedManager];
-        [tripManager addTripToActiveList:trip];
-        
+        if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
+            TripManager *tripManager = [TripManager sharedManager];
+            [tripManager addTripToActiveList:trip];
+        }
     }
     
     self.calendarView.selectedRange = self.currentDateRange;
@@ -259,7 +262,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         [self performSelector:@selector(showDestinationPanel:) withObject:self afterDelay:0.1];
-//        [self fetchEventsWithDateRange:self.currentDateRange];
+        [self fetchEventsWithDateRange:self.currentDateRange];
         [self performSelector:@selector(drawCalendarDayViewForEvent)
                    withObject:nil
                    afterDelay:0.3f];
@@ -453,6 +456,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     }
     [self.tableView reloadData];
     
+    /*
     //TODO: calculate trip plan
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
         [self showActivityIndicatorWithText:@"Planning for your trip..."];
@@ -502,7 +506,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             lastEvent = event;
         }
     }
-    
+    */
     
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil

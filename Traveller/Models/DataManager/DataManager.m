@@ -400,10 +400,23 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     [fetchRequest setEntity:[NSEntityDescription entityForName:@"Trip"
                                         inManagedObjectContext:moc]];
     [fetchRequest setPredicate:pred];
-    
+
     NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
                                               error:&error];
     return fetchResult;
+}
+
+- (Trip *)getActiveTripByDate:(NSDate *)date
+                       userid:(NSNumber *)userid
+                      context:(NSManagedObjectContext *)moc
+{
+    for (Trip *trip in [self getTripWithUserid:userid context:moc]) {
+        if (([date compare:trip.startDate] != NSOrderedAscending) &&
+            ([date compare:trip.endDate] != NSOrderedDescending)){
+            return trip;
+        }
+    }
+    return nil;
 }
 
 - (BOOL)saveTrip:(Trip *)trip
