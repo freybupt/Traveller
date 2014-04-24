@@ -11,6 +11,13 @@
 
 @class City, Trip;
 
+typedef enum {
+    EventTypeDefault,
+    EventTypeFlight,
+    EventTypeHotel,
+    EventTypeRental
+}EventType;
+
 @interface Event : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * allDay;
@@ -25,6 +32,8 @@
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) City *toCity;
 @property (nonatomic, retain) NSSet *toTrip;
+@property (nonatomic, retain) NSNumber * eventType;
+
 @end
 
 @interface Event (CoreDataGeneratedAccessors)

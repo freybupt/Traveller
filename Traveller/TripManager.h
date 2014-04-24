@@ -11,6 +11,12 @@
 static NSString *const kTripChangeNotification = @"tripChangeNotification";
 static NSString *const kTripListKey = @"allTripSaved";
 
+typedef enum{
+    TripStageSelectEvent,
+    TripStagePlanTrip,
+    TripStageBookTrip,
+    TripStageTrackTrip
+}TripStage;
 
 @interface TripManager : NSObject
 
@@ -22,5 +28,7 @@ static NSString *const kTripListKey = @"allTripSaved";
 - (Trip *)findActiveTripByDate:(NSDate *)date;
 - (NSArray *)getUsedTripColors;
 - (NSInteger)countActiveTrips;
+
+@property (nonatomic, assign) TripStage tripStage;
 
 @end

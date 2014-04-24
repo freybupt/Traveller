@@ -62,60 +62,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traveller/Controllers/CalendarViewController/CalendarViewController.m"
-            timestampString = "420056937.540808"
+            timestampString = "420075154.657622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "-hideDestinationPanel:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Traveller/Controllers/CalendarViewController/CalendarViewController.m"
-            timestampString = "420056947.230416"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "480"
-            endingLineNumber = "480"
-            landmarkName = "-fetchEventsWithDateRange:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Traveller/Controllers/CalendarViewController/CalendarViewController.m"
-            timestampString = "420059487.650592"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
-            landmarkName = "-drawCalendarDayViewForEvent"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Traveller/Controllers/CalendarViewController/CalendarViewController.m"
-            timestampString = "420059904.229251"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-calendarView:shouldHighlightTrip:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -34,6 +34,7 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
            context:(NSManagedObjectContext *)moc;
 
 /* Event */
+- (Event *)newEventWithContext:(NSManagedObjectContext *)moc;
 - (Event *)getEventWithEventIdentifier:(NSString *)eventIdentifier
                                context:(NSManagedObjectContext *)moc;
 - (BOOL)addEventWithEKEvent:(EKEvent *)ekEvent

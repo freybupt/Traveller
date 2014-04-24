@@ -82,7 +82,7 @@
     NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit)
                                                    fromDate:today];
     today = [today dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
-    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@)", [MockManager userid], today];
+    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND eventType = %@", [MockManager userid], today, [NSNumber numberWithInt:0]];
 }
 
 #pragma mark - UITableViewDelegate

@@ -39,6 +39,18 @@
     return manager;
 }
 
+
+- (void)setTripStage:(TripStage)tripStage
+{
+    [[NSUserDefaults standardUserDefaults] setInteger:tripStage forKey:@"TripStage"];
+}
+
+- (TripStage)tripStage
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"TripStage"];
+}
+
+
 - (void)addTripToActiveList:(Trip *)currentTrip
 {
     //insert the trip to activeTripList by start time order

@@ -49,6 +49,14 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.departureLocationTextField addTarget:self
                                         action:@selector(departureCityUpdated:)
                               forControlEvents:UIControlEventEditingChanged];
+    
+    
+    if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
+        [self calculateTrip:nil];
+    }
+    else{
+        [self fetchEventsWithDateRange:nil];
+    }
 }
 
 
@@ -63,6 +71,76 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 }
 
 #pragma mark - UI IBAction
+- (IBAction)calculateTrip:(id)sender
+{
+    NSMutableArray *flightEvents = [[NSMutableArray alloc] init];
+    //calculate trip plan - should be done at server later
+    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
+        [self showActivityIndicatorWithText:@"Planning for your trip..."];
+        
+        //TODO: get city of current location
+        NSString *cityName = @"Vancouver";
+        City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                                        context:self.managedObjectContext];
+        //trip from departure city to first destination
+        Trip *generatedTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
+        generatedTrip.toCityDepartureCity = departureCity;
+        generatedTrip.toCityDestinationCity = lastEvent.toCity;
+        generatedTrip.startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*24*3]; //one day before first event
+        generatedTrip.endDate = lastEvent.endDate;
+        [[TripManager sharedManager] addTripToActiveList:generatedTrip];
+        //Uncomment if we would like to add events to trip at the same time
+        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
+        [[DataManager sharedInstance] saveTrip:generatedTrip
+                                       context:self.managedObjectContext];
+        
+        
+        City *lastCity = departureCity;
+        for (NSUInteger index = 1; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
+            Event *event = [self.fetchedResultsController fetchedObjects][index];
+            if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
+                //create a new trip
+                Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+                newTrip.toCityDepartureCity = lastCity;
+                newTrip.toCityDestinationCity = event.toCity;
+                newTrip.startDate = lastEvent.endDate;
+                newTrip.endDate = event.endDate;
+                //Uncomment if we would like to add an event to trip at the same time
+                //[newTrip addToEventObject:event];
+                [[TripManager sharedManager] addTripToActiveList:newTrip];
+                generatedTrip = newTrip;
+                [[DataManager sharedInstance] saveTrip:newTrip
+                                               context:self.managedObjectContext];
+                
+                //add flight event
+                Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
+                flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
+                flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+                flightEvent.startDate = [event.startDate dateByAddingTimeInterval:-60*60*2]; //one day before first event
+                flightEvent.endDate = event.startDate;
+                flightEvent.isSelected = [NSNumber numberWithBool:YES];
+                [flightEvents addObject:flightEvent];
+                
+            }
+            else{
+                //TODO: update trip end date
+                generatedTrip.endDate = event.endDate;
+                [[DataManager sharedInstance] saveTrip:generatedTrip context:self.managedObjectContext];
+            }
+            lastCity = event.toCity;
+            lastEvent = event;
+        }
+    }
+    
+    for (Event *flightEvent in flightEvents) {
+        [[DataManager sharedInstance] saveEvent:flightEvent context:self.managedObjectContext];
+    }
+    
+    [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
+    [self fetchEventsWithDateRange:nil];
+}
+
 
 - (IBAction)switchDidTapped:(id)sender
 {
@@ -363,7 +441,27 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
-    cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
+    switch ([event.eventType integerValue]) {
+        case EventTypeFlight:
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"5h\tnon-stop\tAirCanada"];
+            cell.accessoryView = nil;
+            break;
+        case EventTypeHotel:
+            break;
+        case EventTypeRental:
+            break;
+        case EventTypeDefault:
+        default:
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
+            break;
+    }
+    if ([event.eventType integerValue] == EventTypeFlight) {
+        
+    }
+    else{
+        
+    }
+    
     cell.backgroundColor = cell.checkBox.checked ? UIColorFromRGB(0x9bee9e) : [UIColor whiteColor];
 }
 
@@ -372,7 +470,19 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self editEventButtonTapAction:event];
+    switch ([event.eventType integerValue]) {
+        case EventTypeFlight:
+            break;
+        case EventTypeHotel:
+            break;
+        case EventTypeRental:
+            break;
+        case EventTypeDefault:
+        default:
+            [self editEventButtonTapAction:event];
+            break;
+    }
+    
 }
 
 //| ----------------------------------------------------------------------------
@@ -473,61 +583,9 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+    
+    [self hideActivityIndicator];
     [self.tableView reloadData];
-    
-    
-    //calculate trip plan
-    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-        [self showActivityIndicatorWithText:@"Planning for your trip..."];
-        
-        //TODO: get city of current location
-        NSString *cityName = @"Vancouver";
-        City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
-                                                                        context:self.managedObjectContext];
-        //trip from departure city to first destination
-        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
-        newTrip.toCityDepartureCity = departureCity;
-        newTrip.toCityDestinationCity = lastEvent.toCity;
-        NSDate *startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*24]; //one day before first event
-        newTrip.startDate = startDate;
-        newTrip.endDate = lastEvent.endDate;
-        [[TripManager sharedManager] addTripToActiveList:newTrip];
-        //Uncomment if we would like to add events to trip at the same time
-        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
-        [[DataManager sharedInstance] saveTrip:newTrip
-                                       context:self.managedObjectContext];
-        
-        
-        City *lastCity = departureCity;
-        Trip *currentTrip;
-        for (NSUInteger index = 0; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
-            Event *event = [self.fetchedResultsController fetchedObjects][index];
-            if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
-                //create a new trip
-                Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-                newTrip.toCityDepartureCity = lastCity;
-                newTrip.toCityDestinationCity = event.toCity;
-                newTrip.startDate = lastEvent.endDate;
-                newTrip.endDate = event.endDate;
-                //Uncomment if we would like to add an event to trip at the same time
-                //[newTrip addToEventObject:event];
-                [[TripManager sharedManager] addTripToActiveList:newTrip];
-                currentTrip = newTrip;
-                [[DataManager sharedInstance] saveTrip:newTrip
-                                               context:self.managedObjectContext];
-            }
-            else{
-                //TODO: update trip end date
-                currentTrip.endDate = event.endDate;
-                [[DataManager sharedInstance] saveTrip:currentTrip context:self.managedObjectContext];
-            }
-            lastCity = event.toCity;
-            lastEvent = event;
-        }
-    }
-    
-    
     [self performSelector:@selector(drawCalendarDayViewForEvent)
                withObject:nil
                afterDelay:0.3f];
@@ -565,7 +623,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     }];
 
     [self confirmTripChange:nil];
-    [self hideActivityIndicator];
 }
 
 #pragma mark -

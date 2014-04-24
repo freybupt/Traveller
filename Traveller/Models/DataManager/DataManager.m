@@ -242,6 +242,18 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
 }
 
 #pragma mark - Event
+- (Event *)newEventWithContext:(NSManagedObjectContext *)moc
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event"
+                                              inManagedObjectContext:moc];
+    Event *event = [[Event alloc] initWithEntity:entity
+               insertIntoManagedObjectContext:moc];
+    event.title = NSLocalizedString(@"New Event", nil);
+    event.uid = [MockManager userid];
+    
+    return event;
+}
+
 - (Event *)getEventWithEventIdentifier:(NSString *)eventIdentifier
                                context:(NSManagedObjectContext *)moc
 {

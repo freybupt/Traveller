@@ -386,7 +386,7 @@
                     <navigationItem key="navigationItem" title="Pick Trip Events" id="OHP-9f-k7F">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="cWu-PN-fSK">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="push" id="GhQ-r9-wnu"/>
+                                <segue destination="vXZ-lx-hvc" kind="push" identifier="showPlanTrip" id="GhQ-r9-wnu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
