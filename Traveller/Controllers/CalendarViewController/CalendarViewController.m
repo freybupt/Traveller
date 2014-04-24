@@ -8,6 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "CalendarView.h"
+#import "CalendarColorManager.h"
 #import "MZFormSheetController.h"
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"

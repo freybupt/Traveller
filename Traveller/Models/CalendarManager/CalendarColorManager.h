@@ -15,7 +15,7 @@
 
 + (id)sharedManager;
 - (UIColor *)randomColor;
-//- (UIColor *)getActiveColor:(BOOL)shouldCreateNew;
+- (UIColor *)getActiveColor:(BOOL)shouldCreateNew;
 - (UIColor *)getSelectionHighlightColor;
 
 @end

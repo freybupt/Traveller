@@ -70,7 +70,8 @@
         for (NSUInteger round = 0; round < [self.defaultColorsArray count] && shouldFindNextColor; round++) {
             uniqueColor = [self randomColor];
             shouldFindNextColor = NO;
-            for (UIColor *usedColor in usedColors) {
+            for (NSData *usedColorData in usedColors) {
+                UIColor *usedColor = [NSKeyedUnarchiver unarchiveObjectWithData:usedColorData];
                 if ([self isColor:usedColor theSameAsColor:uniqueColor]) {
                     shouldFindNextColor = YES;
                 }

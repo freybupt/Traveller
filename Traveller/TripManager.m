@@ -26,11 +26,14 @@
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];
         manager.activeTripList = [[NSMutableArray alloc] init];
-        NSMutableArray *allTripsKeys = [[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey];
-        for (NSString *tripKey in allTripsKeys) {
-            Trip *savedTrip = [manager loadCustomObjectWithKey:tripKey];
-            [manager.activeTripList addObject:savedTrip];
-        }
+        
+        //TODO: retrieve trips from db. add to activeTripList
+
+//        NSMutableArray *allTripsKeys = [[NSUserDefaults standardUserDefaults] objectForKey:kTripListKey];
+//        for (NSString *tripKey in allTripsKeys) {
+//            Trip *savedTrip = [manager loadCustomObjectWithKey:tripKey];
+//            [manager.activeTripList addObject:savedTrip];
+//        }
     });
     
     return manager;

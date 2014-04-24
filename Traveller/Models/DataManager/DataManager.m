@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "CalendarColorManager.h"
 
 NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbill.datamanager.operation.delete.event";
 
@@ -433,7 +434,7 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     Trip *trip = [[Trip alloc] initWithEntity:entity
                insertIntoManagedObjectContext:moc];
     trip.title = NSLocalizedString(@"New Trip", nil);
-    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[[CalendarColorManager sharedManager] randomColor]];
+    trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[[CalendarColorManager sharedManager] getActiveColor:YES]];
     trip.uid = [MockManager userid];
     
     return trip;

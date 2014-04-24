@@ -88,15 +88,14 @@
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
         if (self.activeTrip) {
             //already has trip plans
-            /*
-            if ([self.day.date compare:self.activeTrip.dateRange.startDay.date] == NSOrderedSame ||
-                [self.day.date compare:self.activeTrip.dateRange.endDay.date] == NSOrderedSame) {
+            if ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
+                [self.day.date compare:self.activeTrip.endDate] == NSOrderedSame) {
                 [cellColorHighlighted setFill];
             }
             else{
                 [cellColor setFill];
             }
-            */
+            
             [cellColor setFill];
         }
         else{
@@ -227,15 +226,15 @@
 }
 
 - (void)drawTripLocation {
-    /*
-    NSString *tripLocation = self.activeTrip.destinationCity.cityShortName;
+    
+    NSString *tripLocation = self.activeTrip.toCityDestinationCity.cityName;
     
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
     self.selectionState == DSLCalendarDayViewEndOfSelection ||
     self.selectionState == DSLCalendarDayViewWholeSelection ||
     (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip &&
-     ([self.day.date compare:self.activeTrip.dateRange.startDay.date] == NSOrderedSame ||
-      [self.day.date compare:self.activeTrip.dateRange.endDay.date] == NSOrderedSame));
+     ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
+      [self.day.date compare:self.activeTrip.endDate] == NSOrderedSame));
     
     if ([tripLocation length] > 0 && shouldDrawLocation) {
         //        NSLog(@"Current date: %@ - %@", self.day.date, tripLocation);
@@ -244,7 +243,7 @@
     else{
         _tripLocation  = @"";
     }
-    */
+
     [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
     
     unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
