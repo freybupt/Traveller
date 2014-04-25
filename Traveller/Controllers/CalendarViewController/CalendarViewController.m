@@ -49,14 +49,17 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.departureLocationTextField addTarget:self
                                         action:@selector(departureCityUpdated:)
                               forControlEvents:UIControlEventEditingChanged];
-    
-    
+
+#ifdef TEMP_DISABLE_CALCULATETRIP
+    [self fetchEventsWithDateRange:nil];
+#else
     if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
         [self calculateTrip:nil];
     }
     else{
         [self fetchEventsWithDateRange:nil];
     }
+#endif
 }
 
 
@@ -224,7 +227,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     if ([sender isKindOfClass:[Trip class]]) {
         Trip *activeTrip = (Trip *)sender;
-        self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
+        //self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
+        self.destinationTextField.text = activeTrip.title; // TODO: Probably consider to chnaging UITextField to HTAutocompleteTextField if we prefer to use toCityDestinationCity;
         self.removeTripButton.hidden = NO;
     }
     else{
@@ -254,7 +258,9 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [weakSelf.tabView setAlpha:1.0];
     } completion:^(BOOL finished) {
         if (finished) {
-//            [self fetchEventsWithDateRange:nil];
+#ifdef TEMP_DISABLE_CALCULATETRIP
+            [self fetchEventsWithDateRange:nil];
+#endif
         }
     }];
     
@@ -635,7 +641,9 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }];
     }];
 
+#ifndef TEMP_DISABLE_CALCULATETRIP
     [self confirmTripChange:nil];
+#endif
 }
 
 #pragma mark -

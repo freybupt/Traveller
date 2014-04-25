@@ -241,9 +241,10 @@
     [_eventDots drawInRect:textRect withAttributes:attributes];
 }
 
-- (void)drawTripLocation {
+- (void)drawTripLocation
+{
     
-    NSString *tripLocation = self.activeTrip.toCityDestinationCity.cityName;
+    NSString *tripLocation = self.activeTrip.title;
     
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
     self.selectionState == DSLCalendarDayViewEndOfSelection ||

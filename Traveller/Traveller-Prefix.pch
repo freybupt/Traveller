@@ -22,3 +22,6 @@
     #import "NSObject+Extensions.h"
     #import "NSString+Extensions.h"
 #endif
+
+
+#define TEMP_DISABLE_CALCULATETRIP
