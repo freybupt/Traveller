@@ -71,8 +71,10 @@
         [cell.eventLocationTextField becomeFirstResponder];
     }
     
-    _processingIndexPath = checkbox.indexPath;
-
+//    _processingIndexPath = checkbox.indexPath;
+    
+    //update cell to show menu
+//    [self.tableView reloadRowsAtIndexPaths:@[checkbox.indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - NSFetchedResultController configuration
@@ -123,6 +125,18 @@
     [self editEventButtonTapAction:event];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (event && [event.isSelected boolValue]) {
+        return 100.f;
+    }
+    else{
+        return 30.f;
+    }
+}
+
 
 //| ----------------------------------------------------------------------------
 //  Because a custom accessory view is used, this method is never invoked by

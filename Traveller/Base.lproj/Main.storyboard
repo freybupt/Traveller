@@ -328,11 +328,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="70" id="REr-Hf-Yuz" customClass="MyScheduleTableCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="70"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" rowHeight="100" id="REr-Hf-Yuz" customClass="MyScheduleTableCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="REr-Hf-Yuz" id="zJP-GV-n1X">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nly-zA-fMz">
@@ -349,28 +349,43 @@
                                                     <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" id="ixF-qq-GYf" customClass="Checkbox">
-                                                    <rect key="frame" x="284" y="-16" width="26" height="106"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <connections>
-                                                        <action selector="checkBoxTapAction:" destination="pT3-Uf-r2c" eventType="touchUpInside" id="4gg-WC-dBs"/>
-                                                    </connections>
-                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map5.png" id="mNV-cX-0Eh">
-                                                    <rect key="frame" x="51" y="35" width="20" height="20"/>
+                                                    <rect key="frame" x="14" y="39" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add City" minimumFontSize="17" id="ajk-6t-WoQ" customClass="HTAutocompleteTextField">
-                                                    <rect key="frame" x="79" y="30" width="172" height="30"/>
+                                                    <rect key="frame" x="42" y="34" width="200" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                 </textField>
+                                                <view contentMode="scaleToFill" id="uQA-kZ-ECo">
+                                                    <rect key="frame" x="0.0" y="70" width="320" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tBm-F3-iK3">
+                                                            <rect key="frame" x="48" y="2" width="266" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-MediumOblique" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="edit12.png" id="dyE-rq-dhf">
+                                                            <rect key="frame" x="15" y="2" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="WAy-9E-tdl" customClass="Checkbox">
+                                                    <rect key="frame" x="279" y="0.0" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="checkBox" destination="ixF-qq-GYf" id="GnR-LH-Z5J"/>
+                                            <outlet property="checkBox" destination="WAy-9E-tdl" id="6K9-xl-VFg"/>
+                                            <outlet property="eventLocationLabel" destination="tBm-F3-iK3" id="Gwi-5p-yvd"/>
                                             <outlet property="eventLocationTextField" destination="ajk-6t-WoQ" id="e6k-7j-tNp"/>
                                             <outlet property="eventTimeLabel" destination="nly-zA-fMz" id="7Ae-JM-EYy"/>
                                             <outlet property="eventTitleLabel" destination="4XW-vn-xwq" id="0lX-R7-hX1"/>
@@ -519,6 +534,7 @@
     <resources>
         <image name="arrowUp.png" width="256" height="256"/>
         <image name="dustbin.png" width="32" height="32"/>
+        <image name="edit12.png" width="512" height="512"/>
         <image name="map5.png" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
