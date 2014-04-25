@@ -278,9 +278,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    Trip *trip = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
-                                                                 userid:[MockManager userid]
-                                                                context:self.managedObjectContext];
+    NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                     userid:[MockManager userid]
+                                                                    context:self.managedObjectContext];
+    Trip *trip = [array lastObject];
     if (!trip) {
         // new trip
         trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
@@ -398,9 +399,13 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             [self hideDestinationPanel:nil];
         }
 
-        Trip *trip = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
-                                                                     userid:[MockManager userid]
-                                                                    context:self.managedObjectContext];
+        NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                         userid:[MockManager userid]
+                                                                        context:self.managedObjectContext];
+        if ([array count] > 1) {
+            return;
+        }
+        Trip *trip = [array lastObject];
         [self performSelector:@selector(showDestinationPanel:)
                    withObject:trip
                    afterDelay:0.1];

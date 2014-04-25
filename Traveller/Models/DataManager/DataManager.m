@@ -450,27 +450,27 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     return ([fetchResult count] == 0) ? nil : [fetchResult lastObject];
 }
 
-- (Trip *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange
-                            userid:(NSNumber *)userid
-                           context:(NSManagedObjectContext *)moc
+- (NSArray *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange
+                               userid:(NSNumber *)userid
+                              context:(NSManagedObjectContext *)moc
 {
     // Iterate each day to get the first trip
-    Trip *trip = nil;
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
     NSDate *startDate = [dateRange.startDay dateWithGMTZoneCalendar];
     NSDate *endDate = [dateRange.endDay dateWithGMTZoneCalendar];
     for (NSDate *date = startDate;
          [date compare:endDate] <= 0;
          date = [date dateByAddingTimeInterval:24 * 60 * 60] ) {
-        trip = [[DataManager sharedInstance] getActiveTripByDate:date
+        Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:date
                                                           userid:userid
                                                          context:moc];
-        if (trip) {
-            return trip;
-            break;
+        if (trip &&
+            ![mArray containsObject:trip]) {
+            [mArray addObject:trip];
         }
     }
     
-    return trip;
+    return mArray;
 }
 
 - (BOOL)saveTrip:(Trip *)trip
