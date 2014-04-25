@@ -61,15 +61,17 @@
 {
     Checkbox *checkbox = (Checkbox *)sender;
     
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:checkbox.indexPath];
     event.isSelected = [NSNumber numberWithBool:checkbox.checked];
     [[DataManager sharedInstance] saveEvent:event
                                     context:self.managedObjectContext];
-    MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:_processingIndexPath];
+    MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:checkbox.indexPath];
     if ([event.isSelected boolValue] &&
         [cell.eventLocationTextField.text length] == 0) {
         [cell.eventLocationTextField becomeFirstResponder];
     }
+    
+    _processingIndexPath = checkbox.indexPath;
 
 }
 
@@ -104,17 +106,21 @@
     cell.eventLocationTextField.delegate = self;
     
     cell.checkBox.checked = [event.isSelected boolValue];
-    cell.checkBox.userInteractionEnabled = NO;
+    [cell.checkBox addTarget:self action:@selector(checkBoxTapAction:) forControlEvents:UIControlEventValueChanged];
+    cell.checkBox.indexPath = indexPath;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _processingIndexPath = indexPath;
+//    _processingIndexPath = indexPath;
     
-    MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.checkBox.checked = !cell.checkBox.checked;
-    [self checkBoxTapAction:cell.checkBox];
+//    MyScheduleTableCell *cell = (MyScheduleTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+//    cell.checkBox.checked = !cell.checkBox.checked;
+//    [self checkBoxTapAction:cell.checkBox];
 
+    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self editEventButtonTapAction:event];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

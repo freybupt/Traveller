@@ -58,5 +58,6 @@
 //! In iOS 7, all views have a tintColor property.  We redeclare that property
 //! here to accommodate tint color customization for iOS 6 devices.
 @property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end

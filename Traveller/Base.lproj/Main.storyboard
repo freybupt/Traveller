@@ -353,6 +353,9 @@
                                                     <rect key="frame" x="284" y="-16" width="26" height="106"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="checkBoxTapAction:" destination="pT3-Uf-r2c" eventType="touchUpInside" id="4gg-WC-dBs"/>
+                                                    </connections>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map5.png" id="mNV-cX-0Eh">
                                                     <rect key="frame" x="51" y="35" width="20" height="20"/>
