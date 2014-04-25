@@ -290,19 +290,11 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
+    else if (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip == nil) {
+        [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
+    }
     else {
-        switch (self.selectionState) {
-            case DSLCalendarDayViewNotSelected:
-                [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
-                break;
-            case DSLCalendarDayViewStartOfSelection:
-            case DSLCalendarDayViewEndOfSelection:
-                [[UIColor whiteColor] set];
-                break;
-            default:
-                [[UIColor clearColor] set];
-                break;
-        }
+        [[UIColor whiteColor] set];
     }
     
     UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:10.0];

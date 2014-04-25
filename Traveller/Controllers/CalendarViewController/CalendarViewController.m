@@ -311,9 +311,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }
         
         //TODO: add trip destination
-        if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
-            [trip removeToEvent:trip.toEvent];
-        } else {
+        [trip removeToEvent:trip.toEvent];
+        if ([[self.fetchedResultsController fetchedObjects] count] != 0) {
             [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         }
     }
