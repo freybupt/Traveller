@@ -62,11 +62,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traveller/Controllers/CalendarViewController/CalendarViewController.m"
-            timestampString = "420075154.657622"
+            timestampString = "420076720.460422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-hideDestinationPanel:"
             landmarkType = "5">
          </BreakpointContent>

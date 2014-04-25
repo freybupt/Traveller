@@ -87,7 +87,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
         generatedTrip.toCityDepartureCity = departureCity;
         generatedTrip.toCityDestinationCity = lastEvent.toCity;
-        generatedTrip.startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*24*3]; //one day before first event
+        generatedTrip.startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*48]; //one day before first event
         generatedTrip.endDate = lastEvent.endDate;
         [[TripManager sharedManager] addTripToActiveList:generatedTrip];
         //Uncomment if we would like to add events to trip at the same time
@@ -97,7 +97,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         
         
         City *lastCity = departureCity;
-        for (NSUInteger index = 1; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
+        for (NSUInteger index = 0; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
             Event *event = [self.fetchedResultsController fetchedObjects][index];
             if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
                 //create a new trip
@@ -117,7 +117,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                 Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
                 flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
                 flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
-                flightEvent.startDate = [event.startDate dateByAddingTimeInterval:-60*60*2]; //one day before first event
+                flightEvent.startDate = [event.startDate dateByAddingTimeInterval:-60*60*24]; //one day before first event
                 flightEvent.endDate = event.startDate;
                 flightEvent.isSelected = [NSNumber numberWithBool:YES];
                 [flightEvents addObject:flightEvent];
@@ -131,7 +131,20 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             lastCity = event.toCity;
             lastEvent = event;
         }
+        
+        //trip from last city to home
+        Trip *returnTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        returnTrip.toCityDepartureCity = lastCity;
+        returnTrip.toCityDestinationCity = departureCity;
+        returnTrip.startDate = lastEvent.endDate;
+        returnTrip.endDate = [lastEvent.endDate dateByAddingTimeInterval:60*60*24];
+        [[TripManager sharedManager] addTripToActiveList:returnTrip];
+        //Uncomment if we would like to add events to trip at the same time
+        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
+        [[DataManager sharedInstance] saveTrip:generatedTrip
+                                       context:self.managedObjectContext];
     }
+    
     
     for (Event *flightEvent in flightEvents) {
         [[DataManager sharedInstance] saveEvent:flightEvent context:self.managedObjectContext];
