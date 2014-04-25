@@ -8,14 +8,25 @@
 
 #import "NSDate+Extensions.h"
 
+#define ONE_DAY 60 * 60 * 24
+
 @implementation NSDate (Extensions)
 - (NSDate *)dateAtMidnight
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit)
+    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit)
                                                    fromDate:self];
     return [self dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
+}
+
+- (NSDate *)dateOnFirstDay
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit | NSDayCalendarUnit)
+                                                   fromDate:self];
+    return [self dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second) - ONE_DAY * (dateComponents.day - 1)];
 }
 
 - (NSString *)hourTime

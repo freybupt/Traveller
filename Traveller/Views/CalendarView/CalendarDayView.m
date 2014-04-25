@@ -88,13 +88,10 @@
 {
     if ([self isMemberOfClass:[CalendarDayView class]]) {
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSManagedObjectContext *bridgedMoc = [[DataManager sharedInstance] bridgedMoc];
-            bridgedMoc = bridgedMoc ? bridgedMoc : [self newManagedObjectContext];
-            self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
-                                                                         userid:[MockManager userid] context:bridgedMoc];
-        });
-
+        NSManagedObjectContext *bridgedMoc = [[DataManager sharedInstance] bridgedMoc];
+        bridgedMoc = bridgedMoc ? bridgedMoc : [self newManagedObjectContext];
+        self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
+                                                                     userid:[MockManager userid] context:bridgedMoc];
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];

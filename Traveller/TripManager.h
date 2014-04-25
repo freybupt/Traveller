@@ -18,6 +18,13 @@ typedef enum{
     TripStageTrackTrip
 }TripStage;
 
+typedef enum {
+    EventTypeDefault,
+    EventTypeFlight,
+    EventTypeHotel,
+    EventTypeRental
+}EventType;
+
 @interface TripManager : NSObject
 
 + (id)sharedManager;
