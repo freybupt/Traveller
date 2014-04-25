@@ -406,7 +406,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                    withObject:trip
                    afterDelay:0.1];
         
-//        [self fetchEventsWithDateRange:range];
+        // Uncomment this if we would like to display my schedule events according to selection
+        //[self fetchEventsWithDateRange:range];
     }
     else {
         self.currentDateRange = nil;
