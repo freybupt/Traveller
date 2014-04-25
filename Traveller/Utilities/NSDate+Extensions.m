@@ -9,6 +9,15 @@
 #import "NSDate+Extensions.h"
 
 @implementation NSDate (Extensions)
+- (NSDate *)dateAtMidnight
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit)
+                                                   fromDate:self];
+    return [self dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
+}
+
 - (NSString *)hourTime
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

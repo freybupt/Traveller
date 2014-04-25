@@ -12,6 +12,7 @@
 NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbill.datamanager.operation.delete.event";
 
 @interface DataManager ()
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @end
@@ -95,6 +96,16 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
                                                    inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - Bridged NSManagedObjectContext
+- (void)registerBridgedMoc:(NSManagedObjectContext *)moc
+{
+    _managedObjectContext = moc;
+}
+
+- (NSManagedObjectContext *)bridgedMoc
+{
+    return _managedObjectContext;
+}
 
 #pragma mark - City
 - (NSArray *)getCityWithUserid:(NSNumber *)userid
@@ -437,6 +448,29 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
                                               error:&error];
     return ([fetchResult count] == 0) ? nil : [fetchResult lastObject];
+}
+
+- (Trip *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange
+                            userid:(NSNumber *)userid
+                           context:(NSManagedObjectContext *)moc
+{
+    // Iterate each day to get the first trip
+    Trip *trip = nil;
+    NSDate *startDate = [dateRange.startDay dateWithGMTZoneCalendar];
+    NSDate *endDate = [dateRange.endDay dateWithGMTZoneCalendar];
+    for (NSDate *date = startDate;
+         [date compare:endDate] <= 0;
+         date = [date dateByAddingTimeInterval:24 * 60 * 60] ) {
+        trip = [[DataManager sharedInstance] getActiveTripByDate:date
+                                                          userid:userid
+                                                         context:moc];
+        if (trip) {
+            return trip;
+            break;
+        }
+    }
+    
+    return trip;
 }
 
 - (BOOL)saveTrip:(Trip *)trip

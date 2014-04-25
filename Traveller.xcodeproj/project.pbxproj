@@ -106,6 +106,7 @@
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
 		9FC4186118FFAC74001CC750 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4186018FFAC74001CC750 /* CoreLocation.framework */; };
+		9FE8BC2D190A09E900BDFE71 /* NSDateComponents+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE8BC2C190A09E900BDFE71 /* NSDateComponents+Extensions.m */; };
 		9FFA7FCC19075FD100F55345 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */; };
 /* End PBXBuildFile section */
 
@@ -287,6 +288,8 @@
 		9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extensions.m"; sourceTree = "<group>"; };
 		9FC4185E18FFAC6D001CC750 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9FC4186018FFAC74001CC750 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9FE8BC2B190A09E900BDFE71 /* NSDateComponents+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateComponents+Extensions.h"; sourceTree = "<group>"; };
+		9FE8BC2C190A09E900BDFE71 /* NSDateComponents+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateComponents+Extensions.m"; sourceTree = "<group>"; };
 		9FFA7FCA19075FD100F55345 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -866,6 +869,8 @@
 				9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */,
 				9FFA7FCA19075FD100F55345 /* NSString+Extensions.h */,
 				9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */,
+				9FE8BC2B190A09E900BDFE71 /* NSDateComponents+Extensions.h */,
+				9FE8BC2C190A09E900BDFE71 /* NSDateComponents+Extensions.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1014,6 +1019,7 @@
 				9F3748331900F2E3003D67C8 /* DSLCalendarMonthSelectorView.m in Sources */,
 				7682640F1906ED0900089319 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */,
+				9FE8BC2D190A09E900BDFE71 /* NSDateComponents+Extensions.m in Sources */,
 				7682640E1906ED0900089319 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				768264111906ED0900089319 /* UIButton+AFNetworking.m in Sources */,
 				9F3747961900F152003D67C8 /* Checkbox.m in Sources */,

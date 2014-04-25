@@ -76,13 +76,9 @@
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
 {
-    NSDate *today = [NSDate date];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit)
-                                                   fromDate:today];
-    today = [today dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
-    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND eventType = %@", [MockManager userid], today, [NSNumber numberWithInt:0]];
+    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND eventType = %@", [MockManager userid],
+            [[NSDate date] dateAtMidnight],
+            [NSNumber numberWithInt:0]];
 }
 
 #pragma mark - UITableViewDelegate

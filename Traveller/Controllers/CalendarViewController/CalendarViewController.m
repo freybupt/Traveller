@@ -24,6 +24,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
 @property (nonatomic, strong) DSLCalendarRange *currentDateRange;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
+@property (nonatomic, assign) BOOL isDestinationPanelActive;
 
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 @property (nonatomic, strong) NSMutableArray *numberOutput;
@@ -38,11 +39,15 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     // The Add button is initially disabled
     self.addButton.enabled = NO;
     self.isScheduleExpanded = NO;
+    self.isDestinationPanelActive = NO;
     
     // Init calendar view
     self.calendarView.delegate = self;
     self.calendarView.showDayCalloutView = NO;
 
+    // Register self.managedObjectContext to share with CalendarDayView
+    [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
+    
     [self.destinationTextField addTarget:self
                                   action:@selector(destinationUpdated:)
                         forControlEvents:UIControlEventEditingChanged];
@@ -229,6 +234,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         Trip *activeTrip = (Trip *)sender;
         //self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
         self.destinationTextField.text = activeTrip.title; // TODO: Probably consider to chnaging UITextField to HTAutocompleteTextField if we prefer to use toCityDestinationCity;
+        self.confirmDestinationButton.enabled = YES;
         self.removeTripButton.hidden = NO;
     }
     else{
@@ -243,6 +249,9 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         weakSelf.destinationPanel.frame = CGRectMake(0, weakSelf.planTripView.frame.origin.y, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
         [weakSelf.tabView setAlpha:0.0];
     } completion:^(BOOL finished) {
+        if (finished) {
+            self.isDestinationPanelActive = YES;
+        }
     }];
 }
 
@@ -258,6 +267,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         [weakSelf.tabView setAlpha:1.0];
     } completion:^(BOOL finished) {
         if (finished) {
+            self.isDestinationPanelActive = NO;
 #ifdef TEMP_DISABLE_CALCULATETRIP
             [self fetchEventsWithDateRange:nil];
 #endif
@@ -268,28 +278,44 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
-    NSDate *endDate = [calendar dateFromComponents:self.currentDateRange.endDay];
-    Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:startDate
-                                                            userid:[MockManager userid] context:self.managedObjectContext];
+    Trip *trip = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                 userid:[MockManager userid]
+                                                                context:self.managedObjectContext];
     if (!trip) {
         // new trip
         trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
-        trip.endDate = endDate; // Trip's endDate has to be equal to actually selected end day
-
-        //TODO: add trip destination
-        [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         trip.isRoundTrip = [NSNumber numberWithBool:NO];
         
         // TODO: Probably move the part of color control from trip manager to calendar color manager
         [[TripManager sharedManager] addTripToActiveList:trip];
     }
     
+    trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
+    trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+    
     if ([self.destinationTextField.text length] > 0) {
         trip.title = self.destinationTextField.text;
+    }
+    
+    if (self.currentDateRange) {
+        NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
+        NSDate *endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar];
+        endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@) AND isSelected == '1'", [MockManager userid], startDate, endDate];
+        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        
+        NSError *error = nil;
+        if (![self.fetchedResultsController performFetch:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        
+        //TODO: add trip destination
+        if ([[self.fetchedResultsController fetchedObjects] count] == 0) {
+            [trip removeToEvent:trip.toEvent];
+        } else {
+            [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
+        }
     }
     
     //save trip
@@ -309,9 +335,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)deleteCurrentTrip:(id)sender
 {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
+    NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
     Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:startDate
                                                             userid:[MockManager userid] context:self.managedObjectContext];
     if (!trip) {
@@ -371,17 +395,18 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        NSDate *touchedDate = [calendar dateFromComponents:range.startDay];
-        
-        Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:touchedDate
-                                                                userid:[MockManager userid] context:self.managedObjectContext];
+        if (self.isDestinationPanelActive) {
+            [self hideDestinationPanel:nil];
+        }
+
+        Trip *trip = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                     userid:[MockManager userid]
+                                                                    context:self.managedObjectContext];
         [self performSelector:@selector(showDestinationPanel:)
                    withObject:trip
                    afterDelay:0.1];
         
-//        [self fetchEventsWithDateRange:self.currentDateRange];
+//        [self fetchEventsWithDateRange:range];
     }
     else {
         self.currentDateRange = nil;
@@ -588,10 +613,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     NSPredicate *predicate = [self predicate];
     if (dateRange) {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-        NSDate *startDate = [calendar dateFromComponents:self.currentDateRange.startDay];
-        NSDate *endDate = [calendar dateFromComponents:self.currentDateRange.endDay];
+        NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
+        NSDate *endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar];
         endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
         predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@) AND isSelected == '1'", [MockManager userid], startDate, endDate];
     }

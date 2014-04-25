@@ -21,6 +21,8 @@
     #import "TripManager.h"
     #import "NSObject+Extensions.h"
     #import "NSString+Extensions.h"
+    #import "NSDate+Extensions.h"
+    #import "NSDateComponents+Extensions.h"
 #endif
 
 

@@ -9,7 +9,7 @@
 #import "CalendarDayView.h"
 
 @interface CalendarDayView ()
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+//@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) __block Trip *activeTrip;
 @end
 
@@ -19,6 +19,7 @@
     __strong NSString *_tripLocation;
 }
 
+/*
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -28,6 +29,16 @@
         _managedObjectContext.persistentStoreCoordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
     }
     return self;
+}
+*/
+
+- (NSManagedObjectContext *)newManagedObjectContext
+{
+    NSManagedObjectContext *managedObjectContext = [NSManagedObjectContext new];
+    managedObjectContext.undoManager = nil;
+    managedObjectContext.persistentStoreCoordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
+    
+    return managedObjectContext;
 }
 
 - (void)setDay:(NSDateComponents *)day {
@@ -73,11 +84,15 @@
     }
 }
 
-- (void)drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect
+{
     if ([self isMemberOfClass:[CalendarDayView class]]) {
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSManagedObjectContext *bridgedMoc = [[DataManager sharedInstance] bridgedMoc];
+            bridgedMoc = bridgedMoc ? bridgedMoc : [self newManagedObjectContext];
             self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
-                                                                         userid:[MockManager userid] context:_managedObjectContext];
+                                                                         userid:[MockManager userid] context:bridgedMoc];
         });
 
         [self drawBackground];
@@ -244,7 +259,14 @@
 - (void)drawTripLocation
 {
     
-    NSString *tripLocation = self.activeTrip.title;
+    NSString *tripLocation = nil;
+    NSArray *events = [self.activeTrip.toEvent allObjects];
+    Event *event = [events lastObject];
+    if (event &&
+        [event.toCity isCityObject]) {
+        // Display city code if an event is available
+        tripLocation = event.toCity.cityCode;
+    }
     
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
     self.selectionState == DSLCalendarDayViewEndOfSelection ||
@@ -254,7 +276,6 @@
       [self.day.date compare:self.activeTrip.endDate] == NSOrderedSame));
     
     if ([tripLocation length] > 0 && shouldDrawLocation) {
-        //        NSLog(@"Current date: %@ - %@", self.day.date, tripLocation);
         _tripLocation = [[tripLocation uppercaseString] substringToIndex:2];
     }
     else{
@@ -272,11 +293,19 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
-    else if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
-    }
     else {
-        [[UIColor whiteColor] set];
+        switch (self.selectionState) {
+            case DSLCalendarDayViewNotSelected:
+                [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
+                break;
+            case DSLCalendarDayViewStartOfSelection:
+            case DSLCalendarDayViewEndOfSelection:
+                [[UIColor whiteColor] set];
+                break;
+            default:
+                [[UIColor clearColor] set];
+                break;
+        }
     }
     
     UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:10.0];
@@ -284,7 +313,6 @@
     
     CGRect textRect = CGRectMake(ceilf(CGRectGetMidX(self.bounds) - (textSize.width / 2.0)), 1, textSize.width, textSize.height);
     [_tripLocation drawInRect:textRect withFont:textFont];
-    
 }
 
 @end

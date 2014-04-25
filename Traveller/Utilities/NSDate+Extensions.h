@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDate (Extensions)
+- (NSDate *)dateAtMidnight;
 - (NSString *)hourTime;
 - (NSString *)monthDayTime;
 - (NSString *)translatedTime;
