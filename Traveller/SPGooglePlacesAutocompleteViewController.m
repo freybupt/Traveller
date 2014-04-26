@@ -11,7 +11,7 @@
 #import "SPGooglePlacesAutocompletePlace.h"
 
 @interface SPGooglePlacesAutocompleteViewController ()
-
+- (IBAction)editEventLocation:(id)sender;
 @end
 
 @implementation SPGooglePlacesAutocompleteViewController
@@ -21,6 +21,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.searchDisplayController.displaysSearchBarInNavigationBar = YES;
         searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] init];
         searchQuery.radius = 100.0;
         shouldBeginEditing = YES;
@@ -31,14 +32,26 @@
 
 
 - (void)viewDidLoad {
-    self.searchDisplayController.searchBar.placeholder = @"Search or Address";
-    
+    self.searchDisplayController.searchBar.placeholder = @"Search city or address";
 }
 
 - (void)viewDidUnload {
     [self setMapView:nil];
     [super viewDidUnload];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.searchDisplayController.searchBar becomeFirstResponder];
+}
+
+
+- (IBAction)editEventLocation:(id)sender
+{
+    [self.searchDisplayController.searchBar becomeFirstResponder];
+}
+
 
 - (IBAction)recenterMapToUserLocation:(id)sender {
     MKCoordinateRegion region;
@@ -123,6 +136,7 @@
             [self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self recenterMapToPlacemark:placemark];
             [self dismissSearchControllerWhileStayingActive];
+            [self.searchDisplayController.searchBar resignFirstResponder];
             [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }];
@@ -170,7 +184,6 @@
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:animationDuration];
         self.searchDisplayController.searchResultsTableView.alpha = 1.0;
-        self.searchDisplayController.searchBar.frame = CGRectMake(0, 20, self.searchDisplayController.searchBar.frame.size.width, self.searchDisplayController.searchBar.frame.size.height);
         [UIView commitAnimations];
         
         [self.searchDisplayController.searchBar setShowsCancelButton:YES animated:YES];
@@ -182,12 +195,6 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    NSTimeInterval animationDuration = 0.3;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:animationDuration];
-    self.searchDisplayController.searchBar.frame = CGRectMake(0, 65, self.searchDisplayController.searchBar.frame.size.width, self.searchDisplayController.searchBar.frame.size.height);
-    
-    [UIView commitAnimations];
 }
 
 #pragma mark -
