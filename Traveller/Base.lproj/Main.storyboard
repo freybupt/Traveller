@@ -241,7 +241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="570" y="31"/>
+            <point key="canvasLocation" x="718" y="-205"/>
         </scene>
         <!--Booking Table View Controller-->
         <scene sceneID="tSn-M6-lW5">
@@ -269,7 +269,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m19-3b-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="163"/>
+            <point key="canvasLocation" x="1194" y="-73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yr-BD-sku">
@@ -289,6 +289,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bn6-uD-LnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-233" y="26"/>
+        </scene>
+        <!--Google Places Autocomplete View Controller - Add Location-->
+        <scene sceneID="Bqq-j7-Cjv">
+            <objects>
+                <viewController id="X8D-1p-AJQ" customClass="SPGooglePlacesAutocompleteViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iAj-ok-h9V">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="0uL-mv-DiR">
+                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="X8D-1p-AJQ" id="BsY-G5-ZOo"/>
+                                </connections>
+                            </mapView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Ut-4O-onm">
+                                <rect key="frame" x="8" y="525" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" image="map5.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recenterMapToUserLocation:" destination="X8D-1p-AJQ" eventType="touchUpInside" id="geg-t7-9tI"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" id="fJ6-nw-Av3">
+                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="X8D-1p-AJQ" id="xqs-Oj-v6K"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Location" id="g1Y-mY-Fd5"/>
+                    <connections>
+                        <outlet property="mapView" destination="0uL-mv-DiR" id="6tb-vJ-N7R"/>
+                        <outlet property="searchDisplayController" destination="kfO-Zy-Gyf" id="KHp-qK-Vg2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gel-sq-1sg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="kfO-Zy-Gyf">
+                    <connections>
+                        <outlet property="delegate" destination="X8D-1p-AJQ" id="jkO-ma-Pfg"/>
+                        <outlet property="searchBar" destination="fJ6-nw-Av3" id="9g7-fD-Vfc"/>
+                        <outlet property="searchContentsController" destination="X8D-1p-AJQ" id="Bux-zI-CbF"/>
+                        <outlet property="searchResultsDataSource" destination="X8D-1p-AJQ" id="gzd-8o-0re"/>
+                        <outlet property="searchResultsDelegate" destination="X8D-1p-AJQ" id="Vxx-5r-ai2"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="718" y="481"/>
         </scene>
         <!--Select Events Table View Controller - Pick Trip Events-->
         <scene sceneID="wtj-yn-AZz">
@@ -359,7 +419,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                 </textField>
-                                                <view contentMode="scaleToFill" id="uQA-kZ-ECo">
+                                                <view contentMode="scaleToFill" id="uQA-kZ-ECo" userLabel="Location view">
                                                     <rect key="frame" x="0.0" y="70" width="320" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
@@ -390,6 +450,7 @@
                                             <outlet property="eventTimeLabel" destination="nly-zA-fMz" id="7Ae-JM-EYy"/>
                                             <outlet property="eventTitleLabel" destination="4XW-vn-xwq" id="0lX-R7-hX1"/>
                                             <outlet property="locationImageView" destination="mNV-cX-0Eh" id="Xb1-7Y-u46"/>
+                                            <outlet property="locationView" destination="uQA-kZ-ECo" id="8uS-BW-y5J"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -410,6 +471,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="RBc-QK-RjU" id="dB6-aS-dTr"/>
+                        <segue destination="X8D-1p-AJQ" kind="push" identifier="editLocation" id="zhD-7o-RSZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gm2-hg-Yw3" userLabel="First Responder" sceneMemberID="firstResponder"/>

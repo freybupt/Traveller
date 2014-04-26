@@ -9,6 +9,7 @@
 #import "SelectEventsTableViewController.h"
 #import "Checkbox.h"
 #import "MZFormSheetController.h"
+#import "SPGooglePlacesAutocompleteViewController.h"
 
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
 {
@@ -70,11 +71,14 @@
         [cell.eventLocationTextField.text length] == 0) {
         [cell.eventLocationTextField becomeFirstResponder];
     }
-    
-//    _processingIndexPath = checkbox.indexPath;
-    
-    //update cell to show menu
-//    [self.tableView reloadRowsAtIndexPaths:@[checkbox.indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (IBAction)editEventLocation:(id)sender
+{
+    [self performSegueWithIdentifier:@"editLocation" sender:self];
+//    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] init];
+//    viewController.title = @"Add location";
+//    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - NSFetchedResultController configuration
@@ -84,6 +88,7 @@
             [[NSDate date] dateAtMidnight],
             [NSNumber numberWithInt:0]];
 }
+
 
 #pragma mark - UITableViewDelegate
 
@@ -110,7 +115,11 @@
     cell.checkBox.checked = [event.isSelected boolValue];
     [cell.checkBox addTarget:self action:@selector(checkBoxTapAction:) forControlEvents:UIControlEventValueChanged];
     cell.checkBox.indexPath = indexPath;
-
+    
+    UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editEventLocation:)];
+    singleTapGesture.numberOfTapsRequired = 1;
+    [cell.locationView addGestureRecognizer:singleTapGesture];
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

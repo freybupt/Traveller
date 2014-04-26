@@ -20,5 +20,6 @@
 @property (nonatomic, strong) IBOutlet HTAutocompleteTextField *eventLocationTextField;
 @property (nonatomic, strong) IBOutlet UIImageView *locationImageView;
 @property (nonatomic, strong) IBOutlet Checkbox *checkBox;
+@property (nonatomic, strong) IBOutlet UIView *locationView;
 
 @end
