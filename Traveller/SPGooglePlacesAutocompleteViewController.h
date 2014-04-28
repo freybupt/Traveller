@@ -19,5 +19,7 @@
 }
 
 @property (retain, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) Event *event;
+@property (weak, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

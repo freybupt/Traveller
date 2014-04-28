@@ -75,10 +75,26 @@
 
 - (IBAction)editEventLocation:(id)sender
 {
+    UITapGestureRecognizer *gesture = (UITapGestureRecognizer *)sender;
+    MyScheduleTableCell *cellView = (MyScheduleTableCell *)[[[gesture.view superview] superview] superview];
+    _processingIndexPath = [self.tableView indexPathForCell:(UITableViewCell *)cellView];
     [self performSegueWithIdentifier:@"editLocation" sender:self];
 //    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] init];
 //    viewController.title = @"Add location";
 //    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"editLocation"])
+    {
+        SPGooglePlacesAutocompleteViewController *vc = [segue destinationViewController];
+        Event *eventToBeProcessed = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
+        if (eventToBeProcessed) {
+            [vc setEvent:eventToBeProcessed];
+            [vc setManagedObjectContext:self.managedObjectContext];
+        }
+    }
 }
 
 #pragma mark - NSFetchedResultController configuration

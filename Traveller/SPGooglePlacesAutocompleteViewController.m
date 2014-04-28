@@ -136,10 +136,10 @@
             [self addPlacemarkAnnotationToMap:placemark addressString:addressString];
             [self recenterMapToPlacemark:placemark];
             [self dismissSearchControllerWhileStayingActive];
-            [self.searchDisplayController.searchBar resignFirstResponder];
-            [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
         }
     }];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [self.view bringSubviewToFront:self.mapView];
 }
 
 #pragma mark -
@@ -195,6 +195,7 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
+    
 }
 
 #pragma mark -
@@ -212,8 +213,7 @@
     annotationView.animatesDrop = YES;
     annotationView.canShowCallout = YES;
     
-    UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [detailButton addTarget:self action:@selector(annotationDetailButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeContactAdd];
     annotationView.rightCalloutAccessoryView = detailButton;
     
     return annotationView;
@@ -224,8 +224,14 @@
     [self.mapView selectAnnotation:selectedPlaceAnnotation animated:YES];
 }
 
-- (void)annotationDetailButtonPressed:(id)sender {
-    // Detail view controller application logic here.
+
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    self.event.location = view.annotation.title;
+    [[DataManager sharedInstance] saveEvent:self.event
+                                    context:self.managedObjectContext];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

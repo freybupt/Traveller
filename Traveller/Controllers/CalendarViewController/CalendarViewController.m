@@ -492,7 +492,12 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
             break;
         case EventTypeDefault:
         default:
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
+            if ([event.location length] > 0) {
+                cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+            }
+            else{
+                cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
+            }
             break;
     }
     if ([event.eventType integerValue] == EventTypeFlight) {
