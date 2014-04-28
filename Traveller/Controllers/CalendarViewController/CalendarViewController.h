@@ -7,8 +7,9 @@
 //
 
 #import "EventViewController.h"
+#import "DestinationPanelView.h"
 
-@interface CalendarViewController : EventViewController <UITextFieldDelegate>
+@interface CalendarViewController : EventViewController
 
 
 @property (nonatomic, weak) IBOutlet UIView *planTripView;
@@ -26,14 +27,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *addButton;
 @property (nonatomic, weak) IBOutlet UIButton *expandButton;
 
-//Destination View
-@property (nonatomic, weak) IBOutlet UIView *destinationPanel;
-@property (nonatomic, weak) IBOutlet UITextField *destinationTextField;
-@property (nonatomic, weak) IBOutlet UITextField *departureLocationTextField;
-@property (nonatomic, weak) IBOutlet UIButton *removeTripButton;
-@property (nonatomic, weak) IBOutlet UIButton *confirmDestinationButton;
-@property (nonatomic, weak) IBOutlet UIButton *cancelEditDestinationButton;
-
+//Destination Panel View
+@property (nonatomic, weak) IBOutlet DestinationPanelView *destinationPanelView;
 
 - (IBAction)adjustScheduleView:(id)sender;
 - (IBAction)editMySchedule:(id)sender;

@@ -110,6 +110,7 @@
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
 		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
 		9F54EB611901771600ABB05F /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F54EB601901771600ABB05F /* EventViewController.m */; };
+		9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB50A39190E8704000E6C98 /* DestinationPanelView.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
@@ -303,6 +304,8 @@
 		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
 		9F54EB5F1901771600ABB05F /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F54EB601901771600ABB05F /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		9FB50A38190E8704000E6C98 /* DestinationPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationPanelView.h; sourceTree = "<group>"; };
+		9FB50A39190E8704000E6C98 /* DestinationPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationPanelView.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
 		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
@@ -634,6 +637,7 @@
 		76C2711E18B2A3C8003A49A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9FB50A37190E86E9000E6C98 /* DestinationPanelView */,
 				9F37478B1900F152003D67C8 /* CalendarView */,
 				9F37478E1900F152003D67C8 /* Checkbox */,
 				9F3747921900F152003D67C8 /* MyScheduleTableCell */,
@@ -910,6 +914,16 @@
 			path = EventViewController;
 			sourceTree = "<group>";
 		};
+		9FB50A37190E86E9000E6C98 /* DestinationPanelView */ = {
+			isa = PBXGroup;
+			children = (
+				9FB50A38190E8704000E6C98 /* DestinationPanelView.h */,
+				9FB50A39190E8704000E6C98 /* DestinationPanelView.m */,
+			);
+			name = DestinationPanelView;
+			path = Views/DestinationPanelView;
+			sourceTree = "<group>";
+		};
 		9FC4184118FFABD7001CC750 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,6 +1058,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */,
 				9F3748301900F2E3003D67C8 /* DSLCalendarDayCalloutView.m in Sources */,
 				7622B8FB190B1F4E00F2A22A /* SPGooglePlacesAutocompleteViewController.m in Sources */,
 				7622B8F8190B1F4E00F2A22A /* SPGooglePlacesAutocompletePlace.m in Sources */,

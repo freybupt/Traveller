@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tjR-tg-0cD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tjR-tg-0cD">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Calendar View Controller - Book Trip-->
@@ -148,67 +148,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" id="Bys-zB-5FN" userLabel="Destination Panel">
+                            <view contentMode="scaleToFill" id="Bys-zB-5FN" userLabel="Destination Panel" customClass="DestinationPanelView">
                                 <rect key="frame" x="0.0" y="-40" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vancouver" placeholder="Departure Location" minimumFontSize="17" id="Gij-2j-YYW">
-                                        <rect key="frame" x="9" y="-7" width="69" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="e51-Nf-LVi"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Destination" minimumFontSize="17" id="NiG-jb-JhX">
-                                        <rect key="frame" x="9" y="3" width="162" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="19"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="vXZ-lx-hvc" id="Sm7-nD-b0o"/>
-                                        </connections>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="moQ-Xh-Hpz" userLabel="Button -remove trip">
-                                        <rect key="frame" x="179" y="3" width="32" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <state key="normal" image="dustbin.png">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteCurrentTrip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nnH-em-oPg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dWL-HE-vlq">
-                                        <rect key="frame" x="270" y="5" width="50" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.51372549020000002" green="0.78039215689999997" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                        <state key="normal" title="✓">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="confirmTripChange:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2qw-jx-Hg7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XxS-p1-oQ0">
-                                        <rect key="frame" x="219" y="5" width="50" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.70196080207824707" green="0.70196080207824707" blue="0.70196080207824707" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                        <state key="normal" title="X">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelTripChange:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="M4x-iq-ZPc"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -225,16 +167,11 @@
                     <connections>
                         <outlet property="addButton" destination="Fn5-zO-Cyt" id="ltW-pq-q3H"/>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
-                        <outlet property="cancelEditDestinationButton" destination="XxS-p1-oQ0" id="o85-Oj-7Cn"/>
-                        <outlet property="confirmDestinationButton" destination="dWL-HE-vlq" id="3BM-rt-fBC"/>
                         <outlet property="confirmTripView" destination="GCd-Uz-CSc" id="UAh-rg-ECg"/>
-                        <outlet property="departureLocationTextField" destination="Gij-2j-YYW" id="9uP-A6-ndP"/>
-                        <outlet property="destinationPanel" destination="Bys-zB-5FN" id="fKu-WL-gkS"/>
-                        <outlet property="destinationTextField" destination="NiG-jb-JhX" id="ICK-rq-Y0z"/>
+                        <outlet property="destinationPanelView" destination="Bys-zB-5FN" id="5cm-cu-2CF"/>
                         <outlet property="expandButton" destination="pY5-99-my6" id="Zvc-Ec-Sah"/>
                         <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
                         <outlet property="planTripView" destination="wLi-nh-koY" id="Auc-kb-Dy1"/>
-                        <outlet property="removeTripButton" destination="moQ-Xh-Hpz" id="K2C-aE-9EH"/>
                         <outlet property="tabView" destination="Q5S-ke-8Eo" id="h9Q-7I-O7q"/>
                         <outlet property="tableView" destination="mBy-03-yug" id="W5e-sy-Q4f"/>
                     </connections>
@@ -601,7 +538,6 @@
     </scenes>
     <resources>
         <image name="arrowUp.png" width="256" height="256"/>
-        <image name="dustbin.png" width="32" height="32"/>
         <image name="edit12.png" width="512" height="512"/>
         <image name="map5.png" width="512" height="512"/>
     </resources>

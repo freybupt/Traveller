@@ -28,7 +28,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 @property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
 @property (nonatomic, strong) NSMutableArray *numberOutput;
-
 @end
 
 @implementation CalendarViewController
@@ -47,13 +46,16 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
-    
-    [self.destinationTextField addTarget:self
-                                  action:@selector(destinationUpdated:)
-                        forControlEvents:UIControlEventEditingChanged];
-    [self.departureLocationTextField addTarget:self
-                                        action:@selector(departureCityUpdated:)
-                              forControlEvents:UIControlEventEditingChanged];
+
+    [self.destinationPanelView.confirmDestinationButton addTarget:self
+                                                           action:@selector(confirmTripChange:)
+                                                 forControlEvents:UIControlEventTouchUpInside];
+    [self.destinationPanelView.cancelEditDestinationButton addTarget:self
+                                                              action:@selector(cancelTripChange:)
+                                                    forControlEvents:UIControlEventTouchUpInside];
+    [self.destinationPanelView.removeTripButton addTarget:self
+                                                   action:@selector(deleteCurrentTrip:)
+                                         forControlEvents:UIControlEventTouchUpInside];
 
 #ifdef TEMP_DISABLE_CALCULATETRIP
     [self fetchEventsWithDateRange:nil];
@@ -233,20 +235,20 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     if ([sender isKindOfClass:[Trip class]]) {
         Trip *activeTrip = (Trip *)sender;
         //self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
-        self.destinationTextField.text = activeTrip.title; // TODO: Probably consider to chnaging UITextField to HTAutocompleteTextField if we prefer to use toCityDestinationCity;
-        self.confirmDestinationButton.enabled = YES;
-        self.removeTripButton.hidden = NO;
+        self.destinationPanelView.destinationTextField.text = activeTrip.title; // TODO: Probably consider to chnaging UITextField to HTAutocompleteTextField if we prefer to use toCityDestinationCity;
+        self.destinationPanelView.confirmDestinationButton.enabled = YES;
+        self.destinationPanelView.removeTripButton.hidden = NO;
     }
     else{
-        self.destinationTextField.text = @"";
-        self.confirmDestinationButton.enabled = NO;
-        self.removeTripButton.hidden = YES;
+        self.destinationPanelView.destinationTextField.text = @"";
+        self.destinationPanelView.confirmDestinationButton.enabled = NO;
+        self.destinationPanelView.removeTripButton.hidden = YES;
     }
     
     CalendarViewController __weak *weakSelf = self;
     //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
-        weakSelf.destinationPanel.frame = CGRectMake(0, weakSelf.planTripView.frame.origin.y, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
+        weakSelf.destinationPanelView.frame = CGRectMake(0, weakSelf.planTripView.frame.origin.y, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
         [weakSelf.tabView setAlpha:0.0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -257,13 +259,13 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)hideDestinationPanel:(id)sender
 {
-    [self.departureLocationTextField resignFirstResponder];
-    [self.destinationTextField resignFirstResponder];
+    [self.destinationPanelView.departureLocationTextField resignFirstResponder];
+    [self.destinationPanelView.destinationTextField resignFirstResponder];
 
     CalendarViewController __weak *weakSelf = self;
     //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
-        weakSelf.destinationPanel.frame = CGRectMake(0, -weakSelf.destinationPanel.frame.size.height, weakSelf.destinationPanel.frame.size.width, weakSelf.destinationPanel.frame.size.height);
+        weakSelf.destinationPanelView.frame = CGRectMake(0, -weakSelf.destinationPanelView.frame.size.height, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
         [weakSelf.tabView setAlpha:1.0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -294,8 +296,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
     trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
     
-    if ([self.destinationTextField.text length] > 0) {
-        trip.title = self.destinationTextField.text;
+    if ([self.destinationPanelView.destinationTextField.text length] > 0) {
+        trip.title = self.destinationPanelView.destinationTextField.text;
     }
     
     if (self.currentDateRange) {
@@ -335,13 +337,13 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 
 - (IBAction)deleteCurrentTrip:(id)sender
 {
-    NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
-    Trip *trip = [[DataManager sharedInstance] getActiveTripByDate:startDate
-                                                            userid:[MockManager userid] context:self.managedObjectContext];
-    if (!trip) {
+    NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                     userid:[MockManager userid]
+                                                                    context:self.managedObjectContext];
+    if ([array count] != 1) {
         return;
     }
-    
+    Trip *trip = [array lastObject];
     if ([[DataManager sharedInstance] deleteTrip:trip
                                          context:self.managedObjectContext]) {
         self.calendarView.selectedRange = nil;
@@ -350,17 +352,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         // TODO: Probably move the part of color control from trip manager to calendar color manager
         [[TripManager sharedManager] deleteTrip:trip];
     }
-}
-
-- (void)destinationUpdated:(id)sender
-{
-    self.confirmDestinationButton.enabled = ([self.destinationTextField.text length] > 0);
-    
-}
-
-- (void)departureCityUpdated:(id)sender
-{
-    
 }
 
 - (void)updateTripInfo:(NSNotification *)userinfo
@@ -373,7 +364,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 - (void)calendarView:(DSLCalendarView *)calendarView
  shouldHighlightTrip:(Trip *)trip
 {
-    self.destinationTextField.text = trip.toCityDestinationCity.cityName;
+    self.destinationPanelView.destinationTextField.text = trip.toCityDestinationCity.cityName;
     [self showDestinationPanel:trip];
 }
 
