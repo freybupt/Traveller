@@ -7,6 +7,7 @@
 //
 
 #import "DestinationPanelView.h"
+#import "HTAutocompleteManager.h"
 
 @interface DestinationPanelView ()<UITextFieldDelegate>
 
@@ -25,6 +26,8 @@
 
 - (void)awakeFromNib
 {
+    [HTAutocompleteTextField setDefaultAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
+    
     _destinationTextField = [self newDestinationTextField];
     [self addSubview:_destinationTextField];
     
@@ -51,9 +54,9 @@
 */
 
 #pragma mark - Configuration
-- (UITextField *)newDestinationTextField
+- (HTAutocompleteTextField *)newDestinationTextField
 {
-    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, 0.0f, 200.0f, 40.0f)];
+    HTAutocompleteTextField *textField = [[HTAutocompleteTextField alloc] initWithFrame:CGRectMake(10.0f, 0.0f, 200.0f, 40.0f)];
     textField.placeholder = NSLocalizedString(@"Add Destination", nil);
     textField.font = [UIFont fontWithName:@"Avenir-Roman" size:17.0f];
     textField.minimumFontSize = 17.0f;
@@ -61,6 +64,7 @@
     textField.borderStyle = UITextBorderStyleNone;
     textField.hidden = NO;
     textField.delegate = self;
+    textField.autocompleteType = HTAutocompleteTypeCity;
     
     return textField;
 }

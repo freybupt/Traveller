@@ -57,16 +57,12 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
                                                    action:@selector(deleteCurrentTrip:)
                                          forControlEvents:UIControlEventTouchUpInside];
 
-#ifdef TEMP_DISABLE_CALCULATETRIP
-    [self fetchEventsWithDateRange:nil];
-#else
     if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
         [self calculateTrip:nil];
     }
     else{
         [self fetchEventsWithDateRange:nil];
     }
-#endif
 }
 
 
@@ -270,9 +266,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     } completion:^(BOOL finished) {
         if (finished) {
             self.isDestinationPanelActive = NO;
-#ifdef TEMP_DISABLE_CALCULATETRIP
             [self fetchEventsWithDateRange:nil];
-#endif
         }
     }];
     
@@ -665,9 +659,8 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }];
     }];
 
-#ifndef TEMP_DISABLE_CALCULATETRIP
-    [self confirmTripChange:nil];
-#endif
+    // TODO: The step causes a crash, not sure if it's necessary for calculateTrip
+    // [self confirmTripChange:nil];
 }
 
 #pragma mark -

@@ -24,6 +24,3 @@
     #import "NSDate+Extensions.h"
     #import "NSDateComponents+Extensions.h"
 #endif
-
-
-#define TEMP_DISABLE_CALCULATETRIP

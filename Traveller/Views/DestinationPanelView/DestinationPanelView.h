@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTAutocompleteTextField.h"
 
 @interface DestinationPanelView : UIView
-@property (nonatomic, strong) UITextField *destinationTextField;
+@property (nonatomic, strong) HTAutocompleteTextField *destinationTextField;
 @property (nonatomic, strong) UITextField *departureLocationTextField;
 @property (nonatomic, strong) UIButton *removeTripButton;
 @property (nonatomic, strong) UIButton *confirmDestinationButton;
