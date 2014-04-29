@@ -173,7 +173,9 @@
 {
     NSMutableArray *allColors = [[NSMutableArray alloc] init];
     for (Trip *eachTrip in self.activeTripList) {
-        [allColors addObject:eachTrip.defaultColor];
+        if (eachTrip) {
+            [allColors addObject:eachTrip.defaultColor];
+        }
     }
     
     return [NSArray arrayWithArray:allColors];
