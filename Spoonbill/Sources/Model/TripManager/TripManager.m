@@ -425,4 +425,145 @@ NSString * const TripManagerOperationDidDeleteEventNotification = @"com.spoonbil
     NSLog(@"Deleted a trip");
     return YES;
 }
+
+#pragma mark - Car
+- (Car *)getCarWithRegNo:(NSString *)regNo
+                 context:(NSManagedObjectContext *)moc
+{
+    if (!regNo || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"reg_no == %@ AND uid == %@", regNo, [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Car"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    
+    return fetchResult.count == 0 ? nil : [fetchResult lastObject];
+}
+
+- (BOOL)addCarWithDictionary:(NSDictionary *)dictionary
+                     context:(NSManagedObjectContext *)moc
+{
+    if (!dictionary || !moc ) {
+        return NO;
+    }
+    
+    if ([self getCarWithRegNo:dictionary[@"reg_no"] context:moc]) {
+        return NO;
+    }
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Car"
+                                              inManagedObjectContext:moc];
+    Car *car = [[Car alloc] initWithEntity:entity
+            insertIntoManagedObjectContext:moc];
+    
+    [self setCar:car withDictionary:dictionary];
+    
+    return [self saveCar:car
+                 context:moc];
+}
+
+- (BOOL)saveCar:(Car *)car
+        context:(NSManagedObjectContext *)moc
+{
+    if (!car || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved a car: %@", car);
+    return YES;
+}
+
+- (BOOL)deleteCar:(Car *)car
+          context:(NSManagedObjectContext *)moc
+{
+    if (!car || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:car];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted a car");
+    return YES;
+}
+
+- (void)setCar:(Car *)car withDictionary:(NSDictionary *)dictionary
+{
+    if ([dictionary[@"id"] isNumberObject]) {
+        car.uid = dictionary[@"id"];
+    }
+    
+    if ([dictionary[@"Mark"] isStringObject]) {
+        car.mark = dictionary[@"Mark"];
+    }
+    
+    if ([dictionary[@"Model"] isStringObject]) {
+        car.model = dictionary[@"Model"];
+    }
+    
+    if ([dictionary[@"Year"] isNumberObject]) {
+        car.year = dictionary[@"Year"];
+    }
+    
+    if ([dictionary[@"Year"] isStringObject]) {
+        car.year = [NSNumber numberWithInteger:[dictionary[@"Year"] integerValue]];
+    }
+    
+    if ([dictionary[@"Rate"] isNumberObject]) {
+        car.rate = dictionary[@"Rate"];
+    }
+    
+    if ([dictionary[@"Rate"] isStringObject]) {
+        car.rate = [NSNumber numberWithFloat:[dictionary[@"Rate"] floatValue]];
+    }
+    
+    if ([dictionary[@"Currency"] isStringObject]) {
+        car.currency = dictionary[@"Currency"];
+    }
+    
+    if ([dictionary[@"Type"] isNumberObject]) {
+        car.type = dictionary[@"Type"];
+    }
+    
+    if ([dictionary[@"Type"] isStringObject]) {
+        car.type = [NSNumber numberWithInteger:0];
+    }
+    
+    if ([dictionary[@"Information"] isStringObject]) {
+        car.information = dictionary[@"Information"];
+    }
+    
+    if ([dictionary[@"Restriction"] isStringObject]) {
+        car.restriction = dictionary[@"Restriction"];
+    }
+    
+    if ([dictionary[@"RegNumber"] isStringObject]) {
+        car.reg_no = dictionary[@"RegNumber"];
+    }
+}
+
 @end

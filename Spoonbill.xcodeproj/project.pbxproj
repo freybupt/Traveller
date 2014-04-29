@@ -113,6 +113,10 @@
 		9F9F33CC18E138A20077C85A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F9F33CB18E138A20077C85A /* CoreLocation.framework */; };
 		9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33CF18E13BB30077C85A /* LocationManager.m */; };
 		9F9F33E518E1619E0077C85A /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9F33E418E1619E0077C85A /* NSObject+Extensions.m */; };
+		9FA28E1F190F65F300DE1C63 /* Car.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA28E1E190F65F300DE1C63 /* Car.m */; };
+		9FA28E24190F6F2100DE1C63 /* CarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA28E22190F6F2100DE1C63 /* CarViewController.m */; };
+		9FA28E25190F6F2100DE1C63 /* CarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9FA28E23190F6F2100DE1C63 /* CarViewController.xib */; };
+		9FA28E28190F74FC00DE1C63 /* CarRental.csv in Resources */ = {isa = PBXBuildFile; fileRef = 9FA28E27190F74FC00DE1C63 /* CarRental.csv */; };
 		9FC0557218E2AA6500743E16 /* MockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557118E2AA6500743E16 /* MockManager.m */; };
 		9FC0558818E2B31600743E16 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557618E2B31600743E16 /* AFHTTPRequestOperation.m */; };
 		9FC0558918E2B31600743E16 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC0557818E2B31600743E16 /* AFHTTPRequestOperationManager.m */; };
@@ -317,6 +321,12 @@
 		9F9F33CF18E13BB30077C85A /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		9F9F33E318E1619E0077C85A /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
 		9F9F33E418E1619E0077C85A /* NSObject+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Extensions.m"; sourceTree = "<group>"; };
+		9FA28E1D190F65F300DE1C63 /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Car.h; sourceTree = "<group>"; };
+		9FA28E1E190F65F300DE1C63 /* Car.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Car.m; sourceTree = "<group>"; };
+		9FA28E21190F6F2100DE1C63 /* CarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarViewController.h; sourceTree = "<group>"; };
+		9FA28E22190F6F2100DE1C63 /* CarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarViewController.m; sourceTree = "<group>"; };
+		9FA28E23190F6F2100DE1C63 /* CarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarViewController.xib; sourceTree = "<group>"; };
+		9FA28E27190F74FC00DE1C63 /* CarRental.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CarRental.csv; sourceTree = "<group>"; };
 		9FC0557018E2AA6500743E16 /* MockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockManager.h; sourceTree = "<group>"; };
 		9FC0557118E2AA6500743E16 /* MockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockManager.m; sourceTree = "<group>"; };
 		9FC0557518E2B31600743E16 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -545,6 +555,7 @@
 		9F7F6FE118F0FDC800904AA5 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				9FA28E20190F6F0D00DE1C63 /* CarViewController */,
 				9F7F6FE218F0FDC800904AA5 /* CityViewController */,
 				9F7F6FF018F0FDC800904AA5 /* EventViewController */,
 				9F7F6FFC18F0FDC800904AA5 /* TripViewController */,
@@ -909,6 +920,8 @@
 			children = (
 				9F9F33C518E112A60077C85A /* TripManager.h */,
 				9F9F33C618E112A60077C85A /* TripManager.m */,
+				9FA28E1D190F65F300DE1C63 /* Car.h */,
+				9FA28E1E190F65F300DE1C63 /* Car.m */,
 				9F2F85E118EA70EF00BA98AA /* City.h */,
 				9F2F85E218EA70EF00BA98AA /* City.m */,
 				9F2F85E718EA70F000BA98AA /* Event.h */,
@@ -941,6 +954,24 @@
 			);
 			name = Utilities;
 			path = Sources/Utilities;
+			sourceTree = "<group>";
+		};
+		9FA28E20190F6F0D00DE1C63 /* CarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9FA28E21190F6F2100DE1C63 /* CarViewController.h */,
+				9FA28E22190F6F2100DE1C63 /* CarViewController.m */,
+				9FA28E23190F6F2100DE1C63 /* CarViewController.xib */,
+			);
+			path = CarViewController;
+			sourceTree = "<group>";
+		};
+		9FA28E26190F74FC00DE1C63 /* CarRental */ = {
+			isa = PBXGroup;
+			children = (
+				9FA28E27190F74FC00DE1C63 /* CarRental.csv */,
+			);
+			path = CarRental;
 			sourceTree = "<group>";
 		};
 		9FC0556F18E2AA5100743E16 /* MockManager */ = {
@@ -1109,6 +1140,7 @@
 		9FFE21A418E260DB00AF78AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FA28E26190F74FC00DE1C63 /* CarRental */,
 				9FDA52F919066FC20025150E /* CanadaCities */,
 				9F24752518F382DC00A290BE /* Add */,
 				9FFE21A518E260DB00AF78AF /* AppIcon */,
@@ -1212,6 +1244,7 @@
 				9F093C8C18FE2F0A00530C11 /* DSLCalendarDaySelection-right@2x.png in Resources */,
 				9F093C8518FE2F0A00530C11 /* DSLCalendarDayCallout.png in Resources */,
 				9FFE21B118E260DB00AF78AF /* Icon@2x.png in Resources */,
+				9FA28E25190F6F2100DE1C63 /* CarViewController.xib in Resources */,
 				9F9F33A318E108010077C85A /* Images.xcassets in Resources */,
 				9F24752D18F3990500A290BE /* PLPlanTripCalendarMapViewController.xib in Resources */,
 				9F093C8618FE2F0A00530C11 /* DSLCalendarDayCallout@2x.png in Resources */,
@@ -1235,6 +1268,7 @@
 				9F7F702F18F0FDC800904AA5 /* ChooseCityViewController.xib in Resources */,
 				9F7F702B18F0FDC800904AA5 /* CityMapViewController.xib in Resources */,
 				9F093C8E18FE2F0A00530C11 /* DSLCalendarDaySelection@2x.png in Resources */,
+				9FA28E28190F74FC00DE1C63 /* CarRental.csv in Resources */,
 				9FDA530C190690E50025150E /* PLAutocompleteViewController.xib in Resources */,
 				9F24752318F37A4500A290BE /* arrowDown@2x.png in Resources */,
 				9F7F705D18F1673A00904AA5 /* PLPlanTripCalendarViewController.xib in Resources */,
@@ -1288,6 +1322,7 @@
 				9FDA52E81906612A0025150E /* BDTextField.m in Sources */,
 				9FC055A518E2B46300743E16 /* UIAlertView+AFNetworking.m in Sources */,
 				9F9F33E518E1619E0077C85A /* NSObject+Extensions.m in Sources */,
+				9FA28E24190F6F2100DE1C63 /* CarViewController.m in Sources */,
 				9F7F702718F0FDC800904AA5 /* AddCityTableViewCell.m in Sources */,
 				9FDA52E11906608D0025150E /* ModalView.m in Sources */,
 				9F9F33D018E13BB30077C85A /* LocationManager.m in Sources */,
@@ -1303,6 +1338,7 @@
 				9F093C7E18FE2F0A00530C11 /* DSLCalendarMonthView.m in Sources */,
 				9FDA530119068FC30025150E /* HTAutocompleteTextField.m in Sources */,
 				9F7F703818F0FDC800904AA5 /* ChooseEventViewController.m in Sources */,
+				9FA28E1F190F65F300DE1C63 /* Car.m in Sources */,
 				9F7F703E18F0FDC800904AA5 /* TripDetailViewController.m in Sources */,
 				9F7F704018F0FDC800904AA5 /* TripViewController.m in Sources */,
 				9F7F704218F0FDC800904AA5 /* CDTableViewController.m in Sources */,

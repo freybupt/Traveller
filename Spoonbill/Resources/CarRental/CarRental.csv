@@ -1,0 +1,9 @@
+Mark,Model,Year,Rate,Currency,Type,Information,Restriction,RegNumber
+Chevy,Spark,2010,46.89,USD,Economy,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,TTL-456
+Nissan,Versa,2011,50.17,USD,Compact,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,DDT-001
+Toyota,Corolla,2012,52.35,USD,Intermediate,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,UYU-899
+Chrysler,200,2012,55.62,USD,Standard,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,OPP-663
+Ford,Fusion,2012,55.63,USD,Full Size,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,UTT-744
+Nissan,Altima,2013,55.63,USD,Full Size,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,CCD-932
+Chrysler,300,2013,91.35,USD,Premium,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,BBP-115
+Ford,Mustang,2013,109.99,USD,Convertible,Automatic Transmission Air Conditioning AM/FM,MILEAGE IS UNLIMITED,ABP-343

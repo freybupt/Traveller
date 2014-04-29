@@ -73,12 +73,6 @@
     return @"City";
 }
 
-- (NSEntityDescription *)entityDescription
-{
-    return [NSEntityDescription entityForName:[self entityName]
-                       inManagedObjectContext:self.managedObjectContext];
-}
-
 - (NSPredicate *)predicate
 {
     return [NSPredicate predicateWithFormat:@"uid == %@", [MockManager userid]];

@@ -21,6 +21,7 @@
 #import "CityViewController.h"
 #import "EventViewController.h"
 #import "TripViewController.h"
+#import "CarViewController.h"
 
 #define ROOT_TABLEVIEWCELL_IDENTIFIER @"RootTableViewCellIdentifier"
 
@@ -48,6 +49,7 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
     CoreDataTableRowCity,
     CoreDataTableRowEvent,
     CoreDataTableRowTrip,
+    CoreDataTableRowCar,
     CoreDataTableRowCount
 };
 
@@ -130,6 +132,12 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
 - (IBAction)tripButtonTapAction:(id)sender
 {
     TripViewController *vc = [[TripViewController alloc] initWithNibName:@"TripViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)carButtonTapAction:(id)sender
+{
+    CarViewController *vc = [[CarViewController alloc] initWithNibName:@"CarViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -222,6 +230,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
         case CoreDataTableRowTrip:
             [self tripButtonTapAction:nil];
             break;
+        case CoreDataTableRowCar:
+            [self carButtonTapAction:nil];
+            break;
     }
 }
 
@@ -300,6 +311,9 @@ typedef NS_ENUM(NSInteger, CoreDataTableRow) {
                 break;
             case CoreDataTableRowTrip:
                 [mArray insertObject:@"Trip" atIndex:CoreDataTableRowTrip];
+                break;
+            case CoreDataTableRowCar:
+                [mArray insertObject:@"Car" atIndex:CoreDataTableRowCar];
                 break;
         }
     }

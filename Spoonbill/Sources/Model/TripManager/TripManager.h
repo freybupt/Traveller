@@ -12,6 +12,7 @@
 #import "City.h"
 #import "Event.h"
 #import "Trip.h"
+#import "Car.h"
 
 extern NSString * const TripManagerOperationDidDeleteEventNotification;
 
@@ -50,4 +51,15 @@ extern NSString * const TripManagerOperationDidDeleteEventNotification;
          context:(NSManagedObjectContext *)moc;
 - (BOOL)deleteTrip:(Trip *)trip
            context:(NSManagedObjectContext *)moc;
+
+/* Car */
+- (Car *)getCarWithRegNo:(NSString *)regNo
+                 context:(NSManagedObjectContext *)moc;
+- (BOOL)addCarWithDictionary:(NSDictionary *)dictionary
+                     context:(NSManagedObjectContext *)moc;
+- (BOOL)saveCar:(Car *)car
+        context:(NSManagedObjectContext *)moc;
+- (BOOL)deleteCar:(Car *)car
+          context:(NSManagedObjectContext *)moc;
+
 @end
