@@ -1,5 +1,5 @@
 //
-//  Event.h
+//  Rental.h
 //  Spoonbill
 //
 //  Created by WEI-JEN TU on 2014-04-29.
@@ -9,24 +9,22 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class City, Trip;
+@class Branch, Car, Trip;
 
-@interface Event : NSManagedObject
+@interface Rental : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * allDay;
 @property (nonatomic, retain) NSDate * endDate;
-@property (nonatomic, retain) NSString * eventIdentifier;
-@property (nonatomic, retain) NSString * location;
-@property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSNumber * isRoundTrip;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
-@property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) City *toCity;
+@property (nonatomic, retain) Branch *toBranchPickupBranch;
+@property (nonatomic, retain) Branch *toBranchDropoffBranch;
+@property (nonatomic, retain) Car *toCar;
 @property (nonatomic, retain) NSSet *toTrip;
 @end
 
-@interface Event (CoreDataGeneratedAccessors)
+@interface Rental (CoreDataGeneratedAccessors)
 
 - (void)addToTripObject:(Trip *)value;
 - (void)removeToTripObject:(Trip *)value;

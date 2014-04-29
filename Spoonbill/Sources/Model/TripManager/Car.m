@@ -7,6 +7,7 @@
 //
 
 #import "Car.h"
+#import "Rental.h"
 
 
 @implementation Car
@@ -21,5 +22,6 @@
 @dynamic type;
 @dynamic information;
 @dynamic restriction;
+@dynamic toRental;
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Rental;
 
 @interface Car : NSManagedObject
 
@@ -22,5 +23,6 @@
 @property (nonatomic, retain) NSNumber * type;
 @property (nonatomic, retain) NSString * information;
 @property (nonatomic, retain) NSString * restriction;
+@property (nonatomic, retain) Rental *toRental;
 
 @end

@@ -2,14 +2,14 @@
 //  City.h
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-04-01.
+//  Created by WEI-JEN TU on 2014-04-29.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Event, Trip;
+@class Branch, Event, Hotel, Trip;
 
 @interface City : NSManagedObject
 
@@ -25,6 +25,8 @@
 @property (nonatomic, retain) NSSet *toEvent;
 @property (nonatomic, retain) NSSet *toTripDepartureCity;
 @property (nonatomic, retain) NSSet *toTripDestinationCity;
+@property (nonatomic, retain) Branch *toBranch;
+@property (nonatomic, retain) Hotel *toHotel;
 @end
 
 @interface City (CoreDataGeneratedAccessors)

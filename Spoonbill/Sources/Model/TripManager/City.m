@@ -2,12 +2,14 @@
 //  City.m
 //  Spoonbill
 //
-//  Created by WEI-JEN TU on 2014-04-01.
+//  Created by WEI-JEN TU on 2014-04-29.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
 #import "City.h"
+#import "Branch.h"
 #import "Event.h"
+#import "Hotel.h"
 #import "Trip.h"
 
 
@@ -25,5 +27,7 @@
 @dynamic toEvent;
 @dynamic toTripDepartureCity;
 @dynamic toTripDestinationCity;
+@dynamic toBranch;
+@dynamic toHotel;
 
 @end
