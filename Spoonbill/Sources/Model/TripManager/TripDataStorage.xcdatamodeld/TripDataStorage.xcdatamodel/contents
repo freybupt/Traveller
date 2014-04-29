@@ -64,7 +64,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="City" inverseName="toHotel" inverseEntity="City" syncable="YES"/>
+        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toHotel" inverseEntity="City" syncable="YES"/>
     </entity>
     <entity name="Rental" representedClassName="Rental" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -72,8 +72,8 @@
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="toBranchDropoffBranch" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Branch" inverseName="toRentalDropoffBranch" inverseEntity="Branch" syncable="YES"/>
-        <relationship name="toBranchPickupBranch" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Branch" inverseName="toRentalPickupBranch" inverseEntity="Branch" syncable="YES"/>
+        <relationship name="toBranchDropoffBranch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Branch" inverseName="toRentalDropoffBranch" inverseEntity="Branch" syncable="YES"/>
+        <relationship name="toBranchPickupBranch" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Branch" inverseName="toRentalPickupBranch" inverseEntity="Branch" syncable="YES"/>
         <relationship name="toCar" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Car" inverseName="toRental" inverseEntity="Car" syncable="YES"/>
         <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toRental" inverseEntity="Trip" syncable="YES"/>
     </entity>
@@ -90,12 +90,12 @@
         <relationship name="toRental" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Rental" inverseName="toTrip" inverseEntity="Rental" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Branch" positionX="376" positionY="-1" width="128" height="208"/>
+        <element name="Car" positionX="225" positionY="216" width="128" height="208"/>
         <element name="City" positionX="-92" positionY="-295" width="128" height="253"/>
         <element name="Event" positionX="-441" positionY="-306" width="128" height="208"/>
-        <element name="Trip" positionX="-488" positionY="-18" width="128" height="193"/>
-        <element name="Car" positionX="225" positionY="216" width="128" height="208"/>
-        <element name="Branch" positionX="376" positionY="-1" width="128" height="208"/>
         <element name="Hotel" positionX="-144" positionY="-610" width="128" height="178"/>
         <element name="Rental" positionX="414" positionY="344" width="128" height="178"/>
+        <element name="Trip" positionX="-488" positionY="-18" width="128" height="193"/>
     </elements>
 </model>
