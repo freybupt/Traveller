@@ -101,13 +101,12 @@
 - (NSPredicate *)predicate
 {
     return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND eventType = %@", [MockManager userid],
-            [[NSDate date] dateAtMidnight],
+            [[NSDate date] dateOnFirstDay],
             [NSNumber numberWithInt:0]];
 }
 
 
 #pragma mark - UITableViewDelegate
-
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -122,11 +121,15 @@
         cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
     }
 
-    cell.eventLocationLabel.text = event.location;
+    cell.locationImageView.hidden = ![event.isSelected boolValue];
     cell.eventLocationTextField.text = (event.toCity) ? [NSString stringWithFormat:@"%@, %@",
                                                          event.toCity.cityName, event.toCity.countryName] : nil;
     cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
     cell.eventLocationTextField.delegate = self;
+    cell.eventLocationTextField.hidden = ![event.isSelected boolValue];
+
+    cell.eventLocationLabel.text = event.location;
+    cell.locationView.hidden = ![event.isSelected boolValue]; // Include eventLocationLabel + imageView for edit12.png
     
     cell.checkBox.checked = [event.isSelected boolValue];
     [cell.checkBox addTarget:self action:@selector(checkBoxTapAction:) forControlEvents:UIControlEventValueChanged];
