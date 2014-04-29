@@ -53,6 +53,10 @@
 
 - (void)addTripToActiveList:(Trip *)currentTrip
 {
+    if (!currentTrip) {
+        return;
+    }
+    
     //insert the trip to activeTripList by start time order
     if (self.activeTripList == nil) {
         self.activeTripList = [[NSMutableArray alloc] init];
@@ -96,6 +100,11 @@
 
 - (void)modifyTrip:(Trip *)oldTrip toNewTrip:(Trip *)updatedTrip
 {
+    if (!oldTrip ||
+        !updatedTrip) {
+        return;
+    }
+    
     NSMutableArray *tripListCopy = [NSMutableArray arrayWithArray:self.activeTripList];
     for (NSUInteger index = 0; index < [self.activeTripList count]; index++) {
         Trip *oneTrip = [self.activeTripList objectAtIndex:index];
