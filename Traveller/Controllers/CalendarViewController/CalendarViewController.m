@@ -16,18 +16,44 @@
 #import "DSLCalendarView.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
-static CGFloat kMyScheduleYCoordinate = 280.0f;
+static CGFloat kMyScheduleYCoordinate = 344.0f;
+static CGFloat kNavigationBarHeight = 64.0f;
+
 
 @interface CalendarViewController () <DSLCalendarViewDelegate, MZFormSheetBackgroundWindowDelegate>
 
-//Customized Calendar View
+//Customized Calendar/Map View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
+@property (nonatomic, weak) IBOutlet UIView *mapView;
+@property (nonatomic, weak) IBOutlet UIView *myScheduleView;
+@property (nonatomic, weak) IBOutlet UIView *myScheduleHeaderView;
+
+//my schedule table components
+@property (nonatomic, weak) IBOutlet UIButton *addButton;
+@property (nonatomic, weak) IBOutlet UIButton *expandButton;
+
+//Destination Panel View
+@property (nonatomic, weak) IBOutlet DestinationPanelView *destinationPanelView;
+
 @property (nonatomic, strong) DSLCalendarRange *currentDateRange;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
 
-@property (nonatomic, strong) NSMutableArray *activeTripRangeArray;
-@property (nonatomic, strong) NSMutableArray *numberOutput;
+- (IBAction)adjustScheduleView:(id)sender;
+- (IBAction)editMySchedule:(id)sender;
+
+- (IBAction)showDestinationPanel:(id)sender;
+- (IBAction)hideDestinationPanel:(id)sender;
+
+
+- (IBAction)confirmTripChange:(id)sender;
+- (IBAction)cancelTripChange:(id)sender;
+- (IBAction)deleteCurrentTrip:(id)sender;
+- (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event;
+
+- (IBAction)showMapview:(id)sender;
+- (IBAction)showCalendarView:(id)sender;
+
 @end
 
 @implementation CalendarViewController
@@ -36,16 +62,22 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [super viewDidLoad];
     
     // The Add button is initially disabled
-    self.isScheduleExpanded = NO;
+    self.isScheduleExpanded = YES;
     self.isDestinationPanelActive = NO;
     
     // Init calendar view
     self.calendarView.delegate = self;
     self.calendarView.showDayCalloutView = NO;
 
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
-
+    
     [self.destinationPanelView.confirmDestinationButton addTarget:self
                                                            action:@selector(confirmTripChange:)
                                                  forControlEvents:UIControlEventTouchUpInside];
@@ -55,16 +87,10 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [self.destinationPanelView.removeTripButton addTarget:self
                                                    action:@selector(deleteCurrentTrip:)
                                          forControlEvents:UIControlEventTouchUpInside];
-
+    
     if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
         [self calculateTrip:nil];
     }
-}
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -78,8 +104,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     NSMutableArray *flightEvents = [[NSMutableArray alloc] init];
     //calculate trip plan - should be done at server later
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-        [self showActivityIndicatorWithText:@"Planning for your trip..."];
-        
+        [self showActivityIndicatorWithText:@"Planning for your trip"];
         //TODO: get city of current location
         NSString *cityName = @"Vancouver";
         City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
@@ -157,39 +182,20 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 }
 
 
-- (IBAction)switchDidTapped:(id)sender
+- (IBAction)showMapview:(id)sender
 {
-    UIButton *buttonTapped = (UIButton *)sender;
-    if (buttonTapped == self.planTripSwitch) {
-        //show plan view
-        self.planTripView.hidden = NO;
-        self.mapView.hidden = YES;
-        self.confirmTripView.hidden = YES;
-        self.planTripSwitch.backgroundColor = [UIColor whiteColor];
-        self.mapSwitch.backgroundColor = [UIColor lightTextColor];
-        self.confirmTripSwitch.backgroundColor = [UIColor lightTextColor];
-        
-    }
-//    else if(buttonTapped == self.confirmTripSwitch){
-//        //show confirm view
-//        self.planTripView.hidden = YES;
-//        self.mapView.hidden = YES;
-//        self.confirmTripView.hidden = NO;
-//        self.planTripSwitch.backgroundColor = [UIColor lightTextColor];
-//        self.mapSwitch.backgroundColor = [UIColor lightTextColor];
-//        self.confirmTripSwitch.backgroundColor = [UIColor whiteColor];
-//        //TODO: replan the trip details
-//    }
-    else if(buttonTapped == self.mapSwitch){
-        self.planTripView.hidden = NO;
-        self.mapView.hidden = NO;
-        self.confirmTripView.hidden = YES;
-        self.planTripSwitch.backgroundColor = [UIColor lightTextColor];
-        self.mapSwitch.backgroundColor = [UIColor whiteColor];
-        self.confirmTripSwitch.backgroundColor = [UIColor lightTextColor];
-
-    }
+    self.calendarView.hidden = YES;
+    self.mapView.hidden = NO;
+    [self shrinkMyScheduleView];
 }
+
+- (IBAction)showCalendarView:(id)sender
+{
+    self.calendarView.hidden = NO;
+    self.mapView.hidden = YES;
+    [self shrinkMyScheduleView];
+}
+
 
 - (IBAction)editMySchedule:(id)sender
 {
@@ -200,24 +206,44 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
 {
     [self hideDestinationPanel:nil];
     
-    CalendarViewController __weak *weakSelf = self;
     if (self.isScheduleExpanded) {
+        //show calendarview as default
+        self.calendarView.hidden = NO;
+        self.mapView.hidden = YES;
+        [self shrinkMyScheduleView];
+        
+    }
+    else{
+        //show full view
+        [self showFullMyScheduleView];
+    }
+    
+}
+
+- (void)shrinkMyScheduleView
+{
+    if (self.isScheduleExpanded) {
+        CalendarViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.tableView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.planTripView.frame.size.height - kMyScheduleYCoordinate)];
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.view.frame.size.height - kMyScheduleYCoordinate)];
         }];
         
         self.isScheduleExpanded = NO;
         [self.expandButton setImage:[UIImage imageNamed:@"arrowUp.png"] forState:UIControlStateNormal];
     }
-    else{
+}
+
+- (void)showFullMyScheduleView
+{
+    if (!self.isScheduleExpanded) {
+        CalendarViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.tableView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.planTripView.frame.size.height)];
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, self.view.frame.size.height)];
         }];
         
         self.isScheduleExpanded = YES;
         [self.expandButton setImage:[UIImage imageNamed:@"arrowDown.png"] forState:UIControlStateNormal];
     }
-    
 }
 
 #pragma mark - Destination Panel
@@ -240,8 +266,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     CalendarViewController __weak *weakSelf = self;
     //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
-        weakSelf.destinationPanelView.frame = CGRectMake(0, weakSelf.planTripView.frame.origin.y, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
-        [weakSelf.tabView setAlpha:0.0];
+        weakSelf.destinationPanelView.frame = CGRectMake(0, weakSelf.tableView.frame.origin.y, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
     } completion:^(BOOL finished) {
         if (finished) {
             self.isDestinationPanelActive = YES;
@@ -258,7 +283,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
         weakSelf.destinationPanelView.frame = CGRectMake(0, -weakSelf.destinationPanelView.frame.size.height, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
-        [weakSelf.tabView setAlpha:1.0];
     } completion:^(BOOL finished) {
         if (finished) {
             self.isDestinationPanelActive = NO;

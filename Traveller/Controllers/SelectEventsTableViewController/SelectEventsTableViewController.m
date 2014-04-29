@@ -10,6 +10,7 @@
 #import "Checkbox.h"
 #import "MZFormSheetController.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
+#import "CalendarViewController.h"
 
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
 {
@@ -48,7 +49,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self unregisterKeyboardNotification];
-    
+    [self hideActivityIndicator];
     [super viewWillDisappear:animated];
 }
 
@@ -79,23 +80,20 @@
     MyScheduleTableCell *cellView = (MyScheduleTableCell *)[[[gesture.view superview] superview] superview];
     _processingIndexPath = [self.tableView indexPathForCell:(UITableViewCell *)cellView];
     [self performSegueWithIdentifier:@"editLocation" sender:self];
-//    SPGooglePlacesAutocompleteViewController *viewController = [[SPGooglePlacesAutocompleteViewController alloc] init];
-//    viewController.title = @"Add location";
-//    [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"editLocation"])
-    {
-        SPGooglePlacesAutocompleteViewController *vc = [segue destinationViewController];
-        Event *eventToBeProcessed = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
-        if (eventToBeProcessed) {
-            [vc setEvent:eventToBeProcessed];
-            [vc setManagedObjectContext:self.managedObjectContext];
-        }
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"editLocation"])
+//    {
+//        SPGooglePlacesAutocompleteViewController *vc = [segue destinationViewController];
+//        Event *eventToBeProcessed = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
+//        if (eventToBeProcessed) {
+//            [vc setEvent:eventToBeProcessed];
+//            [vc setManagedObjectContext:self.managedObjectContext];
+//        }
+//    }
+//}
 
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate
@@ -124,6 +122,12 @@
     cell.locationImageView.hidden = ![event.isSelected boolValue];
     cell.eventLocationTextField.text = (event.toCity) ? [NSString stringWithFormat:@"%@, %@",
                                                          event.toCity.cityName, event.toCity.countryName] : nil;
+    if ([event.isSelected boolValue]) {
+        cell.backgroundColor = UIColorFromRGB(0xe4fae4);
+    }
+    else{
+        cell.backgroundColor = [UIColor whiteColor];
+    }
     cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
     cell.eventLocationTextField.delegate = self;
     cell.eventLocationTextField.hidden = ![event.isSelected boolValue];

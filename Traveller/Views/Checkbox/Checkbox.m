@@ -129,7 +129,7 @@
         [checkboxPath applyTransform:transform];
         
         if (!self.tintColor)
-            self.tintColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
+            self.tintColor = UIColorFromRGB(0xe4fae4);//[UIColor colorWithWhite:0.5f alpha:1.0f];
         [self.tintColor setStroke];
         
         checkboxPath.lineWidth = strokeWidth;

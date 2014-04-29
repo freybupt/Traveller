@@ -13,73 +13,80 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" id="GCd-Uz-CSc" userLabel="Confirm View">
-                                <rect key="frame" x="0.0" y="92" width="320" height="484"/>
+                            <view contentMode="scaleToFill" id="Ul0-Ld-sd0" customClass="CalendarView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="284"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" id="gc5-W2-1vz" userLabel="Map View">
+                                <rect key="frame" x="0.0" y="64" width="320" height="285"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <containerView contentMode="scaleToFill" id="5WA-vA-3qE" userLabel="Booking TableView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="8Mu-Vo-pD0">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="285"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="pZm-77-QNM" kind="embed" id="tCy-7p-gV1"/>
-                                        </connections>
-                                    </containerView>
+                                    </mapView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="wLi-nh-koY" userLabel="Plan View">
+                            <view contentMode="scaleToFill" id="dji-3e-kqw" userLabel="My schedule view">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="Ul0-Ld-sd0" customClass="CalendarView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="284"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" id="xeT-ra-1iZ" userLabel="Header view">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lSM-fL-UYl">
+                                                <rect key="frame" x="15" y="5" width="234" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
+                                                <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pY5-99-my6">
+                                                <rect key="frame" x="280" y="2" width="32" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="map35.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="showMapview:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KY6-ke-Hnw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jMv-Dx-x75">
+                                                <rect key="frame" x="232" y="3" width="27" height="26"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="calendar53.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="showCalendarView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="d76-5B-8h8"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="n5Z-e1-s2Y">
+                                                <rect key="frame" x="143" y="0.0" width="34" height="32"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="arrowDown.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="adjustScheduleView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xfP-b1-LGH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="mBy-03-yug">
-                                        <rect key="frame" x="0.0" y="284" width="320" height="220"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="mBy-03-yug" userLabel="My Schedule Tableview">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="470"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <view key="tableHeaderView" contentMode="scaleToFill" id="xeT-ra-1iZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lSM-fL-UYl">
-                                                    <rect key="frame" x="15" y="5" width="234" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
-                                                    <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pY5-99-my6">
-                                                    <rect key="frame" x="144" y="0.0" width="34" height="32"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="arrowUp.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="adjustScheduleView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="F1j-pd-aPZ"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Fn5-zO-Cyt">
-                                                    <rect key="frame" x="290" y="6" width="26" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="27"/>
-                                                    <state key="normal" title="+"/>
-                                                    <connections>
-                                                        <action selector="addEventButtonTapAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rnu-Ao-t4V"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        </view>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" id="45X-Sj-bsO" customClass="MyScheduleTableCell">
-                                                <rect key="frame" x="0.0" y="54" width="320" height="55"/>
+                                                <rect key="frame" x="0.0" y="22" width="320" height="55"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45X-Sj-bsO" id="Dkr-qr-DQN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bmE-78-5br">
@@ -118,23 +125,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" id="gc5-W2-1vz" userLabel="Map View">
-                                <rect key="frame" x="0.0" y="64" width="320" height="285"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="8Mu-Vo-pD0">
-                                        <rect key="frame" x="0.0" y="-28" width="320" height="313"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </mapView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="Q5S-ke-8Eo" userLabel="Tab View">
-                                <rect key="frame" x="0.0" y="64" width="320" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" id="Bys-zB-5FN" userLabel="Destination Panel" customClass="DestinationPanelView">
                                 <rect key="frame" x="0.0" y="-40" width="320" height="40"/>
@@ -150,51 +141,22 @@
                                 <action selector="editMySchedule:" destination="vXZ-lx-hvc" id="VbL-z4-ZT8"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="z7F-aX-oSj"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="addButton" destination="Fn5-zO-Cyt" id="ltW-pq-q3H"/>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
-                        <outlet property="confirmTripView" destination="GCd-Uz-CSc" id="UAh-rg-ECg"/>
                         <outlet property="destinationPanelView" destination="Bys-zB-5FN" id="5cm-cu-2CF"/>
-                        <outlet property="expandButton" destination="pY5-99-my6" id="Zvc-Ec-Sah"/>
+                        <outlet property="expandButton" destination="n5Z-e1-s2Y" id="Tt7-pP-Wgv"/>
                         <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
-                        <outlet property="planTripView" destination="wLi-nh-koY" id="Auc-kb-Dy1"/>
-                        <outlet property="tabView" destination="Q5S-ke-8Eo" id="h9Q-7I-O7q"/>
+                        <outlet property="myScheduleHeaderView" destination="xeT-ra-1iZ" id="8fr-lJ-bA1"/>
+                        <outlet property="myScheduleView" destination="dji-3e-kqw" id="Od7-yG-LQZ"/>
                         <outlet property="tableView" destination="mBy-03-yug" id="W5e-sy-Q4f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="718" y="-205"/>
-        </scene>
-        <!--Booking Table View Controller-->
-        <scene sceneID="tSn-M6-lW5">
-            <objects>
-                <tableViewController id="pZm-77-QNM" customClass="BookingTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="2NC-fN-Tl8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ParentCell" id="fRd-6d-S3l">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fRd-6d-S3l" id="brW-p5-X1A">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="pZm-77-QNM" id="5mZ-gN-II6"/>
-                            <outlet property="delegate" destination="pZm-77-QNM" id="Exw-f2-cPt"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="m19-3b-DBr" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1194" y="-73"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yr-BD-sku">
@@ -314,7 +276,7 @@
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsMultipleSelection="YES" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="RBc-QK-RjU">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="RBc-QK-RjU">
                                 <rect key="frame" x="0.0" y="97" width="320" height="471"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,7 +285,7 @@
                                         <rect key="frame" x="0.0" y="22" width="320" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="REr-Hf-Yuz" id="zJP-GV-n1X">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nly-zA-fMz">
@@ -396,7 +358,7 @@
                     <navigationItem key="navigationItem" title="Pick Trip Events" id="OHP-9f-k7F">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="cWu-PN-fSK">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="push" identifier="showPlanTrip" id="GhQ-r9-wnu"/>
+                                <segue destination="vXZ-lx-hvc" kind="push" identifier="showTripPlan" id="Ind-2N-Md4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -407,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gm2-hg-Yw3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="165" y="31"/>
+            <point key="canvasLocation" x="165" y="-6"/>
         </scene>
         <!--Add Destination View Controller-->
         <scene sceneID="y7c-Eo-Mdu">
@@ -525,8 +487,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrowUp.png" width="256" height="256"/>
+        <image name="arrowDown.png" width="256" height="256"/>
+        <image name="calendar53.png" width="256" height="256"/>
         <image name="edit12.png" width="512" height="512"/>
+        <image name="map35.png" width="256" height="256"/>
         <image name="map5.png" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
