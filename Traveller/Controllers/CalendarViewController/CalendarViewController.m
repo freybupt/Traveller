@@ -60,9 +60,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
         [self calculateTrip:nil];
     }
-    else{
-        [self fetchEventsWithDateRange:nil];
-    }
 }
 
 
@@ -266,7 +263,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     } completion:^(BOOL finished) {
         if (finished) {
             self.isDestinationPanelActive = NO;
-            [self fetchEventsWithDateRange:nil];
         }
     }];
     
@@ -292,25 +288,37 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     
     if ([self.destinationPanelView.destinationTextField.text length] > 0) {
         trip.title = self.destinationPanelView.destinationTextField.text;
+        
+        City *toCity = nil;
+        NSArray *array = [self.destinationPanelView.destinationTextField.text componentsSeparatedByString:@", "];
+        if ([array count] > 1) {
+            NSString *cityName = [[array objectAtIndex:0] uppercaseStringToIndex:1];
+            toCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                                     context:self.managedObjectContext];
+        }
+        if (toCity) {
+            trip.toCityDestinationCity = toCity;
+        }
     }
+    
+    // TODO: Add departure city
     
     if (self.currentDateRange) {
         NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
         NSDate *endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar];
         endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND (endDate <= %@) AND isSelected == '1'", [MockManager userid], startDate, endDate];
-        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
         
-        NSError *error = nil;
-        if (![self.fetchedResultsController performFetch:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+        NSMutableArray *mArray = [NSMutableArray new];
+        for (Event *event in [self.fetchedResultsController fetchedObjects]) {
+            if ([event.startDate compare:startDate] >= 0 &&
+                [event.endDate compare:endDate] <= 0) {
+                [mArray addObject:event];
+            }
         }
-        
-        //TODO: add trip destination
+
         [trip removeToEvent:trip.toEvent];
-        if ([[self.fetchedResultsController fetchedObjects] count] != 0) {
-            [trip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
+        if ([mArray count] != 0) {
+            [trip addToEvent:[NSSet setWithArray:mArray]];
         }
     }
     

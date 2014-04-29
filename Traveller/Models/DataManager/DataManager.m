@@ -232,7 +232,7 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     }
     
     if ([dictionary[@"CountryCode"] isStringObject]) {
-        city.countryCode = dictionary[@"CountryCode"];
+        city.countryCode = [dictionary[@"CountryCode"] uppercaseString];
     }
     
     if ([dictionary[@"Latitude"] isNumberObject]) {
