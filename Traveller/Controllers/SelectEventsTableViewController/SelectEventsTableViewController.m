@@ -128,7 +128,13 @@
     cell.eventLocationTextField.delegate = self;
     cell.eventLocationTextField.hidden = ![event.isSelected boolValue];
 
-    cell.eventLocationLabel.text = event.location;
+    if ([event.location length] > 0) {
+        cell.eventLocationLabel.text = event.location;
+    }
+    else{
+        cell.eventLocationLabel.text = @"Edit address";
+    }
+    
     cell.locationView.hidden = ![event.isSelected boolValue]; // Include eventLocationLabel + imageView for edit12.png
     
     cell.checkBox.checked = [event.isSelected boolValue];

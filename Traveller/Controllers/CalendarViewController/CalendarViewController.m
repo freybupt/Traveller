@@ -36,7 +36,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     [super viewDidLoad];
     
     // The Add button is initially disabled
-    self.addButton.enabled = NO;
     self.isScheduleExpanded = NO;
     self.isDestinationPanelActive = NO;
     
@@ -486,7 +485,6 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
     switch ([event.eventType integerValue]) {
         case EventTypeFlight:
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"5h\tnon-stop\tAirCanada"];
-            cell.accessoryView = nil;
             break;
         case EventTypeHotel:
             break;
