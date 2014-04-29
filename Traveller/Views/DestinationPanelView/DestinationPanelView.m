@@ -127,6 +127,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    textField.text = [textField.text uppercaseStringToIndex:1];
     [textField resignFirstResponder];
     
     return NO;

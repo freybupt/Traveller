@@ -18,6 +18,6 @@
     NSString *upperChar = [[self substringToIndex:to] uppercaseString];
     NSString *restChar = [self substringFromIndex:to];
     
-    return [NSString stringWithFormat:@"%@%@", upperChar, restChar];
+    return [NSString stringWithFormat:@"%@%@", upperChar, [restChar lowercaseString]];
 }
 @end

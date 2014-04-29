@@ -667,7 +667,7 @@ static CGFloat kMyScheduleYCoordinate = 280.0f;
         }];
     }];
 
-    // TODO: The step causes a crash, not sure if it's necessary for calculateTrip
+    // TODO: The step causes a crash, not sure if it's necessary for calculateTrip (Reset simulator -> build -> Next button -> Crash)
     // [self confirmTripChange:nil];
 }
 
