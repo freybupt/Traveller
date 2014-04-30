@@ -12,15 +12,43 @@
 - (DSLCalendarRange *)joinedCalendarRangeWithTrip:(Trip *)trip
 {
     if (!trip) {
-        return self;
+        return [[DSLCalendarRange alloc] initWithStartDay:self.startDay endDay:[[self.endDay.date dateAtMidnight] dateComponents]];
+    }
+
+    NSDateComponents *adjustedActiveEndDateComponents = [[[self.endDay.date dateAfterOneDay] dateAtMidnight] dateComponents];
+    NSDateComponents *tripStartDateComponents = [trip.startDate dateComponents];
+    NSDateComponents *tripEndDateComponents = [[trip.endDate dateAtMidnight] dateComponents];
+    
+    if ([self.startDay.date withinSameDayWith:trip.startDate] &&
+        [self.endDay.date withinSameDayWith:trip.endDate]) {
+        return [[DSLCalendarRange alloc] initWithStartDay:tripStartDateComponents
+                                                   endDay:tripEndDateComponents];
+    } else if ([self.startDay.date withinSameDayWith:trip.startDate]) {
+        
+        if ([[[self.endDay.date dateAfterOneDay] dateAtMidnight] compare:trip.endDate] < NSOrderedSame) {
+            return [[DSLCalendarRange alloc] initWithStartDay:self.endDay
+                                                       endDay:tripEndDateComponents];
+        }
+        return [[DSLCalendarRange alloc] initWithStartDay:self.startDay
+                                                   endDay:adjustedActiveEndDateComponents];
+    
+    } else if ([self.endDay.date withinSameDayWith:trip.endDate]) {
+        
+        if ([self.startDay.date compare:trip.startDate] > NSOrderedSame) {
+            return [[DSLCalendarRange alloc] initWithStartDay:tripStartDateComponents
+                                                       endDay:[[[self.startDay.date dateAfterOneDay] dateAtMidnight] dateComponents]];
+        }
+        return [[DSLCalendarRange alloc] initWithStartDay:self.startDay
+                                                   endDay:adjustedActiveEndDateComponents];
+    
+    } else if ([self.endDay.date withinSameDayWith:trip.startDate]) {
+        return [[DSLCalendarRange alloc] initWithStartDay:self.startDay
+                                                   endDay:tripEndDateComponents];
+    } else if ([self.startDay.date withinSameDayWith:trip.endDate]) {
+        return [[DSLCalendarRange alloc] initWithStartDay:tripStartDateComponents
+                                                   endDay:adjustedActiveEndDateComponents];
     }
     
-    if ([self.endDay.date compare:trip.startDate] == NSOrderedSame) {
-        return [[DSLCalendarRange alloc] initWithStartDay:self.startDay endDay:[trip.endDate dateComponents]];
-    } else if ([[[self.startDay.date dateAfterOneDay] dateAtMidnight] compare:trip.endDate] == NSOrderedSame) {
-        return [[DSLCalendarRange alloc] initWithStartDay:[trip.startDate dateComponents] endDay:self.endDay];
-    }
-    
-    return self;
+    return [[DSLCalendarRange alloc] initWithStartDay:tripStartDateComponents endDay:tripEndDateComponents];
 }
 @end

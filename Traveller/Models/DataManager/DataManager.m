@@ -531,6 +531,7 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     trip.title = NSLocalizedString(@"New Trip", nil);
     trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[[CalendarColorManager sharedManager] getActiveColor:YES]];
     trip.uid = [MockManager userid];
+    trip.isRoundTrip = [NSNumber numberWithBool:NO];
     
     return trip;
 }

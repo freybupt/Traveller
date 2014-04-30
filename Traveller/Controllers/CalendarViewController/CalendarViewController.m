@@ -38,6 +38,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
 @property (nonatomic, weak) IBOutlet DestinationPanelView *destinationPanelView;
 
 @property (nonatomic, strong) DSLCalendarRange *currentDateRange;
+@property (nonatomic, strong) DSLCalendarRange *originalDateRange;
+@property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
 
@@ -266,11 +268,25 @@ static CGFloat kNavigationBarHeight = 64.0f;
 - (IBAction)showDestinationPanel:(id)sender
 {
     if ([sender isKindOfClass:[Trip class]]) {
-        Trip *activeTrip = (Trip *)sender;
-        //self.destinationTextField.text = activeTrip.toCityDestinationCity.cityName;
-        self.destinationPanelView.destinationTextField.text = activeTrip.title; // TODO: Probably consider to chnaging UITextField to HTAutocompleteTextField if we prefer to use toCityDestinationCity;
+        Trip *trip = (Trip *)sender;
+        self.destinationPanelView.destinationTextField.text = trip.title;
         self.destinationPanelView.confirmDestinationButton.enabled = YES;
         self.destinationPanelView.removeTripButton.hidden = NO;
+        
+        NSDateComponents *tripStartDateComponents = [trip.startDate dateComponents];
+        NSDateComponents *tripEndDateComponents = [[trip.endDate dateAtMidnight] dateComponents];
+        // Memorized objectID & original for the process that reverts changes
+        if (!self.originalDateRange) {
+            self.objectID = trip.objectID;
+            self.originalDateRange = [[DSLCalendarRange alloc] initWithStartDay:tripStartDateComponents
+                                                                         endDay:tripEndDateComponents];
+        }
+        self.currentDateRange = [self.currentDateRange joinedCalendarRangeWithTrip:trip];
+        trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
+        trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+        if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
+            self.calendarView.selectedRange = nil;
+        }
     }
     else{
         self.destinationPanelView.destinationTextField.text = @"";
@@ -279,7 +295,6 @@ static CGFloat kNavigationBarHeight = 64.0f;
     }
     
     CalendarViewController __weak *weakSelf = self;
-    //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
         weakSelf.destinationPanelView.frame = CGRectMake(0,
                                                          weakSelf.navigationController.navigationBar.frame.size.height + 20.0f,
@@ -298,11 +313,14 @@ static CGFloat kNavigationBarHeight = 64.0f;
     [self.destinationPanelView.destinationTextField resignFirstResponder];
 
     CalendarViewController __weak *weakSelf = self;
-    //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
         weakSelf.destinationPanelView.frame = CGRectMake(0, -weakSelf.destinationPanelView.frame.size.height, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
     } completion:^(BOOL finished) {
         if (finished) {
+            self.objectID = nil;
+            self.currentDateRange = nil;
+            self.originalDateRange = nil;
+            self.calendarView.selectedRange = nil;
             self.isDestinationPanelActive = NO;
         }
     }];
@@ -313,23 +331,15 @@ static CGFloat kNavigationBarHeight = 64.0f;
 {
     [self.destinationPanelView.destinationTextField resignFirstResponder];
     
-    NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
-                                                                     userid:[MockManager userid]
-                                                                    context:self.managedObjectContext];
-    Trip *trip = [array lastObject];
-    if (!trip) {
-        // new trip
-        trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        trip.isRoundTrip = [NSNumber numberWithBool:NO];
-        
-        // TODO: Probably move the part of color control from trip manager to calendar color manager
-        //[[TripManager sharedManager] addTripToActiveList:trip];
-    } else {
-        self.currentDateRange = [self.currentDateRange joinedCalendarRangeWithTrip:trip];
+    Trip *trip = nil;
+    if (self.objectID) {
+        trip = (Trip *)[self.managedObjectContext objectWithID:self.objectID];
     }
-    
-    trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
-    trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+    if (!trip) {
+        trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
+        trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+    }
     
     if ([self.destinationPanelView.destinationTextField.text length] > 0) {
         trip.title = self.destinationPanelView.destinationTextField.text;
@@ -347,7 +357,6 @@ static CGFloat kNavigationBarHeight = 64.0f;
     }
     
     // TODO: Add departure city
-    
     if (self.currentDateRange) {
         NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
         NSDate *endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar];
@@ -365,19 +374,28 @@ static CGFloat kNavigationBarHeight = 64.0f;
         if ([mArray count] != 0) {
             [trip addToEvent:[NSSet setWithArray:mArray]];
         }
+        
+        self.originalDateRange = [[DSLCalendarRange alloc] initWithStartDay:self.currentDateRange.startDay
+                                                                     endDay:self.currentDateRange.endDay];
     }
-    
-    //save trip
+
     if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
-        self.calendarView.selectedRange = self.currentDateRange;
         [self hideDestinationPanel:nil];
     }
 }
 
 - (IBAction)cancelTripChange:(id)sender
 {
-    self.currentDateRange = nil;
-    self.calendarView.selectedRange = nil;
+    Trip *trip = nil;
+    if (self.objectID) {
+        trip = (Trip *)[self.managedObjectContext objectWithID:self.objectID];
+    }
+    if (trip) {
+        trip.startDate = self.originalDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
+        trip.endDate = [self.originalDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+        [[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext];
+    }
+
     [self hideDestinationPanel:nil];
 }
 
@@ -393,11 +411,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     Trip *trip = [array lastObject];
     if ([[DataManager sharedInstance] deleteTrip:trip
                                          context:self.managedObjectContext]) {
-        self.calendarView.selectedRange = nil;
         [self hideDestinationPanel:nil];
-        
-        // TODO: Probably move the part of color control from trip manager to calendar color manager
-        //[[TripManager sharedManager] deleteTrip:trip];
     }
 }
 
@@ -407,7 +421,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
-
+/*
 - (void)calendarView:(DSLCalendarView *)calendarView
  shouldHighlightTrip:(Trip *)trip
 {
@@ -425,7 +439,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     //TODO: save updatedTrip to db
     //    [[TripManager sharedManager] modifyTrip:old toNewTrip:updatedTrip];
 }
-
+*/
 - (void)calendarView:(DSLCalendarView *)calendarView
       didSelectRange:(DSLCalendarRange *)range
 {
@@ -433,10 +447,6 @@ static CGFloat kNavigationBarHeight = 64.0f;
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         self.currentDateRange = range;
         
-        if (self.isDestinationPanelActive) {
-            [self hideDestinationPanel:nil];
-        }
-
         NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
                                                                          userid:[MockManager userid]
                                                                         context:self.managedObjectContext];
@@ -444,6 +454,10 @@ static CGFloat kNavigationBarHeight = 64.0f;
             return;
         }
         Trip *trip = [array lastObject];
+        if (self.isDestinationPanelActive &&
+            !trip) {
+            return;
+        }
         [self performSelector:@selector(showDestinationPanel:)
                    withObject:trip
                    afterDelay:0.1];
