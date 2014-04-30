@@ -99,7 +99,7 @@
 - (NSPredicate *)predicate
 {
     return [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate >= %@) AND eventType = %@", [MockManager userid],
-            [[NSDate date] dateOnFirstDay],
+            [[NSDate date] dateAtMidnight],
             [NSNumber numberWithInt:0]];
 }
 
