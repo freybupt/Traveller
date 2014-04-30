@@ -19,19 +19,6 @@
     __strong NSString *_tripLocation;
 }
 
-/*
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self != nil) {
-        _managedObjectContext = [NSManagedObjectContext new];
-        _managedObjectContext.undoManager = nil;
-        _managedObjectContext.persistentStoreCoordinator = [[DataManager sharedInstance] persistentStoreCoordinator];
-    }
-    return self;
-}
-*/
-
 - (NSManagedObjectContext *)newManagedObjectContext
 {
     NSManagedObjectContext *managedObjectContext = [NSManagedObjectContext new];
@@ -91,7 +78,8 @@
         NSManagedObjectContext *bridgedMoc = [[DataManager sharedInstance] bridgedMoc];
         bridgedMoc = bridgedMoc ? bridgedMoc : [self newManagedObjectContext];
         self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
-                                                                     userid:[MockManager userid] context:bridgedMoc];
+                                                                userid:[MockManager userid] context:bridgedMoc];
+
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];
@@ -114,14 +102,12 @@
         if (self.activeTrip) {
             //already has trip plans
             if ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
-                [self.day.date compare:self.activeTrip.endDate] == NSOrderedSame) {
+                [[[self.day.date dateAfterOneDay] dateAtMidnight] compare:self.activeTrip.endDate] == NSOrderedSame) {
                 [cellColorHighlighted setFill];
-            }
-            else{
+            } else {
                 [cellColor setFill];
             }
-            
-            [cellColor setFill];
+
         }
         else{
             if (self.isInCurrentMonth) {
@@ -156,7 +142,8 @@
     UIRectFill(self.bounds);
 }
 
-- (void)drawBorders {
+- (void)drawBorders
+{
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSetLineWidth(context, 1.0);
@@ -183,7 +170,8 @@
     CGContextRestoreGState(context);
 }
 
-- (void)drawDayNumber {
+- (void)drawDayNumber
+{
     unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
     NSCalendar* calendar = [NSCalendar currentCalendar];
     
@@ -218,7 +206,8 @@
 }
 
 
-- (void)drawEventsDots {
+- (void)drawEventsDots
+{
     unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
     NSCalendar* calendar = [NSCalendar currentCalendar];
     
@@ -256,7 +245,7 @@
 - (void)drawTripLocation
 {
     
-    NSString *tripLocation = nil;
+    NSString *tripLocation = self.activeTrip.title;
     NSArray *events = [self.activeTrip.toEvent allObjects];
     Event *event = [events lastObject];
     if (event &&
@@ -270,12 +259,11 @@
     self.selectionState == DSLCalendarDayViewWholeSelection ||
     (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip &&
      ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
-      [self.day.date compare:self.activeTrip.endDate] == NSOrderedSame));
+      [[[self.day.date dateAfterOneDay] dateAtMidnight] compare:self.activeTrip.endDate] == NSOrderedSame));
     
-    if ([tripLocation length] > 0 && shouldDrawLocation) {
-        _tripLocation = [[tripLocation uppercaseString] substringToIndex:2];
-    }
-    else{
+    if (shouldDrawLocation) {
+        _tripLocation = ([tripLocation length] > 1) ? [[tripLocation uppercaseString] substringToIndex:2] : [tripLocation uppercaseString];
+    } else{
         _tripLocation  = @"";
     }
 

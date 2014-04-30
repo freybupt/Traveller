@@ -11,6 +11,7 @@
 @interface NSDate (Extensions)
 - (NSDate *)dateAtMidnight;
 - (NSDate *)dateOnFirstDay;
+- (NSDate *)dateAfterOneDay;
 - (NSString *)hourTime;
 - (NSString *)monthDayTime;
 - (NSString *)translatedTime;

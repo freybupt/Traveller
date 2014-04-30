@@ -29,6 +29,11 @@
     return [self dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second) - ONE_DAY * (dateComponents.day - 1)];
 }
 
+- (NSDate *)dateAfterOneDay
+{
+    return [self dateByAddingTimeInterval:ONE_DAY];
+}
+
 - (NSString *)hourTime
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

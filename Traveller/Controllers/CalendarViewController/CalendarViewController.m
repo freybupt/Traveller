@@ -278,7 +278,10 @@ static CGFloat kNavigationBarHeight = 64.0f;
     CalendarViewController __weak *weakSelf = self;
     //show destination view
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
-        weakSelf.destinationPanelView.frame = CGRectMake(0, weakSelf.tableView.frame.origin.y, weakSelf.destinationPanelView.frame.size.width, weakSelf.destinationPanelView.frame.size.height);
+        weakSelf.destinationPanelView.frame = CGRectMake(0,
+                                                         weakSelf.navigationController.navigationBar.frame.size.height + 20.0f,
+                                                         weakSelf.destinationPanelView.frame.size.width,
+                                                         weakSelf.destinationPanelView.frame.size.height);
     } completion:^(BOOL finished) {
         if (finished) {
             self.isDestinationPanelActive = YES;
