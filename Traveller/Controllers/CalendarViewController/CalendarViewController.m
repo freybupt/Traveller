@@ -129,7 +129,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
         generatedTrip.toCityDepartureCity = departureCity;
         generatedTrip.toCityDestinationCity = lastEvent.toCity;
-        generatedTrip.startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*48]; //one day before first event
+        generatedTrip.startDate = [[lastEvent.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*48]; //one day before first event
         generatedTrip.endDate = lastEvent.endDate;
         //[[TripManager sharedManager] addTripToActiveList:generatedTrip];
         //Uncomment if we would like to add events to trip at the same time
@@ -146,7 +146,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
                 Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
                 newTrip.toCityDepartureCity = lastCity;
                 newTrip.toCityDestinationCity = event.toCity;
-                newTrip.startDate = lastEvent.endDate;
+                newTrip.startDate = [lastEvent.endDate dateAtFourPM];
                 newTrip.endDate = event.endDate;
                 //Uncomment if we would like to add an event to trip at the same time
                 //[newTrip addToEventObject:event];
@@ -159,7 +159,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
                 Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
                 flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
                 flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
-                flightEvent.startDate = [event.startDate dateByAddingTimeInterval:-60*60*24]; //one day before first event
+                flightEvent.startDate = [[event.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*24]; //one day before first event
                 flightEvent.endDate = event.startDate;
                 flightEvent.isSelected = [NSNumber numberWithBool:YES];
                 [flightEvents addObject:flightEvent];
@@ -178,7 +178,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         Trip *returnTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
         returnTrip.toCityDepartureCity = lastCity;
         returnTrip.toCityDestinationCity = departureCity;
-        returnTrip.startDate = lastEvent.endDate;
+        returnTrip.startDate = [lastEvent.endDate dateAtFourPM];
         returnTrip.endDate = [lastEvent.endDate dateByAddingTimeInterval:60*60*24];
         //[[TripManager sharedManager] addTripToActiveList:returnTrip];
         //Uncomment if we would like to add events to trip at the same time
@@ -513,7 +513,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     didChangeToVisibleMonth:(NSDateComponents *)month
 {
     NSLog(@"Now showing %@", month);
-    [self fetchEvents];
+    //[self fetchEvents];
 }
 
 - (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2
