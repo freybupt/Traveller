@@ -167,6 +167,10 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     [self setCity:city withDictionary:dictionary];
     
+    Location *toLocation = [self newLocationWithContext:moc];
+    [self setLocation:toLocation withDictionary:dictionary];
+    city.toLocation = toLocation;
+    
     return [self saveCity:city
                   context:moc];
 }
@@ -233,30 +237,6 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     if ([dictionary[@"CountryCode"] isStringObject]) {
         city.countryCode = [dictionary[@"CountryCode"] uppercaseString];
-    }
-    
-    if ([dictionary[@"Latitude"] isNumberObject]) {
-        city.latitude = dictionary[@"Latitude"];
-    }
-    
-    if ([dictionary[@"Latitude"] isStringObject]) {
-        city.latitude = [NSNumber numberWithDouble:[dictionary[@"Latitude"] doubleValue]];
-    }
-    
-    if ([dictionary[@"LatitudeRef"] isStringObject]) {
-        city.latitudeRef = dictionary[@"LatitudeRef"];
-    }
-    
-    if ([dictionary[@"Longitude"] isNumberObject]) {
-        city.longitude = dictionary[@"Longitude"];
-    }
-    
-    if ([dictionary[@"Longitude"] isStringObject]) {
-        city.longitude = [NSNumber numberWithDouble:[dictionary[@"Longitude"] doubleValue]];
-    }
-    
-    if ([dictionary[@"LongitudeRef"] isStringObject]) {
-        city.longitudeRef = dictionary[@"LongitudeRef"];
     }
 }
 
@@ -413,6 +393,53 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     if ([ekEvent.notes isStringObject]) {
         event.notes = ekEvent.notes;
+    }
+}
+
+#pragma mark - Location
+- (Location *)newLocationWithContext:(NSManagedObjectContext *)moc
+{
+    if (!moc) {
+        return nil;
+    }
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location"
+                                              inManagedObjectContext:moc];
+    Location *location = [[Location alloc] initWithEntity:entity
+                           insertIntoManagedObjectContext:moc];
+    location.uid = [MockManager userid];
+    
+    return location;
+}
+
+- (void)setLocation:(Location *)location withDictionary:(NSDictionary *)dictionary
+{
+    if ([dictionary[@"Latitude"] isNumberObject]) {
+        location.latitude = dictionary[@"Latitude"];
+    }
+    
+    if ([dictionary[@"Latitude"] isStringObject]) {
+        location.latitude = [NSNumber numberWithDouble:[dictionary[@"Latitude"] doubleValue]];
+    }
+    
+    if ([dictionary[@"LatitudeRef"] isStringObject]) {
+        location.latitudeRef = dictionary[@"LatitudeRef"];
+    }
+    
+    if ([dictionary[@"Longitude"] isNumberObject]) {
+        location.longitude = dictionary[@"Longitude"];
+    }
+    
+    if ([dictionary[@"Longitude"] isStringObject]) {
+        location.longitude = [NSNumber numberWithDouble:[dictionary[@"Longitude"] doubleValue]];
+    }
+    
+    if ([dictionary[@"LongitudeRef"] isStringObject]) {
+        location.longitudeRef = dictionary[@"LongitudeRef"];
+    }
+    
+    if ([dictionary[@"Address"] isStringObject]) {
+        location.address = dictionary[@"Address"];
     }
 }
 

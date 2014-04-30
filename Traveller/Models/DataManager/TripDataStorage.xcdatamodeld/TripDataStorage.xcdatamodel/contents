@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C1021" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="City" representedClassName="City" syncable="YES">
         <attribute name="cityCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countryCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countryName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="latitudeRef" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="longitudeRef" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="toCity" inverseEntity="Event" syncable="YES"/>
+        <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="toCity" inverseEntity="Location" syncable="YES"/>
         <relationship name="toTripDepartureCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDepartureCity" inverseEntity="Trip" syncable="YES"/>
         <relationship name="toTripDestinationCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDestinationCity" inverseEntity="Trip" syncable="YES"/>
     </entity>
@@ -29,6 +26,15 @@
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
         <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toEvent" inverseEntity="Trip" syncable="YES"/>
     </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitudeRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitudeRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toLocation" inverseEntity="City" syncable="YES"/>
+    </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="defaultColor" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -41,8 +47,9 @@
         <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="City" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Event" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Trip" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="City" positionX="0" positionY="0" width="128" height="178"/>
+        <element name="Event" positionX="0" positionY="0" width="128" height="240"/>
+        <element name="Trip" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Location" positionX="9" positionY="108" width="128" height="148"/>
     </elements>
 </model>

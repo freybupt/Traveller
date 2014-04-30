@@ -11,6 +11,7 @@
 #import <EventKit/EventKit.h>
 #import "City.h"
 #import "Event.h"
+#import "Location.h"
 #import "Trip.h"
 #import "DSLCalendarRange.h"
 

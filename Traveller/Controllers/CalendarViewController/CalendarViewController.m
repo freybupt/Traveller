@@ -133,7 +133,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         generatedTrip.endDate = lastEvent.endDate;
         //[[TripManager sharedManager] addTripToActiveList:generatedTrip];
         //Uncomment if we would like to add events to trip at the same time
-        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
+        //[generatedTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:generatedTrip
                                        context:self.managedObjectContext];
         
@@ -595,9 +595,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
                 //focus in map
                 Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
                 City *city = event.toCity;
-                
                 MKCoordinateRegion region;
-                region.center = CLLocationCoordinate2DMake([city.latitude floatValue], [city.longitude floatValue]);
+                region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
                 region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
                                                    DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
                 dispatch_async(dispatch_get_main_queue(), ^{
