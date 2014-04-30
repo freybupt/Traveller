@@ -17,4 +17,5 @@
 - (NSString *)translatedTime;
 - (NSString *)relativeTime;
 - (NSDateComponents *)dateComponents;
+- (BOOL)withinSameDayWith:(NSDate *)date;
 @end

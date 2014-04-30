@@ -192,6 +192,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
     
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
     //[self fetchEventsWithDateRange:nil];
+    
+    [self hideActivityIndicator];
 }
 
 
@@ -309,6 +311,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
 
 - (IBAction)confirmTripChange:(id)sender
 {
+    [self.destinationPanelView.destinationTextField resignFirstResponder];
+    
     NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
                                                                      userid:[MockManager userid]
                                                                     context:self.managedObjectContext];

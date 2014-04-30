@@ -99,9 +99,8 @@
     
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
         if (self.activeTrip) {
-            //already has trip plans
-            if ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
-                [[[self.day.date dateAfterOneDay] dateAtMidnight] compare:self.activeTrip.endDate] == NSOrderedSame) {
+            if ([self.day.date withinSameDayWith:self.activeTrip.startDate] ||
+                [self.day.date withinSameDayWith:self.activeTrip.endDate]) {
                 [cellColorHighlighted setFill];
             } else {
                 [cellColor setFill];
@@ -244,13 +243,13 @@
         // Display city code if an event is available
         tripLocation = event.toCity.cityCode;
     }
-    
+
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
     self.selectionState == DSLCalendarDayViewEndOfSelection ||
     self.selectionState == DSLCalendarDayViewWholeSelection ||
     (self.selectionState == DSLCalendarDayViewNotSelected && self.activeTrip &&
-     ([self.day.date compare:self.activeTrip.startDate] == NSOrderedSame ||
-      [[[self.day.date dateAfterOneDay] dateAtMidnight] compare:self.activeTrip.endDate] == NSOrderedSame));
+     ([self.day.date withinSameDayWith:self.activeTrip.startDate] ||
+      [self.day.date withinSameDayWith:self.activeTrip.endDate]));
     
     if (shouldDrawLocation) {
         _tripLocation = ([tripLocation length] > 1) ? [[tripLocation uppercaseString] substringToIndex:2] : [tripLocation uppercaseString];

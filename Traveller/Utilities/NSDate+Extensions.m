@@ -123,4 +123,10 @@
     
     return components;
 }
+
+- (BOOL)withinSameDayWith:(NSDate *)date
+{
+    return ([self dateComponents].day == [date dateComponents].day &&
+            [self dateComponents].month == [date dateComponents].month);
+}
 @end
