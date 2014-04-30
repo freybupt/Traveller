@@ -113,4 +113,14 @@
     
     return NSLocalizedString(@"now", @"");
 }
+
+- (NSDateComponents *)dateComponents
+{
+    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:flags fromDate:self];
+    [components setCalendar:calendar];
+    
+    return components;
+}
 @end

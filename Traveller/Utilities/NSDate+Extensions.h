@@ -16,4 +16,5 @@
 - (NSString *)monthDayTime;
 - (NSString *)translatedTime;
 - (NSString *)relativeTime;
+- (NSDateComponents *)dateComponents;
 @end

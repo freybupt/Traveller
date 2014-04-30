@@ -110,6 +110,7 @@
 		9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37482F1900F2E3003D67C8 /* UIViewController+TargetViewController.m */; };
 		9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37484919010F19003D67C8 /* CalendarDayView.m */; };
 		9F54EB611901771600ABB05F /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F54EB601901771600ABB05F /* EventViewController.m */; };
+		9FA27FA41910C2310042DEE0 /* DSLCalendarRange+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */; };
 		9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB50A39190E8704000E6C98 /* DestinationPanelView.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
@@ -304,6 +305,8 @@
 		9F37484919010F19003D67C8 /* CalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayView.m; sourceTree = "<group>"; };
 		9F54EB5F1901771600ABB05F /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
 		9F54EB601901771600ABB05F /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		9FA27FA21910C2310042DEE0 /* DSLCalendarRange+Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DSLCalendarRange+Trip.h"; sourceTree = "<group>"; };
+		9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DSLCalendarRange+Trip.m"; sourceTree = "<group>"; };
 		9FB50A38190E8704000E6C98 /* DestinationPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationPanelView.h; sourceTree = "<group>"; };
 		9FB50A39190E8704000E6C98 /* DestinationPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationPanelView.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
@@ -935,6 +938,8 @@
 				9FFA7FCB19075FD100F55345 /* NSString+Extensions.m */,
 				9FE8BC2B190A09E900BDFE71 /* NSDateComponents+Extensions.h */,
 				9FE8BC2C190A09E900BDFE71 /* NSDateComponents+Extensions.m */,
+				9FA27FA21910C2310042DEE0 /* DSLCalendarRange+Trip.h */,
+				9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1088,6 +1093,7 @@
 				76B9444419088387001B08DB /* TripManager.m in Sources */,
 				9F3748331900F2E3003D67C8 /* DSLCalendarMonthSelectorView.m in Sources */,
 				7682640F1906ED0900089319 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				9FA27FA41910C2310042DEE0 /* DSLCalendarRange+Trip.m in Sources */,
 				9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */,
 				9FE8BC2D190A09E900BDFE71 /* NSDateComponents+Extensions.m in Sources */,
 				7682640E1906ED0900089319 /* AFNetworkActivityIndicatorManager.m in Sources */,

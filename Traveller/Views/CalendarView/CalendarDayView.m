@@ -9,7 +9,6 @@
 #import "CalendarDayView.h"
 
 @interface CalendarDayView ()
-//@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) __block Trip *activeTrip;
 @end
 
@@ -172,11 +171,7 @@
 
 - (void)drawDayNumber
 {
-    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
-    NSDate* today = [calendar dateFromComponents:components];
+    NSDate *today = [NSDate date];
     
     UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
     NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
@@ -208,11 +203,7 @@
 
 - (void)drawEventsDots
 {
-    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
-    NSDate* today = [calendar dateFromComponents:components];
+    NSDate *today = [NSDate date];
     
     UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:17.0];
     NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
@@ -269,11 +260,7 @@
 
     [[UIColor colorWithRed:131.0/255.0 green:199.0/255.0 blue:149.0/255.0 alpha:1.0] setFill];
     
-    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-    NSCalendar* calendar = [NSCalendar currentCalendar];
-    
-    NSDateComponents* components = [calendar components:flags fromDate:[NSDate date]];
-    NSDate* today = [calendar dateFromComponents:components];
+    NSDate *today = [NSDate date];
     
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];

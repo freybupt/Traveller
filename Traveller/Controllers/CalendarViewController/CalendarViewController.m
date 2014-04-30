@@ -15,6 +15,7 @@
 #import "AddDestinationViewController.h"
 #import "Checkbox.h"
 #import "DSLCalendarView.h"
+#import "DSLCalendarRange+Trip.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 344.0f;
@@ -319,6 +320,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
         
         // TODO: Probably move the part of color control from trip manager to calendar color manager
         //[[TripManager sharedManager] addTripToActiveList:trip];
+    } else {
+        self.currentDateRange = [self.currentDateRange joinedCalendarRangeWithTrip:trip];
     }
     
     trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
