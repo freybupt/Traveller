@@ -42,7 +42,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+    [[TripManager sharedManager] setTripStage:TripStageSelectEvent];
     [self registerKeyboardNotification];
 }
 

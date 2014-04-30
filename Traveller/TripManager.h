@@ -11,19 +11,19 @@
 static NSString *const kTripChangeNotification = @"tripChangeNotification";
 static NSString *const kTripListKey = @"allTripSaved";
 
-typedef enum{
+typedef NS_ENUM(NSInteger, TripStage){
     TripStageSelectEvent,
     TripStagePlanTrip,
     TripStageBookTrip,
     TripStageTrackTrip
-}TripStage;
+};
 
-typedef enum {
-    EventTypeDefault,
+typedef NS_ENUM(NSInteger, EventType){
+    EventTypeDefault = 0,
     EventTypeFlight,
     EventTypeHotel,
     EventTypeRental
-}EventType;
+};
 
 @interface TripManager : NSObject
 

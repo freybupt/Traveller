@@ -156,14 +156,15 @@ static CGFloat kNavigationBarHeight = 64.0f;
                                                context:self.managedObjectContext];
                 
                 //add flight event
-                Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-                flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
-                flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
-                flightEvent.startDate = [[event.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*24]; //one day before first event
-                flightEvent.endDate = event.startDate;
-                flightEvent.isSelected = [NSNumber numberWithBool:YES];
-                [flightEvents addObject:flightEvent];
-                
+                if ([event.eventType integerValue] == EventTypeDefault) {
+                    Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
+                    flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
+                    flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+                    flightEvent.startDate = [[event.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*24]; //one day before first event
+                    flightEvent.endDate = event.startDate;
+                    flightEvent.isSelected = [NSNumber numberWithBool:YES];
+                    [flightEvents addObject:flightEvent];
+                }
             }
             else{
                 //TODO: update trip end date
@@ -618,6 +619,21 @@ static CGFloat kNavigationBarHeight = 64.0f;
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //remove event from list
+        Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[DataManager sharedInstance] deleteEvent:event context:self.managedObjectContext];
+        [self.tableView reloadData];
+    }
 }
 
 //| ----------------------------------------------------------------------------
