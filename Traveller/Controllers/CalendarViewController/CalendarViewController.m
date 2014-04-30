@@ -42,6 +42,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
 @property (nonatomic, strong) NSManagedObjectID *objectID;
 @property (nonatomic, assign) BOOL isScheduleExpanded;
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
+@property (nonatomic, assign) NSInteger userEventCount;
 
 - (IBAction)adjustScheduleView:(id)sender;
 - (IBAction)editMySchedule:(id)sender;
@@ -116,6 +117,13 @@ static CGFloat kNavigationBarHeight = 64.0f;
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
+    //count user event
+    CalendarViewController __weak *weakSelf = self;
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        if ([event.eventType integerValue] == EventTypeDefault) {
+            weakSelf.userEventCount++;
+        }
+    }];
     NSMutableArray *flightEvents = [[NSMutableArray alloc] init];
     //calculate trip plan - should be done at server later
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
@@ -139,7 +147,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
         
         
         City *lastCity = departureCity;
-        for (NSUInteger index = 0; index < [[self.fetchedResultsController fetchedObjects] count]; index++) {
+        NSMutableArray *tripArray = [[NSMutableArray alloc] init];
+        for (NSUInteger index = 0; index < self.userEventCount; index++) {
             Event *event = [self.fetchedResultsController fetchedObjects][index];
             if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
                 //create a new trip
@@ -152,8 +161,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
                 //[newTrip addToEventObject:event];
                 //[[TripManager sharedManager] addTripToActiveList:newTrip];
                 generatedTrip = newTrip;
-                [[DataManager sharedInstance] saveTrip:newTrip
-                                               context:self.managedObjectContext];
+                [tripArray addObject:newTrip];
                 
                 //add flight event
                 if ([event.eventType integerValue] == EventTypeDefault) {
@@ -174,6 +182,11 @@ static CGFloat kNavigationBarHeight = 64.0f;
             lastCity = event.toCity;
             lastEvent = event;
         }
+        
+        [tripArray enumerateObjectsUsingBlock:^(Trip *trip, NSUInteger idx, BOOL *stop) {
+            [[DataManager sharedInstance] saveTrip:trip
+                                           context:self.managedObjectContext];
+        }];
         
         //trip from last city to home
         Trip *returnTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
@@ -217,6 +230,14 @@ static CGFloat kNavigationBarHeight = 64.0f;
 
 - (IBAction)editMySchedule:(id)sender
 {
+    //remove flights/hotel/rental car events
+    CalendarViewController __weak *weakSelf = self;
+    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+        if ([event.eventType integerValue] != EventTypeDefault) {
+            [[DataManager sharedInstance] deleteEvent:event context:weakSelf.managedObjectContext];
+        }
+    }];
+    [self.tableView reloadData];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
