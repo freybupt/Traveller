@@ -18,17 +18,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" id="gc5-W2-1vz" userLabel="Map View">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="8Mu-Vo-pD0">
                                 <rect key="frame" x="0.0" y="64" width="320" height="285"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="8Mu-Vo-pD0">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="285"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </mapView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="kZJ-h8-tIJ"/>
+                                </connections>
+                            </mapView>
                             <view contentMode="scaleToFill" id="dji-3e-kqw" userLabel="My schedule view">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -148,7 +144,7 @@
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
                         <outlet property="destinationPanelView" destination="Bys-zB-5FN" id="5cm-cu-2CF"/>
                         <outlet property="expandButton" destination="n5Z-e1-s2Y" id="Tt7-pP-Wgv"/>
-                        <outlet property="mapView" destination="gc5-W2-1vz" id="Di2-Nc-pGd"/>
+                        <outlet property="mapView" destination="8Mu-Vo-pD0" id="r35-NO-UUY"/>
                         <outlet property="myScheduleHeaderView" destination="xeT-ra-1iZ" id="8fr-lJ-bA1"/>
                         <outlet property="myScheduleView" destination="dji-3e-kqw" id="Od7-yG-LQZ"/>
                         <outlet property="tableView" destination="mBy-03-yug" id="W5e-sy-Q4f"/>

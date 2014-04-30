@@ -239,12 +239,20 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
         city.latitude = dictionary[@"Latitude"];
     }
     
+    if ([dictionary[@"Latitude"] isStringObject]) {
+        city.latitude = [NSNumber numberWithDouble:[dictionary[@"Latitude"] doubleValue]];
+    }
+    
     if ([dictionary[@"LatitudeRef"] isStringObject]) {
         city.latitudeRef = dictionary[@"LatitudeRef"];
     }
     
     if ([dictionary[@"Longitude"] isNumberObject]) {
         city.longitude = dictionary[@"Longitude"];
+    }
+    
+    if ([dictionary[@"Longitude"] isStringObject]) {
+        city.longitude = [NSNumber numberWithDouble:[dictionary[@"Longitude"] doubleValue]];
     }
     
     if ([dictionary[@"LongitudeRef"] isStringObject]) {

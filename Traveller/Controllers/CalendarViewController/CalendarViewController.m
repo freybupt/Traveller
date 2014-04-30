@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
+#import <Mapkit/MapKit.h>
 #import "CalendarViewController.h"
 #import "CalendarView.h"
 #import "CalendarColorManager.h"
@@ -24,7 +25,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
 
 //Customized Calendar/Map View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
-@property (nonatomic, weak) IBOutlet UIView *mapView;
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleHeaderView;
 
@@ -69,6 +70,17 @@ static CGFloat kNavigationBarHeight = 64.0f;
     self.calendarView.delegate = self;
     self.calendarView.showDayCalloutView = NO;
 
+    /* Initial map location setup */
+    CLLocation *location = [[LocationManager sharedInstance] currentLocation];
+    if (location) {
+        MKCoordinateRegion region;
+        region.center = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+        region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                           DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_mapView setRegion:region animated:YES];
+        });
+    }
 }
 
 
@@ -548,7 +560,27 @@ static CGFloat kNavigationBarHeight = 64.0f;
             break;
         case EventTypeDefault:
         default:
-            [self editEventButtonTapAction:event];
+            if (self.isScheduleExpanded) {
+                //show events detail
+                [self editEventButtonTapAction:event];
+            }
+            else if([self.mapView isHidden]){
+                //focus in calendar
+            }
+            else{
+                //focus in map
+                Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+                City *city = event.toCity;
+                
+                MKCoordinateRegion region;
+                region.center = CLLocationCoordinate2DMake([city.latitude floatValue], [city.longitude floatValue]);
+                region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                                   DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_mapView setRegion:region animated:YES];
+                });
+            }
+            
             break;
     }
     
