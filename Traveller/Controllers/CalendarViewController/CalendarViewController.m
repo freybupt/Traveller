@@ -190,7 +190,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     }
     
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
-    [self fetchEventsWithDateRange:nil];
+    //[self fetchEventsWithDateRange:nil];
 }
 
 
@@ -666,9 +666,9 @@ static CGFloat kNavigationBarHeight = 64.0f;
             [self deleteEventButtonTapAction:event];
         }
     }];
-    [self fetchEventsWithDateRange:nil];
+    //[self fetchEventsWithDateRange:nil];
 }
-
+/*
 - (void)fetchEventsWithDateRange:(DSLCalendarRange *)dateRange
 {
     NSPredicate *predicate = [self predicate];
@@ -727,6 +727,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     // TODO: The step causes a crash, not sure if it's necessary for calculateTrip (Reset simulator -> build -> Next button -> Crash)
     // [self confirmTripChange:nil];
 }
+*/
 
 #pragma mark -
 #pragma mark EKEventEditViewDelegate
