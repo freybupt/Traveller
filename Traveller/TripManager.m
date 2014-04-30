@@ -11,10 +11,10 @@
 #import <EventKitUI/EventKitUI.h>
 
 @interface TripManager ()
-
+/*
 @property (nonatomic, strong) NSMutableArray *activeTripList;
 @property (nonatomic, strong) NSArray *pastTripList;
-
+*/
 @end
 
 @implementation TripManager
@@ -25,7 +25,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];
-        manager.activeTripList = [[NSMutableArray alloc] init];
+        //manager.activeTripList = [[NSMutableArray alloc] init];
         
         //TODO: retrieve trips from db. add to activeTripList
 
@@ -50,7 +50,7 @@
     return [[NSUserDefaults standardUserDefaults] integerForKey:@"TripStage"];
 }
 
-
+/*
 - (void)addTripToActiveList:(Trip *)currentTrip
 {
     if (!currentTrip) {
@@ -166,29 +166,34 @@
     }
     return nil;
 }
-
-
+*/
 
 - (NSArray *)getUsedTripColors
 {
     NSMutableArray *allColors = [[NSMutableArray alloc] init];
+    /*
     for (Trip *eachTrip in self.activeTripList) {
-        if (eachTrip) {
-            [allColors addObject:eachTrip.defaultColor];
+        [allColors addObject:eachTrip.defaultColor];
+    }
+    */
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid] context:[[DataManager sharedInstance] bridgedMoc]];
+    for (Trip *trip in trips) {
+        if (trip) {
+            [allColors addObject:trip.defaultColor];
         }
     }
-    
     return [NSArray arrayWithArray:allColors];
 }
 
+/*
 - (NSInteger)countActiveTrips
 {
     return [self.activeTripList count];
 }
-
+*/
 
 #pragma mark - Save Trips
-
+/*
 - (void)saveCustomObject:(Trip *)object key:(NSString *)key {
     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:object];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -211,6 +216,7 @@
     NSString *key = [NSString stringWithFormat:@"%@_%@_%@_%@", trip.toCityDestinationCity.cityName, [trip.startDate description], [trip.endDate description], trip.isRoundTrip?@"roundTrip":@"oneWay"];
     return key;
 }
+*/
 @end
 
 

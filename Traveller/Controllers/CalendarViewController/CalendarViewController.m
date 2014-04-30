@@ -128,7 +128,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         generatedTrip.toCityDestinationCity = lastEvent.toCity;
         generatedTrip.startDate = [lastEvent.startDate dateByAddingTimeInterval:-60*60*48]; //one day before first event
         generatedTrip.endDate = lastEvent.endDate;
-        [[TripManager sharedManager] addTripToActiveList:generatedTrip];
+        //[[TripManager sharedManager] addTripToActiveList:generatedTrip];
         //Uncomment if we would like to add events to trip at the same time
         //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:generatedTrip
@@ -147,7 +147,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
                 newTrip.endDate = event.endDate;
                 //Uncomment if we would like to add an event to trip at the same time
                 //[newTrip addToEventObject:event];
-                [[TripManager sharedManager] addTripToActiveList:newTrip];
+                //[[TripManager sharedManager] addTripToActiveList:newTrip];
                 generatedTrip = newTrip;
                 [[DataManager sharedInstance] saveTrip:newTrip
                                                context:self.managedObjectContext];
@@ -177,7 +177,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         returnTrip.toCityDestinationCity = departureCity;
         returnTrip.startDate = lastEvent.endDate;
         returnTrip.endDate = [lastEvent.endDate dateByAddingTimeInterval:60*60*24];
-        [[TripManager sharedManager] addTripToActiveList:returnTrip];
+        //[[TripManager sharedManager] addTripToActiveList:returnTrip];
         //Uncomment if we would like to add events to trip at the same time
         //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:generatedTrip
@@ -318,7 +318,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         trip.isRoundTrip = [NSNumber numberWithBool:NO];
         
         // TODO: Probably move the part of color control from trip manager to calendar color manager
-        [[TripManager sharedManager] addTripToActiveList:trip];
+        //[[TripManager sharedManager] addTripToActiveList:trip];
     }
     
     trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
@@ -390,7 +390,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
         [self hideDestinationPanel:nil];
         
         // TODO: Probably move the part of color control from trip manager to calendar color manager
-        [[TripManager sharedManager] deleteTrip:trip];
+        //[[TripManager sharedManager] deleteTrip:trip];
     }
 }
 

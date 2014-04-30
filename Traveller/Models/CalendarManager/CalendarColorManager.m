@@ -55,7 +55,9 @@
 - (UIColor *)nextColor
 {
     //TODO: find adjacent color and avoid using them
-    NSInteger index = [[TripManager sharedManager] countActiveTrips];
+    //NSInteger index = [[TripManager sharedManager] countActiveTrips];
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid] context:[[DataManager sharedInstance] bridgedMoc]];
+    NSInteger index = [trips count];
     return [self.defaultColorsArray objectAtIndex:index%([self.defaultColorsArray count])];
 }
 
