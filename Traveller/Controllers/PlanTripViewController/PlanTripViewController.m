@@ -65,7 +65,6 @@
     NSMutableArray *flightEvents = [[NSMutableArray alloc] init];
     //calculate trip plan - should be done at server later
     if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-        [self showActivityIndicatorWithText:@"Planning for your trip"];
         //TODO: get city of current location
         NSString *cityName = @"Vancouver";
         City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName

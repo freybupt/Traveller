@@ -22,6 +22,9 @@
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleHeaderView;
+@property (nonatomic, weak) IBOutlet UILabel *myScheduleTitleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *showCalendarButton;
+@property (nonatomic, weak) IBOutlet UIButton *showMapButton;
 
 //My schedule table components
 @property (nonatomic, weak) IBOutlet UIButton *expandButton;
@@ -40,4 +43,6 @@
 - (IBAction)showCalendarView:(id)sender;
 - (IBAction)adjustScheduleView:(id)sender;
 - (IBAction)editMySchedule:(id)sender;
+
+- (IBAction)confirmTrip:(id)sender;
 @end

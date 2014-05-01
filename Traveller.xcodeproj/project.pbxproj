@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		761188801912EFAE00A620D9 /* map35_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7611887F1912EFAE00A620D9 /* map35_red@2x.png */; };
+		761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 761188811912EFB400A620D9 /* calendar53_red@2x.png */; };
+		761188861912FA9900A620D9 /* backArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 761188851912FA9900A620D9 /* backArrow@2x.png */; };
 		7622B8E6190AE97500F2A22A /* edit12.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E3190AE97500F2A22A /* edit12.png */; };
 		7622B8E7190AE97500F2A22A /* note6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E4190AE97500F2A22A /* note6.png */; };
 		7622B8E8190AE97500F2A22A /* pencil54.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E5190AE97500F2A22A /* pencil54.png */; };
 		76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76277B9118BD6053007D8100 /* MapKit.framework */; };
+		7636E9B31912D1630091E7B6 /* hotel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7636E9B21912D1630091E7B6 /* hotel.jpg */; };
+		7636E9B61912D1D30091E7B6 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7636E9B51912D1D30091E7B6 /* OpenGLES.framework */; };
+		7636E9B81912D1D80091E7B6 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7636E9B71912D1D80091E7B6 /* GLKit.framework */; };
+		7636E9BA1912D1DF0091E7B6 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7636E9B91912D1DF0091E7B6 /* CoreMotion.framework */; };
+		7636E9BF1912D2030091E7B6 /* PanoramaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7636E9BC1912D2030091E7B6 /* PanoramaView.m */; };
+		7636E9C01912D2030091E7B6 /* Sphere.m in Sources */ = {isa = PBXBuildFile; fileRef = 7636E9BE1912D2030091E7B6 /* Sphere.m */; };
+		7636E9C31912D45E0091E7B6 /* PanoramaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7636E9C21912D45E0091E7B6 /* PanoramaViewController.m */; };
 		768263CF1905C14B00089319 /* map5.png in Resources */ = {isa = PBXBuildFile; fileRef = 768263CE1905C14B00089319 /* map5.png */; };
 		76B9443719071436001B08DB /* add-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442919071436001B08DB /* add-item@2x.png */; };
 		76B9443819071436001B08DB /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442B19071436001B08DB /* Icon-40@2x.png */; };
@@ -133,10 +143,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7611887F1912EFAE00A620D9 /* map35_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map35_red@2x.png"; sourceTree = "<group>"; };
+		761188811912EFB400A620D9 /* calendar53_red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar53_red@2x.png"; sourceTree = "<group>"; };
+		761188851912FA9900A620D9 /* backArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backArrow@2x.png"; sourceTree = "<group>"; };
 		7622B8E3190AE97500F2A22A /* edit12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit12.png; sourceTree = "<group>"; };
 		7622B8E4190AE97500F2A22A /* note6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note6.png; sourceTree = "<group>"; };
 		7622B8E5190AE97500F2A22A /* pencil54.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil54.png; sourceTree = "<group>"; };
 		76277B9118BD6053007D8100 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7636E9B21912D1630091E7B6 /* hotel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hotel.jpg; sourceTree = "<group>"; };
+		7636E9B51912D1D30091E7B6 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		7636E9B71912D1D80091E7B6 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		7636E9B91912D1DF0091E7B6 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		7636E9BB1912D2030091E7B6 /* PanoramaView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoramaView.h; sourceTree = "<group>"; };
+		7636E9BC1912D2030091E7B6 /* PanoramaView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanoramaView.m; sourceTree = "<group>"; };
+		7636E9BD1912D2030091E7B6 /* Sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sphere.h; sourceTree = "<group>"; };
+		7636E9BE1912D2030091E7B6 /* Sphere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sphere.m; sourceTree = "<group>"; };
+		7636E9C11912D45E0091E7B6 /* PanoramaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoramaViewController.h; sourceTree = "<group>"; };
+		7636E9C21912D45E0091E7B6 /* PanoramaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanoramaViewController.m; sourceTree = "<group>"; };
 		768263CE1905C14B00089319 /* map5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map5.png; path = ../../Images/map5.png; sourceTree = "<group>"; };
 		76B9442919071436001B08DB /* add-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-item@2x.png"; sourceTree = "<group>"; };
 		76B9442B19071436001B08DB /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
@@ -332,11 +355,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76C270B418B2A1E2003A49A3 /* CoreGraphics.framework in Frameworks */,
+				7636E9BA1912D1DF0091E7B6 /* CoreMotion.framework in Frameworks */,
+				7636E9B81912D1D80091E7B6 /* GLKit.framework in Frameworks */,
+				7636E9B61912D1D30091E7B6 /* OpenGLES.framework in Frameworks */,
 				9FC4186118FFAC74001CC750 /* CoreLocation.framework in Frameworks */,
 				9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */,
 				76277B9218BD6053007D8100 /* MapKit.framework in Frameworks */,
 				76C2712218B2A60C003A49A3 /* EventKit.framework in Frameworks */,
-				76C270B418B2A1E2003A49A3 /* CoreGraphics.framework in Frameworks */,
 				76C270B618B2A1E2003A49A3 /* UIKit.framework in Frameworks */,
 				76C270B218B2A1E2003A49A3 /* Foundation.framework in Frameworks */,
 			);
@@ -365,9 +391,31 @@
 			name = Edit;
 			sourceTree = "<group>";
 		};
+		7636E9B11912D1390091E7B6 /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				7636E9B21912D1630091E7B6 /* hotel.jpg */,
+			);
+			name = Hotel;
+			sourceTree = "<group>";
+		};
+		7636E9B41912D1A50091E7B6 /* PanoramaViewer */ = {
+			isa = PBXGroup;
+			children = (
+				7636E9C11912D45E0091E7B6 /* PanoramaViewController.h */,
+				7636E9C21912D45E0091E7B6 /* PanoramaViewController.m */,
+				7636E9BB1912D2030091E7B6 /* PanoramaView.h */,
+				7636E9BC1912D2030091E7B6 /* PanoramaView.m */,
+				7636E9BD1912D2030091E7B6 /* Sphere.h */,
+				7636E9BE1912D2030091E7B6 /* Sphere.m */,
+			);
+			name = PanoramaViewer;
+			sourceTree = "<group>";
+		};
 		76B9442719071436001B08DB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7636E9B11912D1390091E7B6 /* Hotel */,
 				7622B8E2190AE96900F2A22A /* Edit */,
 				76B9444019071483001B08DB /* Delete */,
 				76B9442819071436001B08DB /* Add */,
@@ -401,6 +449,7 @@
 		76B9442E19071436001B08DB /* Arrow */ = {
 			isa = PBXGroup;
 			children = (
+				761188851912FA9900A620D9 /* backArrow@2x.png */,
 				76B9442F19071436001B08DB /* arrowDown@2x.png */,
 				76B9443019071436001B08DB /* arrowUp@2x.png */,
 			);
@@ -410,6 +459,7 @@
 		76B9443119071436001B08DB /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				761188811912EFB400A620D9 /* calendar53_red@2x.png */,
 				76B9443219071436001B08DB /* calendar53@2x.png */,
 				9F3747F01900F290003D67C8 /* calendar70@2x.png */,
 				9F3747F11900F290003D67C8 /* day1@2x.png */,
@@ -428,6 +478,7 @@
 		76B9443519071436001B08DB /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				7611887F1912EFAE00A620D9 /* map35_red@2x.png */,
 				768263CE1905C14B00089319 /* map5.png */,
 				76B9443619071436001B08DB /* map35@2x.png */,
 				9F3747F31900F290003D67C8 /* earth16@2x.png */,
@@ -467,6 +518,9 @@
 		76C270B018B2A1E2003A49A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7636E9B91912D1DF0091E7B6 /* CoreMotion.framework */,
+				7636E9B71912D1D80091E7B6 /* GLKit.framework */,
+				7636E9B51912D1D30091E7B6 /* OpenGLES.framework */,
 				9FC4186018FFAC74001CC750 /* CoreLocation.framework */,
 				9FC4185E18FFAC6D001CC750 /* CoreData.framework */,
 				76277B9118BD6053007D8100 /* MapKit.framework */,
@@ -566,6 +620,7 @@
 		76C2712018B2A3DC003A49A3 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7636E9B41912D1A50091E7B6 /* PanoramaViewer */,
 				9F5A80BF1911EEE400799FDD /* AFNetworking */,
 				9F5A80D31911EEE400799FDD /* CHCSVParser */,
 				9F5A80D61911EEE400799FDD /* HTAutocompleteTextField */,
@@ -1047,6 +1102,8 @@
 			files = (
 				7622B8E7190AE97500F2A22A /* note6.png in Resources */,
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
+				761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */,
+				7636E9B31912D1630091E7B6 /* hotel.jpg in Resources */,
 				76B9443D19071436001B08DB /* calendar53@2x.png in Resources */,
 				768263CF1905C14B00089319 /* map5.png in Resources */,
 				76B9443C19071436001B08DB /* arrowUp@2x.png in Resources */,
@@ -1068,7 +1125,9 @@
 				76B9443919071436001B08DB /* Icon-60@2x.png in Resources */,
 				76B9443719071436001B08DB /* add-item@2x.png in Resources */,
 				76B9443F19071436001B08DB /* map35@2x.png in Resources */,
+				761188861912FA9900A620D9 /* backArrow@2x.png in Resources */,
 				9F3747FC1900F290003D67C8 /* day1@2x.png in Resources */,
+				761188801912EFAE00A620D9 /* map35_red@2x.png in Resources */,
 				76B9443E19071436001B08DB /* CanadaCities.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1128,6 +1187,7 @@
 				9F5A80F91911EEE400799FDD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				9F5A80FC1911EEE400799FDD /* UIButton+AFNetworking.m in Sources */,
 				9F37483F1900F2E3003D67C8 /* MZFormSheetBackgroundWindowViewController.m in Sources */,
+				7636E9C31912D45E0091E7B6 /* PanoramaViewController.m in Sources */,
 				9F5A80571911E42300799FDD /* CalendarMapViewController.m in Sources */,
 				9F3748381900F2E3003D67C8 /* NSDate+DSLCalendarView.m in Sources */,
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
@@ -1138,9 +1198,11 @@
 				9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */,
 				9F37483E1900F2E3003D67C8 /* MZFormSheetBackgroundWindow.m in Sources */,
 				9F5A80EF1911EEE400799FDD /* AFHTTPSessionManager.m in Sources */,
+				7636E9BF1912D2030091E7B6 /* PanoramaView.m in Sources */,
 				9F3748421900F2E3003D67C8 /* MZTransition.m in Sources */,
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,
 				9F3748351900F2E3003D67C8 /* DSLCalendarMonthView.m in Sources */,
+				7636E9C01912D2030091E7B6 /* Sphere.m in Sources */,
 				9F3748401900F2E3003D67C8 /* MZFormSheetController.m in Sources */,
 				9F5A80F81911EEE400799FDD /* HTEmailAutocompleteTextField.m in Sources */,
 				9F5A805B1911EBE300799FDD /* PlanTripViewController.m in Sources */,
@@ -1293,6 +1355,7 @@
 				INFOPLIST_FILE = "Traveller/Traveller-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1307,6 +1370,7 @@
 				INFOPLIST_FILE = "Traveller/Traveller-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

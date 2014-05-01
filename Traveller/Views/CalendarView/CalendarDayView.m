@@ -235,7 +235,7 @@
 - (void)drawTripLocation
 {
     
-    NSString *tripLocation = self.activeTrip.title;
+    NSString *tripLocation = self.activeTrip.toCityDestinationCity.cityCode;
     NSArray *events = [self.activeTrip.toEvent allObjects];
     Event *event = [events lastObject];
     if (event &&

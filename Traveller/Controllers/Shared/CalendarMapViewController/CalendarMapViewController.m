@@ -7,10 +7,11 @@
 //
 
 #import "CalendarMapViewController.h"
+#import "PanoramaViewController.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
-static CGFloat kMyScheduleYCoordinate = 344.0f;
-static CGFloat kNavigationBarHeight = 64.0f;
+static CGFloat kMyScheduleYCoordinate = 320.0f;
+static CGFloat kNavigationBarHeight = 44.0f;
 
 @interface CalendarMapViewController ()
 @property (nonatomic, assign) BOOL isScheduleExpanded;
@@ -31,14 +32,28 @@ static CGFloat kNavigationBarHeight = 64.0f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    [self showActivityIndicatorWithText:@"Planning your trip...."];
     // The Add button is initially disabled
-    _isScheduleExpanded = YES;
-    _isDestinationPanelActive = NO;
+    self.isScheduleExpanded = YES;
+    self.isDestinationPanelActive = NO;
     
     // Init calendar view
-    _calendarView.delegate = self;
-    _calendarView.showDayCalloutView = NO;
+    self.calendarView.delegate = self;
+    self.calendarView.showDayCalloutView = NO;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(adjustScheduleView:)];
+    tapGesture.numberOfTapsRequired = 1;
+    self.myScheduleTitleLabel.userInteractionEnabled = YES;
+    [self.myScheduleTitleLabel addGestureRecognizer:tapGesture];
+    
+    UISwipeGestureRecognizer *swipeDownGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
+    swipeDownGesture.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.myScheduleTitleLabel addGestureRecognizer:swipeDownGesture];
+    
+    UISwipeGestureRecognizer *swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
+    swipeUpGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.myScheduleTitleLabel addGestureRecognizer:swipeUpGesture];
     
     /* Initial map location setup */
     CLLocation *location = [[LocationManager sharedInstance] currentLocation];
@@ -75,12 +90,10 @@ static CGFloat kNavigationBarHeight = 64.0f;
 {
     [self hideDestinationPanel:nil];
     
-    if (_isScheduleExpanded) {
+    if (self.isScheduleExpanded) {
         //show calendarview as default
-        _calendarView.hidden = NO;
-        _mapView.hidden = YES;
         [self shrinkMyScheduleView];
-        
+        [self showCalendarView:nil];
     }
     else {
         //show full view
@@ -91,30 +104,77 @@ static CGFloat kNavigationBarHeight = 64.0f;
 
 - (IBAction)editMySchedule:(id)sender
 {
-    //remove flights/hotel/rental car events
-    CalendarMapViewController __weak *weakSelf = self;
-    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-        if ([event.eventType integerValue] != EventTypeDefault) {
-            [[DataManager sharedInstance] deleteEvent:event context:weakSelf.managedObjectContext];
-        }
-    }];
-    [self.tableView reloadData];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Do you want to repick events?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Repick", nil];
+    alertView.tag = 1;
+    [alertView show];
 }
 
 - (IBAction)showMapview:(id)sender
 {
-    _calendarView.hidden = YES;
-    _mapView.hidden = NO;
+    self.calendarView.hidden = YES;
+    self.mapView.hidden = NO;
     [self shrinkMyScheduleView];
+    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53@2x.png"] forState:UIControlStateNormal];
+    [self.showMapButton setImage:[UIImage imageNamed:@"map35_red@2x.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)showCalendarView:(id)sender
 {
-    _calendarView.hidden = NO;
-    _mapView.hidden = YES;
+    self.calendarView.hidden = NO;
+    self.mapView.hidden = YES;
     [self shrinkMyScheduleView];
+    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53_red@2x.png"] forState:UIControlStateNormal];
+    [self.showMapButton setImage:[UIImage imageNamed:@"map35@2x.png"] forState:UIControlStateNormal];
 }
+
+
+- (void)swipeDown:(id)sender
+{
+    if (self.isScheduleExpanded) {
+        [self shrinkMyScheduleView];
+        [self showCalendarView:nil];
+    }
+}
+
+- (void)swipeUp:(id)sender
+{
+    if (!self.isScheduleExpanded) {
+        [self showFullMyScheduleView];
+    }
+}
+
+
+#pragma mark - UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        switch (buttonIndex) {
+            case 1:
+            {
+                //remove flights/hotel/rental car events
+                CalendarMapViewController __weak *weakSelf = self;
+                [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
+                    if ([event.eventType integerValue] != EventTypeDefault) {
+                        [[DataManager sharedInstance] deleteEvent:event context:weakSelf.managedObjectContext];
+                    }
+                }];
+                [self.tableView reloadData];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark - Confirm Trip
+- (IBAction)confirmTrip:(id)sender
+{
+    [self showActivityIndicatorWithText:@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while."];
+}
+
+
 
 #pragma mark - Schedule view adjustment
 
@@ -138,7 +198,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
         [UIView animateWithDuration:0.1 animations:^{
             [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, self.view.frame.size.height)];
         }];
-        
+        [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53@2x.png"] forState:UIControlStateNormal];
+        [self.showMapButton setImage:[UIImage imageNamed:@"map35@2x.png"] forState:UIControlStateNormal];
         _isScheduleExpanded = YES;
         [_expandButton setImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
     }
@@ -150,7 +211,8 @@ static CGFloat kNavigationBarHeight = 64.0f;
 {
     if ([sender isKindOfClass:[Trip class]]) {
         Trip *trip = (Trip *)sender;
-        _destinationPanelView.destinationTextField.text = trip.title;
+        _destinationPanelView.destinationTextField.text = [NSString stringWithFormat:@"%@ -> %@",
+                                                            trip.toCityDepartureCity.cityName, trip.toCityDestinationCity.cityName];
         _destinationPanelView.confirmDestinationButton.enabled = YES;
         _destinationPanelView.removeTripButton.hidden = NO;
         
@@ -178,7 +240,7 @@ static CGFloat kNavigationBarHeight = 64.0f;
     CalendarMapViewController __weak *weakSelf = self;
     [UIView animateWithDuration:kUIAnimationDuration animations:^{
         weakSelf.destinationPanelView.frame = CGRectMake(0,
-                                                         weakSelf.navigationController.navigationBar.frame.size.height + 20.0f,
+                                                         weakSelf.navigationController.navigationBar.frame.size.height,
                                                          weakSelf.destinationPanelView.frame.size.width,
                                                          weakSelf.destinationPanelView.frame.size.height);
     } completion:^(BOOL finished) {
@@ -339,8 +401,11 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     switch ([event.eventType integerValue]) {
         case EventTypeFlight:
+            [self showSampleHotelPanorama];
             break;
         case EventTypeHotel:
+            //show hotel panorama view
+            [self showSampleHotelPanorama];
             break;
         case EventTypeRental:
             break;
@@ -394,6 +459,16 @@ didChangeToVisibleMonth:(NSDateComponents *)month
         Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
         [[DataManager sharedInstance] deleteEvent:event context:self.managedObjectContext];
     }
+}
+
+
+#pragma mark - Hotel
+
+- (void)showSampleHotelPanorama
+{
+    PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark -

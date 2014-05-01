@@ -57,18 +57,22 @@
     
     self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     self.activityView.frame = CGRectMake(0, 0, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
-    self.activityView.center = CGPointMake(self.loadingView.frame.size.width/2, self.loadingView.frame.size.height/3);
+    self.activityView.center = CGPointMake(self.loadingView.frame.size.width/2, self.loadingView.frame.size.height/2 - self.activityView.bounds.size.height);
     [self.loadingView addSubview:self.activityView];
     
-    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.loadingView.frame.size.height/2, self.view.frame.size.width, 22)];
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.loadingView.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/5)];
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
-    self.loadingLabel.font = [UIFont fontWithName:@"Avenir-Bold" size:18];
+    self.loadingLabel.font = [UIFont fontWithName:@"Avenir-Bold" size:20];
     self.loadingLabel.adjustsFontSizeToFitWidth = YES;
     self.loadingLabel.textAlignment = NSTextAlignmentCenter;
     self.loadingLabel.text = @"Loading...";
+    self.loadingLabel.numberOfLines = 0;
     [self.loadingView addSubview:self.loadingLabel];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(activityViewTapped:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.loadingView addGestureRecognizer:tapGesture];
 }
 
 - (void)showActivityIndicatorWithText:(NSString *)text
@@ -85,6 +89,11 @@
 {
     [self.activityView stopAnimating];
     [self.loadingView removeFromSuperview];
+}
+
+- (void)activityViewTapped:(id)sender
+{
+    [self hideActivityIndicator];
 }
 
 #pragma mark - UITableView configuration
