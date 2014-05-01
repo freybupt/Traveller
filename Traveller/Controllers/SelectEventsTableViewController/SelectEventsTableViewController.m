@@ -10,7 +10,6 @@
 #import "Checkbox.h"
 #import "MZFormSheetController.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
-#import "CalendarViewController.h"
 
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
 {

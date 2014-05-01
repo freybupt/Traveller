@@ -26,18 +26,7 @@ typedef NS_ENUM(NSInteger, EventType){
 };
 
 @interface TripManager : NSObject
-
-+ (id)sharedManager;
-/*
-- (void)addTripToActiveList:(Trip *)trip;
-- (void)modifyTrip:(Trip *)oldTrip toNewTrip:(Trip *)updatedTrip;
-- (void)deleteTrip:(Trip *)trip;
-
-- (Trip *)findActiveTripByDate:(NSDate *)date;
-*/
-- (NSArray *)getUsedTripColors;
-//- (NSInteger)countActiveTrips;
-
 @property (nonatomic, assign) TripStage tripStage;
 
++ (id)sharedManager;
 @end

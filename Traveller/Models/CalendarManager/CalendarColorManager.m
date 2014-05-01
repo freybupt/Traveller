@@ -7,7 +7,6 @@
 //
 
 #import "CalendarColorManager.h"
-//#import "TripManager.h"
 
 @interface CalendarColorManager ()
 
@@ -66,8 +65,7 @@
     if (self.activeColor == nil || shouldCreateNew) {
         //find a unique random color
         UIColor *uniqueColor;
-        TripManager *tripManager = [TripManager sharedManager];
-        NSArray *usedColors = [tripManager getUsedTripColors];
+        NSArray *usedColors = [self getUsedTripColors];
         BOOL shouldFindNextColor = YES;
         for (NSUInteger round = 0; round < [self.defaultColorsArray count] && shouldFindNextColor; round++) {
             uniqueColor = [self randomColor];
@@ -85,6 +83,17 @@
     return self.activeColor;
 }
 
+- (NSArray *)getUsedTripColors
+{
+    NSMutableArray *allColors = [[NSMutableArray alloc] init];
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid] context:[[DataManager sharedInstance] bridgedMoc]];
+    for (Trip *trip in trips) {
+        if (trip) {
+            [allColors addObject:trip.defaultColor];
+        }
+    }
+    return [NSArray arrayWithArray:allColors];
+}
 
 - (UIColor *)getSelectionHighlightColor
 {

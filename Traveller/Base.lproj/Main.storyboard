@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Calendar View Controller - Book Trip-->
+        <!--Plan Trip View Controller - Book Trip-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController title="Book Trip" id="vXZ-lx-hvc" customClass="CalendarViewController" sceneMemberID="viewController">
+                <viewController title="Book Trip" id="vXZ-lx-hvc" customClass="PlanTripViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
