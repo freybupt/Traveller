@@ -66,4 +66,11 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
 - (BOOL)deleteTrip:(Trip *)trip
            context:(NSManagedObjectContext *)moc;
 - (Trip *)newTripWithContext:(NSManagedObjectContext *)moc;
+
+/* Location */
+- (Location *)newLocationWithContext:(NSManagedObjectContext *)moc;
+- (void)setLocation:(Location *)location withDictionary:(NSDictionary *)dictionary;
+- (BOOL)saveLocation:(Location *)location
+             context:(NSManagedObjectContext *)moc;
+
 @end

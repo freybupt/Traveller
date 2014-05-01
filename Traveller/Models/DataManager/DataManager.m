@@ -443,6 +443,26 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     }
 }
 
+- (BOOL)saveLocation:(Location *)location
+         context:(NSManagedObjectContext *)moc
+{
+    if (!location || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved a trip: %@", location);
+    return YES;
+}
+
 #pragma mark - Trip
 - (NSArray *)getTripWithUserid:(NSNumber *)userid
                        context:(NSManagedObjectContext *)moc

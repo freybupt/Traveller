@@ -228,7 +228,15 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
+    Location *eventLocation = [[DataManager sharedInstance] newLocationWithContext:self.managedObjectContext];
+    eventLocation.longitude = [NSNumber numberWithDouble:view.annotation.coordinate.longitude];
+    eventLocation.latitude = [NSNumber numberWithDouble:view.annotation.coordinate.latitude];
+    eventLocation.address = view.annotation.title;
+    [[DataManager sharedInstance] saveLocation:eventLocation context:self.managedObjectContext];
+    
+    //assign toCity
     self.event.location = view.annotation.title;
+    self.event.toLocation = eventLocation;
     [[DataManager sharedInstance] saveEvent:self.event
                                     context:self.managedObjectContext];
     [self.navigationController popViewControllerAnimated:YES];

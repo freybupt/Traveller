@@ -44,6 +44,7 @@
     [super viewDidAppear:animated];
     [[TripManager sharedManager] setTripStage:TripStageSelectEvent];
     [self registerKeyboardNotification];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -82,18 +83,18 @@
     [self performSegueWithIdentifier:@"editLocation" sender:self];
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"editLocation"])
-//    {
-//        SPGooglePlacesAutocompleteViewController *vc = [segue destinationViewController];
-//        Event *eventToBeProcessed = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
-//        if (eventToBeProcessed) {
-//            [vc setEvent:eventToBeProcessed];
-//            [vc setManagedObjectContext:self.managedObjectContext];
-//        }
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"editLocation"])
+    {
+        SPGooglePlacesAutocompleteViewController *vc = [segue destinationViewController];
+        Event *eventToBeProcessed = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
+        if (eventToBeProcessed) {
+            [vc setEvent:eventToBeProcessed];
+            [vc setManagedObjectContext:self.managedObjectContext];
+        }
+    }
+}
 
 #pragma mark - NSFetchedResultController configuration
 - (NSPredicate *)predicate

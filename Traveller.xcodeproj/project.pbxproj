@@ -783,11 +783,11 @@
 				9F3747B71900F213003D67C8 /* Event.m */,
 				9F3747B81900F213003D67C8 /* Trip.h */,
 				9F3747B91900F213003D67C8 /* Trip.m */,
-				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
 				9FA27FA819111B4A0042DEE0 /* City.h */,
 				9FA27FA919111B4A0042DEE0 /* City.m */,
 				9FA27FA519111B4A0042DEE0 /* Location.h */,
 				9FA27FA619111B4A0042DEE0 /* Location.m */,
+				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
 			);
 			name = DataManager;
 			path = Models/DataManager;

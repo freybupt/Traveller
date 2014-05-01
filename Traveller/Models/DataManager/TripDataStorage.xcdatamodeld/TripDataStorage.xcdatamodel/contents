@@ -24,6 +24,7 @@
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
+        <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" syncable="YES"/>
         <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toEvent" inverseEntity="Trip" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
@@ -48,8 +49,8 @@
     </entity>
     <elements>
         <element name="City" positionX="0" positionY="0" width="128" height="178"/>
-        <element name="Event" positionX="0" positionY="0" width="128" height="240"/>
-        <element name="Trip" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Event" positionX="0" positionY="0" width="128" height="255"/>
         <element name="Location" positionX="9" positionY="108" width="128" height="148"/>
+        <element name="Trip" positionX="0" positionY="0" width="128" height="180"/>
     </elements>
 </model>

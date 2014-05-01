@@ -26,5 +26,6 @@
 @dynamic toCity;
 @dynamic toTrip;
 @dynamic eventType;
+@dynamic toLocation;
 
 @end
