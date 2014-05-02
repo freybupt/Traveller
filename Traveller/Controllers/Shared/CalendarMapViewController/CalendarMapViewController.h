@@ -20,6 +20,7 @@
 //Customized Calendar/Map View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet UIView *bookTripView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleHeaderView;
 @property (nonatomic, weak) IBOutlet UILabel *myScheduleTitleLabel;

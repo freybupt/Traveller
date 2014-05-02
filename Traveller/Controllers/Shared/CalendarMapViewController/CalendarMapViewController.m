@@ -236,9 +236,12 @@ static CGFloat kNavigationBarHeight = 44.0f;
 - (void)shrinkMyScheduleView
 {
     if (_isScheduleExpanded) {
+        
         CalendarMapViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.myScheduleView setFrame:CGRectMake(0, kMyScheduleYCoordinate, self.view.frame.size.width, self.view.frame.size.height - kMyScheduleYCoordinate)];
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kMyScheduleYCoordinate, weakSelf.view.frame.size.width, weakSelf.view.frame.size.height - kMyScheduleYCoordinate)];
+            [weakSelf.tableView setContentSize:CGSizeMake(weakSelf.tableView.contentSize.width, weakSelf.tableView.contentSize.height - weakSelf.bookTripView.frame.size.height)];
+            weakSelf.bookTripView.hidden = YES;
         }];
         
         _isScheduleExpanded = NO;
@@ -251,12 +254,14 @@ static CGFloat kNavigationBarHeight = 44.0f;
     if (!_isScheduleExpanded) {
         CalendarMapViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.frame.size.height)];
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, weakSelf.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - weakSelf.navigationController.navigationBar.frame.size.height)];
+            weakSelf.bookTripView.hidden = NO;
         }];
         [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53"] forState:UIControlStateNormal];
         [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
         _isScheduleExpanded = YES;
         [_expandButton setImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
+        
     }
 }
 
@@ -435,7 +440,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
             if ([event.location length] > 0) {
                 cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
             }
-            else{
+            else if([event.toCity.cityName length] > 0){
                 cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
             }
             break;

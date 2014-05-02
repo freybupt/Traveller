@@ -124,7 +124,7 @@
     cell.eventLocationTextField.text = (event.toCity) ? [NSString stringWithFormat:@"%@, %@",
                                                          event.toCity.cityName, event.toCity.countryName] : nil;
     if ([event.isSelected boolValue]) {
-        cell.backgroundColor = UIColorFromRGB(0xe4fae4);
+        cell.backgroundColor = UIColorFromRGB(0xD0E5DB);
     }
     else{
         cell.backgroundColor = [UIColor whiteColor];
@@ -132,12 +132,16 @@
     cell.eventLocationTextField.autocompleteType = HTAutocompleteTypeCity;
     cell.eventLocationTextField.delegate = self;
     cell.eventLocationTextField.hidden = ![event.isSelected boolValue];
+    
+    [cell.eventLocationTextField setLeftViewMode:UITextFieldViewModeAlways];
+    
+    cell.eventLocationTextField.leftView= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"earth16_mid@2x.png"]];
 
     if ([event.location length] > 0) {
         cell.eventLocationLabel.text = event.location;
     }
     else{
-        cell.eventLocationLabel.text = @"Edit address";
+        cell.eventLocationLabel.text = @"Add event address";
     }
     
     cell.locationView.hidden = ![event.isSelected boolValue]; // Include eventLocationLabel + imageView for edit12.png

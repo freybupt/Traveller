@@ -30,6 +30,14 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapDetected:)];
     [tapGesture setNumberOfTapsRequired:1];
     [self.view addGestureRecognizer:tapGesture];
+    
+    UISwipeGestureRecognizer *swipeDownGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDown:)];
+    swipeDownGesture.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeDownGesture];
+    
+    UISwipeGestureRecognizer *swipeUpGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUp:)];
+    swipeUpGesture.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:swipeUpGesture];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -44,6 +52,20 @@
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }
     else{
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+}
+
+- (void)swipeDown:(id)sender
+{
+    if (self.navigationController.navigationBarHidden) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+}
+
+- (void)swipeUp:(id)sender
+{
+    if (!self.navigationController.navigationBarHidden) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
     }
 }
