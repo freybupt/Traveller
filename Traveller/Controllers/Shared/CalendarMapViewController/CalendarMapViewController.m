@@ -226,8 +226,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
 {
     if ([sender isKindOfClass:[Trip class]]) {
         Trip *trip = (Trip *)sender;
-        _destinationPanelView.destinationTextField.text = [NSString stringWithFormat:@"%@ -> %@",
-                                                            trip.toCityDepartureCity.cityName, trip.toCityDestinationCity.cityName];
+        _destinationPanelView.destinationTextField.text = trip.toCityDestinationCity.cityName;
         _destinationPanelView.confirmDestinationButton.enabled = YES;
         _destinationPanelView.removeTripButton.hidden = NO;
         
