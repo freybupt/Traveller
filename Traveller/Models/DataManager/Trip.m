@@ -1,8 +1,8 @@
 //
 //  Trip.m
-//  Spoonbill
+//  Traveller
 //
-//  Created by WEI-JEN TU on 2014-04-01.
+//  Created by WEI-JEN TU on 2014-05-02.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @dynamic startDate;
 @dynamic title;
 @dynamic uid;
+@dynamic isEditing;
 @dynamic toCityDepartureCity;
 @dynamic toCityDestinationCity;
 @dynamic toEvent;

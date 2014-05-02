@@ -61,6 +61,7 @@
 		76C270DB18B2A1E2003A49A3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76C270D918B2A1E2003A49A3 /* InfoPlist.strings */; };
 		76C270DD18B2A1E2003A49A3 /* TravellerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C270DC18B2A1E2003A49A3 /* TravellerTests.m */; };
 		76C2712218B2A60C003A49A3 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C2712118B2A60C003A49A3 /* EventKit.framework */; };
+		9F364A5319138B43009222B1 /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F364A5219138B43009222B1 /* MyTripViewController.m */; };
 		9F3747951900F152003D67C8 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37478D1900F152003D67C8 /* CalendarView.m */; };
 		9F3747961900F152003D67C8 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3747901900F152003D67C8 /* Checkbox.m */; };
 		9F3747971900F152003D67C8 /* MyScheduleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3747941900F152003D67C8 /* MyScheduleTableCell.m */; };
@@ -222,6 +223,8 @@
 		76C270DA18B2A1E2003A49A3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		76C270DC18B2A1E2003A49A3 /* TravellerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TravellerTests.m; sourceTree = "<group>"; };
 		76C2712118B2A60C003A49A3 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		9F364A5119138B43009222B1 /* MyTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTripViewController.h; sourceTree = "<group>"; };
+		9F364A5219138B43009222B1 /* MyTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTripViewController.m; sourceTree = "<group>"; };
 		9F37478C1900F152003D67C8 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
 		9F37478D1900F152003D67C8 /* CalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarView.m; sourceTree = "<group>"; };
 		9F37478F1900F152003D67C8 /* Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkbox.h; sourceTree = "<group>"; };
@@ -706,6 +709,7 @@
 			isa = PBXGroup;
 			children = (
 				9F3747CB1900F231003D67C8 /* Shared */,
+				9F364A5019138B29009222B1 /* MyTripViewController */,
 				761188AB1913193700A620D9 /* TutorialViewController */,
 				761188A719130C5400A620D9 /* HomeViewController */,
 				9F5A80581911EBE300799FDD /* PlanTripViewController */,
@@ -731,6 +735,16 @@
 				9F3748171900F2E3003D67C8 /* MZFormSheet */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		9F364A5019138B29009222B1 /* MyTripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F364A5119138B43009222B1 /* MyTripViewController.h */,
+				9F364A5219138B43009222B1 /* MyTripViewController.m */,
+			);
+			name = MyTripViewController;
+			path = Controllers/MyTripViewController;
 			sourceTree = "<group>";
 		};
 		9F37478B1900F152003D67C8 /* CalendarView */ = {
@@ -1320,6 +1334,7 @@
 				9F3748351900F2E3003D67C8 /* DSLCalendarMonthView.m in Sources */,
 				7636E9C01912D2030091E7B6 /* Sphere.m in Sources */,
 				9F3748401900F2E3003D67C8 /* MZFormSheetController.m in Sources */,
+				9F364A5319138B43009222B1 /* MyTripViewController.m in Sources */,
 				9F5A80F81911EEE400799FDD /* HTEmailAutocompleteTextField.m in Sources */,
 				9F5A805B1911EBE300799FDD /* PlanTripViewController.m in Sources */,
 				9F5A80F71911EEE400799FDD /* HTAutocompleteTextField.m in Sources */,

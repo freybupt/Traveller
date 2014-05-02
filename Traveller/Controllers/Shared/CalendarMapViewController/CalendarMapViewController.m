@@ -122,7 +122,11 @@ static CGFloat kNavigationBarHeight = 44.0f;
             break;
         case 2:
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Do you want to repick events?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Repick", nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Do you want to repick events?", nil)
+                                                                message:nil
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                      otherButtonTitles:NSLocalizedString(@"Repick", nil), nil];
             alertView.tag = 1;
             [alertView show];
             break;
@@ -183,8 +187,18 @@ static CGFloat kNavigationBarHeight = 44.0f;
                     if ([event.eventType integerValue] != EventTypeDefault) {
                         [[DataManager sharedInstance] deleteEvent:event context:weakSelf.managedObjectContext];
                     }
+                    
+                    if (stop) {
+                        NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
+                                                                                 context:weakSelf.managedObjectContext];
+                        for (Trip *trip in trips) {
+                            if ([trip.isEditing boolValue]) {
+                                [[DataManager sharedInstance] deleteTrip:trip
+                                                                 context:weakSelf.managedObjectContext];
+                            }
+                        }
+                    }
                 }];
-                [self.tableView reloadData];
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 break;
             }
@@ -197,7 +211,22 @@ static CGFloat kNavigationBarHeight = 44.0f;
 #pragma mark - Confirm Trip
 - (IBAction)confirmTrip:(id)sender
 {
-    [self showActivityIndicatorWithText:@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while."];
+    [self showActivityIndicatorWithText:NSLocalizedString(@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while.", nil)];
+    
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
+                                                             context:self.managedObjectContext];
+    for (Trip *trip in trips) {
+        if (![trip.isEditing boolValue]) {
+            [[DataManager sharedInstance] deleteTrip:trip
+                                             context:self.managedObjectContext];
+        } else {
+            trip.isEditing = [NSNumber numberWithBool:NO];
+            [[DataManager sharedInstance] saveTrip:trip
+                                           context:self.managedObjectContext];
+        }
+    }
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 

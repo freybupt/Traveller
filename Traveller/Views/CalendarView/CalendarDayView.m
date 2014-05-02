@@ -77,12 +77,12 @@
         NSManagedObjectContext *bridgedMoc = [[DataManager sharedInstance] bridgedMoc];
         bridgedMoc = bridgedMoc ? bridgedMoc : [self newManagedObjectContext];
         self.activeTrip = [[DataManager sharedInstance] getActiveTripByDate:self.day.date
-                                                                userid:[MockManager userid] context:bridgedMoc];
-
+                                                                     userid:[MockManager userid] context:bridgedMoc];
         [self drawBackground];
         [self drawDayNumber];
         [self drawEventsDots];
         [self drawTripLocation];
+        
     }
 }
 

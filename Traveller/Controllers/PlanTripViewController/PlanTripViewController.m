@@ -60,6 +60,74 @@
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
+                                                             context:self.managedObjectContext];
+    for (Trip *trip in trips) {
+        [[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext];
+    }
+    
+    NSArray *events = [self.fetchedResultsController fetchedObjects];
+    if ([events count] == 0) {
+        [self hideActivityIndicator];
+        return;
+    }
+    
+    Event *firstEvent = (Event *)[events objectAtIndex:0];
+    NSString *cityName = @"Vancouver";
+    City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                                    context:self.managedObjectContext];
+    Trip *firstTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    firstTrip.toCityDepartureCity = departureCity;
+    firstTrip.toCityDestinationCity = firstEvent.toCity;
+    firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
+    firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
+    [[DataManager sharedInstance] saveTrip:firstTrip
+                                   context:self.managedObjectContext];
+    
+    Event *lastEvent = (Event *)[events lastObject];
+    Trip *lastTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    lastTrip.toCityDepartureCity = lastEvent.toCity;
+    lastTrip.toCityDestinationCity = departureCity;
+    lastTrip.startDate = [lastEvent.startDate dateAfterOneDay]; //one day before first event
+    lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
+    [[DataManager sharedInstance] saveTrip:lastTrip
+                                   context:self.managedObjectContext];
+    
+    if ([[firstEvent.objectID URIRepresentation] isEqual:[lastEvent.objectID URIRepresentation]]) {
+        Event *event = (Event *)[events lastObject];
+        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        newTrip.toCityDepartureCity = event.toCity;
+        newTrip.toCityDestinationCity = event.toCity;
+        newTrip.startDate = event.startDate;
+        newTrip.endDate = event.endDate;
+        [[DataManager sharedInstance] saveTrip:newTrip
+                                       context:self.managedObjectContext];
+        [self hideActivityIndicator];
+        
+        return;
+    }
+    
+    for (NSInteger i = 1; i < [events count]; i++) {
+        Event *previousEvent = (Event *)[events objectAtIndex:i-1];
+        Event *currentEvent = (Event *)[events objectAtIndex:i];
+        
+        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        newTrip.toCityDepartureCity = previousEvent.toCity;
+        newTrip.toCityDestinationCity = currentEvent.toCity;
+        newTrip.startDate = previousEvent.endDate;
+        newTrip.endDate = currentEvent.startDate;
+        [[DataManager sharedInstance] saveTrip:newTrip
+                                       context:self.managedObjectContext];
+        
+        if (![[previousEvent.toCity.cityCode lowercaseString] isEqualToString:currentEvent.toCity.cityCode]) {
+            // TODO: add flight events here
+        }
+    }
+
+    [self hideActivityIndicator];
+    
+    /*
     //count user event
     PlanTripViewController __weak *weakSelf = self;
     [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
@@ -85,7 +153,6 @@
         //[generatedTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
         [[DataManager sharedInstance] saveTrip:generatedTrip
                                        context:self.managedObjectContext];
-        
         
         City *lastCity = departureCity;
         NSMutableArray *tripArray = [[NSMutableArray alloc] init];
@@ -148,6 +215,7 @@
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
 
     [self hideActivityIndicator];
+    */
 }
 
 - (IBAction)confirmTripChange:(id)sender

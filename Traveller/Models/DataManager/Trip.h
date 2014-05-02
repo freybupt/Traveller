@@ -1,8 +1,8 @@
 //
 //  Trip.h
-//  Spoonbill
+//  Traveller
 //
-//  Created by WEI-JEN TU on 2014-04-01.
+//  Created by WEI-JEN TU on 2014-05-02.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
+@property (nonatomic, retain) NSNumber * isEditing;
 @property (nonatomic, retain) City *toCityDepartureCity;
 @property (nonatomic, retain) City *toCityDestinationCity;
 @property (nonatomic, retain) NSSet *toEvent;

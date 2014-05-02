@@ -191,7 +191,7 @@
     NSString *dateString = [[[self.fetchedResultsController sections] objectAtIndex:section] name];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
     // Raw Date String -> NSDate
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZ"];
     NSDate *date = [formatter dateFromString:dateString];

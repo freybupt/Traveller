@@ -380,11 +380,11 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     event.isSelected = event.isSelected ? event.isSelected : [NSNumber numberWithBool:NO];
     
     if ([ekEvent.startDate isDateObject]) {
-        event.startDate = [ekEvent.startDate localDate];
+        event.startDate = ekEvent.startDate;
     }
     
     if ([ekEvent.endDate isDateObject]) {
-        event.endDate = [ekEvent.endDate localDate];
+        event.endDate = ekEvent.endDate;
     }
     
     if ([ekEvent.URL isURLObject]) {
@@ -502,7 +502,7 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
                                               error:&error];
-    if ([fetchResult count] == 1) {
+    if ([fetchResult count] > 0) {
         return [fetchResult objectAtIndex:0];
     }
 
@@ -589,6 +589,7 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     trip.defaultColor = [NSKeyedArchiver archivedDataWithRootObject:[[CalendarColorManager sharedManager] getActiveColor:YES]];
     trip.uid = [MockManager userid];
     trip.isRoundTrip = [NSNumber numberWithBool:NO];
+    trip.isEditing = [NSNumber numberWithBool:YES];
     
     return trip;
 }

@@ -40,6 +40,7 @@
     <entity name="Trip" representedClassName="Trip" syncable="YES">
         <attribute name="defaultColor" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isEditing" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="isRoundTrip" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,6 +53,6 @@
         <element name="City" positionX="0" positionY="0" width="128" height="178"/>
         <element name="Event" positionX="0" positionY="0" width="128" height="253"/>
         <element name="Location" positionX="9" positionY="108" width="128" height="165"/>
-        <element name="Trip" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Trip" positionX="0" positionY="0" width="128" height="195"/>
     </elements>
 </model>
