@@ -37,6 +37,13 @@
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
     
+    if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
+        [self calculateTrip:nil];
+    }
+    else{
+        [self hideActivityIndicator];
+    }
+    
     [self.destinationPanelView.confirmDestinationButton addTarget:self
                                                            action:@selector(confirmTripChange:)
                                                  forControlEvents:UIControlEventTouchUpInside];
@@ -47,9 +54,7 @@
                                                    action:@selector(deleteCurrentTrip:)
                                          forControlEvents:UIControlEventTouchUpInside];
     
-    if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
-        [self calculateTrip:nil];
-    }
+    
 }
 
 #pragma mark - UI IBAction

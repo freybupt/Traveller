@@ -17,4 +17,6 @@
 
 - (void)showActivityIndicatorWithText:(NSString *)text;
 - (void)hideActivityIndicator;
+
+- (IBAction)dismissModelView:(id)sender;
 @end

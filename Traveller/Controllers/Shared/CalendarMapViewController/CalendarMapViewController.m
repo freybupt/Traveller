@@ -34,6 +34,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
     [super viewDidLoad];
 
     [self showActivityIndicatorWithText:@"Planning your trip...."];
+    
     // The Add button is initially disabled
     self.isScheduleExpanded = YES;
     self.isDestinationPanelActive = NO;
@@ -104,9 +105,23 @@ static CGFloat kNavigationBarHeight = 44.0f;
 
 - (IBAction)editMySchedule:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Do you want to repick events?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Repick", nil];
-    alertView.tag = 1;
-    [alertView show];
+    switch ([[self.navigationController viewControllers] count]) {
+        case 1:
+            [self dismissViewControllerAnimated:YES completion:nil];
+            break;
+        case 2:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Do you want to repick events?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Repick", nil];
+            alertView.tag = 1;
+            [alertView show];
+            break;
+        }
+        default:
+            //WTF
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            break;
+    }
+    
 }
 
 - (IBAction)showMapview:(id)sender

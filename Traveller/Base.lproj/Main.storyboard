@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tjR-tg-0cD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="3aF-Jb-kww">
     <dependencies>
         <deployment defaultVersion="1552" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -10,28 +10,28 @@
             <objects>
                 <viewController title="Book Trip" id="vXZ-lx-hvc" customClass="PlanTripViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="8Mu-Vo-pD0">
-                                <rect key="frame" x="0.0" y="44" width="320" height="364"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="276"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="kZJ-h8-tIJ"/>
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" id="Ul0-Ld-sd0" customClass="CalendarView">
-                                <rect key="frame" x="0.0" y="44" width="320" height="284"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="196"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="dji-3e-kqw" userLabel="My schedule view">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="xeT-ra-1iZ" userLabel="Header view">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  MY SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lSM-fL-UYl">
                                                 <rect key="frame" x="2" y="1" width="225" height="32"/>
@@ -74,7 +74,7 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="mBy-03-yug" userLabel="My Schedule Tableview">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="489"/>
+                                        <rect key="frame" x="0.0" y="35" width="320" height="401"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -131,7 +131,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Plan Trip" id="qRu-rj-Pjs">
+                    <navigationItem key="navigationItem" title="Review Trip Plan" id="qRu-rj-Pjs">
                         <barButtonItem key="leftBarButtonItem" image="backArrow.png" id="5xJ-kc-wz6">
                             <connections>
                                 <action selector="editMySchedule:" destination="vXZ-lx-hvc" id="VbL-z4-ZT8"/>
@@ -143,7 +143,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
                         <outlet property="destinationPanelView" destination="Bys-zB-5FN" id="5cm-cu-2CF"/>
@@ -159,38 +158,208 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="718" y="-205"/>
+            <point key="canvasLocation" x="1707" y="-670"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="5yr-BD-sku">
+        <scene sceneID="TCh-b0-fFd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tjR-tg-0cD" sceneMemberID="viewController">
-                    <toolbarItems/>
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="3aF-Jb-kww" sceneMemberID="viewController">
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f6g-eC-Cq4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NkL-7H-ufq">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="pT3-Uf-r2c" kind="relationship" relationship="rootViewController" id="mF3-65-aZ0"/>
+                        <segue destination="gRK-nn-44u" kind="relationship" relationship="rootViewController" id="EVY-5B-Lub"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bn6-uD-LnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nwm-eE-UbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-233" y="26"/>
+            <point key="canvasLocation" x="-233" y="-670"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="UpR-iA-9nM">
+            <objects>
+                <viewController id="gRK-nn-44u" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="P1Y-5A-Wt1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="agC-3J-DfM">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="360"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vancouver_6.jpg" id="S4w-Er-vTT">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <view alpha="0.69999999999999996" contentMode="scaleToFill" id="ZkW-qX-eZG">
+                                        <rect key="frame" x="0.0" y="192" width="320" height="98"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Trip: May 5 - May 21" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FIY-go-Yta">
+                                                <rect key="frame" x="20" y="9" width="294" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Toronto, Ottawa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CJJ-Et-ufB">
+                                                <rect key="frame" x="20" y="34" width="285" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="27"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" id="1pI-Wi-6Qc">
+                                        <rect key="frame" x="118" y="85" width="84" height="84"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Traveler" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DUG-ER-ZVT">
+                                        <rect key="frame" x="78" y="48" width="165" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="30"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gMM-nw-kF5">
+                                        <rect key="frame" x="0.0" y="290" width="320" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <color key="backgroundColor" red="0.51372549020000002" green="0.78039215689999997" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="19"/>
+                                        <state key="normal" title="+  Book New Trip">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="gXY-vl-v6v" kind="modal" id="JJu-ZQ-AtA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KEj-Pz-QkS">
+                                <rect key="frame" x="0.0" y="352" width="320" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="19"/>
+                                <state key="normal" title="My Trips">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="RR9-No-Dmj" kind="modal" id="EoC-wY-Fnz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Xu-ca-X41">
+                                <rect key="frame" x="0.0" y="414" width="106" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.8761405109" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="info.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="E9A-0O-zuj" kind="modal" id="gCu-H8-Fn2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2gk-8p-fIa">
+                                <rect key="frame" x="107" y="414" width="106" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.8761405109" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="user14.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0r7-rJ-VrD">
+                                <rect key="frame" x="214" y="414" width="106" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.8761405109" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="settings3.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                    </view>
+                    <navigationItem key="navigationItem" id="7Hg-KX-zjj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KFT-Q6-5Sl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185" y="-670"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="O0j-PT-nhb">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="RR9-No-Dmj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="ytj-wd-oCO"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c0I-QK-MxT">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="0zH-cy-7ab"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uAY-hp-SlX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="735" y="-670"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TsS-D4-y1k">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="E9A-0O-zuj" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CnD-ph-Qf1">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="HlT-Cd-o2X" kind="relationship" relationship="rootViewController" id="Y6h-xh-YLN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b9e-nt-3zg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="735" y="-31"/>
+        </scene>
+        <!--Tutorial View Controller - Tutorial-->
+        <scene sceneID="yeC-fb-7hd">
+            <objects>
+                <viewController id="HlT-Cd-o2X" customClass="TutorialViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cYp-C3-fFh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fTm-eN-VWo">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tutorial" id="xe5-JO-9s3">
+                        <barButtonItem key="leftBarButtonItem" image="backArrow.png" id="7f3-WY-e0a">
+                            <connections>
+                                <action selector="dismissModelView:" destination="HlT-Cd-o2X" id="MmE-S9-UJu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-3C-Lie" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1155" y="-31"/>
         </scene>
         <!--Google Places Autocomplete View Controller - Event Location-->
         <scene sceneID="Bqq-j7-Cjv">
             <objects>
                 <viewController id="X8D-1p-AJQ" customClass="SPGooglePlacesAutocompleteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iAj-ok-h9V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="0uL-mv-DiR">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="X8D-1p-AJQ" id="BsY-G5-ZOo"/>
@@ -245,18 +414,34 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="718" y="481"/>
+            <point key="canvasLocation" x="1707" y="-1308"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zAK-78-Srx">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="gXY-vl-v6v" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1Lv-e4-YiD">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="pT3-Uf-r2c" kind="relationship" relationship="rootViewController" id="20B-Uu-gUT"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pGT-xb-trw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="729" y="-1308"/>
         </scene>
         <!--Select Events Table View Controller - Pick Trip Events-->
         <scene sceneID="wtj-yn-AZz">
             <objects>
                 <viewController id="pT3-Uf-r2c" customClass="SelectEventsTableViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Slo-FG-rbg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="RBc-QK-RjU">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Wgs-qu-GzH">
@@ -360,9 +545,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pick Trip Events" id="OHP-9f-k7F">
+                        <barButtonItem key="leftBarButtonItem" image="backArrow.png" id="E8u-n5-8xT">
+                            <connections>
+                                <action selector="dismissModelView:" destination="pT3-Uf-r2c" id="kMC-W1-XdE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="cWu-PN-fSK">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="push" identifier="showTripPlan" id="Ind-2N-Md4"/>
+                                <segue destination="vXZ-lx-hvc" kind="push" id="WvG-72-tVO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -373,14 +563,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gm2-hg-Yw3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="165" y="-6"/>
+            <point key="canvasLocation" x="1155" y="-1308"/>
         </scene>
         <!--Add Destination View Controller-->
         <scene sceneID="y7c-Eo-Mdu">
             <objects>
                 <viewController id="Jm3-YT-WQX" customClass="AddDestinationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AXN-aJ-A88">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="8l2-ky-JKB" userLabel="Destination">
@@ -491,16 +681,24 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Vancouver_6.jpg" width="1200" height="795"/>
         <image name="arrowDown.png" width="256" height="256"/>
         <image name="backArrow.png" width="25" height="16"/>
         <image name="calendar53.png" width="20" height="20"/>
         <image name="edit12.png" width="512" height="512"/>
+        <image name="info.png" width="50" height="50"/>
+        <image name="logo.png" width="228" height="226"/>
         <image name="map35.png" width="25" height="25"/>
         <image name="map5.png" width="512" height="512"/>
+        <image name="settings3.png" width="40" height="40"/>
+        <image name="user14.png" width="40" height="37"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="WvG-72-tVO"/>
+    </inferredMetricsTieBreakers>
 </document>

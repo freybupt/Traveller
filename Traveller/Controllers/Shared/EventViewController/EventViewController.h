@@ -18,4 +18,5 @@
 - (IBAction)editEventButtonTapAction:(Event *)event;
 - (IBAction)updateEventButtonTapAction:(EKEvent *)event;
 - (IBAction)deleteEventButtonTapAction:(Event *)event;
+
 @end

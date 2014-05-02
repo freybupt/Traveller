@@ -32,6 +32,15 @@
     [self setTableView];
     
     [self initActivityView];
+    
+    UISwipeGestureRecognizer *swipeDownGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeDownNavbar:)];
+    swipeDownGesture.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.navigationController.navigationBar addGestureRecognizer:swipeDownGesture];
+}
+
+- (IBAction)dismissModelView:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,6 +103,13 @@
 - (void)activityViewTapped:(id)sender
 {
     [self hideActivityIndicator];
+}
+
+- (void)swipeDownNavbar:(id)sender
+{
+    if ([[self.navigationController viewControllers] count] == 1) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - UITableView configuration
