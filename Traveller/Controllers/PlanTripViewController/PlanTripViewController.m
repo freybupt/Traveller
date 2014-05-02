@@ -63,8 +63,10 @@
     NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
                                                              context:self.managedObjectContext];
     for (Trip *trip in trips) {
-        [[DataManager sharedInstance] deleteTrip:trip
-                                         context:self.managedObjectContext];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[DataManager sharedInstance] deleteTrip:trip
+                                             context:self.managedObjectContext];
+        });
     }
     
     NSArray *events = [self.fetchedResultsController fetchedObjects];
@@ -93,7 +95,7 @@
     lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
     [[DataManager sharedInstance] saveTrip:lastTrip
                                    context:self.managedObjectContext];
-    
+
     if ([[firstEvent.objectID URIRepresentation] isEqual:[lastEvent.objectID URIRepresentation]]) {
         Event *event = (Event *)[events lastObject];
         Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
@@ -103,8 +105,8 @@
         newTrip.endDate = event.endDate;
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
+
         [self hideActivityIndicator];
-        
         return;
     }
     
@@ -116,15 +118,24 @@
         newTrip.toCityDepartureCity = previousEvent.toCity;
         newTrip.toCityDestinationCity = currentEvent.toCity;
         newTrip.startDate = previousEvent.endDate;
-        newTrip.endDate = currentEvent.startDate;
+        newTrip.endDate = (i + 1 == [events count]) ? lastEvent.endDate : [currentEvent.startDate dateBeforeOneDay];
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
-        
-        if (![[previousEvent.toCity.cityCode lowercaseString] isEqualToString:currentEvent.toCity.cityCode]) {
-            // TODO: add flight events here
+
+        if (![[previousEvent.toCity.cityName lowercaseString] isEqualToString:[currentEvent.toCity.cityName lowercaseString]]) {
+            // TODO: Add flight objects here
         }
     }
-
+    
+    
+    if (![[departureCity.cityName lowercaseString] isEqualToString:[firstEvent.toCity.cityName lowercaseString]]) {
+        // TODO: Add flight objects here
+    }
+    
+    if (![[departureCity.cityName lowercaseString] isEqualToString:[lastEvent.toCity.cityName lowercaseString]]) {
+        // TODO: Add flight objects here
+    }
+    
     [self hideActivityIndicator];
     
     /*
@@ -174,7 +185,7 @@
                 if ([event.eventType integerValue] == EventTypeDefault) {
                     Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
                     flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
-                    flightEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+                    flightEvent.eventType = [NSNumber numberWithInteger:EventTypeFlight];
                     flightEvent.startDate = [[event.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*24]; //one day before first event
                     flightEvent.endDate = event.startDate;
                     flightEvent.isSelected = [NSNumber numberWithBool:YES];
@@ -249,23 +260,6 @@
     
     // TODO: Add departure city
     if (self.currentDateRange) {
-        NSDate *startDate = self.currentDateRange.startDay.date;
-        NSDate *endDate = self.currentDateRange.endDay.date;
-        endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
-        
-        NSMutableArray *mArray = [NSMutableArray new];
-        for (Event *event in [self.fetchedResultsController fetchedObjects]) {
-            if ([event.startDate compare:startDate] >= 0 &&
-                [event.endDate compare:endDate] <= 0) {
-                [mArray addObject:event];
-            }
-        }
-
-        [trip removeToEvent:trip.toEvent];
-        if ([mArray count] != 0) {
-            [trip addToEvent:[NSSet setWithArray:mArray]];
-        }
-        
         self.originalDateRange = [[DSLCalendarRange alloc] initWithStartDay:self.currentDateRange.startDay
                                                                      endDay:self.currentDateRange.endDay];
     }

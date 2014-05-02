@@ -236,14 +236,6 @@
 {
     
     NSString *tripLocation = self.activeTrip.toCityDestinationCity.cityCode;
-    NSArray *events = [self.activeTrip.toEvent allObjects];
-    Event *event = [events lastObject];
-    if (event &&
-        [event.toCity isCityObject]) {
-        // Display city code if an event is available
-        tripLocation = event.toCity.cityCode;
-    }
-
     BOOL shouldDrawLocation = self.selectionState == DSLCalendarDayViewStartOfSelection ||
     self.selectionState == DSLCalendarDayViewEndOfSelection ||
     self.selectionState == DSLCalendarDayViewWholeSelection ||

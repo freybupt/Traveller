@@ -1,25 +1,21 @@
 //
-//  Trip.m
+//  Flight.m
 //  Traveller
 //
 //  Created by WEI-JEN TU on 2014-05-02.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
-#import "Trip.h"
+#import "Flight.h"
 #import "City.h"
 
 
-@implementation Trip
+@implementation Flight
 
-@dynamic defaultColor;
 @dynamic endDate;
-@dynamic isEditing;
-@dynamic isRoundTrip;
 @dynamic startDate;
 @dynamic title;
 @dynamic uid;
-@dynamic toCityDepartureCity;
-@dynamic toCityDestinationCity;
+@dynamic toCity;
 
 @end

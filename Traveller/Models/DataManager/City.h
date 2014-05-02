@@ -2,7 +2,7 @@
 //  City.h
 //  Traveller
 //
-//  Created by WEI-JEN TU on 2014-04-30.
+//  Created by WEI-JEN TU on 2014-05-02.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -19,9 +19,10 @@
 @property (nonatomic, retain) NSString * countryName;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSSet *toEvent;
+@property (nonatomic, retain) Location *toLocation;
 @property (nonatomic, retain) NSSet *toTripDepartureCity;
 @property (nonatomic, retain) NSSet *toTripDestinationCity;
-@property (nonatomic, retain) Location *toLocation;
+@property (nonatomic, retain) NSManagedObject *toFlight;
 @end
 
 @interface City (CoreDataGeneratedAccessors)

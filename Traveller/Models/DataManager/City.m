@@ -2,7 +2,7 @@
 //  City.m
 //  Traveller
 //
-//  Created by WEI-JEN TU on 2014-04-30.
+//  Created by WEI-JEN TU on 2014-05-02.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -20,8 +20,9 @@
 @dynamic countryName;
 @dynamic uid;
 @dynamic toEvent;
+@dynamic toLocation;
 @dynamic toTripDepartureCity;
 @dynamic toTripDestinationCity;
-@dynamic toLocation;
+@dynamic toFlight;
 
 @end

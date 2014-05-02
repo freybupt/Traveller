@@ -7,6 +7,7 @@
         <attribute name="countryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="toCity" inverseEntity="Event" syncable="YES"/>
+        <relationship name="toFlight" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Flight" inverseName="toCity" inverseEntity="Flight" syncable="YES"/>
         <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="toCity" inverseEntity="Location" syncable="YES"/>
         <relationship name="toTripDepartureCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDepartureCity" inverseEntity="Trip" syncable="YES"/>
         <relationship name="toTripDestinationCity" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toCityDestinationCity" inverseEntity="Trip" syncable="YES"/>
@@ -15,7 +16,7 @@
         <attribute name="allDay" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventIdentifier" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="eventType" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="isSelected" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,7 +26,13 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
         <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="toEvent" inverseEntity="Location" syncable="YES"/>
-        <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Trip" inverseName="toEvent" inverseEntity="Trip" syncable="YES"/>
+    </entity>
+    <entity name="Flight" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toFlight" inverseEntity="City" syncable="YES"/>
     </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -47,12 +54,12 @@
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="toCityDepartureCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toTripDepartureCity" inverseEntity="City" syncable="YES"/>
         <relationship name="toCityDestinationCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toTripDestinationCity" inverseEntity="City" syncable="YES"/>
-        <relationship name="toEvent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="City" positionX="0" positionY="0" width="128" height="178"/>
-        <element name="Event" positionX="0" positionY="0" width="128" height="253"/>
-        <element name="Location" positionX="9" positionY="108" width="128" height="165"/>
-        <element name="Trip" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
+        <element name="Event" positionX="-164" positionY="-81" width="128" height="238"/>
+        <element name="Location" positionX="169" positionY="81" width="128" height="165"/>
+        <element name="Trip" positionX="-513" positionY="83" width="128" height="178"/>
+        <element name="Flight" positionX="223" positionY="332" width="128" height="118"/>
     </elements>
 </model>
