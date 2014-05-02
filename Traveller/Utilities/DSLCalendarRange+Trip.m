@@ -17,7 +17,7 @@
 
     NSDateComponents *adjustedActiveEndDateComponents = [[[self.endDay.date dateAfterOneDay] dateAtMidnight] dateComponents];
     NSDateComponents *tripStartDateComponents = [trip.startDate dateComponents];
-    NSDateComponents *tripEndDateComponents = [[trip.endDate dateAtMidnight] dateComponents];
+    NSDateComponents *tripEndDateComponents = [trip.endDate dateComponents];
     
     if ([self.startDay.date withinSameDayWith:trip.startDate] &&
         [self.endDay.date withinSameDayWith:trip.endDate]) {

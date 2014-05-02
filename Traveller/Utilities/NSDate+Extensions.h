@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDate (Extensions)
+-(NSDate *)localDate;
+-(NSDate *)GMTDate;
 - (NSDate *)dateAtMidnight;
 - (NSDate *)dateAtFourPM;
 - (NSDate *)dateOnFirstDay;

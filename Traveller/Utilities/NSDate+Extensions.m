@@ -11,6 +11,23 @@
 #define ONE_DAY 60 * 60 * 24
 
 @implementation NSDate (Extensions)
+
+-(NSDate *)localDate
+{
+    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = [timeZone secondsFromGMTForDate:self];
+    
+    return [NSDate dateWithTimeInterval:seconds sinceDate:self];
+}
+
+-(NSDate *)GMTDate
+{
+    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
+    NSInteger seconds = -[timeZone secondsFromGMTForDate:self];
+    
+    return [NSDate dateWithTimeInterval:seconds sinceDate:self];
+}
+
 - (NSDate *)dateAtMidnight
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];

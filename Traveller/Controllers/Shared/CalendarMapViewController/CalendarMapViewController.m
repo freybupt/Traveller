@@ -231,7 +231,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
         _destinationPanelView.removeTripButton.hidden = NO;
         
         NSDateComponents *tripStartDateComponents = [trip.startDate dateComponents];
-        NSDateComponents *tripEndDateComponents = [[trip.endDate dateAtMidnight] dateComponents];
+        NSDateComponents *tripEndDateComponents = [trip.endDate dateComponents];
         // Memorized objectID & original for the process that reverts changes
         if (!_originalDateRange) {
             _objectID = trip.objectID;
@@ -240,7 +240,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
         }
         _currentDateRange = [_currentDateRange joinedCalendarRangeWithTrip:trip];
         trip.startDate = _currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
-        trip.endDate = [_currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+        trip.endDate = _currentDateRange.endDay.date; // Trip's endDate has to be equal to actually selected end day
         if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
             _calendarView.selectedRange = nil;
         }

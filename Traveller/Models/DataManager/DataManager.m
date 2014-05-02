@@ -380,11 +380,11 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     event.isSelected = event.isSelected ? event.isSelected : [NSNumber numberWithBool:NO];
     
     if ([ekEvent.startDate isDateObject]) {
-        event.startDate = ekEvent.startDate;
+        event.startDate = [ekEvent.startDate localDate];
     }
     
     if ([ekEvent.endDate isDateObject]) {
-        event.endDate = ekEvent.endDate;
+        event.endDate = [ekEvent.endDate localDate];
     }
     
     if ([ekEvent.URL isURLObject]) {
@@ -502,7 +502,17 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     
     NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
                                               error:&error];
-    return ([fetchResult count] == 0) ? nil : [fetchResult lastObject];
+    if ([fetchResult count] == 1) {
+        return [fetchResult objectAtIndex:0];
+    }
+
+    NSArray *array = [self getTripWithUserid:userid context:moc];
+    for (Trip *trip in array) {
+        if ([trip.startDate withinSameDayWith:date]) {
+            return trip;
+        }
+    }
+    return nil;
 }
 
 - (NSArray *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange

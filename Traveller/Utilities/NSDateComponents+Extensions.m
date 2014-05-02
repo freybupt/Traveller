@@ -16,7 +16,7 @@
     }
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [calendar setTimeZone:[NSTimeZone localTimeZone]];
     return [calendar dateFromComponents:self];
 }
 @end

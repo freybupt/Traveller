@@ -705,10 +705,10 @@
 		76C2711F18B2A3D3003A49A3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9F3747CB1900F231003D67C8 /* Shared */,
 				761188AB1913193700A620D9 /* TutorialViewController */,
 				761188A719130C5400A620D9 /* HomeViewController */,
 				9F5A80581911EBE300799FDD /* PlanTripViewController */,
-				9F3747CB1900F231003D67C8 /* Shared */,
 				9F3747981900F168003D67C8 /* AddDestinationViewController */,
 				9F37479B1900F168003D67C8 /* BookingTableViewController */,
 				9F37479E1900F168003D67C8 /* BookingViewController */,
