@@ -388,16 +388,16 @@
     NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
     
-    keyboardHeight = keyboardFrameEndRect.size.height + 32.0f;
+    keyboardHeight = keyboardFrameEndRect.size.height;
     
     // Adjust frame when keyboard is opened
     [UIView transitionWithView:self.tableView
                       duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.tableView.frame = CGRectMake(0.0f,
-                                                          self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 32.0f,
+                                                          0.0f,
                                                           self.tableView.frame.size.width,
-                                                          [UIScreen mainScreen].applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height - keyboardHeight);
+                                                          [UIScreen mainScreen].applicationFrame.size.height - keyboardHeight);
                     } completion:^(BOOL finished) {
                         if (finished) {
                             keyboardIsVisible = YES;
@@ -418,13 +418,10 @@
     NSTimeInterval duration = [[keyboardInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     UIViewAnimationCurve curve = [[keyboardInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
     
-    NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
-    
     //Adjust frame when keyboard is closed
     [UIView animateWithDuration:duration animations:^{
         [UIView setAnimationCurve:curve];
-        self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, self.tableView.frame.size.width, self.tableView.frame.size.height + keyboardFrameEndRect.size.height);
+        self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, self.tableView.frame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
     }];
     keyboardIsVisible = NO;
 }
@@ -440,16 +437,16 @@
     NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
     
-    keyboardHeight = keyboardFrameEndRect.size.height + 32.0f;
+    keyboardHeight = keyboardFrameEndRect.size.height;
     
     // Adjust frame when keyboard is opened
     [UIView transitionWithView:self.tableView
                       duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.tableView.frame = CGRectMake(0.0f,
-                                                          self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height + 32.0f,
+                                                          0.0f,
                                                           self.tableView.frame.size.width,
-                                                          [UIScreen mainScreen].applicationFrame.size.height - self.navigationController.navigationBar.frame.size.height - keyboardHeight);
+                                                          [UIScreen mainScreen].applicationFrame.size.height - keyboardHeight);
                     } completion:^(BOOL finished) {
                         if (finished) {
                             [self.tableView scrollToRowAtIndexPath:_processingIndexPath

@@ -33,7 +33,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
 {
     [super viewDidLoad];
 
-    [self showActivityIndicatorWithText:@"Planning your trip...."];
+    [self showActivityIndicatorWithText:NSLocalizedString(@"Planning your trip....", nil)];
     
     // The Add button is initially disabled
     self.isScheduleExpanded = YES;
@@ -67,6 +67,17 @@ static CGFloat kNavigationBarHeight = 44.0f;
             [_mapView setRegion:region animated:YES];
         });
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    /* Set corrent myScheduleView frame */
+    CalendarMapViewController __weak *weakSelf = self;
+    [UIView animateWithDuration:0.1 animations:^{
+        [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.frame.size.height)];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -129,8 +140,8 @@ static CGFloat kNavigationBarHeight = 44.0f;
     self.calendarView.hidden = YES;
     self.mapView.hidden = NO;
     [self shrinkMyScheduleView];
-    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53@2x.png"] forState:UIControlStateNormal];
-    [self.showMapButton setImage:[UIImage imageNamed:@"map35_red@2x.png"] forState:UIControlStateNormal];
+    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53"] forState:UIControlStateNormal];
+    [self.showMapButton setImage:[UIImage imageNamed:@"map35_red"] forState:UIControlStateNormal];
 }
 
 - (IBAction)showCalendarView:(id)sender
@@ -138,8 +149,8 @@ static CGFloat kNavigationBarHeight = 44.0f;
     self.calendarView.hidden = NO;
     self.mapView.hidden = YES;
     [self shrinkMyScheduleView];
-    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53_red@2x.png"] forState:UIControlStateNormal];
-    [self.showMapButton setImage:[UIImage imageNamed:@"map35@2x.png"] forState:UIControlStateNormal];
+    [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53_red"] forState:UIControlStateNormal];
+    [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
 }
 
 
@@ -211,10 +222,10 @@ static CGFloat kNavigationBarHeight = 44.0f;
     if (!_isScheduleExpanded) {
         CalendarMapViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
-            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, self.view.frame.size.height)];
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationBar.frame.size.height)];
         }];
-        [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53@2x.png"] forState:UIControlStateNormal];
-        [self.showMapButton setImage:[UIImage imageNamed:@"map35@2x.png"] forState:UIControlStateNormal];
+        [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53"] forState:UIControlStateNormal];
+        [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
         _isScheduleExpanded = YES;
         [_expandButton setImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
     }
