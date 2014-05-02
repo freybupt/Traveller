@@ -161,7 +161,7 @@
     if (!trip) {
         trip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
         trip.startDate = self.currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
-        trip.endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+        trip.endDate = self.currentDateRange.endDay.date; // Trip's endDate has to be equal to actually selected end day
     }
     
     if ([self.destinationPanelView.destinationTextField.text length] > 0) {
@@ -181,8 +181,8 @@
     
     // TODO: Add departure city
     if (self.currentDateRange) {
-        NSDate *startDate = [self.currentDateRange.startDay dateWithGMTZoneCalendar];
-        NSDate *endDate = [self.currentDateRange.endDay dateWithGMTZoneCalendar];
+        NSDate *startDate = self.currentDateRange.startDay.date;
+        NSDate *endDate = self.currentDateRange.endDay.date;
         endDate = [endDate dateByAddingTimeInterval:60 * 60 * 24 - 1];
         
         NSMutableArray *mArray = [NSMutableArray new];
@@ -215,7 +215,7 @@
     }
     if (trip) {
         trip.startDate = self.originalDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
-        trip.endDate = [self.originalDateRange.endDay dateWithGMTZoneCalendar]; // Trip's endDate has to be equal to actually selected end day
+        trip.endDate = self.originalDateRange.endDay.date; // Trip's endDate has to be equal to actually selected end day
         [[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext];
     }
 
