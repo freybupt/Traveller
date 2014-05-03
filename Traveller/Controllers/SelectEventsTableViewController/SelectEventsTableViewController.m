@@ -11,6 +11,8 @@
 #import "MZFormSheetController.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
 
+#define TOPINSECT_FOR_EVENTTABLE 85.0f
+
 @interface SelectEventsTableViewController () <MZFormSheetBackgroundWindowDelegate, UITextFieldDelegate>
 {
     BOOL keyboardIsVisible;
@@ -41,6 +43,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     [[TripManager sharedManager] setTripStage:TripStageSelectEvent];
     [self registerKeyboardNotification];
     [self.tableView reloadData];
@@ -50,6 +53,7 @@
 {
     [self unregisterKeyboardNotification];
     [self hideActivityIndicator];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -392,14 +396,14 @@
     NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
     
-    keyboardHeight = keyboardFrameEndRect.size.height;
+    keyboardHeight = keyboardFrameEndRect.size.height + TOPINSECT_FOR_EVENTTABLE;
     
     // Adjust frame when keyboard is opened
     [UIView transitionWithView:self.tableView
                       duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.tableView.frame = CGRectMake(0.0f,
-                                                          0.0f,
+                                                          TOPINSECT_FOR_EVENTTABLE,
                                                           self.tableView.frame.size.width,
                                                           [UIScreen mainScreen].applicationFrame.size.height - keyboardHeight);
                     } completion:^(BOOL finished) {
@@ -425,7 +429,10 @@
     //Adjust frame when keyboard is closed
     [UIView animateWithDuration:duration animations:^{
         [UIView setAnimationCurve:curve];
-        self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y, self.tableView.frame.size.width, [UIScreen mainScreen].applicationFrame.size.height);
+        self.tableView.frame = CGRectMake(0.0f,
+                                          TOPINSECT_FOR_EVENTTABLE,
+                                          self.tableView.frame.size.width,
+                                          [UIScreen mainScreen].applicationFrame.size.height - TOPINSECT_FOR_EVENTTABLE);
     }];
     keyboardIsVisible = NO;
 }
@@ -441,14 +448,14 @@
     NSValue* keyboardFrameEnd = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameEndRect = [keyboardFrameEnd CGRectValue];
     
-    keyboardHeight = keyboardFrameEndRect.size.height;
+    keyboardHeight = keyboardFrameEndRect.size.height + TOPINSECT_FOR_EVENTTABLE;
     
     // Adjust frame when keyboard is opened
     [UIView transitionWithView:self.tableView
                       duration:duration options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
                         self.tableView.frame = CGRectMake(0.0f,
-                                                          0.0f,
+                                                          TOPINSECT_FOR_EVENTTABLE,
                                                           self.tableView.frame.size.width,
                                                           [UIScreen mainScreen].applicationFrame.size.height - keyboardHeight);
                     } completion:^(BOOL finished) {
