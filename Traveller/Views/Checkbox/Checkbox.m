@@ -119,17 +119,36 @@
     }
     
     // Draw the checkbox
-    {
-        const CGFloat strokeWidth = 0.068359375f * size;
-        const CGFloat checkBoxInset = 0.171875f * size;
+    if (self.checked) {
+        const CGFloat strokeWidth = size;
+        const CGFloat checkBoxInset = 0;
         
         CGRect checkboxRect = CGRectMake(checkBoxInset, checkBoxInset, size - checkBoxInset*2, size - checkBoxInset*2);
         UIBezierPath *checkboxPath = [UIBezierPath bezierPathWithRect:checkboxRect];
         
         [checkboxPath applyTransform:transform];
         
-        if (!self.tintColor)
-            self.tintColor = UIColorFromRGB(0xe4fae4);//[UIColor colorWithWhite:0.5f alpha:1.0f];
+        //        if (!self.tintColor)
+        self.tintColor = UIColorFromRGB(0x35B78E);
+        //[UIColor colorWithWhite:0.5f alpha:1.0f];
+        [self.tintColor setStroke];
+        
+        checkboxPath.lineWidth = strokeWidth;
+        
+        [checkboxPath stroke];
+    }
+    else{
+        const CGFloat strokeWidth = 0.1 * size;
+        const CGFloat checkBoxInset = 0;
+        
+        CGRect checkboxRect = CGRectMake(checkBoxInset, checkBoxInset, size - checkBoxInset*2, size - checkBoxInset*2);
+        UIBezierPath *checkboxPath = [UIBezierPath bezierPathWithRect:checkboxRect];
+        
+        [checkboxPath applyTransform:transform];
+        
+//        if (!self.tintColor)
+        self.tintColor = UIColorFromRGB(0xEEEEEE);
+        //[UIColor colorWithWhite:0.5f alpha:1.0f];
         [self.tintColor setStroke];
         
         checkboxPath.lineWidth = strokeWidth;
@@ -148,7 +167,8 @@
         // checkmark bezier path to the size of the control.
     #define P(POINT) (POINT * size)
         
-        CGContextSetGrayFillColor(context, 0.0f, 1.0f);
+        CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 1.0);
+//        CGContextSetGrayFillColor(context, 0.0f, 1.0f);
         CGContextConcatCTM(context, transform);
         
         CGContextBeginPath(context);
@@ -161,11 +181,11 @@
                                  P(0.5f), P(0.511f));
         CGContextAddCurveToPoint(context,
                                  P(0.703f), P(0.181f),
-                                 P(0.988f), P(0.015f),
-                                 P(0.988f), P(0.015f));
-        CGContextAddLineToPoint(context, P(0.998f), P(0.044f));
+                                 P(0.85f), P(0.144f),
+                                 P(0.85f), P(0.144f));
+        CGContextAddLineToPoint(context, P(0.85f), P(0.144f));
         CGContextAddCurveToPoint(context,
-                                 P(0.998f), P(0.044f),
+                                 P(0.85f), P(0.144f),
                                  P(0.769f), P(0.212f),
                                  P(0.558f), P(0.605f));
         CGContextAddLineToPoint(context, P(0.458f), P(0.681f));
