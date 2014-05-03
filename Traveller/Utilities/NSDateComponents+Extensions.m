@@ -19,4 +19,9 @@
     [calendar setTimeZone:[NSTimeZone localTimeZone]];
     return [calendar dateFromComponents:self];
 }
+
+- (NSInteger)uniqueDateNumber
+{
+    return self.year * 10000 + self.month * 100 + self.day;
+}
 @end

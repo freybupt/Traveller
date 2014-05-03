@@ -17,6 +17,7 @@
 @dynamic allDay;
 @dynamic endDate;
 @dynamic eventIdentifier;
+@dynamic eventType;
 @dynamic isSelected;
 @dynamic location;
 @dynamic notes;
@@ -24,7 +25,6 @@
 @dynamic title;
 @dynamic uid;
 @dynamic url;
-@dynamic eventType;
 @dynamic toCity;
 @dynamic toLocation;
 @dynamic toTrip;

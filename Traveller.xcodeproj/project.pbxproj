@@ -157,6 +157,7 @@
 		9F5A81081911EF3D00799FDD /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A81061911EF3D00799FDD /* TripManager.m */; };
 		9FA27FA41910C2310042DEE0 /* DSLCalendarRange+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */; };
 		9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB50A39190E8704000E6C98 /* DestinationPanelView.m */; };
+		9FBC4F4E19149111005EB0A0 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBC4F4D19149111005EB0A0 /* TripViewController.m */; };
 		9FC4184618FFABD7001CC750 /* NSDate+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */; };
 		9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4184518FFABD7001CC750 /* NSObject+Extensions.m */; };
 		9FC4185F18FFAC6D001CC750 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FC4185E18FFAC6D001CC750 /* CoreData.framework */; };
@@ -408,6 +409,8 @@
 		9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DSLCalendarRange+Trip.m"; sourceTree = "<group>"; };
 		9FB50A38190E8704000E6C98 /* DestinationPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationPanelView.h; sourceTree = "<group>"; };
 		9FB50A39190E8704000E6C98 /* DestinationPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DestinationPanelView.m; sourceTree = "<group>"; };
+		9FBC4F4C19149111005EB0A0 /* TripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripViewController.h; sourceTree = "<group>"; };
+		9FBC4F4D19149111005EB0A0 /* TripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripViewController.m; sourceTree = "<group>"; };
 		9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extensions.m"; sourceTree = "<group>"; };
 		9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Extensions.h"; sourceTree = "<group>"; };
@@ -762,10 +765,10 @@
 			isa = PBXGroup;
 			children = (
 				9F3747CB1900F231003D67C8 /* Shared */,
-				9F364A5019138B29009222B1 /* MyTripViewController */,
 				761188AB1913193700A620D9 /* TutorialViewController */,
 				761188A719130C5400A620D9 /* HomeViewController */,
 				9F5A80581911EBE300799FDD /* PlanTripViewController */,
+				9F364A5019138B29009222B1 /* MyTripViewController */,
 				9F3747981900F168003D67C8 /* AddDestinationViewController */,
 				9F37479B1900F168003D67C8 /* BookingTableViewController */,
 				9F37479E1900F168003D67C8 /* BookingViewController */,
@@ -942,6 +945,7 @@
 				9F5A80541911E40B00799FDD /* CalendarMapViewController */,
 				9F3747CC1900F231003D67C8 /* CDTableViewController */,
 				9F54EB5E1901770400ABB05F /* EventViewController */,
+				9FBC4F4B19149111005EB0A0 /* TripViewController */,
 			);
 			name = Shared;
 			path = Controllers/Shared;
@@ -1187,6 +1191,15 @@
 			path = Views/DestinationPanelView;
 			sourceTree = "<group>";
 		};
+		9FBC4F4B19149111005EB0A0 /* TripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9FBC4F4C19149111005EB0A0 /* TripViewController.h */,
+				9FBC4F4D19149111005EB0A0 /* TripViewController.m */,
+			);
+			path = TripViewController;
+			sourceTree = "<group>";
+		};
 		9FC4184118FFABD7001CC750 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1413,6 +1426,7 @@
 				76C270C218B2A1E2003A49A3 /* AppDelegate.m in Sources */,
 				9F3748351900F2E3003D67C8 /* DSLCalendarMonthView.m in Sources */,
 				7636E9C01912D2030091E7B6 /* Sphere.m in Sources */,
+				9FBC4F4E19149111005EB0A0 /* TripViewController.m in Sources */,
 				9F3748401900F2E3003D67C8 /* MZFormSheetController.m in Sources */,
 				9F364A5319138B43009222B1 /* MyTripViewController.m in Sources */,
 				9F5A80F81911EEE400799FDD /* HTEmailAutocompleteTextField.m in Sources */,

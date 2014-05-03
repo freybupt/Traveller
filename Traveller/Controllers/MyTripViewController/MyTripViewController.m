@@ -41,6 +41,7 @@
 {
     [super viewDidLoad];
     
+    [self getTripCityColorDictionary];
     [self hideActivityIndicator];
 }
 
@@ -59,6 +60,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - UITableViewDelegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
 
 #pragma mark - DSLCalendarViewDelegate methods
 - (void)calendarView:(DSLCalendarView *)calendarView

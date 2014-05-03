@@ -274,6 +274,27 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     return fetchResult.count == 0 ? nil : [fetchResult lastObject];
 }
 
+- (NSArray *)getEventWithSelected:(BOOL)isSelected
+                          context:(NSManagedObjectContext *)moc
+{
+    if (!moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"isSelected == %@ AND uid == %@", [NSNumber numberWithBool:isSelected], [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Event"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    
+    return fetchResult.count == 0 ? nil : fetchResult;
+}
+
 - (BOOL)addEventWithEKEvent:(EKEvent *)ekEvent
                     context:(NSManagedObjectContext *)moc
 {

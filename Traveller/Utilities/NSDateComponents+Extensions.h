@@ -10,4 +10,5 @@
 
 @interface NSDateComponents (Extensions)
 - (NSDate *)dateWithGMTZoneCalendar;
+- (NSInteger)uniqueDateNumber;
 @end

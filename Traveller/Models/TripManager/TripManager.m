@@ -22,6 +22,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[self alloc] init];
+        manager.tripColorDictionary = [[NSMutableDictionary alloc] init];
+        manager.tripCityCodeDictionary = [[NSMutableDictionary alloc] init];
     });
     
     return manager;

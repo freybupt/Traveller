@@ -13,14 +13,10 @@
 
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
-//my schedule table components
-@property (nonatomic, weak) IBOutlet UIButton *addButton;
-@property (nonatomic, assign) NSInteger userEventCount;
 
 - (IBAction)confirmTripChange:(id)sender;
 - (IBAction)cancelTripChange:(id)sender;
 - (IBAction)deleteCurrentTrip:(id)sender;
-- (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event;
 
 @end
 
@@ -60,21 +56,19 @@
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
-    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
-                                                             context:self.managedObjectContext];
+    NSArray *trips = [self.fetchedResultsController fetchedObjects];
     for (Trip *trip in trips) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[DataManager sharedInstance] deleteTrip:trip
-                                             context:self.managedObjectContext];
-        });
+        [[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext];
     }
     
-    NSArray *events = [self.fetchedResultsController fetchedObjects];
+    NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
+                                                                 context:self.managedObjectContext];
     if ([events count] == 0) {
         [self hideActivityIndicator];
         return;
     }
-    
+
     Event *firstEvent = (Event *)[events objectAtIndex:0];
     NSString *cityName = @"Vancouver";
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
@@ -84,6 +78,7 @@
     firstTrip.toCityDestinationCity = firstEvent.toCity;
     firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
     firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
+    firstTrip.toEvent = nil;
     [[DataManager sharedInstance] saveTrip:firstTrip
                                    context:self.managedObjectContext];
     
@@ -93,9 +88,10 @@
     lastTrip.toCityDestinationCity = departureCity;
     lastTrip.startDate = [lastEvent.startDate dateAfterOneDay]; //one day before first event
     lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
+    lastTrip.toEvent = nil;
     [[DataManager sharedInstance] saveTrip:lastTrip
                                    context:self.managedObjectContext];
-
+    
     if ([[firstEvent.objectID URIRepresentation] isEqual:[lastEvent.objectID URIRepresentation]]) {
         Event *event = (Event *)[events lastObject];
         Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
@@ -103,9 +99,10 @@
         newTrip.toCityDestinationCity = event.toCity;
         newTrip.startDate = event.startDate;
         newTrip.endDate = event.endDate;
+        newTrip.toEvent = event;
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
-
+        
         [self hideActivityIndicator];
         return;
     }
@@ -119,9 +116,10 @@
         newTrip.toCityDestinationCity = currentEvent.toCity;
         newTrip.startDate = previousEvent.endDate;
         newTrip.endDate = (i + 1 == [events count]) ? lastEvent.endDate : [currentEvent.startDate dateBeforeOneDay];
+        newTrip.toEvent = (i + 1 == [events count]) ? lastEvent : currentEvent;
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
-
+        
         if (![[previousEvent.toCity.cityName lowercaseString] isEqualToString:[currentEvent.toCity.cityName lowercaseString]]) {
             // TODO: Add flight objects here
         }
@@ -137,96 +135,6 @@
     }
     
     [self hideActivityIndicator];
-    
-    /*
-    //count user event
-    PlanTripViewController __weak *weakSelf = self;
-    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-        if ([event.eventType integerValue] == EventTypeDefault) {
-            weakSelf.userEventCount++;
-        }
-    }];
-    NSMutableArray *flightEvents = [[NSMutableArray alloc] init];
-    //calculate trip plan - should be done at server later
-    if ([[self.fetchedResultsController fetchedObjects] count] > 0) {
-        //TODO: get city of current location
-        NSString *cityName = @"Vancouver";
-        City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
-                                                                        context:self.managedObjectContext];
-        //trip from departure city to first destination
-        Trip *generatedTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        Event *lastEvent = [self.fetchedResultsController fetchedObjects][0];
-        generatedTrip.toCityDepartureCity = departureCity;
-        generatedTrip.toCityDestinationCity = lastEvent.toCity;
-        generatedTrip.startDate = [[lastEvent.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*48]; //one day before first event
-        generatedTrip.endDate = lastEvent.endDate;
-        //Uncomment if we would like to add events to trip at the same time
-        //[generatedTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
-        [[DataManager sharedInstance] saveTrip:generatedTrip
-                                       context:self.managedObjectContext];
-        
-        City *lastCity = departureCity;
-        NSMutableArray *tripArray = [[NSMutableArray alloc] init];
-        for (NSUInteger index = 0; index < self.userEventCount; index++) {
-            Event *event = [self.fetchedResultsController fetchedObjects][index];
-            if (![[event.toCity.cityName lowercaseString] isEqualToString:[lastCity.cityName lowercaseString]]) {
-                //create a new trip
-                Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-                newTrip.toCityDepartureCity = lastCity;
-                newTrip.toCityDestinationCity = event.toCity;
-                newTrip.startDate = [lastEvent.endDate dateAtFourPM];
-                newTrip.endDate = event.endDate;
-                //Uncomment if we would like to add an event to trip at the same time
-                //[newTrip addToEventObject:event];
-                generatedTrip = newTrip;
-                [tripArray addObject:newTrip];
-                
-                //add flight event
-                if ([event.eventType integerValue] == EventTypeDefault) {
-                    Event *flightEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-                    flightEvent.title = [NSString stringWithFormat:@"Flight to %@", event.toCity.cityName];
-                    flightEvent.eventType = [NSNumber numberWithInteger:EventTypeFlight];
-                    flightEvent.startDate = [[event.startDate dateAtFourPM] dateByAddingTimeInterval:-60*60*24]; //one day before first event
-                    flightEvent.endDate = event.startDate;
-                    flightEvent.isSelected = [NSNumber numberWithBool:YES];
-                    [flightEvents addObject:flightEvent];
-                }
-            }
-            else{
-                //TODO: update trip end date
-                generatedTrip.endDate = event.endDate;
-                [[DataManager sharedInstance] saveTrip:generatedTrip context:self.managedObjectContext];
-            }
-            lastCity = event.toCity;
-            lastEvent = event;
-        }
-        
-        [tripArray enumerateObjectsUsingBlock:^(Trip *trip, NSUInteger idx, BOOL *stop) {
-            [[DataManager sharedInstance] saveTrip:trip
-                                           context:self.managedObjectContext];
-        }];
-        
-        //trip from last city to home
-        Trip *returnTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        returnTrip.toCityDepartureCity = lastCity;
-        returnTrip.toCityDestinationCity = departureCity;
-        returnTrip.startDate = [lastEvent.endDate dateAtFourPM];
-        returnTrip.endDate = [lastEvent.endDate dateByAddingTimeInterval:60*60*24];
-        //Uncomment if we would like to add events to trip at the same time
-        //[newTrip addToEvent:[NSSet setWithArray:[self.fetchedResultsController fetchedObjects]]];
-        [[DataManager sharedInstance] saveTrip:generatedTrip
-                                       context:self.managedObjectContext];
-    }
-    
-    
-    for (Event *flightEvent in flightEvents) {
-        [[DataManager sharedInstance] saveEvent:flightEvent context:self.managedObjectContext];
-    }
-    
-    [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
-
-    [self hideActivityIndicator];
-    */
 }
 
 - (IBAction)confirmTripChange:(id)sender
@@ -257,8 +165,7 @@
             trip.toCityDestinationCity = toCity;
         }
     }
-    
-    // TODO: Add departure city
+
     if (self.currentDateRange) {
         self.originalDateRange = [[DSLCalendarRange alloc] initWithStartDay:self.currentDateRange.startDay
                                                                      endDay:self.currentDateRange.endDay];
@@ -300,26 +207,6 @@
     }
 }
 
-- (void)updateTripInfo:(NSNotification *)userinfo
-{
-
-}
-
-//| ----------------------------------------------------------------------------
-//! IBAction that is called when the value of a checkbox in any row changes.
-//
-- (IBAction)reviewDetail:(id)sender forEvent:(UIEvent*)event
-{
-	NSSet *touches = [event allTouches];
-	UITouch *touch = [touches anyObject];
-	CGPoint currentTouchPosition = [touch locationInView:self.tableView];
-    
-    // Lookup the index path of the cell whose checkbox was modified.
-	NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
-    Event *anEvent = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self editEventButtonTapAction:anEvent];
-}
-
 #pragma mark -
 #pragma mark Accessibility
 
@@ -331,44 +218,5 @@
 {
     // The cell's accessibilityValue is the Checkbox's accessibilityValue.
     cell.accessibilityValue = cell.accessoryView.accessibilityValue;
-}
-
-#pragma mark -
-#pragma mark Fetch events
-- (void)fetchEvents
-{
-    NSDateComponents *tomorrowDateComponents = [[NSDateComponents alloc] init];
-    tomorrowDateComponents.day = 1;
-    
-    //get first and last day of this month
-    NSDateComponents *firstDayComponent = [self.calendarView.visibleMonth copy];
-    firstDayComponent.day = 1;
-    NSRange days = [[NSCalendar currentCalendar] rangeOfUnit:NSDayCalendarUnit
-                                                      inUnit:NSMonthCalendarUnit
-                                                     forDate:[[NSCalendar currentCalendar] dateFromComponents:firstDayComponent]];
-    
-    NSDateComponents *lastDateComponent = [self.calendarView.visibleMonth copy];
-    lastDateComponent.day = days.length+1;
-    
-    NSDate *startDate = [[NSCalendar currentCalendar] dateFromComponents:firstDayComponent];
-    NSDate *endDate = [[NSCalendar currentCalendar] dateFromComponents:lastDateComponent];
-    NSArray *events = [[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
-                                                                      toEndDate:endDate];
-    // Initialize the events list for synchronizing
-    // Add events for those not in local storage
-    for (EKEvent *event in events)
-    {
-        [[DataManager sharedInstance] addEventWithEKEvent:event
-                                                  context:self.managedObjectContext];
-    }
-    
-    // Remove events for those not in calendar
-    [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-        EKEventStore *eventStore = [[EKEventStore alloc] init];
-        EKEvent *ekEvent = [eventStore eventWithIdentifier:event.eventIdentifier];
-        if (!ekEvent) {
-            [self deleteEventButtonTapAction:event];
-        }
-    }];
 }
 @end

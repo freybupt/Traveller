@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class City;
+@class City, Event;
 
 @interface Trip : NSManagedObject
 
@@ -22,5 +22,6 @@
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) City *toCityDepartureCity;
 @property (nonatomic, retain) City *toCityDestinationCity;
+@property (nonatomic, retain) Event *toEvent;
 
 @end

@@ -27,6 +27,8 @@ typedef NS_ENUM(NSInteger, EventType){
 
 @interface TripManager : NSObject
 @property (nonatomic, assign) TripStage tripStage;
+@property (nonatomic, strong) NSMutableDictionary *tripColorDictionary;
+@property (nonatomic, strong) NSMutableDictionary *tripCityCodeDictionary;
 
 + (id)sharedManager;
 @end

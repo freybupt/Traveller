@@ -173,7 +173,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
     }
 }
 
-
 #pragma mark - UIAlertView Delegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -181,24 +180,15 @@ static CGFloat kNavigationBarHeight = 44.0f;
         switch (buttonIndex) {
             case 1:
             {
-                //remove flights/hotel/rental car events
+                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
                 CalendarMapViewController __weak *weakSelf = self;
-                [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
-                    if ([event.eventType integerValue] != EventTypeDefault) {
-                        [[DataManager sharedInstance] deleteEvent:event context:weakSelf.managedObjectContext];
-                    }
-                    
-                    if (stop) {
-                        NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
-                                                                                 context:weakSelf.managedObjectContext];
-                        for (Trip *trip in trips) {
-                            if ([trip.isEditing boolValue]) {
-                                [[DataManager sharedInstance] deleteTrip:trip
-                                                                 context:weakSelf.managedObjectContext];
-                            }
-                        }
+                [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Trip *trip, NSUInteger idx, BOOL *stop) {
+                    if ([trip.isEditing boolValue]) {
+                        [[DataManager sharedInstance] deleteTrip:trip
+                                                         context:weakSelf.managedObjectContext];
                     }
                 }];
+                
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 break;
             }
@@ -221,8 +211,8 @@ static CGFloat kNavigationBarHeight = 44.0f;
                                              context:self.managedObjectContext];
         } else {
             trip.isEditing = [NSNumber numberWithBool:NO];
-            [[DataManager sharedInstance] saveTrip:trip
-                                           context:self.managedObjectContext];
+            if ([[DataManager sharedInstance] saveTrip:trip
+                                               context:self.managedObjectContext]) {};
         }
     }
     
@@ -261,7 +251,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
         [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
         _isScheduleExpanded = YES;
         [_expandButton setImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
-        
     }
 }
 
@@ -286,7 +275,8 @@ static CGFloat kNavigationBarHeight = 44.0f;
         _currentDateRange = [_currentDateRange joinedCalendarRangeWithTrip:trip];
         trip.startDate = _currentDateRange.startDay.date; // Trip's startDate has to be earlier than actually selected start day
         trip.endDate = _currentDateRange.endDay.date; // Trip's endDate has to be equal to actually selected end day
-        if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
+        if ([[DataManager sharedInstance] saveTrip:trip
+                                           context:self.managedObjectContext]) {
             _calendarView.selectedRange = nil;
         }
     }
@@ -326,7 +316,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
             _isDestinationPanelActive = NO;
         }
     }];
-    
 }
 
 #pragma mark - DSLCalendarViewDelegate methods
@@ -348,9 +337,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
             !trip) {
             return;
         }
-        [self performSelector:@selector(showDestinationPanel:)
-                   withObject:trip
-                   afterDelay:0.1];
+        [self showDestinationPanel:trip];
     }
     else {
         _currentDateRange = nil;
@@ -407,16 +394,11 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
-#pragma mark - NSFetchedResultController configuration
-- (NSPredicate *)predicate
-{
-    return [NSPredicate predicateWithFormat:@"(uid == %@) AND (isSelected = %@)", [MockManager userid], [NSNumber numberWithBool:YES]];
-}
-
 #pragma mark - UITableViewDelegate
 - (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = trip.toEvent;
     
     cell.eventTitleLabel.text = event.title;
     if ([event.allDay boolValue]) {
@@ -425,31 +407,19 @@ didChangeToVisibleMonth:(NSDateComponents *)month
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"HH:mm"];
         [formatter setTimeZone:[NSTimeZone localTimeZone]];
-        cell.eventTimeLabel.text = [formatter stringFromDate:event.startDate];
+        cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
     }
-    switch ([event.eventType integerValue]) {
-        case EventTypeFlight:
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"5h\tnon-stop\tAirCanada"];
-            break;
-        case EventTypeHotel:
-            break;
-        case EventTypeRental:
-            break;
-        case EventTypeDefault:
-        default:
-            if ([event.location length] > 0) {
-                cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
-            }
-            else if([event.toCity.cityName length] > 0){
-                cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
-            }
-            break;
-    }
-    if ([event.eventType integerValue] == EventTypeFlight) {
-        
-    }
-    else{
-        
+    
+    if (!event) {
+        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
+        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+    } else {
+        if ([event.location length] > 0) {
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+        }
+        else if([event.toCity.cityName length] > 0){
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
+        }
     }
 }
 
@@ -457,69 +427,94 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    switch ([event.eventType integerValue]) {
-        case EventTypeFlight:
-            [self showSampleHotelPanorama];
-            break;
-        case EventTypeHotel:
-            //show hotel panorama view
-            [self showSampleHotelPanorama];
-            break;
-        case EventTypeRental:
-            break;
-        case EventTypeDefault:
-        default:
-            if (_isScheduleExpanded) {
-                //show events detail
-                [self editEventButtonTapAction:event];
-            }
-            else if([_mapView isHidden]){
-                //focus in calendar
-            }
-            else{
-                //focus in map
-                Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-                City *city = event.toCity;
-                MKCoordinateRegion region;
-                region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
-                region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
-                                                   DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [_mapView setRegion:region animated:YES];
-                });
-            }
-            
-            break;
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = trip.toEvent;
+    if (!event) {
+        return;
     }
-    
+    City *city = event.toCity;
+    MKCoordinateRegion region;
+    region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+    region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                       DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_mapView setRegion:region animated:YES];
+    });
 }
 
-//| ----------------------------------------------------------------------------
-//  Because a custom accessory view is used, this method is never invoked by
-//  the table view.  If one of the standard UITableViewCellAccessoryTypes were
-//  used instead, the table view would invoke this method in response to a tap
-//  on the accessory.
-//
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // Return YES if you want the specified item to be editable.
     return YES;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //remove event from list
-        Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [[DataManager sharedInstance] deleteEvent:event context:self.managedObjectContext];
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        [[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext];
     }
 }
 
+#pragma mark - NSManagedObjectContext
+- (void)updateMainContext:(NSNotification *)notification
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+    });
+}
+
+- (void)mergeChanges:(NSNotification *)notification
+{
+    NSManagedObjectContext *moc = (NSManagedObjectContext *)[notification object];
+    if (moc != self.managedObjectContext &&
+        moc.persistentStoreCoordinator == self.managedObjectContext.persistentStoreCoordinator) {
+        [self performSelectorOnMainThread:@selector(updateMainContext:)
+                               withObject:notification
+                            waitUntilDone:NO];
+    }
+    [self getTripCityColorDictionary];
+}
+
+#pragma mark - Trip colours
+- (void)getTripCityColorDictionary
+{
+    // Collect default colours
+    if ([[TripManager sharedManager] tripColorDictionary]) {
+        [[[TripManager sharedManager] tripColorDictionary] removeAllObjects];
+    }
+    
+    if ([[TripManager sharedManager] tripCityCodeDictionary]) {
+        [[[TripManager sharedManager] tripCityCodeDictionary] removeAllObjects];
+    }
+    
+    NSArray *trips = [self.fetchedResultsController fetchedObjects];
+    for (Trip *trip in trips) {
+        NSDate *startDate = trip.startDate;
+        NSDate *endDate = trip.endDate;
+        
+        [[[TripManager sharedManager] tripCityCodeDictionary] setObject:trip.toCityDepartureCity.cityCode
+                                                                 forKey:[NSNumber numberWithInteger:[[startDate dateComponents] uniqueDateNumber]]];
+        [[[TripManager sharedManager] tripCityCodeDictionary] setObject:trip.toCityDestinationCity.cityCode
+                                                                 forKey:[NSNumber numberWithInteger:[[endDate dateComponents] uniqueDateNumber]]];
+        for (NSDate *date = startDate;
+             [[date dateAtMidnight] compare:[endDate dateAtMidnight]] <= 0;
+             date = [date dateAfterOneDay] ) {
+            
+            NSDateComponents *dateComponents = [date dateComponents];
+            UIColor *defaultColor = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor];
+            [[[TripManager sharedManager] tripColorDictionary] setObject:defaultColor
+                                                                  forKey:[NSNumber numberWithInteger:[dateComponents uniqueDateNumber]]];
+        }
+    }
+}
 
 #pragma mark - Hotel
 
@@ -527,55 +522,5 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 {
     PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
-
-#pragma mark -
-#pragma mark EKEventEditViewDelegate
-
-// Overriding EKEventEditViewDelegate method to update event store according to user actions.
-- (void)eventEditViewController:(EKEventEditViewController *)controller
-		  didCompleteWithAction:(EKEventEditViewAction)action
-{
-    CalendarMapViewController * __weak weakSelf = self;
-	// Dismiss the modal view controller
-    [controller dismissViewControllerAnimated:YES completion:^{
-        if (action == EKEventEditViewActionSaved &&
-            controller.event) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf saveEventButtonTapAction:controller.event];
-            });
-        } else if (action == EKEventEditViewActionDeleted) {
-            Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
-                                                                             context:self.managedObjectContext];
-            [weakSelf deleteEventButtonTapAction:event];
-        }
-    }];
-}
-
-- (void)eventViewController:(EKEventViewController *)controller
-      didCompleteWithAction:(EKEventViewAction)action
-{
-    CalendarMapViewController * __weak weakSelf = self;
-	// Dismiss the modal view controller
-    [controller dismissViewControllerAnimated:YES completion:^{
-        if (action == EKEventViewActionDone &&
-            controller.event) {
-            EKEventStore *eventStore = [[EKEventStore alloc] init];
-            EKEvent *event = [eventStore eventWithIdentifier:controller.event.eventIdentifier];
-            if (event) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf saveEventButtonTapAction:controller.event];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
-                                                                                     context:self.managedObjectContext];
-                    [weakSelf deleteEventButtonTapAction:event];
-                });
-            }
-        }
-    }];
-}
-
 @end

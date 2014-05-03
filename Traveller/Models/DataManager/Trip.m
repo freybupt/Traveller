@@ -8,6 +8,7 @@
 
 #import "Trip.h"
 #import "City.h"
+#import "Event.h"
 
 
 @implementation Trip
@@ -21,5 +22,6 @@
 @dynamic uid;
 @dynamic toCityDepartureCity;
 @dynamic toCityDestinationCity;
+@dynamic toEvent;
 
 @end

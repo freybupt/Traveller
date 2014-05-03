@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSNumber * allDay;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * eventIdentifier;
+@property (nonatomic, retain) NSNumber * eventType;
 @property (nonatomic, retain) NSNumber * isSelected;
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSString * notes;
@@ -23,17 +24,8 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * url;
-@property (nonatomic, retain) NSNumber * eventType;
 @property (nonatomic, retain) City *toCity;
 @property (nonatomic, retain) Location *toLocation;
-@property (nonatomic, retain) NSSet *toTrip;
-@end
-
-@interface Event (CoreDataGeneratedAccessors)
-
-- (void)addToTripObject:(Trip *)value;
-- (void)removeToTripObject:(Trip *)value;
-- (void)addToTrip:(NSSet *)values;
-- (void)removeToTrip:(NSSet *)values;
+@property (nonatomic, retain) Trip *toTrip;
 
 @end

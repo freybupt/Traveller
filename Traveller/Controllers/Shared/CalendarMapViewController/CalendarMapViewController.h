@@ -7,7 +7,7 @@
 //
 
 #import <Mapkit/MapKit.h>
-#import "EventViewController.h"
+#import "TripViewController.h"
 #import "CalendarColorManager.h"
 #import "CalendarView.h"
 #import "Checkbox.h"
@@ -15,7 +15,7 @@
 #import "DSLCalendarView.h"
 #import "DSLCalendarRange+Trip.h"
 
-@interface CalendarMapViewController : EventViewController<DSLCalendarViewDelegate>
+@interface CalendarMapViewController : TripViewController<DSLCalendarViewDelegate>
 
 //Customized Calendar/Map View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
@@ -46,4 +46,5 @@
 - (IBAction)editMySchedule:(id)sender;
 
 - (IBAction)confirmTrip:(id)sender;
+- (void)getTripCityColorDictionary;
 @end
