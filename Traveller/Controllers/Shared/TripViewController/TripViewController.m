@@ -9,7 +9,7 @@
 #import "TripViewController.h"
 
 @interface TripViewController ()
-@property (nonatomic, assign) BOOL hasLoadedCalendar;
+
 @end
 
 @implementation TripViewController
@@ -40,11 +40,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.hasLoadedCalendar = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoadedCalendar"];
-    if (!self.hasLoadedCalendar) {
-        CalendarManager *calendarManager = [CalendarManager sharedManager];
-        [calendarManager checkEventStoreAccessForCalendar];
-    }
+    CalendarManager *calendarManager = [CalendarManager sharedManager];
+    [calendarManager checkEventStoreAccessForCalendar];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,8 +77,6 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        self.hasLoadedCalendar = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLoadedCalendar"];
         [MockManager sharedInstance];
     }
     

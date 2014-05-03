@@ -9,7 +9,6 @@
 #import "EventViewController.h"
 
 @interface EventViewController ()
-@property (nonatomic, assign) BOOL hasLoadedCalendar;
 @end
 
 @implementation EventViewController
@@ -45,11 +44,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.hasLoadedCalendar = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLoadedCalendar"];
-    if (!self.hasLoadedCalendar) {
-        CalendarManager *calendarManager = [CalendarManager sharedManager];
-        [calendarManager checkEventStoreAccessForCalendar];
-    }
+    CalendarManager *calendarManager = [CalendarManager sharedManager];
+    [calendarManager checkEventStoreAccessForCalendar];
+
 }
 
 
@@ -68,9 +65,6 @@
                                               otherButtonTitles:nil];
         [alert show];
     } else {
-        self.hasLoadedCalendar = YES;
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLoadedCalendar"];
-        // Enable the Add button
         // Fetch all events happening in the next 24 hours and put them into eventsList
         [self fetchEvents];
         [MockManager sharedInstance];

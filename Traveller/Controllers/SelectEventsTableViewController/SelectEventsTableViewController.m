@@ -177,10 +177,10 @@
 {
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     if (event && [event.isSelected boolValue]) {
-        return 100.f;
+        return 120.f;
     }
     else{
-        return 30.f;
+        return 50.f;
     }
 }
 
@@ -288,8 +288,15 @@
     // Add events for those not in local storage
     for (EKEvent *event in events)
     {
-        [[DataManager sharedInstance] addEventWithEKEvent:event
-                                                  context:self.managedObjectContext];
+        if ([[DataManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
+                                      context:self.managedObjectContext]) {
+            [[DataManager sharedInstance] updateEventWithEKEvent:event
+                                                      context:self.managedObjectContext];
+        }
+        else{
+            [[DataManager sharedInstance] addEventWithEKEvent:event
+                                                      context:self.managedObjectContext];
+        }
     }
     
     // Remove events for those not in calendar
