@@ -198,29 +198,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
     }
 }
 
-#pragma mark - Confirm Trip
-- (IBAction)confirmTrip:(id)sender
-{
-    [self showActivityIndicatorWithText:NSLocalizedString(@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while.", nil)];
-    
-    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
-                                                             context:self.managedObjectContext];
-    for (Trip *trip in trips) {
-        if (![trip.isEditing boolValue]) {
-            [[DataManager sharedInstance] deleteTrip:trip
-                                             context:self.managedObjectContext];
-        } else {
-            trip.isEditing = [NSNumber numberWithBool:NO];
-            if ([[DataManager sharedInstance] saveTrip:trip
-                                               context:self.managedObjectContext]) {};
-        }
-    }
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
-}
-
-
-
 #pragma mark - Schedule view adjustment
 
 - (void)shrinkMyScheduleView
@@ -505,7 +482,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
         [[[TripManager sharedManager] tripCityCodeDictionary] setObject:trip.toCityDestinationCity.cityCode
                                                                  forKey:[NSNumber numberWithInteger:[[endDate dateComponents] uniqueDateNumber]]];
         for (NSDate *date = startDate;
-             [[date dateAtMidnight] compare:[endDate dateAtMidnight]] <= 0;
+             [date compare:[[endDate dateAtMidnight] dateAfterOneDay]] < 0;
              date = [date dateAfterOneDay] ) {
             
             NSDateComponents *dateComponents = [date dateComponents];

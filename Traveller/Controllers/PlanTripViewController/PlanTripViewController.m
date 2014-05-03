@@ -207,6 +207,26 @@
     }
 }
 
+- (IBAction)confirmTripButtonTapAction:(id)sender
+{
+    [self showActivityIndicatorWithText:NSLocalizedString(@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while.", nil)];
+    
+    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
+                                                             context:self.managedObjectContext];
+    for (Trip *trip in trips) {
+        if (![trip.isEditing boolValue]) {
+            [[DataManager sharedInstance] deleteTrip:trip
+                                             context:self.managedObjectContext];
+        } else {
+            trip.isEditing = [NSNumber numberWithBool:NO];
+            if ([[DataManager sharedInstance] saveTrip:trip
+                                               context:self.managedObjectContext]) {};
+        }
+    }
+    
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+}
+
 #pragma mark -
 #pragma mark Accessibility
 

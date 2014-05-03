@@ -8,7 +8,7 @@
 
 #import "NSDate+Extensions.h"
 
-#define ONE_DAY 60 * 60 * 24
+#define ONE_DAY 60 * 60 * 24 - 1
 
 @implementation NSDate (Extensions)
 

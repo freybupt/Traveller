@@ -45,6 +45,5 @@
 - (IBAction)adjustScheduleView:(id)sender;
 - (IBAction)editMySchedule:(id)sender;
 
-- (IBAction)confirmTrip:(id)sender;
 - (void)getTripCityColorDictionary;
 @end

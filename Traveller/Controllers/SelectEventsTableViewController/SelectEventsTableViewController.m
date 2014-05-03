@@ -139,7 +139,7 @@
     
     [cell.eventLocationTextField setLeftViewMode:UITextFieldViewModeAlways];
     
-    cell.eventLocationTextField.leftView= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"earth16_mid@2x.png"]];
+    cell.eventLocationTextField.leftView= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"earth16_mid"]];
 
     if ([event.location length] > 0) {
         cell.eventLocationLabel.text = event.location;

@@ -16,6 +16,7 @@
 {
     __strong NSString *_eventDots;
     __strong NSString *_tripLocation;
+    __strong UIColor *_defaultColor;
 }
 
 - (void)setDay:(NSDateComponents *)day
@@ -25,7 +26,7 @@
     _dayAsDate = [day date];
     _day = nil;
     _labelText = [NSString stringWithFormat:@"%ld", (long)day.day];
-    
+    /*
     CalendarManager *calendarManager = [CalendarManager sharedManager];
     //find event number for this day
     NSDate *startDate = day.date;
@@ -61,15 +62,16 @@
         }
         _eventDots = eventDotString;
     }
+    */
 }
 
 - (void)drawRect:(CGRect)rect
 {
     if ([self isMemberOfClass:[CalendarDayView class]]) {
-        
+        _defaultColor = (UIColor *)[[[TripManager sharedManager] tripColorDictionary] objectForKey:[NSNumber numberWithInteger:[self.day uniqueDateNumber]]];
         [self drawBackground];
         [self drawDayNumber];
-        [self drawEventsDots];
+        //[self drawEventsDots];
         [self drawTripLocation];
         
     }
@@ -79,16 +81,15 @@
 - (void)drawBackground
 {
     UIColor *cellColor = [[CalendarColorManager sharedManager] getSelectionHighlightColor];
-    UIColor *defaultColor = (UIColor *)[[[TripManager sharedManager] tripColorDictionary] objectForKey:[NSNumber numberWithInteger:[self.day uniqueDateNumber]]];
-    if (defaultColor) {
-        cellColor = defaultColor;
+    if (_defaultColor) {
+        cellColor = _defaultColor;
     }
     
     const CGFloat * colors = CGColorGetComponents( cellColor.CGColor );
     UIColor *cellColorHighlighted = [UIColor colorWithRed:colors[0] green:colors[1] blue:colors[2] alpha:0.8];
     
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        if (defaultColor) {
+        if (_defaultColor) {
             [cellColor setFill];
         } else {
             if (self.isInCurrentMonth) {
@@ -149,13 +150,12 @@
     UIFont *textFont = [UIFont boldSystemFontOfSize:17.0];
     NSDictionary *attributes = @{ NSFontAttributeName : textFont ,
                                   NSForegroundColorAttributeName : [UIColor darkTextColor]};
-    
-    UIColor *defaultColor = (UIColor *)[[[TripManager sharedManager] tripColorDictionary] objectForKey:[NSNumber numberWithInteger:[self.day uniqueDateNumber]]];
-    if (defaultColor) {
+
+    if (_defaultColor) {
         [[UIColor orangeColor] set];
     }
     else if (self.selectionState == DSLCalendarDayViewNotSelected &&
-             defaultColor == nil) {
+             _defaultColor == nil) {
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
     }
     else {
@@ -170,8 +170,6 @@
 
 - (void)drawEventsDots
 {
-    UIColor *defaultColor = (UIColor *)[[[TripManager sharedManager] tripColorDictionary] objectForKey:[NSNumber numberWithInteger:[self.day uniqueDateNumber]]];
-    
     NSDate *today = [NSDate date];
     
     UIFont *textFont = [UIFont fontWithName:@"Avenir-Light" size:17.0];
@@ -181,7 +179,8 @@
     if ([self.dayAsDate isEqualToDate:today]) {
         [[UIColor orangeColor] set];
     }
-    else if (self.selectionState == DSLCalendarDayViewNotSelected && defaultColor == nil) {
+    else if (self.selectionState == DSLCalendarDayViewNotSelected &&
+             _defaultColor == nil) {
         [[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0] set];
     }
     else {

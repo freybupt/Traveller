@@ -102,7 +102,7 @@
 		9F3747FD1900F290003D67C8 /* dustbin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3747F21900F290003D67C8 /* dustbin@2x.png */; };
 		9F3747FE1900F290003D67C8 /* earth16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3747F31900F290003D67C8 /* earth16@2x.png */; };
 		9F3748011900F290003D67C8 /* map49@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3747F61900F290003D67C8 /* map49@2x.png */; };
-		9F3748021900F290003D67C8 /* map54@@x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3747F71900F290003D67C8 /* map54@@x.png */; };
+		9F3748021900F290003D67C8 /* map54@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F3747F71900F290003D67C8 /* map54@2x.png */; };
 		9F3748301900F2E3003D67C8 /* DSLCalendarDayCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3748051900F2E3003D67C8 /* DSLCalendarDayCalloutView.m */; };
 		9F3748311900F2E3003D67C8 /* DSLCalendarDayCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F3748061900F2E3003D67C8 /* DSLCalendarDayCalloutView.xib */; };
 		9F3748321900F2E3003D67C8 /* DSLCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3748081900F2E3003D67C8 /* DSLCalendarDayView.m */; };
@@ -300,7 +300,7 @@
 		9F3747F21900F290003D67C8 /* dustbin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dustbin@2x.png"; path = "../Images/dustbin@2x.png"; sourceTree = "<group>"; };
 		9F3747F31900F290003D67C8 /* earth16@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "earth16@2x.png"; path = "../../Images/earth16@2x.png"; sourceTree = "<group>"; };
 		9F3747F61900F290003D67C8 /* map49@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map49@2x.png"; path = "../../Images/map49@2x.png"; sourceTree = "<group>"; };
-		9F3747F71900F290003D67C8 /* map54@@x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map54@@x.png"; path = "../../Images/map54@@x.png"; sourceTree = "<group>"; };
+		9F3747F71900F290003D67C8 /* map54@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "map54@2x.png"; path = "../../Images/map54@2x.png"; sourceTree = "<group>"; };
 		9F3748041900F2E3003D67C8 /* DSLCalendarDayCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSLCalendarDayCalloutView.h; sourceTree = "<group>"; };
 		9F3748051900F2E3003D67C8 /* DSLCalendarDayCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSLCalendarDayCalloutView.m; sourceTree = "<group>"; };
 		9F3748061900F2E3003D67C8 /* DSLCalendarDayCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSLCalendarDayCalloutView.xib; sourceTree = "<group>"; };
@@ -640,7 +640,7 @@
 				76C497661914496B00118140 /* earth16_mid@2x.png */,
 				76C49764191448D800118140 /* earth16_small@2x.png */,
 				9F3747F61900F290003D67C8 /* map49@2x.png */,
-				9F3747F71900F290003D67C8 /* map54@@x.png */,
+				9F3747F71900F290003D67C8 /* map54@2x.png */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1327,7 +1327,7 @@
 				76B9443819071436001B08DB /* Icon-40@2x.png in Resources */,
 				9F3748311900F2E3003D67C8 /* DSLCalendarDayCalloutView.xib in Resources */,
 				9F3747D11900F231003D67C8 /* CDTableViewController.xib in Resources */,
-				9F3748021900F290003D67C8 /* map54@@x.png in Resources */,
+				9F3748021900F290003D67C8 /* map54@2x.png in Resources */,
 				9F3747FD1900F290003D67C8 /* dustbin@2x.png in Resources */,
 				761188A0191304EC00A620D9 /* Vancouver_4.jpg in Resources */,
 				76C270C518B2A1E2003A49A3 /* Main.storyboard in Resources */,

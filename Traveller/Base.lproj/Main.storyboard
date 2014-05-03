@@ -179,7 +179,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Confirm" style="done" id="z7F-aX-oSj">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="confirmTrip:" destination="vXZ-lx-hvc" id="h4K-k7-GQb"/>
+                                <action selector="confirmTripButtonTapAction:" destination="vXZ-lx-hvc" id="se6-2F-cpB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -930,9 +930,6 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Confirm" style="done" id="0zs-v0-Azv">
                             <color key="tintColor" red="0.76940682959999995" green="0.92452566960000004" blue="0.85135932950000004" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="confirmTrip:" destination="zYA-yR-exT" id="ZvL-GP-ekX"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
