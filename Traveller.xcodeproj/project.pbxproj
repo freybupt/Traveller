@@ -72,6 +72,10 @@
 		76C497671914496B00118140 /* earth16_mid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497661914496B00118140 /* earth16_mid@2x.png */; };
 		76C497691914586D00118140 /* expandButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497681914586D00118140 /* expandButton.png */; };
 		76C4976B191458FD00118140 /* bookTripButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976A191458FD00118140 /* bookTripButton.png */; };
+		76C4977119146BAC00118140 /* tutorial1.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976D19146BAC00118140 /* tutorial1.png */; };
+		76C4977219146BAC00118140 /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976E19146BAC00118140 /* tutorial2.png */; };
+		76C4977319146BAC00118140 /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976F19146BAC00118140 /* tutorial3.png */; };
+		76C4977419146BAC00118140 /* tutorial4.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977019146BAC00118140 /* tutorial4.png */; };
 		9F342A171913EE320083A88D /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A161913EE320083A88D /* City.m */; };
 		9F342A1A1913EE330083A88D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A191913EE330083A88D /* Location.m */; };
 		9F342A1D1913EE330083A88D /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A1C1913EE330083A88D /* Trip.m */; };
@@ -246,6 +250,10 @@
 		76C497661914496B00118140 /* earth16_mid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "earth16_mid@2x.png"; sourceTree = "<group>"; };
 		76C497681914586D00118140 /* expandButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = expandButton.png; sourceTree = "<group>"; };
 		76C4976A191458FD00118140 /* bookTripButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bookTripButton.png; sourceTree = "<group>"; };
+		76C4976D19146BAC00118140 /* tutorial1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial1.png; sourceTree = "<group>"; };
+		76C4976E19146BAC00118140 /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial2.png; sourceTree = "<group>"; };
+		76C4976F19146BAC00118140 /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial3.png; sourceTree = "<group>"; };
+		76C4977019146BAC00118140 /* tutorial4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial4.png; sourceTree = "<group>"; };
 		9F342A151913EE320083A88D /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		9F342A161913EE320083A88D /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		9F342A181913EE330083A88D /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
@@ -553,6 +561,7 @@
 		76B9442719071436001B08DB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				76C4976C19146B9600118140 /* Tutorial */,
 				761188B119141FD800A620D9 /* temp_for_demo */,
 				761188A41913067100A620D9 /* Logo */,
 				76118895191304DD00A620D9 /* City_Vancouver */,
@@ -779,6 +788,17 @@
 				9F3748171900F2E3003D67C8 /* MZFormSheet */,
 			);
 			name = Libraries;
+			sourceTree = "<group>";
+		};
+		76C4976C19146B9600118140 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				76C4976D19146BAC00118140 /* tutorial1.png */,
+				76C4976E19146BAC00118140 /* tutorial2.png */,
+				76C4976F19146BAC00118140 /* tutorial3.png */,
+				76C4977019146BAC00118140 /* tutorial4.png */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 		9F364A5019138B29009222B1 /* MyTripViewController */ = {
@@ -1266,6 +1286,7 @@
 				761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */,
 				76C497691914586D00118140 /* expandButton.png in Resources */,
 				7636E9B31912D1630091E7B6 /* hotel.jpg in Resources */,
+				76C4977119146BAC00118140 /* tutorial1.png in Resources */,
 				761188BB191422C000A620D9 /* plan@2x.png in Resources */,
 				76B9443D19071436001B08DB /* calendar53@2x.png in Resources */,
 				768263CF1905C14B00089319 /* map5.png in Resources */,
@@ -1274,6 +1295,7 @@
 				7622B8E6190AE97500F2A22A /* edit12.png in Resources */,
 				9F3748341900F2E3003D67C8 /* DSLCalendarMonthSelectorView.xib in Resources */,
 				76C270CA18B2A1E2003A49A3 /* Images.xcassets in Resources */,
+				76C4977319146BAC00118140 /* tutorial3.png in Resources */,
 				76B9443A19071436001B08DB /* Icon@2x.png in Resources */,
 				7611888D191302DA00A620D9 /* settings3@2x.png in Resources */,
 				761188A2191304EC00A620D9 /* Vancouver_7.jpg in Resources */,
@@ -1284,6 +1306,7 @@
 				76C49765191448D900118140 /* earth16_small@2x.png in Resources */,
 				761188B319141FE300A620D9 /* bookButton@2x.png in Resources */,
 				76118890191302E300A620D9 /* profile2@2x.png in Resources */,
+				76C4977419146BAC00118140 /* tutorial4.png in Resources */,
 				76B9443B19071436001B08DB /* arrowDown@2x.png in Resources */,
 				761188B81914208500A620D9 /* myProfile@2x.png in Resources */,
 				76118889191302C500A620D9 /* user14@2x.png in Resources */,
@@ -1305,6 +1328,7 @@
 				761188B91914208500A620D9 /* pastTrip@2x.png in Resources */,
 				76118893191302FA00A620D9 /* info2@2x.png in Resources */,
 				761188B71914208500A620D9 /* setting@2x.png in Resources */,
+				76C4977219146BAC00118140 /* tutorial2.png in Resources */,
 				76B9443F19071436001B08DB /* map35@2x.png in Resources */,
 				761188861912FA9900A620D9 /* backArrow@2x.png in Resources */,
 				9F3747FC1900F290003D67C8 /* day1@2x.png in Resources */,

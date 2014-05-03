@@ -41,6 +41,7 @@
 {
     if (self.navigationController.navigationBarHidden) {
         [self.navigationController setNavigationBarHidden:NO animated:YES];
+        
     }
     else{
         [self.navigationController setNavigationBarHidden:YES animated:YES];
