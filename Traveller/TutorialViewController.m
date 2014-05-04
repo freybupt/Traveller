@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
 
+    self.view.userInteractionEnabled = NO;
+    
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapDetected:)];
     [tapGesture setNumberOfTapsRequired:1];
     [self.view addGestureRecognizer:tapGesture];
@@ -98,13 +100,17 @@
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         [UIView animateWithDuration:0.5 delay:2.0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
             weakSelf.textView.hidden = YES;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            self.view.userInteractionEnabled = YES;
+        }];
     }
     else{
         [self.navigationController setNavigationBarHidden:YES animated:YES];
         [UIView animateWithDuration:0.5 delay:2.0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
             weakSelf.textView.hidden = NO;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            self.view.userInteractionEnabled = YES;
+        }];
     }
 }
 

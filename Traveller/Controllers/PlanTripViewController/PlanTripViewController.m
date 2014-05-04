@@ -56,11 +56,11 @@
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
-    NSArray *trips = [self.fetchedResultsController fetchedObjects];
-    for (Trip *trip in trips) {
-        [[DataManager sharedInstance] deleteTrip:trip
-                                         context:self.managedObjectContext];
-    }
+//    NSArray *trips = [self.fetchedResultsController fetchedObjects];
+//    for (Trip *trip in trips) {
+//        [[DataManager sharedInstance] deleteTrip:trip
+//                                         context:self.managedObjectContext];
+//    }
     
     NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
                                                                  context:self.managedObjectContext];
