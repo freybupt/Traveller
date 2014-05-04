@@ -56,11 +56,12 @@
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
-//    NSArray *trips = [self.fetchedResultsController fetchedObjects];
-//    for (Trip *trip in trips) {
-//        [[DataManager sharedInstance] deleteTrip:trip
-//                                         context:self.managedObjectContext];
-//    }
+    // Before the itinerary object model is implemented, line 60 - line 64 are necessary to avoid duplicated trips, it means we can only have one itinerary at this stage
+    NSArray *trips = [self.fetchedResultsController fetchedObjects];
+    for (Trip *trip in trips) {
+        [[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext];
+    }
     
     NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
                                                                  context:self.managedObjectContext];
