@@ -615,4 +615,78 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     return trip;
 }
 
+#pragma mark - Itinerary
+- (NSArray *)getItineraryWithUserid:(NSNumber *)userid
+                            context:(NSManagedObjectContext *)moc
+{
+    if (!userid || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"uid == %@", [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Itinerary"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    return fetchResult;
+}
+
+- (Itinerary *)newItineraryWithContext:(NSManagedObjectContext *)moc
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Itinerary"
+                                              inManagedObjectContext:moc];
+    Itinerary *itinerary = [[Itinerary alloc] initWithEntity:entity
+                              insertIntoManagedObjectContext:moc];
+    itinerary.title = NSLocalizedString(@"New Itinerary", nil);
+    itinerary.date = [NSDate date];
+    itinerary.uid = [MockManager userid];
+    
+    return itinerary;
+}
+
+- (BOOL)saveItinerary:(Itinerary *)itinerary
+              context:(NSManagedObjectContext *)moc
+{
+    if (!itinerary || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved a itinerary: %@", itinerary);
+    return YES;
+}
+
+- (BOOL)deleteItineray:(Itinerary *)itineray
+               context:(NSManagedObjectContext *)moc
+{
+    if (!itineray || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:itineray];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted an itinerary");
+    return YES;
+}
 @end

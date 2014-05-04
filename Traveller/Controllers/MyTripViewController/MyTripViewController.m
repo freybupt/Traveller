@@ -9,31 +9,19 @@
 #import "MyTripViewController.h"
 
 @interface MyTripViewController ()
-
+@property (nonatomic, strong) Itinerary *itinerary;
 @end
 
 @implementation MyTripViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-    }
-    return self;
-}
 
 - (void)awakeFromNib
 {
     self.navigationItem.rightBarButtonItem = nil;
     
-    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
-                                                             context:self.managedObjectContext];
-    for (Trip *trip in trips) {
-        if ([trip.isEditing boolValue]) {
-            [[DataManager sharedInstance] deleteTrip:trip
-                                             context:self.managedObjectContext];
-        }
+    NSArray *array = [[DataManager sharedInstance] getItineraryWithUserid:[MockManager userid]
+                                                                  context:self.managedObjectContext];
+    if ([array count] > 0) {
+        _itinerary = [array objectAtIndex:0];
     }
 }
 
@@ -77,5 +65,12 @@
     else {
         NSLog( @"No selection" );
     }
+}
+
+#pragma mark - NSFetchedResultController configuration
+
+- (NSPredicate *)predicate
+{
+    return [NSPredicate predicateWithFormat:@"uid == %@ AND toItinerary = %@", [MockManager userid], _itinerary];
 }
 @end

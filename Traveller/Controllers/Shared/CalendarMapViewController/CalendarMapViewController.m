@@ -180,15 +180,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
         switch (buttonIndex) {
             case 1:
             {
-                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
-                CalendarMapViewController __weak *weakSelf = self;
-                [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Trip *trip, NSUInteger idx, BOOL *stop) {
-                    if ([trip.isEditing boolValue]) {
-                        [[DataManager sharedInstance] deleteTrip:trip
-                                                         context:weakSelf.managedObjectContext];
-                    }
-                }];
-                
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 break;
             }

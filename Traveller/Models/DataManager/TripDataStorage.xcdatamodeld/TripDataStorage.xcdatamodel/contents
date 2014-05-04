@@ -35,6 +35,12 @@
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toFlight" inverseEntity="City" syncable="YES"/>
     </entity>
+    <entity name="Itinerary" representedClassName="Itinerary" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="toTrip" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Trip" inverseName="toItinerary" inverseEntity="Trip" syncable="YES"/>
+    </entity>
     <entity name="Location" representedClassName="Location" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -56,12 +62,14 @@
         <relationship name="toCityDepartureCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toTripDepartureCity" inverseEntity="City" syncable="YES"/>
         <relationship name="toCityDestinationCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toTripDestinationCity" inverseEntity="City" syncable="YES"/>
         <relationship name="toEvent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="toTrip" inverseEntity="Event" syncable="YES"/>
+        <relationship name="toItinerary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Itinerary" inverseName="toTrip" inverseEntity="Itinerary" syncable="YES"/>
     </entity>
     <elements>
         <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
         <element name="Event" positionX="-164" positionY="-81" width="128" height="253"/>
         <element name="Flight" positionX="223" positionY="332" width="128" height="118"/>
+        <element name="Itinerary" positionX="-297" positionY="81" width="128" height="105"/>
         <element name="Location" positionX="169" positionY="81" width="128" height="165"/>
-        <element name="Trip" positionX="-513" positionY="83" width="128" height="193"/>
+        <element name="Trip" positionX="-513" positionY="83" width="128" height="208"/>
     </elements>
 </model>

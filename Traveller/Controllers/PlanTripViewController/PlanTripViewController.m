@@ -13,6 +13,7 @@
 
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
+@property (nonatomic, strong) Itinerary *itinerary;
 
 - (IBAction)confirmTripChange:(id)sender;
 - (IBAction)cancelTripChange:(id)sender;
@@ -21,6 +22,11 @@
 @end
 
 @implementation PlanTripViewController
+- (void)awakeFromNib
+{
+    _itinerary = [[DataManager sharedInstance] newItineraryWithContext:self.managedObjectContext];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -56,13 +62,6 @@
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
-    // Before the itinerary object model is implemented, line 60 - line 64 are necessary to avoid duplicated trips, it means we can only have one itinerary at this stage
-    NSArray *trips = [self.fetchedResultsController fetchedObjects];
-    for (Trip *trip in trips) {
-        [[DataManager sharedInstance] deleteTrip:trip
-                                         context:self.managedObjectContext];
-    }
-    
     NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
                                                                  context:self.managedObjectContext];
     if ([events count] == 0) {
@@ -80,8 +79,12 @@
     firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
     firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
     firstTrip.toEvent = nil;
-    [[DataManager sharedInstance] saveTrip:firstTrip
-                                   context:self.managedObjectContext];
+    firstTrip.toItinerary = _itinerary;
+    if ([[DataManager sharedInstance] saveTrip:firstTrip
+                                       context:self.managedObjectContext]) {
+        _itinerary.date = firstTrip.startDate;
+        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), firstEvent.toCity.cityName];
+    }
     
     Event *lastEvent = (Event *)[events lastObject];
     Trip *lastTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
@@ -90,6 +93,7 @@
     lastTrip.startDate = [lastEvent.startDate dateAfterOneDay]; //one day before first event
     lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
     lastTrip.toEvent = nil;
+    lastTrip.toItinerary = _itinerary;
     [[DataManager sharedInstance] saveTrip:lastTrip
                                    context:self.managedObjectContext];
     
@@ -101,6 +105,7 @@
         newTrip.startDate = event.startDate;
         newTrip.endDate = event.endDate;
         newTrip.toEvent = event;
+        newTrip.toItinerary = _itinerary;
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
         
@@ -118,21 +123,22 @@
         newTrip.startDate = previousEvent.endDate;
         newTrip.endDate = (i + 1 == [events count]) ? lastEvent.endDate : [currentEvent.startDate dateBeforeOneDay];
         newTrip.toEvent = (i + 1 == [events count]) ? lastEvent : currentEvent;
+        newTrip.toItinerary = _itinerary;
         [[DataManager sharedInstance] saveTrip:newTrip
                                        context:self.managedObjectContext];
         
         if (![[previousEvent.toCity.cityName lowercaseString] isEqualToString:[currentEvent.toCity.cityName lowercaseString]]) {
-            // TODO: Add flight objects here
+            // Add flight objects here
         }
     }
     
     
     if (![[departureCity.cityName lowercaseString] isEqualToString:[firstEvent.toCity.cityName lowercaseString]]) {
-        // TODO: Add flight objects here
+        // Add flight objects here
     }
     
     if (![[departureCity.cityName lowercaseString] isEqualToString:[lastEvent.toCity.cityName lowercaseString]]) {
-        // TODO: Add flight objects here
+        // Add flight objects here
     }
     
     [self hideActivityIndicator];
@@ -212,20 +218,30 @@
 {
     [self showActivityIndicatorWithText:NSLocalizedString(@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while.", nil)];
     
-    NSArray *trips = [[DataManager sharedInstance] getTripWithUserid:[MockManager userid]
-                                                             context:self.managedObjectContext];
-    for (Trip *trip in trips) {
-        if (![trip.isEditing boolValue]) {
-            [[DataManager sharedInstance] deleteTrip:trip
-                                             context:self.managedObjectContext];
-        } else {
-            trip.isEditing = [NSNumber numberWithBool:NO];
-            if ([[DataManager sharedInstance] saveTrip:trip
-                                               context:self.managedObjectContext]) {};
+    if ([[DataManager sharedInstance] saveItinerary:_itinerary context:self.managedObjectContext]) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+    }
+}
+
+#pragma mark - UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1) {
+        switch (buttonIndex) {
+            case 1:
+            {
+                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
+                if ([[DataManager sharedInstance] deleteItineray:_itinerary
+                                                         context:self.managedObjectContext]) {
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }
+                
+                break;
+            }
+            default:
+                break;
         }
     }
-    
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 #pragma mark -
@@ -239,5 +255,12 @@
 {
     // The cell's accessibilityValue is the Checkbox's accessibilityValue.
     cell.accessibilityValue = cell.accessoryView.accessibilityValue;
+}
+
+#pragma mark - NSFetchedResultController configuration
+
+- (NSPredicate *)predicate
+{
+    return [NSPredicate predicateWithFormat:@"uid == %@ AND toItinerary = %@", [MockManager userid], _itinerary];
 }
 @end

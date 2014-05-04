@@ -8,7 +8,6 @@
 
 #import "HomeViewController.h"
 #import "SelectEventsTableViewController.h"
-#import "PlanTripViewController.h"
 
 @interface HomeViewController ()
 
@@ -20,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -28,13 +27,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -49,5 +46,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

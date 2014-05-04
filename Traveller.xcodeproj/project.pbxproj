@@ -76,9 +76,11 @@
 		76C4977219146BAC00118140 /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976E19146BAC00118140 /* tutorial2.png */; };
 		76C4977319146BAC00118140 /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976F19146BAC00118140 /* tutorial3.png */; };
 		76C4977419146BAC00118140 /* tutorial4.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977019146BAC00118140 /* tutorial4.png */; };
+		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
+		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
+		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
 		9F342A171913EE320083A88D /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A161913EE320083A88D /* City.m */; };
 		9F342A1A1913EE330083A88D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A191913EE330083A88D /* Location.m */; };
-		9F342A1D1913EE330083A88D /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A1C1913EE330083A88D /* Trip.m */; };
 		9F342A201913EE330083A88D /* Flight.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A1F1913EE330083A88D /* Flight.m */; };
 		9F342A261913EED10083A88D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A251913EED10083A88D /* Event.m */; };
 		9F364A5319138B43009222B1 /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F364A5219138B43009222B1 /* MyTripViewController.m */; };
@@ -155,6 +157,10 @@
 		9F5A81001911EEE400799FDD /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A80EC1911EEE400799FDD /* UIWebView+AFNetworking.m */; };
 		9F5A81071911EF3D00799FDD /* HTAutocompleteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A81031911EF3D00799FDD /* HTAutocompleteManager.m */; };
 		9F5A81081911EF3D00799FDD /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A81061911EF3D00799FDD /* TripManager.m */; };
+		9F77083E1916A0C500BF4104 /* ItineraryTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */; };
+		9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */; };
+		9F7708431916A12500BF4104 /* ItineraryTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */; };
+		9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */; };
 		9FA27FA41910C2310042DEE0 /* DSLCalendarRange+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */; };
 		9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB50A39190E8704000E6C98 /* DestinationPanelView.m */; };
 		9FBC4F4E19149111005EB0A0 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBC4F4D19149111005EB0A0 /* TripViewController.m */; };
@@ -255,12 +261,16 @@
 		76C4976E19146BAC00118140 /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial2.png; sourceTree = "<group>"; };
 		76C4976F19146BAC00118140 /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial3.png; sourceTree = "<group>"; };
 		76C4977019146BAC00118140 /* tutorial4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial4.png; sourceTree = "<group>"; };
+		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
+		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
+		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		9F08006C19163BDD006ED9D8 /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
+		9F08006E19163BDE006ED9D8 /* Itinerary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Itinerary.h; sourceTree = "<group>"; };
+		9F08006F19163BDE006ED9D8 /* Itinerary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Itinerary.m; sourceTree = "<group>"; };
 		9F342A151913EE320083A88D /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
 		9F342A161913EE320083A88D /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		9F342A181913EE330083A88D /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		9F342A191913EE330083A88D /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		9F342A1B1913EE330083A88D /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
-		9F342A1C1913EE330083A88D /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		9F342A1E1913EE330083A88D /* Flight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flight.h; sourceTree = "<group>"; };
 		9F342A1F1913EE330083A88D /* Flight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flight.m; sourceTree = "<group>"; };
 		9F342A241913EED10083A88D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -405,6 +415,12 @@
 		9F5A81031911EF3D00799FDD /* HTAutocompleteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteManager.m; sourceTree = "<group>"; };
 		9F5A81051911EF3D00799FDD /* TripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripManager.h; sourceTree = "<group>"; };
 		9F5A81061911EF3D00799FDD /* TripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripManager.m; sourceTree = "<group>"; };
+		9F77083B1916A0C500BF4104 /* ItineraryTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryTripViewController.h; sourceTree = "<group>"; };
+		9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryTripViewController.m; sourceTree = "<group>"; };
+		9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryTripViewController.xib; sourceTree = "<group>"; };
+		9F7708401916A12500BF4104 /* ItineraryTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryTripTableViewCell.h; sourceTree = "<group>"; };
+		9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryTripTableViewCell.m; sourceTree = "<group>"; };
+		9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryTripTableViewCell.xib; sourceTree = "<group>"; };
 		9FA27FA21910C2310042DEE0 /* DSLCalendarRange+Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DSLCalendarRange+Trip.h"; sourceTree = "<group>"; };
 		9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DSLCalendarRange+Trip.m"; sourceTree = "<group>"; };
 		9FB50A38190E8704000E6C98 /* DestinationPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationPanelView.h; sourceTree = "<group>"; };
@@ -764,6 +780,7 @@
 		76C2711F18B2A3D3003A49A3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9F77083A1916A0A600BF4104 /* ItineraryTripViewController */,
 				9F3747CB1900F231003D67C8 /* Shared */,
 				761188AB1913193700A620D9 /* TutorialViewController */,
 				761188A719130C5400A620D9 /* HomeViewController */,
@@ -802,6 +819,15 @@
 				76C4977019146BAC00118140 /* tutorial4.png */,
 			);
 			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		9F08006219163970006ED9D8 /* ItineraryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F08006319163996006ED9D8 /* ItineraryViewController.h */,
+				9F08006419163996006ED9D8 /* ItineraryViewController.m */,
+			);
+			path = ItineraryViewController;
 			sourceTree = "<group>";
 		};
 		9F364A5019138B29009222B1 /* MyTripViewController */ = {
@@ -904,14 +930,16 @@
 				9F3747B41900F213003D67C8 /* DataManager.h */,
 				9F3747B51900F213003D67C8 /* DataManager.m */,
 				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
+				9F08006E19163BDE006ED9D8 /* Itinerary.h */,
+				9F08006F19163BDE006ED9D8 /* Itinerary.m */,
+				9F08006B19163BDD006ED9D8 /* Trip.h */,
+				9F08006C19163BDD006ED9D8 /* Trip.m */,
 				9F342A241913EED10083A88D /* Event.h */,
 				9F342A251913EED10083A88D /* Event.m */,
 				9F342A151913EE320083A88D /* City.h */,
 				9F342A161913EE320083A88D /* City.m */,
 				9F342A181913EE330083A88D /* Location.h */,
 				9F342A191913EE330083A88D /* Location.m */,
-				9F342A1B1913EE330083A88D /* Trip.h */,
-				9F342A1C1913EE330083A88D /* Trip.m */,
 				9F342A1E1913EE330083A88D /* Flight.h */,
 				9F342A1F1913EE330083A88D /* Flight.m */,
 			);
@@ -945,6 +973,7 @@
 				9F5A80541911E40B00799FDD /* CalendarMapViewController */,
 				9F3747CC1900F231003D67C8 /* CDTableViewController */,
 				9F54EB5E1901770400ABB05F /* EventViewController */,
+				9F08006219163970006ED9D8 /* ItineraryViewController */,
 				9FBC4F4B19149111005EB0A0 /* TripViewController */,
 			);
 			name = Shared;
@@ -1181,6 +1210,20 @@
 			path = Models/TripManager;
 			sourceTree = "<group>";
 		};
+		9F77083A1916A0A600BF4104 /* ItineraryTripViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9F7708401916A12500BF4104 /* ItineraryTripTableViewCell.h */,
+				9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */,
+				9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */,
+				9F77083B1916A0C500BF4104 /* ItineraryTripViewController.h */,
+				9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */,
+				9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */,
+			);
+			name = ItineraryTripViewController;
+			path = Controllers/ItineraryTripViewController;
+			sourceTree = "<group>";
+		};
 		9FB50A37190E86E9000E6C98 /* DestinationPanelView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1297,6 +1340,7 @@
 				7611889F191304EC00A620D9 /* Vancouver_3.jpg in Resources */,
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
 				761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */,
+				9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */,
 				76C497691914586D00118140 /* expandButton.png in Resources */,
 				7636E9B31912D1630091E7B6 /* hotel.jpg in Resources */,
 				76C4977119146BAC00118140 /* tutorial1.png in Resources */,
@@ -1348,6 +1392,7 @@
 				761188801912EFAE00A620D9 /* map35_red@2x.png in Resources */,
 				76C497671914496B00118140 /* earth16_mid@2x.png in Resources */,
 				76B9443E19071436001B08DB /* CanadaCities.csv in Resources */,
+				9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */,
 				761188B019141F9100A620D9 /* home1@2x.png in Resources */,
 				76C49763191441DF00118140 /* homeButton.png in Resources */,
 				7611889D191304EC00A620D9 /* Vancouver_1.jpg in Resources */,
@@ -1373,6 +1418,7 @@
 				9F3748301900F2E3003D67C8 /* DSLCalendarDayCalloutView.m in Sources */,
 				9F37483A1900F2E3003D67C8 /* MZAppearance.m in Sources */,
 				9F3747951900F152003D67C8 /* CalendarView.m in Sources */,
+				9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */,
 				9F5A80FA1911EEE400799FDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F3747AB1900F168003D67C8 /* SelectEventsTableViewController.m in Sources */,
 				9F3747C81900F213003D67C8 /* TripDataStorage.xcdatamodeld in Sources */,
@@ -1405,17 +1451,20 @@
 				9F3748391900F2E3003D67C8 /* FXBlurView.m in Sources */,
 				9F37483C1900F2E3003D67C8 /* MZNavigationViewController.m in Sources */,
 				9F5A80F11911EEE400799FDD /* AFSecurityPolicy.m in Sources */,
+				9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */,
 				9F3747CA1900F213003D67C8 /* MockManager.m in Sources */,
 				9F5A80F91911EEE400799FDD /* AFNetworkActivityIndicatorManager.m in Sources */,
-				9F342A1D1913EE330083A88D /* Trip.m in Sources */,
 				9F5A80FC1911EEE400799FDD /* UIButton+AFNetworking.m in Sources */,
 				9F37483F1900F2E3003D67C8 /* MZFormSheetBackgroundWindowViewController.m in Sources */,
 				7636E9C31912D45E0091E7B6 /* PanoramaViewController.m in Sources */,
 				9F5A80571911E42300799FDD /* CalendarMapViewController.m in Sources */,
 				9F3748381900F2E3003D67C8 /* NSDate+DSLCalendarView.m in Sources */,
+				9F77083E1916A0C500BF4104 /* ItineraryTripViewController.m in Sources */,
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
 				9F3747C51900F213003D67C8 /* DataManager.m in Sources */,
+				9F7708431916A12500BF4104 /* ItineraryTripTableViewCell.m in Sources */,
 				9F3748361900F2E3003D67C8 /* DSLCalendarRange.m in Sources */,
+				9F08006D19163BDD006ED9D8 /* Trip.m in Sources */,
 				9F5A80FD1911EEE400799FDD /* UIImageView+AFNetworking.m in Sources */,
 				9F5A80FF1911EEE400799FDD /* UIRefreshControl+AFNetworking.m in Sources */,
 				9F37484A19010F19003D67C8 /* CalendarDayView.m in Sources */,

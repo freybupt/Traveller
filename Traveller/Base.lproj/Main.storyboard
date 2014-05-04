@@ -302,6 +302,9 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="e4E-hE-oAe" kind="modal" id="els-f7-q8C"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2gk-8p-fIa">
                                         <rect key="frame" x="113" y="0.0" width="95" height="80"/>
@@ -353,7 +356,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uAY-hp-SlX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="735" y="-670"/>
+            <point key="canvasLocation" x="1167" y="-670"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TsS-D4-y1k">
@@ -475,7 +478,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xtd-3C-Lie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155" y="-31"/>
+            <point key="canvasLocation" x="1167" y="-31"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="dL4-Uu-kW9">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="e4E-hE-oAe" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AlO-xT-YSy">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Aud-Nz-UwK" kind="relationship" relationship="rootViewController" id="ANz-ZG-E9f"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="46p-EL-Alp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="732" y="656"/>
+        </scene>
+        <!--Itinerary View Controller - Itinerary-->
+        <scene sceneID="jFe-jW-9JT">
+            <objects>
+                <viewController id="Aud-Nz-UwK" customClass="ItineraryViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XVw-SX-9MK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3xp-z1-Jeg">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Aud-Nz-UwK" id="pb7-v9-h18"/>
+                                    <outlet property="delegate" destination="Aud-Nz-UwK" id="Qg6-h9-71L"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Itinerary" id="wpb-JY-VWB"/>
+                    <connections>
+                        <outlet property="tableView" destination="3xp-z1-Jeg" id="j6m-b3-IKx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lGh-Uq-eyd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1167" y="656"/>
         </scene>
         <!--Google Places Autocomplete View Controller - EVENT ADDRESS-->
         <scene sceneID="Bqq-j7-Cjv">
@@ -951,7 +998,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvz-0O-ssm" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1155" y="-670"/>
+            <point key="canvasLocation" x="1875" y="-670"/>
         </scene>
     </scenes>
     <resources>

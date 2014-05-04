@@ -9,7 +9,7 @@
 #import "Trip.h"
 #import "City.h"
 #import "Event.h"
-#import "Itinerary.h"
+#import "Trip.h"
 
 
 @implementation Trip

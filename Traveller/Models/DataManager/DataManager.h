@@ -13,6 +13,7 @@
 #import "Event.h"
 #import "Location.h"
 #import "Trip.h"
+#import "Itinerary.h"
 #import "DSLCalendarRange.h"
 
 extern NSString * const DataManagerOperationDidDeleteEventNotification;
@@ -75,4 +76,12 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
 - (BOOL)saveLocation:(Location *)location
              context:(NSManagedObjectContext *)moc;
 
+/* Itinerary */
+- (NSArray *)getItineraryWithUserid:(NSNumber *)userid
+                            context:(NSManagedObjectContext *)moc;
+- (Itinerary *)newItineraryWithContext:(NSManagedObjectContext *)moc;
+- (BOOL)saveItinerary:(Itinerary *)itinerary
+              context:(NSManagedObjectContext *)moc;
+- (BOOL)deleteItineray:(Itinerary *)itineray
+               context:(NSManagedObjectContext *)moc;
 @end

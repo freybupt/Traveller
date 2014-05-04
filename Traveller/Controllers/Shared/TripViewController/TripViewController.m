@@ -26,26 +26,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self registerNotification];
 }
 
 - (void)viewDidUnload
 {
-    [self unregisterNotification];
-    
     [super viewDidUnload];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    // Causes a crash and the method was called in EventViewController which is earlier than TripViewController
-    /*
-    CalendarManager *calendarManager = [CalendarManager sharedManager];
-    [calendarManager checkEventStoreAccessForCalendar];
-    */
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,27 +53,6 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-#pragma mark -
-#pragma mark Access Calendar
-// This method is called when the user has granted permission to Calendar
-- (void)accessGrantedForCalendar:(NSNotification *)notification
-{
-    
-    NSDictionary *dict = [notification userInfo];
-    BOOL isGranted = [[dict objectForKey:@"hasAccess"] boolValue];
-    if (!isGranted) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Cal need permission for Calendar"
-                                                        message:@"You can edit it in Settings -> Privacy"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    } else {
-        [MockManager sharedInstance];
-    }
-    
-}
 
 #pragma mark - NSFetchedResultController configuration
 
@@ -164,21 +133,5 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     // Overriding the method in subclass
-}
-
-#pragma mark - NSNotificationCenter
-- (void)registerNotification
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(accessGrantedForCalendar:)
-                                                 name:kGrantCalendarAccessNotification
-                                               object:[CalendarManager sharedManager]];
-}
-
-- (void)unregisterNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:kGrantCalendarAccessNotification
-                                                  object:[CalendarManager sharedManager]];
 }
 @end
