@@ -12,7 +12,7 @@
 -(NSDate *)localDate;
 -(NSDate *)GMTDate;
 - (NSDate *)dateAtMidnight;
-- (NSDate *)dateAtFourPM;
+- (NSDate *)dateAtHour:(NSInteger)hour;
 - (NSDate *)dateOnFirstDay;
 - (NSDate *)dateBeforeOneDay;
 - (NSDate *)dateAfterOneDay;

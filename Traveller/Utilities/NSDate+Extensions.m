@@ -37,13 +37,13 @@
     return [self dateByAddingTimeInterval:- (60 * 60 * dateComponents.hour + 60 * dateComponents.minute + dateComponents.second)];
 }
 
-- (NSDate *)dateAtFourPM
+- (NSDate *)dateAtHour:(NSInteger)hour
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     NSDateComponents *dateComponents = [calendar components:(NSSecondCalendarUnit | NSMinuteCalendarUnit | NSHourCalendarUnit)
                                                    fromDate:self];
-    return [self dateByAddingTimeInterval:- (60 * 60 * (dateComponents.hour - 16) + 60 * dateComponents.minute + dateComponents.second)];
+    return [self dateByAddingTimeInterval:- (60 * 60 * (dateComponents.hour - hour) + 60 * dateComponents.minute + dateComponents.second)];
 }
 
 - (NSDate *)dateOnFirstDay
