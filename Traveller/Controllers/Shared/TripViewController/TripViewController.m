@@ -40,9 +40,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Causes a crash and the method was called in EventViewController which is earlier than TripViewController
+    /*
     CalendarManager *calendarManager = [CalendarManager sharedManager];
     [calendarManager checkEventStoreAccessForCalendar];
-
+    */
 }
 
 - (void)didReceiveMemoryWarning

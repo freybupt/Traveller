@@ -292,7 +292,7 @@
                             </button>
                             <view contentMode="scaleToFill" id="FA6-y1-Dzn">
                                 <rect key="frame" x="0.0" y="406" width="320" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2Xu-ca-X41">
                                         <rect key="frame" x="5" y="0.0" width="95" height="80"/>
