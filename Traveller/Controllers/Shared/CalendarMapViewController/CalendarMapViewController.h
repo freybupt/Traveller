@@ -15,12 +15,16 @@
 #import "DSLCalendarView.h"
 #import "DSLCalendarRange+Trip.h"
 
+static CGFloat kUIAnimationDuration = 0.3f;
+static CGFloat kMyScheduleYCoordinate = 320.0f;
+static CGFloat kNavigationBarHeight = 44.0f;
+
 @interface CalendarMapViewController : TripViewController<DSLCalendarViewDelegate>
 
 //Customized Calendar/Map View
 @property (nonatomic, weak) IBOutlet CalendarView *calendarView;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic, weak) IBOutlet UIView *bookTripView;
+
 @property (nonatomic, weak) IBOutlet UIView *myScheduleView;
 @property (nonatomic, weak) IBOutlet UIView *myScheduleHeaderView;
 @property (nonatomic, weak) IBOutlet UILabel *myScheduleTitleLabel;
@@ -29,6 +33,7 @@
 
 //My schedule table components
 @property (nonatomic, weak) IBOutlet UIButton *expandButton;
+@property (nonatomic, assign) BOOL isScheduleExpanded;
 
 //Destination panel view
 @property (nonatomic, weak) IBOutlet DestinationPanelView *destinationPanelView;

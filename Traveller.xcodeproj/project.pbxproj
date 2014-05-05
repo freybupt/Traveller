@@ -79,6 +79,7 @@
 		76C4977719170DF800118140 /* MyScheduleTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */; };
 		76C4977A191720B800118140 /* flightIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49778191720B800118140 /* flightIcon.png */; };
 		76C4977B191720B800118140 /* hotelIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49779191720B800118140 /* hotelIcon.png */; };
+		76C4977D19175E2000118140 /* eventIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977C19175E2000118140 /* eventIcon.png */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -268,6 +269,7 @@
 		76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleTableViewHeaderView.m; sourceTree = "<group>"; };
 		76C49778191720B800118140 /* flightIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flightIcon.png; sourceTree = "<group>"; };
 		76C49779191720B800118140 /* hotelIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotelIcon.png; sourceTree = "<group>"; };
+		76C4977C19175E2000118140 /* eventIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventIcon.png; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 		761188B119141FD800A620D9 /* temp_for_demo */ = {
 			isa = PBXGroup;
 			children = (
+				76C4977C19175E2000118140 /* eventIcon.png */,
 				76C49778191720B800118140 /* flightIcon.png */,
 				76C49779191720B800118140 /* hotelIcon.png */,
 				76C49762191441DF00118140 /* homeButton.png */,
@@ -1409,6 +1412,7 @@
 				761188B019141F9100A620D9 /* home1@2x.png in Resources */,
 				76C49763191441DF00118140 /* homeButton.png in Resources */,
 				7611889D191304EC00A620D9 /* Vancouver_1.jpg in Resources */,
+				76C4977D19175E2000118140 /* eventIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

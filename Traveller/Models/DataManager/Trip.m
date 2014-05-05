@@ -25,5 +25,6 @@
 @dynamic toCityDestinationCity;
 @dynamic toEvent;
 @dynamic toItinerary;
+@dynamic price;
 
 @end

@@ -8,7 +8,8 @@
 
 #import "CDTableViewController.h"
 #import "MyScheduleTableCell.h"
+#import "EventViewController.h"
 
-@interface TripViewController : CDTableViewController
+@interface TripViewController : EventViewController
 
 @end

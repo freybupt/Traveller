@@ -81,7 +81,7 @@
                                             <rect key="frame" x="0.0" y="122" width="320" height="157"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total: $2,642" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNg-27-dBc">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total: $0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNg-27-dBc">
                                                     <rect key="frame" x="14" y="20" width="168" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="23"/>
@@ -123,7 +123,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bmE-78-5br">
-                                                            <rect key="frame" x="73" y="5" width="230" height="19"/>
+                                                            <rect key="frame" x="73" y="5" width="135" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                                             <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
@@ -136,6 +136,13 @@
                                                             <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$523" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" id="zeX-fu-nUI">
+                                                            <rect key="frame" x="12" y="43" width="53" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                            <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="o9r-Fl-5Kp">
                                                             <rect key="frame" x="73" y="43" width="230" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -144,16 +151,28 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flightIcon.png" id="tES-LS-SxQ">
-                                                            <rect key="frame" x="17" y="6" width="40" height="38"/>
+                                                            <rect key="frame" x="17" y="8" width="40" height="36"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="d1w-Ye-K1g">
+                                                            <rect key="frame" x="222" y="1" width="55" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                                                            <state key="normal" title="Change">
+                                                                <color key="titleColor" red="0.00082106110890000001" green="0.3969826212" blue="0.0012738924039999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
+                                                    <outlet property="actionButton" destination="d1w-Ye-K1g" id="O01-YV-b89"/>
                                                     <outlet property="eventLocationLabel" destination="o9r-Fl-5Kp" id="zxK-Cq-gZc"/>
                                                     <outlet property="eventTimeLabel" destination="bmE-78-5br" id="IFS-eY-3c2"/>
                                                     <outlet property="eventTitleLabel" destination="67L-p7-eVs" id="QFU-OV-t2E"/>
+                                                    <outlet property="eventTypeImageView" destination="tES-LS-SxQ" id="jU8-8g-aHP"/>
+                                                    <outlet property="priceLabel" destination="zeX-fu-nUI" id="74u-1h-1U9"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeader" rowHeight="30" id="91l-bV-KBW" customClass="MyScheduleTableViewHeaderView">
@@ -220,6 +239,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="adjustListViewButton" destination="Bpj-42-lVA" id="Rh9-wA-BvS"/>
+                        <outlet property="bookTripButton" destination="s1R-gE-qTK" id="lz1-Zr-w0P"/>
                         <outlet property="bookTripView" destination="m5l-kH-qMe" id="AQX-d1-89y"/>
                         <outlet property="calendarView" destination="Ul0-Ld-sd0" id="2r5-vQ-D3e"/>
                         <outlet property="destinationPanelView" destination="Bys-zB-5FN" id="5cm-cu-2CF"/>
@@ -231,6 +252,7 @@
                         <outlet property="showCalendarButton" destination="jMv-Dx-x75" id="eGd-py-JY6"/>
                         <outlet property="showMapButton" destination="pY5-99-my6" id="5DW-Gn-jKG"/>
                         <outlet property="tableView" destination="mBy-03-yug" id="W5e-sy-Q4f"/>
+                        <outlet property="totalPriceLabel" destination="lNg-27-dBc" id="XfY-wk-b47"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -919,7 +941,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YMp-1r-hEg">
-                                                            <rect key="frame" x="84" y="8" width="147" height="21"/>
+                                                            <rect key="frame" x="84" y="8" width="132" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
                                                             <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -943,12 +965,31 @@
                                                             <rect key="frame" x="21" y="9" width="40" height="38"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6db-56-Ne2">
+                                                            <rect key="frame" x="224" y="4" width="90" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
+                                                            <state key="normal" title="Checkin">
+                                                                <color key="titleColor" red="0.00082106110890000001" green="0.3969826212" blue="0.0012738924039999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </state>
+                                                        </button>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="on-time" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" id="3fd-cE-JTj">
+                                                            <rect key="frame" x="15" y="44" width="53" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="14"/>
+                                                            <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="actionButton" destination="6db-56-Ne2" id="xaL-uM-BSh"/>
                                                     <outlet property="eventLocationLabel" destination="lcN-gL-Y2e" id="hVb-sJ-JBU"/>
                                                     <outlet property="eventTimeLabel" destination="YMp-1r-hEg" id="a7u-zY-Ziw"/>
                                                     <outlet property="eventTitleLabel" destination="yRB-1I-2b0" id="NXq-MQ-F3C"/>
+                                                    <outlet property="eventTypeImageView" destination="Ssx-RT-S4Z" id="JUZ-y1-ZMZ"/>
+                                                    <outlet property="priceLabel" destination="3fd-cE-JTj" id="0NU-pI-adg"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

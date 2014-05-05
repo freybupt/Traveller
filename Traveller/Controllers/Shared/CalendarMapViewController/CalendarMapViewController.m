@@ -10,12 +10,7 @@
 #import "PanoramaViewController.h"
 #import "MyScheduleTableViewHeaderView.h"
 
-static CGFloat kUIAnimationDuration = 0.3f;
-static CGFloat kMyScheduleYCoordinate = 320.0f;
-static CGFloat kNavigationBarHeight = 44.0f;
-
 @interface CalendarMapViewController ()
-@property (nonatomic, assign) BOOL isScheduleExpanded;
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
 @end
 
@@ -199,8 +194,7 @@ static CGFloat kNavigationBarHeight = 44.0f;
         CalendarMapViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             [weakSelf.myScheduleView setFrame:CGRectMake(0, kMyScheduleYCoordinate, weakSelf.view.frame.size.width, weakSelf.view.frame.size.height - kMyScheduleYCoordinate)];
-            [weakSelf.tableView setContentSize:CGSizeMake(weakSelf.tableView.contentSize.width, weakSelf.tableView.contentSize.height - weakSelf.bookTripView.frame.size.height)];
-            weakSelf.bookTripView.hidden = YES;
+            [weakSelf.tableView setContentSize:CGSizeMake(weakSelf.tableView.contentSize.width, weakSelf.tableView.contentSize.height)];
         }];
         
         _isScheduleExpanded = NO;
@@ -214,7 +208,6 @@ static CGFloat kNavigationBarHeight = 44.0f;
         CalendarMapViewController __weak *weakSelf = self;
         [UIView animateWithDuration:0.1 animations:^{
             [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, weakSelf.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - weakSelf.navigationController.navigationBar.frame.size.height)];
-            weakSelf.bookTripView.hidden = NO;
         }];
         [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53"] forState:UIControlStateNormal];
         [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
@@ -364,34 +357,6 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 }
 
 #pragma mark - UITableViewDelegate
-- (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    Event *event = trip.toEvent;
-    
-    cell.eventTitleLabel.text = event.title;
-    if ([event.allDay boolValue]) {
-        cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
-    } else {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"HH:mm"];
-        [formatter setTimeZone:[NSTimeZone localTimeZone]];
-        cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
-    }
-    
-    if (!event) {
-        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
-        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
-    } else {
-        if ([event.location length] > 0) {
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
-        }
-        else if([event.toCity.cityName length] > 0){
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
-        }
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -399,16 +364,33 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     Event *event = trip.toEvent;
     if (!event) {
+        //TODO: should flight info
         return;
     }
-    City *city = event.toCity;
-    MKCoordinateRegion region;
-    region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
-    region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
-                                       DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [_mapView setRegion:region animated:YES];
-    });
+    
+    //calendar events
+    if (self.isScheduleExpanded) {
+        //show details
+        [self editEventButtonTapAction:event];
+
+    }
+    else if(self.mapView.hidden){
+        //TODO: highlight trip in calendar
+    }
+    else{
+        //update map
+        City *city = event.toCity;
+        MKCoordinateRegion region;
+        region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+        region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                           DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_mapView setRegion:region animated:YES];
+        });
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
@@ -526,6 +508,53 @@ didChangeToVisibleMonth:(NSDateComponents *)month
                                                                   forKey:[NSNumber numberWithInteger:[dateComponents uniqueDateNumber]]];
         }
     }
+}
+
+#pragma mark -
+#pragma mark EKEventEditViewDelegate
+// Overriding EKEventEditViewDelegate method to update event store according to user actions.
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+		  didCompleteWithAction:(EKEventEditViewAction)action
+{
+    CalendarMapViewController * __weak weakSelf = self;
+	// Dismiss the modal view controller
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (action == EKEventEditViewActionSaved &&
+            controller.event) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf saveEventButtonTapAction:controller.event];
+            });
+        } else if (action == EKEventEditViewActionDeleted) {
+            Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                             context:self.managedObjectContext];
+            [weakSelf deleteEventButtonTapAction:event];
+        }
+    }];
+}
+
+- (void)eventViewController:(EKEventViewController *)controller
+      didCompleteWithAction:(EKEventViewAction)action
+{
+    CalendarMapViewController * __weak weakSelf = self;
+	// Dismiss the modal view controller
+    [controller dismissViewControllerAnimated:YES completion:^{
+        if (action == EKEventViewActionDone &&
+            controller.event) {
+            EKEventStore *eventStore = [[EKEventStore alloc] init];
+            EKEvent *event = [eventStore eventWithIdentifier:controller.event.eventIdentifier];
+            if (event) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf saveEventButtonTapAction:controller.event];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
+                                                                                     context:self.managedObjectContext];
+                    [weakSelf deleteEventButtonTapAction:event];
+                });
+            }
+        }
+    }];
 }
 
 #pragma mark - Hotel

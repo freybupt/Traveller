@@ -11,7 +11,7 @@
 @interface MyScheduleTableViewHeaderView : UITableViewCell
 
 
-@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) IBOutlet UILabel *locationLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *locationPinImageView;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *locationLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *locationPinImageView;
 @end

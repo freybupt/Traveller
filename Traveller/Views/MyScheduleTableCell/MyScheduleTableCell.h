@@ -14,12 +14,16 @@
 @interface MyScheduleTableCell : UITableViewCell
 
 @property (nonatomic, weak) Event *event;
-@property (nonatomic, strong) IBOutlet UILabel *eventTimeLabel;
-@property (nonatomic, strong) IBOutlet UILabel *eventTitleLabel;
-@property (nonatomic, strong) IBOutlet UILabel *eventLocationLabel;
-@property (nonatomic, strong) IBOutlet HTAutocompleteTextField *eventLocationTextField;
-@property (nonatomic, strong) IBOutlet UIImageView *locationImageView;
-@property (nonatomic, strong) IBOutlet Checkbox *checkBox;
-@property (nonatomic, strong) IBOutlet UIView *locationView;
+@property (nonatomic, weak) IBOutlet UILabel *eventTimeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *eventTitleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *eventLocationLabel;
+@property (nonatomic, weak) IBOutlet HTAutocompleteTextField *eventLocationTextField;
+@property (nonatomic, weak) IBOutlet UIImageView *locationImageView;
+@property (nonatomic, weak) IBOutlet Checkbox *checkBox;
+@property (nonatomic, weak) IBOutlet UIView *locationView;
+
+@property (nonatomic, weak) IBOutlet UILabel *priceLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *eventTypeImageView;
+@property (nonatomic, weak) IBOutlet UIButton *actionButton;
 
 @end

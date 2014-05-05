@@ -128,6 +128,7 @@
     vc.event = ekEvent;
     vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nc.navigationBar.tintColor = UIColorFromRGB(0x0C4150);
     [self presentViewController:nc animated:YES completion:^{}];
 }
 

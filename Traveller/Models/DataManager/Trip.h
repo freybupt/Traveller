@@ -24,5 +24,6 @@
 @property (nonatomic, retain) City *toCityDestinationCity;
 @property (nonatomic, retain) Event *toEvent;
 @property (nonatomic, retain) Itinerary *toItinerary;
+@property (nonatomic, retain) NSNumber *price;
 
 @end

@@ -14,6 +14,14 @@
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
 @property (nonatomic, strong) Itinerary *itinerary;
+@property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
+@property (nonatomic, assign) NSInteger totalPrice;
+
+
+@property (nonatomic, weak) IBOutlet UIView *bookTripView;
+@property (nonatomic, weak) IBOutlet UILabel *totalPriceLabel;
+@property (nonatomic, weak) IBOutlet UIButton *bookTripButton;
+@property (nonatomic, weak) IBOutlet UIButton *adjustListViewButton;
 
 - (IBAction)confirmTripChange:(id)sender;
 - (IBAction)cancelTripChange:(id)sender;
@@ -59,6 +67,38 @@
     
 }
 
+
+- (void)shrinkMyScheduleView
+{
+    if (self.isScheduleExpanded) {
+        
+        PlanTripViewController __weak *weakSelf = self;
+        [UIView animateWithDuration:0.1 animations:^{
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kMyScheduleYCoordinate, weakSelf.view.frame.size.width, weakSelf.view.frame.size.height - kMyScheduleYCoordinate)];
+            [weakSelf.tableView setContentSize:CGSizeMake(weakSelf.tableView.contentSize.width, weakSelf.tableView.contentSize.height - weakSelf.bookTripView.frame.size.height)];
+            weakSelf.bookTripView.hidden = YES;
+        }];
+        
+        self.isScheduleExpanded = NO;
+        [self.expandButton setImage:[UIImage imageNamed:@"arrowUp"] forState:UIControlStateNormal];
+    }
+}
+
+- (void)showFullMyScheduleView
+{
+    if (!self.isScheduleExpanded) {
+        PlanTripViewController __weak *weakSelf = self;
+        [UIView animateWithDuration:0.1 animations:^{
+            [weakSelf.myScheduleView setFrame:CGRectMake(0, kNavigationBarHeight, weakSelf.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - weakSelf.navigationController.navigationBar.frame.size.height)];
+            weakSelf.bookTripView.hidden = NO;
+        }];
+        [self.showCalendarButton setImage:[UIImage imageNamed:@"calendar53"] forState:UIControlStateNormal];
+        [self.showMapButton setImage:[UIImage imageNamed:@"map35"] forState:UIControlStateNormal];
+        self.isScheduleExpanded = YES;
+        [self.expandButton setImage:[UIImage imageNamed:@"arrowDown"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
@@ -68,11 +108,9 @@
         [self hideActivityIndicator];
         return;
     }
-    
-    //add flight and hotel events
-    
-    
 
+    self.totalPrice = 0;
+    //add flight and hotel events
     Event *firstEvent = (Event *)[events objectAtIndex:0];
     NSString *cityName = @"Vancouver";
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
@@ -83,6 +121,9 @@
     firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
     firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
     firstTrip.toEvent = nil;
+    NSInteger randomPrice = arc4random()%300+200;
+    self.totalPrice += randomPrice;
+    firstTrip.price = [NSNumber numberWithInteger:randomPrice];
     firstTrip.toItinerary = _itinerary;
     if ([[DataManager sharedInstance] saveTrip:firstTrip
                                        context:self.managedObjectContext]) {
@@ -97,6 +138,7 @@
     firstTripWithEvent.startDate = firstEvent.startDate; //one day before first event
     firstTripWithEvent.endDate = firstEvent.endDate;
     firstTripWithEvent.toEvent = firstEvent;
+    firstTripWithEvent.price = [NSNumber numberWithInteger:0];
     firstTripWithEvent.toItinerary = _itinerary;
     if ([[DataManager sharedInstance] saveTrip:firstTripWithEvent
                                        context:self.managedObjectContext]) {
@@ -105,7 +147,7 @@
     }
     
     Event *hotelEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-    hotelEvent.title = [NSString stringWithFormat:@"Hyatt Hotel"];
+    hotelEvent.title = [NSString stringWithFormat:@"Stay Inn Airport South"];
     hotelEvent.toCity = firstEvent.toCity;
     hotelEvent.startDate = firstEvent.startDate;
     hotelEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
@@ -117,6 +159,9 @@
     firstHotelEvent.startDate = firstEvent.startDate; //one day before first event
     firstHotelEvent.endDate = firstEvent.endDate;
     firstHotelEvent.toEvent = hotelEvent;
+    randomPrice = arc4random()%200+200;
+    self.totalPrice += randomPrice;
+    firstHotelEvent.price = [NSNumber numberWithInteger:randomPrice];
     firstHotelEvent.toItinerary = _itinerary;
     
     if ([[DataManager sharedInstance] saveTrip:firstHotelEvent
@@ -133,6 +178,9 @@
     lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
     lastTrip.toEvent = nil;
     lastTrip.toItinerary = _itinerary;
+    randomPrice = arc4random()%300+200;
+    self.totalPrice += randomPrice;
+    lastTrip.price = [NSNumber numberWithInteger:randomPrice];
     [[DataManager sharedInstance] saveTrip:lastTrip
                                    context:self.managedObjectContext];
     
@@ -180,7 +228,9 @@
         // Add flight objects here
     }
     
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", self.totalPrice];
     [self hideActivityIndicator];
+    [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
 }
 
 - (IBAction)confirmTripChange:(id)sender
@@ -257,8 +307,54 @@
 {
     [self showActivityIndicatorWithText:NSLocalizedString(@"Booking your trip...\n\nPlease feel free to close the app. \nThis might take a while.", nil)];
     
+    [[TripManager sharedManager] setTripStage:TripStageBookTrip];
+    
     if ([[DataManager sharedInstance] saveItinerary:_itinerary context:self.managedObjectContext]) {
         [self.navigationController dismissViewControllerAnimated:YES completion:^{}];
+    }
+}
+
+
+#pragma mark - UITableView Delegate
+- (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = trip.toEvent;
+    
+    cell.eventTitleLabel.text = event.title;
+    if ([event.eventType integerValue] == EventTypeHotel) {
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon.png"]];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    else{
+        cell.priceLabel.text = @"";
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon.png"]];
+        cell.contentView.backgroundColor = UIColorFromRGB(0xD0E5DB);
+    }
+    if ([event.allDay boolValue]) {
+        cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
+    } else {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm"];
+        [formatter setTimeZone:[NSTimeZone localTimeZone]];
+        cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
+    }
+    
+    if (!event) {
+        //flight
+        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
+        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon.png"]];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    } else {
+        if ([event.location length] > 0) {
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+        }
+        else if([event.toCity.cityName length] > 0){
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
+        }
     }
 }
 
