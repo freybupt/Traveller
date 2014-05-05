@@ -371,8 +371,15 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     //calendar events
     if (self.isScheduleExpanded) {
         //show details
-        [self editEventButtonTapAction:event];
-
+        if ([event.eventType integerValue] == EventTypeHotel) {
+            //should be triggered from hotel detail view - here is only for testing
+            PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
+            vc.title = event.title;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else{
+            [self editEventButtonTapAction:event];
+        }
     }
     else if(self.mapView.hidden){
         //TODO: highlight trip in calendar
@@ -535,26 +542,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 - (void)eventViewController:(EKEventViewController *)controller
       didCompleteWithAction:(EKEventViewAction)action
 {
-    CalendarMapViewController * __weak weakSelf = self;
-	// Dismiss the modal view controller
-    [controller dismissViewControllerAnimated:YES completion:^{
-        if (action == EKEventViewActionDone &&
-            controller.event) {
-            EKEventStore *eventStore = [[EKEventStore alloc] init];
-            EKEvent *event = [eventStore eventWithIdentifier:controller.event.eventIdentifier];
-            if (event) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf saveEventButtonTapAction:controller.event];
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier
-                                                                                     context:self.managedObjectContext];
-                    [weakSelf deleteEventButtonTapAction:event];
-                });
-            }
-        }
-    }];
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Hotel

@@ -330,7 +330,7 @@
     else{
         cell.priceLabel.text = @"";
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon.png"]];
-        cell.contentView.backgroundColor = UIColorFromRGB(0xD0E5DB);
+        cell.contentView.backgroundColor = UIColorFromRGB(0xF4F5F8);
     }
     if ([event.allDay boolValue]) {
         cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
