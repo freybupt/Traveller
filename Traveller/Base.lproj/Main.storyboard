@@ -123,26 +123,30 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bmE-78-5br">
-                                                            <rect key="frame" x="85" y="6" width="204" height="19"/>
+                                                            <rect key="frame" x="73" y="5" width="230" height="19"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                                             <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="67L-p7-eVs">
-                                                            <rect key="frame" x="85" y="23" width="204" height="21"/>
+                                                            <rect key="frame" x="73" y="22" width="230" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="o9r-Fl-5Kp">
-                                                            <rect key="frame" x="85" y="44" width="204" height="21"/>
+                                                            <rect key="frame" x="73" y="43" width="230" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-LightOblique" family="Avenir" pointSize="14"/>
                                                             <color key="textColor" red="0.12549019607843137" green="0.26666666666666666" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flightIcon.png" id="tES-LS-SxQ">
+                                                            <rect key="frame" x="17" y="6" width="40" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -902,39 +906,43 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="436"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="idk-lO-ZcA" userLabel="My Schedule Tableview">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="idk-lO-ZcA" userLabel="My Schedule Tableview">
                                         <rect key="frame" x="0.0" y="35" width="320" height="401"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="eventCell" id="KY9-mE-NSi" customClass="MyScheduleTableCell">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="55"/>
+                                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KY9-mE-NSi" id="NFY-3c-4N3">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 AM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YMp-1r-hEg">
-                                                            <rect key="frame" x="20" y="9" width="57" height="42"/>
+                                                            <rect key="frame" x="84" y="8" width="147" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
                                                             <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yRB-1I-2b0">
-                                                            <rect key="frame" x="85" y="9" width="178" height="21"/>
+                                                            <rect key="frame" x="84" y="28" width="230" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                                             <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lcN-gL-Y2e">
-                                                            <rect key="frame" x="85" y="31" width="178" height="21"/>
+                                                            <rect key="frame" x="84" y="50" width="230" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="Avenir-LightOblique" family="Avenir" pointSize="14"/>
                                                             <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flightIcon.png" id="Ssx-RT-S4Z">
+                                                            <rect key="frame" x="21" y="9" width="40" height="38"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
@@ -1040,6 +1048,7 @@
         <image name="calendar53.png" width="20" height="20"/>
         <image name="edit12.png" width="512" height="512"/>
         <image name="expandButton.png" width="176" height="162"/>
+        <image name="flightIcon.png" width="82" height="76"/>
         <image name="home1.png" width="426" height="517"/>
         <image name="map35.png" width="25" height="25"/>
         <image name="map5.png" width="512" height="512"/>

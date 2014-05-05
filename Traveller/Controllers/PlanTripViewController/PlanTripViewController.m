@@ -68,6 +68,10 @@
         [self hideActivityIndicator];
         return;
     }
+    
+    //add flight and hotel events
+    
+    
 
     Event *firstEvent = (Event *)[events objectAtIndex:0];
     NSString *cityName = @"Vancouver";
@@ -84,6 +88,41 @@
                                        context:self.managedObjectContext]) {
         _itinerary.date = firstTrip.startDate;
         _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), firstEvent.toCity.cityName];
+    }
+    
+    Trip *firstTripWithEvent = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    firstTripWithEvent.defaultColor = firstTrip.defaultColor;
+    firstTripWithEvent.toCityDepartureCity = firstEvent.toCity;
+    firstTripWithEvent.toCityDestinationCity = firstEvent.toCity;
+    firstTripWithEvent.startDate = firstEvent.startDate; //one day before first event
+    firstTripWithEvent.endDate = firstEvent.endDate;
+    firstTripWithEvent.toEvent = firstEvent;
+    firstTripWithEvent.toItinerary = _itinerary;
+    if ([[DataManager sharedInstance] saveTrip:firstTripWithEvent
+                                       context:self.managedObjectContext]) {
+        _itinerary.date = firstTripWithEvent.startDate;
+        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Event at %@", nil), firstEvent.toCity.cityName];
+    }
+    
+    Event *hotelEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
+    hotelEvent.title = [NSString stringWithFormat:@"Hyatt Hotel"];
+    hotelEvent.toCity = firstEvent.toCity;
+    hotelEvent.startDate = firstEvent.startDate;
+    hotelEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
+    
+    Trip *firstHotelEvent = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    firstHotelEvent.defaultColor = firstTrip.defaultColor;
+    firstHotelEvent.toCityDepartureCity = firstEvent.toCity;
+    firstHotelEvent.toCityDestinationCity = firstEvent.toCity;
+    firstHotelEvent.startDate = firstEvent.startDate; //one day before first event
+    firstHotelEvent.endDate = firstEvent.endDate;
+    firstHotelEvent.toEvent = hotelEvent;
+    firstHotelEvent.toItinerary = _itinerary;
+    
+    if ([[DataManager sharedInstance] saveTrip:firstHotelEvent
+                                       context:self.managedObjectContext]) {
+        _itinerary.date = firstTripWithEvent.startDate;
+        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Hotel at %@", nil), firstEvent.toCity.cityName];
     }
     
     Event *lastEvent = (Event *)[events lastObject];

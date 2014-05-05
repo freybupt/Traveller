@@ -203,10 +203,6 @@
         UITableViewHeaderFooterView *tableViewHeaderFooterView = (UITableViewHeaderFooterView *) view;
         tableViewHeaderFooterView.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
         tableViewHeaderFooterView.textLabel.textColor = [UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
-        
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [tableViewHeaderFooterView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
     }
 }
 

@@ -258,6 +258,7 @@
 
     Event *anEvent = [self.fetchedResultsController objectAtIndexPath:_processingIndexPath];
     anEvent.toCity = toCity;
+    anEvent.eventType = [NSNumber numberWithInteger:EventTypeDefault];
     [[DataManager sharedInstance] saveEvent:anEvent
                                     context:self.managedObjectContext];
 }

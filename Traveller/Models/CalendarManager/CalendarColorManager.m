@@ -31,7 +31,7 @@
                                       UIColorFromRGB(0x339933),
                                       UIColorFromRGB(0x99cc00),
                                       UIColorFromRGB(0x9966),
-                                      UIColorFromRGB(0xffff00),
+//                                      UIColorFromRGB(0xffff00),
                                       UIColorFromRGB(0xcc9966),
                                       UIColorFromRGB(0x3399cc),
                                       UIColorFromRGB(0x3366),
