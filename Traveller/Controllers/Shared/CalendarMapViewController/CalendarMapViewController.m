@@ -450,11 +450,26 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     titleLabel.text = formattedDateString;
     [headerView addSubview:titleLabel];
     
-    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width*3/4, 0, tableView.bounds.size.width/4, 25)];
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width*4/5, 0, tableView.bounds.size.width/5, 25)];
     locationLabel.font = [UIFont fontWithName:@"Avenir-Heavy" size:12.0];
     locationLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
     locationLabel.text = trip.toCityDepartureCity.cityName;
     [headerView addSubview:locationLabel];
+    
+    UIImage *image = [UIImage imageNamed:@"map54@2x.png"];
+    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    [image drawInRect:rect];
+    CGContextSetFillColorWithColor(c, [[UIColor whiteColor] CGColor]);
+    CGContextSetBlendMode(c, kCGBlendModeSourceAtop);
+    CGContextFillRect(c, rect);
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(locationLabel.frame.origin.x - 20, 4, 15, 15)];
+    [locationImageView setImage:result];
+    [headerView addSubview:locationImageView];
     
     return headerView;
 }
