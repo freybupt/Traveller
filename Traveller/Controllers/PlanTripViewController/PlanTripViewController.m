@@ -38,11 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
@@ -63,8 +58,11 @@
     [self.destinationPanelView.removeTripButton addTarget:self
                                                    action:@selector(deleteCurrentTrip:)
                                          forControlEvents:UIControlEventTouchUpInside];
-    
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 

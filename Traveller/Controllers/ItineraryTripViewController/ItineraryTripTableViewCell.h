@@ -12,4 +12,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *eventTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *eventLocationLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *priceLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *eventTypeImageView;
+@property (nonatomic, weak) IBOutlet UIButton *actionButton;
 @end

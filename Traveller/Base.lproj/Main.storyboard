@@ -579,6 +579,17 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lGh-Uq-eyd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationItem title="SELECT EVENTS" id="4lh-Ot-neK">
+                    <barButtonItem key="leftBarButtonItem" systemItem="reply" id="cMb-JB-VuF">
+                        <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <action selector="dismissModelView:" destination="pT3-Uf-r2c" id="0kb-3H-h5G"/>
+                        </connections>
+                    </barButtonItem>
+                    <barButtonItem key="rightBarButtonItem" title="Plan" style="done" id="x2o-98-RHf">
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </barButtonItem>
+                </navigationItem>
             </objects>
             <point key="canvasLocation" x="1167" y="656"/>
         </scene>

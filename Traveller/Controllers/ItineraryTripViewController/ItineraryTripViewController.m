@@ -58,6 +58,11 @@
 }
 
 #pragma mark - UITableView delegate and datasource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0f;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ItineraryTripTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[self tableCellReuseIdentifier]];
@@ -71,12 +76,26 @@
     return cell;
 }
 
+
 - (void)configureCell:(ItineraryTripTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     Event *event = trip.toEvent;
     
     cell.eventTitleLabel.text = event.title;
+    if ([event.eventType integerValue] == EventTypeHotel) {
+        //hotel
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d mins from airport", arc4random()%40+10];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon.png"]];
+        [cell.actionButton setTitle:@"Call Hotel" forState:UIControlStateNormal];
+    }
+    else{
+        //calendar events
+        cell.priceLabel.text = [NSString stringWithFormat:@"%d mins drive from hotel", arc4random()%5+2];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon.png"]];
+        [cell setBackgroundColor:[UIColor lightTextColor]];
+        [cell.actionButton setTitle:@"Contact" forState:UIControlStateNormal];
+    }
     if ([event.allDay boolValue]) {
         cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
     } else {
@@ -87,8 +106,12 @@
     }
     
     if (!event) {
+        //flight
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        cell.priceLabel.text = [NSString stringWithFormat:@"on-time"];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon.png"]];
+        [cell.actionButton setTitle:@"Check-in" forState:UIControlStateNormal];
     } else {
         if ([event.location length] > 0) {
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
@@ -97,6 +120,6 @@
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
         }
     }
-
 }
+
 @end
