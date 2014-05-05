@@ -76,6 +76,7 @@
 		76C4977219146BAC00118140 /* tutorial2.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976E19146BAC00118140 /* tutorial2.png */; };
 		76C4977319146BAC00118140 /* tutorial3.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4976F19146BAC00118140 /* tutorial3.png */; };
 		76C4977419146BAC00118140 /* tutorial4.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977019146BAC00118140 /* tutorial4.png */; };
+		76C4977719170DF800118140 /* MyScheduleTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -261,6 +262,8 @@
 		76C4976E19146BAC00118140 /* tutorial2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial2.png; sourceTree = "<group>"; };
 		76C4976F19146BAC00118140 /* tutorial3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial3.png; sourceTree = "<group>"; };
 		76C4977019146BAC00118140 /* tutorial4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tutorial4.png; sourceTree = "<group>"; };
+		76C4977519170DF800118140 /* MyScheduleTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleTableViewHeaderView.h; sourceTree = "<group>"; };
+		76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleTableViewHeaderView.m; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -867,6 +870,8 @@
 			children = (
 				9F3747931900F152003D67C8 /* MyScheduleTableCell.h */,
 				9F3747941900F152003D67C8 /* MyScheduleTableCell.m */,
+				76C4977519170DF800118140 /* MyScheduleTableViewHeaderView.h */,
+				76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */,
 			);
 			name = MyScheduleTableCell;
 			path = Views/MyScheduleTableCell;
@@ -1436,6 +1441,7 @@
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
 				9F5A80FB1911EEE400799FDD /* UIAlertView+AFNetworking.m in Sources */,
 				9F3748321900F2E3003D67C8 /* DSLCalendarDayView.m in Sources */,
+				76C4977719170DF800118140 /* MyScheduleTableViewHeaderView.m in Sources */,
 				9F3747A81900F168003D67C8 /* BookingTableViewController.m in Sources */,
 				761188AA19130C6D00A620D9 /* HomeViewController.m in Sources */,
 				9F5A80ED1911EEE400799FDD /* AFHTTPRequestOperation.m in Sources */,

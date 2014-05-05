@@ -78,7 +78,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="m5l-kH-qMe" userLabel="Book view">
-                                            <rect key="frame" x="0.0" y="77" width="320" height="157"/>
+                                            <rect key="frame" x="0.0" y="107" width="320" height="157"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total: $2,642" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNg-27-dBc">
@@ -150,6 +150,38 @@
                                                     <outlet property="eventLocationLabel" destination="o9r-Fl-5Kp" id="zxK-Cq-gZc"/>
                                                     <outlet property="eventTimeLabel" destination="bmE-78-5br" id="IFS-eY-3c2"/>
                                                     <outlet property="eventTitleLabel" destination="67L-p7-eVs" id="QFU-OV-t2E"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeader" rowHeight="30" id="91l-bV-KBW" customClass="MyScheduleTableViewHeaderView">
+                                                <rect key="frame" x="0.0" y="77" width="320" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="91l-bV-KBW" id="V47-Tc-fch">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="May 5, 2014" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RU1-4f-rIP">
+                                                            <rect key="frame" x="20" y="4" width="155" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shanghai, China" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" id="kyC-Dp-ilU">
+                                                            <rect key="frame" x="214" y="4" width="101" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map54.png" id="1Ui-JV-fhs">
+                                                            <rect key="frame" x="197" y="7" width="15" height="15"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="locationLabel" destination="kyC-Dp-ilU" id="3ME-lF-kRA"/>
+                                                    <outlet property="locationPinImageView" destination="1Ui-JV-fhs" id="2Wh-EC-4OD"/>
+                                                    <outlet property="titleLabel" destination="RU1-4f-rIP" id="gyC-71-JsJ"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -1011,6 +1043,7 @@
         <image name="home1.png" width="426" height="517"/>
         <image name="map35.png" width="25" height="25"/>
         <image name="map5.png" width="512" height="512"/>
+        <image name="map54.png" width="256" height="256"/>
         <image name="myProfile.png" width="135" height="118"/>
         <image name="pastTrip.png" width="142" height="121"/>
         <image name="setting.png" width="127" height="120"/>

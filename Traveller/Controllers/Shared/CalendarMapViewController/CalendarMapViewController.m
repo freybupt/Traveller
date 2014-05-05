@@ -8,6 +8,7 @@
 
 #import "CalendarMapViewController.h"
 #import "PanoramaViewController.h"
+#import "MyScheduleTableViewHeaderView.h"
 
 static CGFloat kUIAnimationDuration = 0.3f;
 static CGFloat kMyScheduleYCoordinate = 320.0f;
@@ -430,6 +431,34 @@ didChangeToVisibleMonth:(NSDateComponents *)month
                                          context:self.managedObjectContext];
     }
 }
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    [headerView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
+    titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
+    titleLabel.textColor = [UIColor blackColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    [formatter setDateFormat:@"EEE, MMM dd"];
+    NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
+    titleLabel.text = formattedDateString;
+    [headerView addSubview:titleLabel];
+    
+    UILabel *locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(tableView.bounds.size.width*3/4, 0, tableView.bounds.size.width/4, 25)];
+    locationLabel.font = [UIFont fontWithName:@"Avenir-Heavy" size:12.0];
+    locationLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
+    locationLabel.text = trip.toCityDepartureCity.cityName;
+    [headerView addSubview:locationLabel];
+    
+    return headerView;
+}
+
 
 #pragma mark - NSManagedObjectContext
 - (void)updateMainContext:(NSNotification *)notification
