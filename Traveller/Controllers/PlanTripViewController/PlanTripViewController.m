@@ -119,7 +119,7 @@
     firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
     firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
     firstTrip.toEvent = nil;
-    NSInteger randomPrice = arc4random()%300+200;
+    NSInteger randomPrice = arc4random()%500+200;
     self.totalPrice += randomPrice;
     firstTrip.price = [NSNumber numberWithInteger:randomPrice];
     firstTrip.toItinerary = _itinerary;
@@ -176,7 +176,7 @@
     lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
     lastTrip.toEvent = nil;
     lastTrip.toItinerary = _itinerary;
-    randomPrice = arc4random()%300+200;
+    randomPrice = arc4random()%500+200;
     self.totalPrice += randomPrice;
     lastTrip.price = [NSNumber numberWithInteger:randomPrice];
     [[DataManager sharedInstance] saveTrip:lastTrip

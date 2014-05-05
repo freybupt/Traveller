@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Traveller/Controllers/Shared/ItineraryViewController/ItineraryViewController.m"
-            timestampString = "420941049.278833"
+            timestampString = "421009306.582773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-tableView:willDisplayHeaderView:forSection:"
             landmarkType = "5">
          </BreakpointContent>

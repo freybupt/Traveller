@@ -24,17 +24,6 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    self.title = NSLocalizedString(@"Itinerary", nil);
-    
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                                          style:UIBarButtonItemStylePlain
-                                                                         target:self
-                                                                         action:@selector(cancelButtonTapAction:)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];

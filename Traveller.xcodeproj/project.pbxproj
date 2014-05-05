@@ -84,6 +84,9 @@
 		76C49782191808DB00118140 /* facebookSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49780191808DB00118140 /* facebookSignIn.png */; };
 		76C49783191808DB00118140 /* linkedInSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49781191808DB00118140 /* linkedInSignIn.png */; };
 		76C4978719180AD600118140 /* UserInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4978619180AD600118140 /* UserInformationViewController.m */; };
+		76C497891918123D00118140 /* userPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497881918123D00118140 /* userPhoto.png */; };
+		76C4978B1918143100118140 /* aircanadaLog.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4978A1918143100118140 /* aircanadaLog.png */; };
+		76C4978D191814BA00118140 /* HyattLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4978C191814BA00118140 /* HyattLogo.png */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -279,6 +282,9 @@
 		76C49781191808DB00118140 /* linkedInSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkedInSignIn.png; sourceTree = "<group>"; };
 		76C4978519180AD600118140 /* UserInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationViewController.h; sourceTree = "<group>"; };
 		76C4978619180AD600118140 /* UserInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationViewController.m; sourceTree = "<group>"; };
+		76C497881918123D00118140 /* userPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userPhoto.png; sourceTree = "<group>"; };
+		76C4978A1918143100118140 /* aircanadaLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aircanadaLog.png; sourceTree = "<group>"; };
+		76C4978C191814BA00118140 /* HyattLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HyattLogo.png; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -566,6 +572,9 @@
 				76C4977E191805F600118140 /* creditCards.png */,
 				76C49780191808DB00118140 /* facebookSignIn.png */,
 				76C49781191808DB00118140 /* linkedInSignIn.png */,
+				76C497881918123D00118140 /* userPhoto.png */,
+				76C4978A1918143100118140 /* aircanadaLog.png */,
+				76C4978C191814BA00118140 /* HyattLogo.png */,
 			);
 			name = temp_for_demo;
 			sourceTree = "<group>";
@@ -1405,6 +1414,7 @@
 				76B9443B19071436001B08DB /* arrowDown@2x.png in Resources */,
 				761188B81914208500A620D9 /* myProfile@2x.png in Resources */,
 				76118889191302C500A620D9 /* user14@2x.png in Resources */,
+				76C497891918123D00118140 /* userPhoto.png in Resources */,
 				7622B8E8190AE97500F2A22A /* pencil54.png in Resources */,
 				76C4977A191720B800118140 /* flightIcon.png in Resources */,
 				76B9443819071436001B08DB /* Icon-40@2x.png in Resources */,
@@ -1434,8 +1444,10 @@
 				76B9443E19071436001B08DB /* CanadaCities.csv in Resources */,
 				9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */,
 				761188B019141F9100A620D9 /* home1@2x.png in Resources */,
+				76C4978D191814BA00118140 /* HyattLogo.png in Resources */,
 				76C49763191441DF00118140 /* homeButton.png in Resources */,
 				76C49783191808DB00118140 /* linkedInSignIn.png in Resources */,
+				76C4978B1918143100118140 /* aircanadaLog.png in Resources */,
 				7611889D191304EC00A620D9 /* Vancouver_1.jpg in Resources */,
 				76C4977D19175E2000118140 /* eventIcon.png in Resources */,
 			);
