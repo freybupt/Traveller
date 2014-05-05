@@ -165,7 +165,7 @@
     if ([[DataManager sharedInstance] saveTrip:firstHotelEvent
                                        context:self.managedObjectContext]) {
         _itinerary.date = firstTripWithEvent.startDate;
-        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Hotel at %@", nil), firstEvent.toCity.cityName];
+        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), firstEvent.toCity.cityName];
     }
     
     Event *lastEvent = (Event *)[events lastObject];

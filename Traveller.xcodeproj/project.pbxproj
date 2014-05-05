@@ -80,6 +80,10 @@
 		76C4977A191720B800118140 /* flightIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49778191720B800118140 /* flightIcon.png */; };
 		76C4977B191720B800118140 /* hotelIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49779191720B800118140 /* hotelIcon.png */; };
 		76C4977D19175E2000118140 /* eventIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977C19175E2000118140 /* eventIcon.png */; };
+		76C4977F191805F600118140 /* creditCards.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4977E191805F600118140 /* creditCards.png */; };
+		76C49782191808DB00118140 /* facebookSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49780191808DB00118140 /* facebookSignIn.png */; };
+		76C49783191808DB00118140 /* linkedInSignIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C49781191808DB00118140 /* linkedInSignIn.png */; };
+		76C4978719180AD600118140 /* UserInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4978619180AD600118140 /* UserInformationViewController.m */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -270,6 +274,11 @@
 		76C49778191720B800118140 /* flightIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flightIcon.png; sourceTree = "<group>"; };
 		76C49779191720B800118140 /* hotelIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hotelIcon.png; sourceTree = "<group>"; };
 		76C4977C19175E2000118140 /* eventIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eventIcon.png; sourceTree = "<group>"; };
+		76C4977E191805F600118140 /* creditCards.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creditCards.png; sourceTree = "<group>"; };
+		76C49780191808DB00118140 /* facebookSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookSignIn.png; sourceTree = "<group>"; };
+		76C49781191808DB00118140 /* linkedInSignIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkedInSignIn.png; sourceTree = "<group>"; };
+		76C4978519180AD600118140 /* UserInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInformationViewController.h; sourceTree = "<group>"; };
+		76C4978619180AD600118140 /* UserInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInformationViewController.m; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -554,6 +563,9 @@
 				761188BA191422C000A620D9 /* plan@2x.png */,
 				76C497681914586D00118140 /* expandButton.png */,
 				76C4976A191458FD00118140 /* bookTripButton.png */,
+				76C4977E191805F600118140 /* creditCards.png */,
+				76C49780191808DB00118140 /* facebookSignIn.png */,
+				76C49781191808DB00118140 /* linkedInSignIn.png */,
 			);
 			name = temp_for_demo;
 			sourceTree = "<group>";
@@ -792,6 +804,7 @@
 		76C2711F18B2A3D3003A49A3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				76C4978419180AC100118140 /* UserInformationViewController */,
 				9F77083A1916A0A600BF4104 /* ItineraryTripViewController */,
 				9F3747CB1900F231003D67C8 /* Shared */,
 				761188AB1913193700A620D9 /* TutorialViewController */,
@@ -831,6 +844,15 @@
 				76C4977019146BAC00118140 /* tutorial4.png */,
 			);
 			name = Tutorial;
+			sourceTree = "<group>";
+		};
+		76C4978419180AC100118140 /* UserInformationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				76C4978519180AD600118140 /* UserInformationViewController.h */,
+				76C4978619180AD600118140 /* UserInformationViewController.m */,
+			);
+			name = UserInformationViewController;
 			sourceTree = "<group>";
 		};
 		9F08006219163970006ED9D8 /* ItineraryViewController */ = {
@@ -1364,6 +1386,7 @@
 				768263CF1905C14B00089319 /* map5.png in Resources */,
 				7611889E191304EC00A620D9 /* Vancouver_2.jpg in Resources */,
 				76B9443C19071436001B08DB /* arrowUp@2x.png in Resources */,
+				76C49782191808DB00118140 /* facebookSignIn.png in Resources */,
 				7622B8E6190AE97500F2A22A /* edit12.png in Resources */,
 				9F3748341900F2E3003D67C8 /* DSLCalendarMonthSelectorView.xib in Resources */,
 				76C270CA18B2A1E2003A49A3 /* Images.xcassets in Resources */,
@@ -1392,6 +1415,7 @@
 				761188A0191304EC00A620D9 /* Vancouver_4.jpg in Resources */,
 				76C270C518B2A1E2003A49A3 /* Main.storyboard in Resources */,
 				761188A61913067D00A620D9 /* logo.png in Resources */,
+				76C4977F191805F600118140 /* creditCards.png in Resources */,
 				761188A1191304EC00A620D9 /* Vancouver_6.jpg in Resources */,
 				76C4976B191458FD00118140 /* bookTripButton.png in Resources */,
 				76118894191302FA00A620D9 /* info@2x.png in Resources */,
@@ -1411,6 +1435,7 @@
 				9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */,
 				761188B019141F9100A620D9 /* home1@2x.png in Resources */,
 				76C49763191441DF00118140 /* homeButton.png in Resources */,
+				76C49783191808DB00118140 /* linkedInSignIn.png in Resources */,
 				7611889D191304EC00A620D9 /* Vancouver_1.jpg in Resources */,
 				76C4977D19175E2000118140 /* eventIcon.png in Resources */,
 			);
@@ -1445,6 +1470,7 @@
 				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
 				9F54EB611901771600ABB05F /* EventViewController.m in Sources */,
 				9F3747A71900F168003D67C8 /* AddDestinationViewController.m in Sources */,
+				76C4978719180AD600118140 /* UserInformationViewController.m in Sources */,
 				9FFA7FCC19075FD100F55345 /* NSString+Extensions.m in Sources */,
 				9F3747C91900F213003D67C8 /* LocationManager.m in Sources */,
 				9F3747C31900F213003D67C8 /* CalendarManager.m in Sources */,
