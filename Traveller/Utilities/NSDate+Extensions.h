@@ -16,7 +16,8 @@
 - (NSDate *)dateOnFirstDay;
 - (NSDate *)dateBeforeOneDay;
 - (NSDate *)dateAfterOneDay;
-- (NSString *)hourTime;
+- (NSString *)timeWithDateFormat:(NSString *)string;
+- (NSString *)hourMinTime;
 - (NSString *)monthDayTime;
 - (NSString *)translatedTime;
 - (NSString *)relativeTime;

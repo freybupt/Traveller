@@ -80,11 +80,7 @@
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss ZZ"];
     NSDate *date = [formatter dateFromString:dateString];
     
-    // NSDate -> Formatted Date String
-    [formatter setDateFormat:@"EEE, MMM dd"];
-    NSString *formattedDateString = [formatter stringFromDate:date];
-    
-    return formattedDateString;
+    return [date timeWithDateFormat:@"EEE, MMM dd"];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

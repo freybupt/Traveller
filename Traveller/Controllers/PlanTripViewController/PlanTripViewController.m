@@ -322,12 +322,12 @@
     cell.eventTitleLabel.text = event.title;
     if ([event.eventType integerValue] == EventTypeHotel) {
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
     else{
         cell.priceLabel.text = @"";
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon"]];
         cell.contentView.backgroundColor = UIColorFromRGB(0xF4F5F8);
     }
     if ([event.allDay boolValue]) {
@@ -344,7 +344,7 @@
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
     } else {
         if ([event.location length] > 0) {

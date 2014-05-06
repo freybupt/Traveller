@@ -59,13 +59,13 @@
     if ([event.eventType integerValue] == EventTypeHotel) {
         //hotel
         cell.priceLabel.text = [NSString stringWithFormat:@"%d mins from airport", arc4random()%40+10];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         [cell.actionButton setTitle:@"Call Hotel" forState:UIControlStateNormal];
     }
     else{
         //calendar events
         cell.priceLabel.text = [NSString stringWithFormat:@"%d mins drive from hotel", arc4random()%5+2];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon"]];
         [cell setBackgroundColor:[UIColor lightTextColor]];
         [cell.actionButton setTitle:@"Contact" forState:UIControlStateNormal];
     }
@@ -83,7 +83,7 @@
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
         cell.priceLabel.text = [NSString stringWithFormat:@"on-time"];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon.png"]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         [cell.actionButton setTitle:@"Check-in" forState:UIControlStateNormal];
     } else {
         if ([event.location length] > 0) {

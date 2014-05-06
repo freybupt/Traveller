@@ -65,34 +65,31 @@
     return [self dateByAddingTimeInterval:ONE_DAY];
 }
 
-- (NSString *)hourTime
+- (NSString *)timeWithDateFormat:(NSString *)string
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setAMSymbol:@"am"];
+    [dateFormatter setPMSymbol:@"pm"];
     [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-	[dateFormatter setDateFormat:@"HH:mm"];
+	[dateFormatter setDateFormat:string];
     [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
     
 	return [dateFormatter stringFromDate:self];
+}
+
+- (NSString *)hourMinTime
+{
+    return [self timeWithDateFormat:@"HH:mm"];
 }
 
 - (NSString *)monthDayTime
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-	[dateFormatter setDateFormat:@"MMMM dd"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    
-	return [dateFormatter stringFromDate:self];
+	return [self timeWithDateFormat:@"MMMM dd"];
 }
 
 - (NSString *)translatedTime
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-	[dateFormatter setDateFormat:@"EEEE MMMM dd HH:mm"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    
-	return [dateFormatter stringFromDate:self];
+	return [self timeWithDateFormat:@"EEEE MMMM dd HH:mm"];
 }
 
 - (NSString *)relativeTime
