@@ -65,9 +65,9 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     /* Set corrent myScheduleView frame */
     CalendarMapViewController __weak *weakSelf = self;
