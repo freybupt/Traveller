@@ -10,7 +10,13 @@
 #import "MZFormSheetController.h"
 #import "MZCustomTransition.h"
 #import "AddDestinationViewController.h"
+#import "PanoramaViewController.h"
+#import "MyScheduleHotelTableCell.h"
+#import "MyScheduleFlightTableCell.h"
 
+static NSInteger kEventCellHeight = 80;
+static NSInteger kFlightCellFullHeight = 400;
+static NSInteger kHotelCellFullHeight = 300;
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
 @property (nonatomic, strong) Itinerary *itinerary;
@@ -314,46 +320,176 @@
 
 
 #pragma mark - UITableView Delegate
-- (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath isEqual:self.expandedCellIndexPath]) {
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        Event *event = trip.toEvent;
+    
+        //expand list item
+        if (!event) {
+            //flight
+            return kFlightCellFullHeight;
+        }
+        else if ([event.eventType integerValue] == EventTypeHotel) {
+            //hotel
+            return kHotelCellFullHeight;
+        }
+        else{
+            //calendar event
+            return kEventCellHeight;
+        }
+    }
+    else{
+        return kEventCellHeight;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     Event *event = trip.toEvent;
+    MyScheduleTableCell *tableCell;
     
-    cell.eventTitleLabel.text = event.title;
     if ([event.eventType integerValue] == EventTypeHotel) {
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-    }
-    else{
-        cell.priceLabel.text = @"";
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon"]];
-        cell.contentView.backgroundColor = UIColorFromRGB(0xF4F5F8);
-    }
-    if ([event.allDay boolValue]) {
-        cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
-    } else {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"HH:mm"];
-        [formatter setTimeZone:[NSTimeZone localTimeZone]];
-        cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
-    }
-    
-    if (!event) {
-        //flight
-        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
-        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
-        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-    } else {
+        //Hotel
+        MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
+        if (!cell) {
+            cell = [[MyScheduleHotelTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                              reuseIdentifier:@"hotelCell"];
+        }
+        cell.eventTitleLabel.text = event.title;
+        if ([event.allDay boolValue]) {
+            cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
+        } else {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"HH:mm"];
+            [formatter setTimeZone:[NSTimeZone localTimeZone]];
+            cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
+        }
         if ([event.location length] > 0) {
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
         }
         else if([event.toCity.cityName length] > 0){
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
         }
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        tableCell = cell;
     }
+    else{
+        //Event
+        MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
+        if (!cell) {
+            cell = [[MyScheduleTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                                   reuseIdentifier:@"eventCell"];
+        }
+        cell.eventTitleLabel.text = event.title;
+        if ([event.allDay boolValue]) {
+            cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
+        } else {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"HH:mm"];
+            [formatter setTimeZone:[NSTimeZone localTimeZone]];
+            cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
+        }
+        if ([event.location length] > 0) {
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+        }
+        else if([event.toCity.cityName length] > 0){
+            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
+        }
+        cell.priceLabel.text = @"";
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon"]];
+        cell.contentView.backgroundColor = UIColorFromRGB(0xF4F5F8);
+        tableCell = cell;
+    }
+    
+    
+    if (!event) {
+        //flight
+        MyScheduleFlightTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightCell"];
+        if (!cell) {
+            cell = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                                   reuseIdentifier:@"flightCell"];
+        }
+        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
+        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        if ([indexPath isEqual:self.expandedCellIndexPath]){
+            cell.flightDetailView.hidden = NO;
+        }
+        else{
+            cell.flightDetailView.hidden = YES;
+        }
+        tableCell = cell;
+    }
+ 
+    return tableCell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = trip.toEvent;
+    
+    
+    if (self.isScheduleExpanded) {
+        if ([indexPath isEqual:self.expandedCellIndexPath]) {
+            self.expandedCellIndexPath = nil;
+        }
+        else{
+            self.expandedCellIndexPath = indexPath;
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //expand list item
+        if (!event) {
+            //flight
+        }
+        else if ([event.eventType integerValue] == EventTypeHotel) {
+            //hotel
+        }
+        else{
+            //calendar event
+            [self editEventButtonTapAction:event];
+        }
+    }
+    else{
+        //hightlight item in calendar or map
+        if (!event) {
+            //flight
+            PlanTripViewController __weak *weakSelf = self;
+            City *city = trip.toCityDestinationCity;
+            MKCoordinateRegion region;
+            region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+            region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                               DEFAULT_MAP_COORDINATE_SPAN * weakSelf.mapView.frame.size.height/weakSelf.mapView.frame.size.width);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.mapView setRegion:region animated:YES];
+            });
+        }
+        else{
+            //update map
+            PlanTripViewController __weak *weakSelf = self;
+            City *city = event.toCity;
+            MKCoordinateRegion region;
+            region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+            region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                               DEFAULT_MAP_COORDINATE_SPAN * weakSelf.mapView.frame.size.height/weakSelf.mapView.frame.size.width);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.mapView setRegion:region animated:YES];
+            });
+        }
+    }
+
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
 }
 
 #pragma mark - UIAlertView Delegate
@@ -375,6 +511,15 @@
                 break;
         }
     }
+}
+
+
+#pragma mark - Event detail views
+- (void)showHotelPanoramaWithEvent: (Event *)event
+{
+    PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
+    vc.title = event.title;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -

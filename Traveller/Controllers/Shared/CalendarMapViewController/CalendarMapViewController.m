@@ -7,7 +7,6 @@
 //
 
 #import "CalendarMapViewController.h"
-#import "PanoramaViewController.h"
 #import "MyScheduleTableViewHeaderView.h"
 
 @interface CalendarMapViewController ()
@@ -357,49 +356,6 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 }
 
 #pragma mark - UITableViewDelegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    Event *event = trip.toEvent;
-    if (!event) {
-        //TODO: should flight info
-        return;
-    }
-    
-    //calendar events
-    if (self.isScheduleExpanded) {
-        //show details
-        if ([event.eventType integerValue] == EventTypeHotel) {
-            //should be triggered from hotel detail view - here is only for testing
-            PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
-            vc.title = event.title;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else{
-            [self editEventButtonTapAction:event];
-        }
-    }
-    else if(self.mapView.hidden){
-        //TODO: highlight trip in calendar
-    }
-    else{
-        //update map
-        City *city = event.toCity;
-        MKCoordinateRegion region;
-        region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
-        region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
-                                           DEFAULT_MAP_COORDINATE_SPAN * _mapView.frame.size.height/_mapView.frame.size.width);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [_mapView setRegion:region animated:YES];
-        });
-    }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-}
-
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -545,11 +501,4 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - Hotel
-
-- (void)showSampleHotelPanorama
-{
-    PanoramaViewController *vc = [[PanoramaViewController alloc] initWithNibName:nil bundle:nil];
-    [self.navigationController pushViewController:vc animated:YES];
-}
 @end

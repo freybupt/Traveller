@@ -87,6 +87,9 @@
 		76C497891918123D00118140 /* userPhoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497881918123D00118140 /* userPhoto.png */; };
 		76C4978B1918143100118140 /* aircanadaLog.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4978A1918143100118140 /* aircanadaLog.png */; };
 		76C4978D191814BA00118140 /* HyattLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C4978C191814BA00118140 /* HyattLogo.png */; };
+		76C497901918672600118140 /* MyScheduleFlightTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4978F1918672600118140 /* MyScheduleFlightTableCell.m */; };
+		76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C497921918673A00118140 /* MyScheduleHotelTableCell.m */; };
+		76C497951919614000118140 /* airCanadaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497941919614000118140 /* airCanadaLogo.png */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -285,6 +288,11 @@
 		76C497881918123D00118140 /* userPhoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userPhoto.png; sourceTree = "<group>"; };
 		76C4978A1918143100118140 /* aircanadaLog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aircanadaLog.png; sourceTree = "<group>"; };
 		76C4978C191814BA00118140 /* HyattLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HyattLogo.png; sourceTree = "<group>"; };
+		76C4978E1918672600118140 /* MyScheduleFlightTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleFlightTableCell.h; sourceTree = "<group>"; };
+		76C4978F1918672600118140 /* MyScheduleFlightTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleFlightTableCell.m; sourceTree = "<group>"; };
+		76C497911918673A00118140 /* MyScheduleHotelTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleHotelTableCell.h; sourceTree = "<group>"; };
+		76C497921918673A00118140 /* MyScheduleHotelTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleHotelTableCell.m; sourceTree = "<group>"; };
+		76C497941919614000118140 /* airCanadaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airCanadaLogo.png; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -575,6 +583,7 @@
 				76C497881918123D00118140 /* userPhoto.png */,
 				76C4978A1918143100118140 /* aircanadaLog.png */,
 				76C4978C191814BA00118140 /* HyattLogo.png */,
+				76C497941919614000118140 /* airCanadaLogo.png */,
 			);
 			name = temp_for_demo;
 			sourceTree = "<group>";
@@ -910,6 +919,10 @@
 			children = (
 				9F3747931900F152003D67C8 /* MyScheduleTableCell.h */,
 				9F3747941900F152003D67C8 /* MyScheduleTableCell.m */,
+				76C4978E1918672600118140 /* MyScheduleFlightTableCell.h */,
+				76C4978F1918672600118140 /* MyScheduleFlightTableCell.m */,
+				76C497911918673A00118140 /* MyScheduleHotelTableCell.h */,
+				76C497921918673A00118140 /* MyScheduleHotelTableCell.m */,
 				76C4977519170DF800118140 /* MyScheduleTableViewHeaderView.h */,
 				76C4977619170DF800118140 /* MyScheduleTableViewHeaderView.m */,
 			);
@@ -1384,6 +1397,7 @@
 				7622B8E7190AE97500F2A22A /* note6.png in Resources */,
 				7611889F191304EC00A620D9 /* Vancouver_3.jpg in Resources */,
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
+				76C497951919614000118140 /* airCanadaLogo.png in Resources */,
 				761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */,
 				9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */,
 				76C497691914586D00118140 /* expandButton.png in Resources */,
@@ -1468,6 +1482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */,
 				9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */,
 				9F3748301900F2E3003D67C8 /* DSLCalendarDayCalloutView.m in Sources */,
 				9F37483A1900F2E3003D67C8 /* MZAppearance.m in Sources */,
@@ -1486,6 +1501,7 @@
 				9FFA7FCC19075FD100F55345 /* NSString+Extensions.m in Sources */,
 				9F3747C91900F213003D67C8 /* LocationManager.m in Sources */,
 				9F3747C31900F213003D67C8 /* CalendarManager.m in Sources */,
+				76C497901918672600118140 /* MyScheduleFlightTableCell.m in Sources */,
 				9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */,
 				9F3747971900F152003D67C8 /* MyScheduleTableCell.m in Sources */,
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
