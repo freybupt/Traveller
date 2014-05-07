@@ -175,6 +175,9 @@
 		9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */; };
 		9F7708431916A12500BF4104 /* ItineraryTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */; };
 		9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */; };
+		9F9933A6191A802E00BEBB34 /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933A5191A802E00BEBB34 /* ModalView.m */; };
+		9F9933A9191A806F00BEBB34 /* AlertModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933A8191A806F00BEBB34 /* AlertModalView.m */; };
+		9F9933AC191A816900BEBB34 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933AB191A816900BEBB34 /* UIButton+Extensions.m */; };
 		9FA27FA41910C2310042DEE0 /* DSLCalendarRange+Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */; };
 		9FB50A3A190E8704000E6C98 /* DestinationPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB50A39190E8704000E6C98 /* DestinationPanelView.m */; };
 		9FBC4F4E19149111005EB0A0 /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBC4F4D19149111005EB0A0 /* TripViewController.m */; };
@@ -453,6 +456,12 @@
 		9F7708401916A12500BF4104 /* ItineraryTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryTripTableViewCell.h; sourceTree = "<group>"; };
 		9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryTripTableViewCell.m; sourceTree = "<group>"; };
 		9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryTripTableViewCell.xib; sourceTree = "<group>"; };
+		9F9933A4191A802E00BEBB34 /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
+		9F9933A5191A802E00BEBB34 /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
+		9F9933A7191A806F00BEBB34 /* AlertModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertModalView.h; sourceTree = "<group>"; };
+		9F9933A8191A806F00BEBB34 /* AlertModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertModalView.m; sourceTree = "<group>"; };
+		9F9933AA191A816900BEBB34 /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extensions.h"; sourceTree = "<group>"; };
+		9F9933AB191A816900BEBB34 /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extensions.m"; sourceTree = "<group>"; };
 		9FA27FA21910C2310042DEE0 /* DSLCalendarRange+Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DSLCalendarRange+Trip.h"; sourceTree = "<group>"; };
 		9FA27FA31910C2310042DEE0 /* DSLCalendarRange+Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DSLCalendarRange+Trip.m"; sourceTree = "<group>"; };
 		9FB50A38190E8704000E6C98 /* DestinationPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DestinationPanelView.h; sourceTree = "<group>"; };
@@ -810,6 +819,7 @@
 		76C2711E18B2A3C8003A49A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F9933A2191A802E00BEBB34 /* ModalView */,
 				9FB50A37190E86E9000E6C98 /* DestinationPanelView */,
 				9F37478B1900F152003D67C8 /* CalendarView */,
 				9F37478E1900F152003D67C8 /* Checkbox */,
@@ -1282,6 +1292,26 @@
 			path = Controllers/ItineraryTripViewController;
 			sourceTree = "<group>";
 		};
+		9F9933A2191A802E00BEBB34 /* ModalView */ = {
+			isa = PBXGroup;
+			children = (
+				9F9933A3191A802E00BEBB34 /* AlertModalView */,
+				9F9933A4191A802E00BEBB34 /* ModalView.h */,
+				9F9933A5191A802E00BEBB34 /* ModalView.m */,
+			);
+			name = ModalView;
+			path = Views/ModalView;
+			sourceTree = "<group>";
+		};
+		9F9933A3191A802E00BEBB34 /* AlertModalView */ = {
+			isa = PBXGroup;
+			children = (
+				9F9933A7191A806F00BEBB34 /* AlertModalView.h */,
+				9F9933A8191A806F00BEBB34 /* AlertModalView.m */,
+			);
+			path = AlertModalView;
+			sourceTree = "<group>";
+		};
 		9FB50A37190E86E9000E6C98 /* DestinationPanelView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,6 +1334,8 @@
 		9FC4184118FFABD7001CC750 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				9F9933AA191A816900BEBB34 /* UIButton+Extensions.h */,
+				9F9933AB191A816900BEBB34 /* UIButton+Extensions.m */,
 				9FC4184218FFABD7001CC750 /* NSDate+Extensions.h */,
 				9FC4184318FFABD7001CC750 /* NSDate+Extensions.m */,
 				9FC4184418FFABD7001CC750 /* NSObject+Extensions.h */,
@@ -1490,6 +1522,7 @@
 				9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */,
 				9F5A80FA1911EEE400799FDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F3747AB1900F168003D67C8 /* SelectEventsTableViewController.m in Sources */,
+				9F9933AC191A816900BEBB34 /* UIButton+Extensions.m in Sources */,
 				9F3747C81900F213003D67C8 /* TripDataStorage.xcdatamodeld in Sources */,
 				9F5A80F21911EEE400799FDD /* AFURLConnectionOperation.m in Sources */,
 				9F342A261913EED10083A88D /* Event.m in Sources */,
@@ -1518,6 +1551,7 @@
 				9F3748441900F2E3003D67C8 /* UIViewController+TargetViewController.m in Sources */,
 				9F5A80FE1911EEE400799FDD /* UIProgressView+AFNetworking.m in Sources */,
 				9FE8BC2D190A09E900BDFE71 /* NSDateComponents+Extensions.m in Sources */,
+				9F9933A6191A802E00BEBB34 /* ModalView.m in Sources */,
 				9F3747961900F152003D67C8 /* Checkbox.m in Sources */,
 				9F5A80F41911EEE400799FDD /* AFURLResponseSerialization.m in Sources */,
 				9F3748391900F2E3003D67C8 /* FXBlurView.m in Sources */,
@@ -1566,6 +1600,7 @@
 				9F5A80EE1911EEE400799FDD /* AFHTTPRequestOperationManager.m in Sources */,
 				9F342A1A1913EE330083A88D /* Location.m in Sources */,
 				9F3747D01900F231003D67C8 /* CDTableViewController.m in Sources */,
+				9F9933A9191A806F00BEBB34 /* AlertModalView.m in Sources */,
 				9F342A171913EE320083A88D /* City.m in Sources */,
 				9F5A80BA1911EEA700799FDD /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				9F37483D1900F2E3003D67C8 /* NSInvocation+Copy.m in Sources */,

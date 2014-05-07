@@ -13,10 +13,12 @@
 #import "PanoramaViewController.h"
 #import "MyScheduleHotelTableCell.h"
 #import "MyScheduleFlightTableCell.h"
+#import "AlertModalView.h"
 
 static NSInteger kEventCellHeight = 80;
 static NSInteger kFlightCellFullHeight = 400;
 static NSInteger kHotelCellFullHeight = 300;
+
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
 @property (nonatomic, strong) Itinerary *itinerary;
@@ -232,7 +234,7 @@ static NSInteger kHotelCellFullHeight = 300;
         // Add flight objects here
     }
     
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", self.totalPrice];
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
     [self hideActivityIndicator];
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
 }
@@ -294,17 +296,12 @@ static NSInteger kHotelCellFullHeight = 300;
 
 - (IBAction)deleteCurrentTrip:(id)sender
 {
-    NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
-                                                                     userid:[MockManager userid]
-                                                                    context:self.managedObjectContext];
-    if ([array count] != 1) {
-        return;
-    }
-    Trip *trip = [array lastObject];
-    if ([[DataManager sharedInstance] deleteTrip:trip
-                                         context:self.managedObjectContext]) {
-        [self hideDestinationPanel:nil];
-    }
+    AlertModalView *alertView = [[AlertModalView alloc] initWithTitle:nil
+                                                              message:NSLocalizedString(@"Are you sure you want to remove this part of your trip?", nil)
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"Remove", nil)
+                                                     otherButtonTitle:NSLocalizedString(@"No, don't remove", nil)];
+    [alertView show];
 }
 
 - (IBAction)confirmTripButtonTapAction:(id)sender
@@ -373,7 +370,8 @@ static NSInteger kHotelCellFullHeight = 300;
         else if([event.toCity.cityName length] > 0){
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
         }
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
+
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         tableCell = cell;
@@ -416,7 +414,7 @@ static NSInteger kHotelCellFullHeight = 300;
         }
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", [trip.price integerValue]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
@@ -540,5 +538,27 @@ static NSInteger kHotelCellFullHeight = 300;
 - (NSPredicate *)predicate
 {
     return [NSPredicate predicateWithFormat:@"uid == %@ AND toItinerary = %@", [MockManager userid], _itinerary];
+}
+
+#pragma mark - ModalView delegate
+- (void)modalView:(ModalView *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case ModalViewButtonCancelIndex: {
+            NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
+                                                                             userid:[MockManager userid]
+                                                                            context:self.managedObjectContext];
+            if ([array count] != 1) {
+                return;
+            }
+            Trip *trip = [array lastObject];
+            if ([[DataManager sharedInstance] deleteTrip:trip
+                                                 context:self.managedObjectContext]) {
+                [self hideDestinationPanel:nil];
+            }
+        } break;
+        case ModalViewButtonFirstOtherIndex:
+            break;
+    }
 }
 @end

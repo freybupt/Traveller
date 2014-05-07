@@ -401,7 +401,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     locationLabel.text = trip.toCityDepartureCity.cityName;
     [headerView addSubview:locationLabel];
     
-    UIImage *image = [UIImage imageNamed:@"map54@2x.png"];
+    UIImage *image = [UIImage imageNamed:@"map54"];
     CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
     UIGraphicsBeginImageContextWithOptions(rect.size, NO, image.scale);
     CGContextRef c = UIGraphicsGetCurrentContext();
