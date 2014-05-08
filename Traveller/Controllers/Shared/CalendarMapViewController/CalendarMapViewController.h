@@ -51,4 +51,5 @@ static CGFloat kNavigationBarHeight = 44.0f;
 - (IBAction)editMySchedule:(id)sender;
 
 - (void)getTripCityColorDictionary;
+- (NSArray *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange;
 @end

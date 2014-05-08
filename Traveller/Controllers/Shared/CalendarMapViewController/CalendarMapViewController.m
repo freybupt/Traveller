@@ -376,8 +376,15 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 
 - (Trip *)getActiveTripByDate:(NSDate *)date
 {
-    NSArray *array = self.fetchedResultsController.fetchedObjects;
-    for (Trip *trip in array) {
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate <= %@) AND (endDate >= %@)", [MockManager userid], date, date];
+    
+    NSArray *fetchResult = self.fetchedResultsController.fetchedObjects;
+    fetchResult = [fetchResult filteredArrayUsingPredicate:pred];
+    if ([fetchResult count] > 0) {
+        return [fetchResult objectAtIndex:0];
+    }
+
+    for (Trip *trip in fetchResult) {
         if ([trip.startDate withinSameDayWith:date]) {
             return trip;
         }

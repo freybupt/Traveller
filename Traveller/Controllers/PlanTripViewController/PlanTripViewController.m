@@ -544,10 +544,8 @@ static NSInteger kHotelCellFullHeight = 300;
 - (void)modalView:(ModalView *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
-        case ModalViewButtonCancelIndex: {
-            NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:self.currentDateRange
-                                                                             userid:[MockManager userid]
-                                                                            context:self.managedObjectContext];
+        case ModalViewButtonCancelIndex: {            
+            NSArray *array = [self getActiveTripByDateRange:self.currentDateRange];
             if ([array count] != 1) {
                 return;
             }
