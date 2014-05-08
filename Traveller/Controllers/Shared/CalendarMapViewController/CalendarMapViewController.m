@@ -372,8 +372,10 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-        [[DataManager sharedInstance] deleteTrip:trip
-                                         context:self.managedObjectContext];
+        if ([[DataManager sharedInstance] deleteTrip:trip
+                                             context:self.managedObjectContext]) {
+            _calendarView.selectedRange = nil;
+        }
     }
 }
 
