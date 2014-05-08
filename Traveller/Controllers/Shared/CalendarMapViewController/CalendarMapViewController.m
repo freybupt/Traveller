@@ -288,11 +288,11 @@
         _currentDateRange = range;
         
         NSArray *array = [self getActiveTripByDateRange:_currentDateRange];
-        if ([array count] > 1) {
+        if ([array count] == 0) {
             return;
         }
         
-        Trip *trip = [array lastObject];
+        Trip *trip = [array objectAtIndex:0];
         if (_isDestinationPanelActive &&
             !trip) {
             return;
@@ -376,12 +376,13 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 
 - (Trip *)getActiveTripByDate:(NSDate *)date
 {
+    date = [date localDate];
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"(uid == %@) AND (startDate <= %@) AND (endDate >= %@)", [MockManager userid], date, date];
     
     NSArray *fetchResult = self.fetchedResultsController.fetchedObjects;
-    fetchResult = [fetchResult filteredArrayUsingPredicate:pred];
-    if ([fetchResult count] > 0) {
-        return [fetchResult objectAtIndex:0];
+    NSArray *filteredFetchResult = [fetchResult filteredArrayUsingPredicate:pred];
+    if ([filteredFetchResult count] > 0) {
+        return [filteredFetchResult objectAtIndex:0];
     }
 
     for (Trip *trip in fetchResult) {

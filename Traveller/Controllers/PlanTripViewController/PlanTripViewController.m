@@ -546,10 +546,10 @@ static NSInteger kHotelCellFullHeight = 300;
     switch (buttonIndex) {
         case ModalViewButtonCancelIndex: {            
             NSArray *array = [self getActiveTripByDateRange:self.currentDateRange];
-            if ([array count] != 1) {
+            if ([array count] == 0) {
                 return;
             }
-            Trip *trip = [array lastObject];
+            Trip *trip = [array objectAtIndex:0];
             if ([[DataManager sharedInstance] deleteTrip:trip
                                                  context:self.managedObjectContext]) {
                 [self hideDestinationPanel:nil];
