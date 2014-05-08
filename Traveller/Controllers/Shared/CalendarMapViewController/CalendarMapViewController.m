@@ -287,12 +287,11 @@
         NSLog( @"Selected %ld/%ld - %ld/%ld", (long)range.startDay.day, (long)range.startDay.month, (long)range.endDay.day, (long)range.endDay.month);
         _currentDateRange = range;
         
-        NSArray *array = [[DataManager sharedInstance] getActiveTripByDateRange:_currentDateRange
-                                                                         userid:[MockManager userid]
-                                                                        context:self.managedObjectContext];
+        NSArray *array = [self getActiveTripByDateRange:_currentDateRange];
         if ([array count] > 1) {
             return;
         }
+        
         Trip *trip = [array lastObject];
         if (_isDestinationPanelActive &&
             !trip) {
@@ -353,6 +352,37 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 - (BOOL)day:(NSDateComponents*)day1 isBeforeDay:(NSDateComponents*)day2
 {
     return ([day1.date compare:day2.date] == NSOrderedAscending);
+}
+
+#pragma mark - Helper
+- (NSArray *)getActiveTripByDateRange:(DSLCalendarRange *)dateRange
+{
+    // Iterate each day to get the trip
+    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+    NSDate *startDate = [dateRange.startDay dateWithGMTZoneCalendar];
+    NSDate *endDate = [dateRange.endDay dateWithGMTZoneCalendar];
+    for (NSDate *date = startDate;
+         [date compare:endDate] <= 0;
+         date = [date dateByAddingTimeInterval:24 * 60 * 60] ) {
+        Trip *trip = [self getActiveTripByDate:date];
+        if (trip &&
+            ![mArray containsObject:trip]) {
+            [mArray addObject:trip];
+        }
+    }
+    
+    return mArray;
+}
+
+- (Trip *)getActiveTripByDate:(NSDate *)date
+{
+    NSArray *array = self.fetchedResultsController.fetchedObjects;
+    for (Trip *trip in array) {
+        if ([trip.startDate withinSameDayWith:date]) {
+            return trip;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - UITableViewDelegate
