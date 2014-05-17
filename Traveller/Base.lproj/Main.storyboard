@@ -495,14 +495,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="350"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home1.png" id="S4w-Er-vTT">
-                                        <rect key="frame" x="0.0" y="-22" width="325" height="370"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-img.jpg" id="S4w-Er-vTT">
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="350"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                     </imageView>
-                                    <view hidden="YES" alpha="0.69999999999999996" contentMode="scaleToFill" id="ZkW-qX-eZG">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Traveler" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="42D-T4-oIM">
+                                        <rect key="frame" x="61" y="110" width="202" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="27"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="2" height="3"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="ZkW-qX-eZG">
                                         <rect key="frame" x="0.0" y="263" width="320" height="87"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <subviews>
+                                            <view alpha="0.69999999999999996" contentMode="scaleToFill" id="dQj-8y-Lxg">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            </view>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Trip: May 5 - May 21" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FIY-go-Yta">
                                                 <rect key="frame" x="20" y="12" width="294" height="29"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -513,16 +527,20 @@
                                                 <rect key="frame" x="20" y="37" width="285" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="27"/>
+                                                <color key="textColor" red="0.11930185750270954" green="0.57009327168367352" blue="0.51425968987233117" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
+                                                <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
+                                                <size key="shadowOffset" width="1" height="1"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AN6-Qt-eTm">
-                                        <rect key="frame" x="113" y="12" width="95" height="89"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AN6-Qt-eTm">
+                                        <rect key="frame" x="118" y="40" width="88" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="titleShadowOffset" width="4" height="3"/>
+                                        <state key="normal" image="logo_white.png">
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="E9A-0O-zuj" kind="modal" id="pTc-N6-6ZZ"/>
@@ -533,7 +551,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <state key="normal" title=">">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.1193018575" green="0.57009327170000001" blue="0.51425968990000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -544,7 +562,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gMM-nw-kF5">
-                                <rect key="frame" x="36" y="348" width="249" height="53"/>
+                                <rect key="frame" x="36" y="352" width="249" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="bookButton.png">
@@ -1660,6 +1678,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Background-img.jpg" width="640" height="1046"/>
         <image name="HyattLogo.png" width="1436" height="336"/>
         <image name="airCanadaLogo.png" width="410" height="331"/>
         <image name="aircanadaLog.png" width="372" height="58"/>
@@ -1672,8 +1691,8 @@
         <image name="expandButton.png" width="176" height="162"/>
         <image name="facebookSignIn.png" width="492" height="108"/>
         <image name="flightIcon.png" width="41" height="38"/>
-        <image name="home1.png" width="426" height="517"/>
         <image name="linkedInSignIn.png" width="550" height="111"/>
+        <image name="logo_white.png" width="228" height="226"/>
         <image name="map35.png" width="25" height="25"/>
         <image name="map5.png" width="512" height="512"/>
         <image name="map54.png" width="256" height="256"/>

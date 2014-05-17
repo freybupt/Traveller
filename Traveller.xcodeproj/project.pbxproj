@@ -32,6 +32,8 @@
 		761188B81914208500A620D9 /* myProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 761188B51914208500A620D9 /* myProfile@2x.png */; };
 		761188B91914208500A620D9 /* pastTrip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 761188B61914208500A620D9 /* pastTrip@2x.png */; };
 		761188BB191422C000A620D9 /* plan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 761188BA191422C000A620D9 /* plan@2x.png */; };
+		761213E11926E9340022098B /* Background-img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 761213E01926E9340022098B /* Background-img.jpg */; };
+		761213E31926EA810022098B /* logo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 761213E21926EA810022098B /* logo_white.png */; };
 		7622B8E6190AE97500F2A22A /* edit12.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E3190AE97500F2A22A /* edit12.png */; };
 		7622B8E7190AE97500F2A22A /* note6.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E4190AE97500F2A22A /* note6.png */; };
 		7622B8E8190AE97500F2A22A /* pencil54.png in Resources */ = {isa = PBXBuildFile; fileRef = 7622B8E5190AE97500F2A22A /* pencil54.png */; };
@@ -45,9 +47,6 @@
 		7636E9C31912D45E0091E7B6 /* PanoramaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7636E9C21912D45E0091E7B6 /* PanoramaViewController.m */; };
 		768263CF1905C14B00089319 /* map5.png in Resources */ = {isa = PBXBuildFile; fileRef = 768263CE1905C14B00089319 /* map5.png */; };
 		76B9443719071436001B08DB /* add-item@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442919071436001B08DB /* add-item@2x.png */; };
-		76B9443819071436001B08DB /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442B19071436001B08DB /* Icon-40@2x.png */; };
-		76B9443919071436001B08DB /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442C19071436001B08DB /* Icon-60@2x.png */; };
-		76B9443A19071436001B08DB /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442D19071436001B08DB /* Icon@2x.png */; };
 		76B9443B19071436001B08DB /* arrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9442F19071436001B08DB /* arrowDown@2x.png */; };
 		76B9443C19071436001B08DB /* arrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9443019071436001B08DB /* arrowUp@2x.png */; };
 		76B9443D19071436001B08DB /* calendar53@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76B9443219071436001B08DB /* calendar53@2x.png */; };
@@ -227,6 +226,8 @@
 		761188B51914208500A620D9 /* myProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myProfile@2x.png"; sourceTree = "<group>"; };
 		761188B61914208500A620D9 /* pastTrip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pastTrip@2x.png"; sourceTree = "<group>"; };
 		761188BA191422C000A620D9 /* plan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plan@2x.png"; sourceTree = "<group>"; };
+		761213E01926E9340022098B /* Background-img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Background-img.jpg"; sourceTree = "<group>"; };
+		761213E21926EA810022098B /* logo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_white.png; sourceTree = "<group>"; };
 		7622B8E3190AE97500F2A22A /* edit12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = edit12.png; sourceTree = "<group>"; };
 		7622B8E4190AE97500F2A22A /* note6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note6.png; sourceTree = "<group>"; };
 		7622B8E5190AE97500F2A22A /* pencil54.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil54.png; sourceTree = "<group>"; };
@@ -243,9 +244,6 @@
 		7636E9C21912D45E0091E7B6 /* PanoramaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanoramaViewController.m; sourceTree = "<group>"; };
 		768263CE1905C14B00089319 /* map5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map5.png; path = ../../Images/map5.png; sourceTree = "<group>"; };
 		76B9442919071436001B08DB /* add-item@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-item@2x.png"; sourceTree = "<group>"; };
-		76B9442B19071436001B08DB /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
-		76B9442C19071436001B08DB /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
-		76B9442D19071436001B08DB /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		76B9442F19071436001B08DB /* arrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowDown@2x.png"; sourceTree = "<group>"; };
 		76B9443019071436001B08DB /* arrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowUp@2x.png"; sourceTree = "<group>"; };
 		76B9443219071436001B08DB /* calendar53@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar53@2x.png"; sourceTree = "<group>"; };
@@ -549,6 +547,7 @@
 			isa = PBXGroup;
 			children = (
 				761188A51913067D00A620D9 /* logo.png */,
+				761213E21926EA810022098B /* logo_white.png */,
 			);
 			name = Logo;
 			sourceTree = "<group>";
@@ -593,6 +592,7 @@
 				76C4978A1918143100118140 /* aircanadaLog.png */,
 				76C4978C191814BA00118140 /* HyattLogo.png */,
 				76C497941919614000118140 /* airCanadaLogo.png */,
+				761213E01926E9340022098B /* Background-img.jpg */,
 			);
 			name = temp_for_demo;
 			sourceTree = "<group>";
@@ -661,9 +661,6 @@
 		76B9442A19071436001B08DB /* AppIcon */ = {
 			isa = PBXGroup;
 			children = (
-				76B9442B19071436001B08DB /* Icon-40@2x.png */,
-				76B9442C19071436001B08DB /* Icon-60@2x.png */,
-				76B9442D19071436001B08DB /* Icon@2x.png */,
 			);
 			path = AppIcon;
 			sourceTree = "<group>";
@@ -1446,7 +1443,6 @@
 				9F3748341900F2E3003D67C8 /* DSLCalendarMonthSelectorView.xib in Resources */,
 				76C270CA18B2A1E2003A49A3 /* Images.xcassets in Resources */,
 				76C4977319146BAC00118140 /* tutorial3.png in Resources */,
-				76B9443A19071436001B08DB /* Icon@2x.png in Resources */,
 				7611888D191302DA00A620D9 /* settings3@2x.png in Resources */,
 				761188A2191304EC00A620D9 /* Vancouver_7.jpg in Resources */,
 				9F3748011900F290003D67C8 /* map49@2x.png in Resources */,
@@ -1463,7 +1459,6 @@
 				76C497891918123D00118140 /* userPhoto.png in Resources */,
 				7622B8E8190AE97500F2A22A /* pencil54.png in Resources */,
 				76C4977A191720B800118140 /* flightIcon@2x.png in Resources */,
-				76B9443819071436001B08DB /* Icon-40@2x.png in Resources */,
 				9F3748311900F2E3003D67C8 /* DSLCalendarDayCalloutView.xib in Resources */,
 				9F3747D11900F231003D67C8 /* CDTableViewController.xib in Resources */,
 				9F3748021900F290003D67C8 /* map54@2x.png in Resources */,
@@ -1474,9 +1469,9 @@
 				76C4977F191805F600118140 /* creditCards.png in Resources */,
 				761188A1191304EC00A620D9 /* Vancouver_6.jpg in Resources */,
 				76C4976B191458FD00118140 /* bookTripButton.png in Resources */,
+				761213E31926EA810022098B /* logo_white.png in Resources */,
 				76118894191302FA00A620D9 /* info@2x.png in Resources */,
 				7611888E191302DA00A620D9 /* settings15@2x.png in Resources */,
-				76B9443919071436001B08DB /* Icon-60@2x.png in Resources */,
 				76B9443719071436001B08DB /* add-item@2x.png in Resources */,
 				761188B91914208500A620D9 /* pastTrip@2x.png in Resources */,
 				76118893191302FA00A620D9 /* info2@2x.png in Resources */,
@@ -1488,6 +1483,7 @@
 				761188801912EFAE00A620D9 /* map35_red@2x.png in Resources */,
 				76C497671914496B00118140 /* earth16_mid@2x.png in Resources */,
 				76B9443E19071436001B08DB /* CanadaCities.csv in Resources */,
+				761213E11926E9340022098B /* Background-img.jpg in Resources */,
 				9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */,
 				761188B019141F9100A620D9 /* home1@2x.png in Resources */,
 				76C4978D191814BA00118140 /* HyattLogo.png in Resources */,
