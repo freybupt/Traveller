@@ -40,6 +40,13 @@ static NSInteger kHotelCellFullHeight = 300;
     [self hideActivityIndicator];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
