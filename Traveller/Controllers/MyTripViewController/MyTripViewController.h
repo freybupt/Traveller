@@ -9,5 +9,5 @@
 #import "CalendarMapViewController.h"
 
 @interface MyTripViewController : CalendarMapViewController
-
+@property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
 @end

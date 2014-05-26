@@ -445,7 +445,12 @@ static NSInteger kHotelCellFullHeight = 300;
         else{
             self.expandedCellIndexPath = indexPath;
         }
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [tableView beginUpdates];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [tableView endUpdates];
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
         //expand list item
         if (!event) {
             //flight

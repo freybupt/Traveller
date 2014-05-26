@@ -2,7 +2,7 @@
 //  Event.m
 //  Traveller
 //
-//  Created by WEI-JEN TU on 2014-05-02.
+//  Created by WEI-JEN TU on 2014-05-26.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 

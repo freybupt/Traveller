@@ -95,7 +95,6 @@
 		9F342A171913EE320083A88D /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A161913EE320083A88D /* City.m */; };
 		9F342A1A1913EE330083A88D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A191913EE330083A88D /* Location.m */; };
 		9F342A201913EE330083A88D /* Flight.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A1F1913EE330083A88D /* Flight.m */; };
-		9F342A261913EED10083A88D /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F342A251913EED10083A88D /* Event.m */; };
 		9F364A5319138B43009222B1 /* MyTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F364A5219138B43009222B1 /* MyTripViewController.m */; };
 		9F3747951900F152003D67C8 /* CalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F37478D1900F152003D67C8 /* CalendarView.m */; };
 		9F3747961900F152003D67C8 /* Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F3747901900F152003D67C8 /* Checkbox.m */; };
@@ -172,8 +171,9 @@
 		9F5A81081911EF3D00799FDD /* TripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5A81061911EF3D00799FDD /* TripManager.m */; };
 		9F77083E1916A0C500BF4104 /* ItineraryTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */; };
 		9F77083F1916A0C500BF4104 /* ItineraryTripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */; };
-		9F7708431916A12500BF4104 /* ItineraryTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */; };
-		9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */; };
+		9F8DCF0F1932D1E400B0DD33 /* MyTripTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8DCF0D1932D1E400B0DD33 /* MyTripTableViewCell.m */; };
+		9F8DCF101932D1E400B0DD33 /* MyTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F8DCF0E1932D1E400B0DD33 /* MyTripTableViewCell.xib */; };
+		9F8DCF131932D5DD00B0DD33 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8DCF121932D5DD00B0DD33 /* Event.m */; };
 		9F9933A6191A802E00BEBB34 /* ModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933A5191A802E00BEBB34 /* ModalView.m */; };
 		9F9933A9191A806F00BEBB34 /* AlertModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933A8191A806F00BEBB34 /* AlertModalView.m */; };
 		9F9933AC191A816900BEBB34 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9933AB191A816900BEBB34 /* UIButton+Extensions.m */; };
@@ -306,8 +306,6 @@
 		9F342A191913EE330083A88D /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		9F342A1E1913EE330083A88D /* Flight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flight.h; sourceTree = "<group>"; };
 		9F342A1F1913EE330083A88D /* Flight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Flight.m; sourceTree = "<group>"; };
-		9F342A241913EED10083A88D /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		9F342A251913EED10083A88D /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9F364A5119138B43009222B1 /* MyTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTripViewController.h; sourceTree = "<group>"; };
 		9F364A5219138B43009222B1 /* MyTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTripViewController.m; sourceTree = "<group>"; };
 		9F37478C1900F152003D67C8 /* CalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarView.h; sourceTree = "<group>"; };
@@ -451,9 +449,11 @@
 		9F77083B1916A0C500BF4104 /* ItineraryTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryTripViewController.h; sourceTree = "<group>"; };
 		9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryTripViewController.m; sourceTree = "<group>"; };
 		9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryTripViewController.xib; sourceTree = "<group>"; };
-		9F7708401916A12500BF4104 /* ItineraryTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryTripTableViewCell.h; sourceTree = "<group>"; };
-		9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryTripTableViewCell.m; sourceTree = "<group>"; };
-		9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItineraryTripTableViewCell.xib; sourceTree = "<group>"; };
+		9F8DCF0C1932D1E400B0DD33 /* MyTripTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTripTableViewCell.h; sourceTree = "<group>"; };
+		9F8DCF0D1932D1E400B0DD33 /* MyTripTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTripTableViewCell.m; sourceTree = "<group>"; };
+		9F8DCF0E1932D1E400B0DD33 /* MyTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTripTableViewCell.xib; sourceTree = "<group>"; };
+		9F8DCF111932D5DD00B0DD33 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		9F8DCF121932D5DD00B0DD33 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		9F9933A4191A802E00BEBB34 /* ModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalView.h; sourceTree = "<group>"; };
 		9F9933A5191A802E00BEBB34 /* ModalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalView.m; sourceTree = "<group>"; };
 		9F9933A7191A806F00BEBB34 /* AlertModalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertModalView.h; sourceTree = "<group>"; };
@@ -892,6 +892,9 @@
 		9F364A5019138B29009222B1 /* MyTripViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9F8DCF0C1932D1E400B0DD33 /* MyTripTableViewCell.h */,
+				9F8DCF0D1932D1E400B0DD33 /* MyTripTableViewCell.m */,
+				9F8DCF0E1932D1E400B0DD33 /* MyTripTableViewCell.xib */,
 				9F364A5119138B43009222B1 /* MyTripViewController.h */,
 				9F364A5219138B43009222B1 /* MyTripViewController.m */,
 			);
@@ -995,12 +998,12 @@
 				9F3747B41900F213003D67C8 /* DataManager.h */,
 				9F3747B51900F213003D67C8 /* DataManager.m */,
 				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
+				9F8DCF111932D5DD00B0DD33 /* Event.h */,
+				9F8DCF121932D5DD00B0DD33 /* Event.m */,
 				9F08006E19163BDE006ED9D8 /* Itinerary.h */,
 				9F08006F19163BDE006ED9D8 /* Itinerary.m */,
 				9F08006B19163BDD006ED9D8 /* Trip.h */,
 				9F08006C19163BDD006ED9D8 /* Trip.m */,
-				9F342A241913EED10083A88D /* Event.h */,
-				9F342A251913EED10083A88D /* Event.m */,
 				9F342A151913EE320083A88D /* City.h */,
 				9F342A161913EE320083A88D /* City.m */,
 				9F342A181913EE330083A88D /* Location.h */,
@@ -1278,9 +1281,6 @@
 		9F77083A1916A0A600BF4104 /* ItineraryTripViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9F7708401916A12500BF4104 /* ItineraryTripTableViewCell.h */,
-				9F7708411916A12500BF4104 /* ItineraryTripTableViewCell.m */,
-				9F7708421916A12500BF4104 /* ItineraryTripTableViewCell.xib */,
 				9F77083B1916A0C500BF4104 /* ItineraryTripViewController.h */,
 				9F77083C1916A0C500BF4104 /* ItineraryTripViewController.m */,
 				9F77083D1916A0C500BF4104 /* ItineraryTripViewController.xib */,
@@ -1428,9 +1428,9 @@
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
 				76C497951919614000118140 /* airCanadaLogo.png in Resources */,
 				761188821912EFB400A620D9 /* calendar53_red@2x.png in Resources */,
-				9F7708441916A12500BF4104 /* ItineraryTripTableViewCell.xib in Resources */,
 				76C497691914586D00118140 /* expandButton.png in Resources */,
 				7636E9B31912D1630091E7B6 /* hotel.jpg in Resources */,
+				9F8DCF101932D1E400B0DD33 /* MyTripTableViewCell.xib in Resources */,
 				76C4977119146BAC00118140 /* tutorial1.png in Resources */,
 				761188BB191422C000A620D9 /* plan@2x.png in Resources */,
 				76C4977B191720B800118140 /* hotelIcon@2x.png in Resources */,
@@ -1521,7 +1521,6 @@
 				9F9933AC191A816900BEBB34 /* UIButton+Extensions.m in Sources */,
 				9F3747C81900F213003D67C8 /* TripDataStorage.xcdatamodeld in Sources */,
 				9F5A80F21911EEE400799FDD /* AFURLConnectionOperation.m in Sources */,
-				9F342A261913EED10083A88D /* Event.m in Sources */,
 				761188AE1913194700A620D9 /* TutorialViewController.m in Sources */,
 				9FC4184718FFABD7001CC750 /* NSObject+Extensions.m in Sources */,
 				9F54EB611901771600ABB05F /* EventViewController.m in Sources */,
@@ -1534,6 +1533,7 @@
 				9F3748431900F2E3003D67C8 /* UIImage+Additional.m in Sources */,
 				9F3747971900F152003D67C8 /* MyScheduleTableCell.m in Sources */,
 				9F3747C21900F213003D67C8 /* CalendarColorManager.m in Sources */,
+				9F8DCF0F1932D1E400B0DD33 /* MyTripTableViewCell.m in Sources */,
 				9F5A80FB1911EEE400799FDD /* UIAlertView+AFNetworking.m in Sources */,
 				9F3748321900F2E3003D67C8 /* DSLCalendarDayView.m in Sources */,
 				76C4977719170DF800118140 /* MyScheduleTableViewHeaderView.m in Sources */,
@@ -1564,7 +1564,6 @@
 				9F77083E1916A0C500BF4104 /* ItineraryTripViewController.m in Sources */,
 				9F3748411900F2E3003D67C8 /* MZFormSheetSegue.m in Sources */,
 				9F3747C51900F213003D67C8 /* DataManager.m in Sources */,
-				9F7708431916A12500BF4104 /* ItineraryTripTableViewCell.m in Sources */,
 				9F3748361900F2E3003D67C8 /* DSLCalendarRange.m in Sources */,
 				9F08006D19163BDD006ED9D8 /* Trip.m in Sources */,
 				9F5A80FD1911EEE400799FDD /* UIImageView+AFNetworking.m in Sources */,
@@ -1593,6 +1592,7 @@
 				9F5A81071911EF3D00799FDD /* HTAutocompleteManager.m in Sources */,
 				9F342A201913EE330083A88D /* Flight.m in Sources */,
 				9F5A80F31911EEE400799FDD /* AFURLRequestSerialization.m in Sources */,
+				9F8DCF131932D5DD00B0DD33 /* Event.m in Sources */,
 				9F5A80EE1911EEE400799FDD /* AFHTTPRequestOperationManager.m in Sources */,
 				9F342A1A1913EE330083A88D /* Location.m in Sources */,
 				9F3747D01900F231003D67C8 /* CDTableViewController.m in Sources */,

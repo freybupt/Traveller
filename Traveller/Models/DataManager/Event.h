@@ -2,7 +2,7 @@
 //  Event.h
 //  Traveller
 //
-//  Created by WEI-JEN TU on 2014-05-02.
+//  Created by WEI-JEN TU on 2014-05-26.
 //  Copyright (c) 2014 Istuary. All rights reserved.
 //
 
@@ -26,6 +26,14 @@
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) City *toCity;
 @property (nonatomic, retain) Location *toLocation;
-@property (nonatomic, retain) Trip *toTrip;
+@property (nonatomic, retain) NSSet *toTrip;
+@end
+
+@interface Event (CoreDataGeneratedAccessors)
+
+- (void)addToTripObject:(Trip *)value;
+- (void)removeToTripObject:(Trip *)value;
+- (void)addToTrip:(NSSet *)values;
+- (void)removeToTrip:(NSSet *)values;
 
 @end

@@ -7,6 +7,13 @@
 //
 
 #import "MyTripViewController.h"
+#import "MyTripTableViewCell.h"
+
+#define MYTRIP_TABLEVIEWCELL_IDENTIFIER @"MyTripTableCellIdentifier"
+
+static NSInteger kEventCellHeight = 80;
+static NSInteger kFlightCellFullHeight = 400;
+static NSInteger kHotelCellFullHeight = 300;
 
 @interface MyTripViewController ()
 @property (nonatomic, strong) Itinerary *itinerary;
@@ -50,49 +57,149 @@
 */
 
 #pragma mark - UITableViewDelegate
-- (void)configureCell:(MyScheduleTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath isEqual:self.expandedCellIndexPath]) {
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        Event *event = trip.toEvent;
+        
+        //expand list item
+        if (!event) {
+            //flight
+            return kFlightCellFullHeight;
+        }
+        else if ([event.eventType integerValue] == EventTypeHotel) {
+            //hotel
+            return kHotelCellFullHeight;
+        }
+        else{
+            //calendar event
+            return kEventCellHeight;
+        }
+    }
+    else{
+        return kEventCellHeight;
+    }
+}
+
+#pragma mark - UITableView configuration
+- (void)setTableView
+{
+    // Overriding to disable the method in superclass CDTableViewController
+}
+
+- (NSString *)tableCellReuseIdentifier
+{
+    return MYTRIP_TABLEVIEWCELL_IDENTIFIER;
+}
+
+#pragma mark - UITableView delegate and datasource
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MyTripTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[self tableCellReuseIdentifier]];
+    if (cell == nil) {
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"MyTripTableViewCell" owner:self options:nil];
+        cell = [topLevelObjects objectAtIndex:0];
+    }
+    [self configureCell:cell
+            atIndexPath:indexPath];
+    
+    return cell;
+}
+
+
+- (void)configureCell:(MyTripTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     Event *event = trip.toEvent;
     
-    cell.eventTitleLabel.text = event.title;
     if ([event.eventType integerValue] == EventTypeHotel) {
         //hotel
+        cell.flightDetail.hidden = YES;
         cell.priceLabel.text = [NSString stringWithFormat:@"%d mins from airport", arc4random()%40+10];
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         [cell.actionButton setTitle:@"Call Hotel" forState:UIControlStateNormal];
     }
     else{
         //calendar events
+        cell.flightDetail.hidden = YES;
         cell.priceLabel.text = [NSString stringWithFormat:@"%d mins drive from hotel", arc4random()%5+2];
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"eventIcon"]];
         [cell setBackgroundColor:[UIColor lightTextColor]];
         [cell.actionButton setTitle:@"Contact" forState:UIControlStateNormal];
     }
-    if ([event.allDay boolValue]) {
-        cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
-    } else {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"HH:mm"];
-        [formatter setTimeZone:[NSTimeZone localTimeZone]];
-        cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
-    }
     
+    cell.attributedLabel.attributedText = [MyTripTableViewCell attributedString:trip];
     if (!event) {
         //flight
-        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
-        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        cell.flightDetail.hidden = ![indexPath isEqual:self.expandedCellIndexPath];
         cell.priceLabel.text = [NSString stringWithFormat:@"on-time"];
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         [cell.actionButton setTitle:@"Check-in" forState:UIControlStateNormal];
-    } else {
-        if ([event.location length] > 0) {
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    Event *event = trip.toEvent;
+    
+    if (self.isScheduleExpanded) {
+        if ([indexPath isEqual:self.expandedCellIndexPath]) {
+            self.expandedCellIndexPath = nil;
         }
-        else if([event.toCity.cityName length] > 0){
-            cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
+        else{
+            self.expandedCellIndexPath = indexPath;
+        }
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //expand list item
+        if (!event) {
+            //flight
+        }
+        else if ([event.eventType integerValue] == EventTypeHotel) {
+            //hotel
+        }
+        else{
+            //calendar event
+            [self editEventButtonTapAction:event];
         }
     }
+    else{
+        //hightlight item in calendar or map
+        /*
+        if (!event) {
+            //flight
+            PlanTripViewController __weak *weakSelf = self;
+            City *city = trip.toCityDestinationCity;
+            MKCoordinateRegion region;
+            region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+            region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                               DEFAULT_MAP_COORDINATE_SPAN * weakSelf.mapView.frame.size.height/weakSelf.mapView.frame.size.width);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.mapView setRegion:region animated:YES];
+            });
+        }
+        else{
+            //update map
+            PlanTripViewController __weak *weakSelf = self;
+            City *city = event.toCity;
+            MKCoordinateRegion region;
+            region.center = CLLocationCoordinate2DMake([city.toLocation.latitude floatValue], [city.toLocation.longitude floatValue]);
+            region.span = MKCoordinateSpanMake(DEFAULT_MAP_COORDINATE_SPAN,
+                                               DEFAULT_MAP_COORDINATE_SPAN * weakSelf.mapView.frame.size.height/weakSelf.mapView.frame.size.width);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.mapView setRegion:region animated:YES];
+            });
+        }
+        */
+    }
+
+    [tableView beginUpdates];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [tableView endUpdates];
+    [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
