@@ -105,6 +105,152 @@ static NSInteger kHotelCellFullHeight = 300;
     }
 }
 
+#pragma mark - JSONwriter
+//REMVED METHOD.
+//This method was going to retrieve the province/state code by using reverse Geocode.
+//the delay was deemed too large, so the method is not being used. Just here for reference.
+/*
+- (void) getProvinceCodeFrom:(Location*)location withContext:(NSManagedObjectContext*)context{
+    [location willAccessValueForKey:nil];
+    NSString *address = [location valueForKey:@"address"];
+    NSLog(@"%@",address);
+    float latitude = [[location valueForKey:@"latitude"]floatValue];
+    float longitude = [[location valueForKey:@"longitude"]floatValue];
+    
+    CLLocation* realLocation = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+
+    CLGeocoder *gc = [[CLGeocoder alloc] init];
+    [gc reverseGeocodeLocation:realLocation completionHandler:^(NSArray *placemark, NSError *error)
+    {
+        CLPlacemark *pm = placemark[0];
+        NSLog(@"\n\n\n\n\n\n\n\n\n\n %@", pm.administrativeArea);
+    }];
+    NSLog(@"\n\n\n\n %f %f", latitude, longitude);
+    
+}*/
+
+//will create a dictionary with all the values that a city has
+- (NSMutableDictionary*) cityToDictionary:(City*)startCity
+                              withContext:(NSManagedObjectContext*)context
+                            needStartCity:(BOOL)need {
+    NSString *cityJsonName;
+    NSString *countryJsonName;
+
+    if(need){
+        cityJsonName = @"startCity";
+        countryJsonName = @"startCountry";
+    } else {
+        cityJsonName = @"city";
+        countryJsonName = @"country";
+    }
+    NSMutableDictionary *fields = [NSMutableDictionary dictionary];
+    //will inspect all the city's attributes, and fill out a dictionary with the values
+    for (NSAttributeDescription *attribute in [[startCity entity] properties]) {
+        NSString *attributeName = attribute.name;
+        if([attributeName isEqualToString:@"toLocation"]){
+            continue;
+            //method not used due to taking too long to make a request.
+            //it will remain here just as a guide.
+            //Location* locCity = [startCity valueForKey:@"toLocation"];
+            //[self getProvinceCodeFrom: locCity withContext:context];
+        }
+        if(!([attributeName  isEqualToString:@"cityName"]||[attributeName  isEqualToString:@"countryName"]||[attributeName isEqualToString:@"countryCode"]))continue;
+        if([attributeName isEqualToString:@"cityName"])attributeName = cityJsonName;
+        else if([attributeName isEqualToString:@"countryName"]) attributeName = countryJsonName;
+        id attributeValue = [startCity valueForKey:attribute.name];
+        if (attributeValue) {
+            [fields setObject:attributeValue forKey:attributeName];
+        }
+    }
+    return fields;
+}
+
+//will convert an array of events into a dictionary with all the fields listed
+- (NSMutableDictionary*) eventsToDictionary:(NSArray*)events withContext:(NSManagedObjectContext*)context{
+    NSMutableArray *eventData = [[NSMutableArray alloc]init];
+    int i = 0;
+    //get each of the events
+    for (NSManagedObject *event in events){
+        i++;
+        NSMutableDictionary *eventFields = [NSMutableDictionary dictionary];
+        //and fill out the dictionary with the different attributes
+        for (NSAttributeDescription *attribute in [[event entity] properties]) {
+            NSString *attributeName = attribute.name;
+            
+            if([attributeName isEqualToString:@"toCity"]){
+                City *city = [event valueForKey:@"toCity"];
+                NSDictionary *cityDic = [self cityToDictionary:city withContext:context needStartCity:NO];
+                [eventFields addEntriesFromDictionary:cityDic];
+            }
+            if([attributeName hasPrefix:@"to"])continue;
+            if([attributeName hasSuffix:@"Date"]){
+                NSDate *attributeValue = [event valueForKey:attribute.name];
+                if (attributeValue) {
+                    //convert Date into NSString
+                    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc]init];
+                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    NSString* dateStringModified = [dateFormatter stringFromDate:attributeValue];
+                    [eventFields setObject:dateStringModified forKey:attributeName];
+                }
+                continue;
+            }
+            if([attributeName isEqualToString:@"uid"]){
+                attributeName = @"eventID";
+                id attributeValue = [event valueForKey:attribute.name];
+                if (attributeValue) {
+                    [eventFields setObject:attributeValue forKey:attributeName];
+                }
+            }
+        }
+        [eventData addObject:eventFields];
+    }
+    NSMutableDictionary *eventsDictionary = [NSMutableDictionary dictionary];
+    [eventsDictionary setObject:eventData forKey:@"events"];
+    return eventsDictionary;
+}
+
+//will print the json representation of the cities + events listed
+- (NSData*)printToJsonAtCity:(City*)startCity withEvents:(NSArray*)events atContext:(NSManagedObjectContext*)context{
+    NSMutableDictionary *fields = [self cityToDictionary:startCity withContext:context needStartCity:YES];
+    NSMutableDictionary *eventsDictionary = [self eventsToDictionary:events withContext:context];
+    [fields addEntriesFromDictionary:eventsDictionary];
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fields options:NSJSONWritingPrettyPrinted error:&error];
+    
+   //next line of code will just conver the DATA into its string representation
+   // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    return jsonData;
+}
+
+//function to post the json data to the server
+- (void)postToServer:(NSString*)url theJSONData:(NSData*)jsonData{
+    //here is some code in case the JSON data needs to be displayed in the console
+    
+    /*
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSData *postData = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
+     */
+    
+    //create a request with the JSON data
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonData];
+    //prepare the response
+    NSURLResponse *response;
+    NSError* error;
+    //do the request/response and print the data
+    //right now it is being done synchronously
+    //TODO: use asynchronous request.
+    NSData *POSTReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
+    NSLog(@"\n\n\n\n %@", theReply);
+    
+}
+
 #pragma mark - UI IBAction
 - (IBAction)calculateTrip:(id)sender
 {
@@ -121,6 +267,14 @@ static NSInteger kHotelCellFullHeight = 300;
     NSString *cityName = @"Vancouver";
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
                                                                     context:self.managedObjectContext];
+    
+    //FUNCTIONS ADDED HERE
+    //get the JSON format based on the cities + current events
+    NSData *jsonData = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
+    //send the JSON data to the server
+    [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonData];
+    //FUNCTIONS ENDS HERE
+    
     Trip *firstTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
     firstTrip.toCityDepartureCity = departureCity;
     firstTrip.toCityDestinationCity = firstEvent.toCity;
