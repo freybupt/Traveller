@@ -224,7 +224,7 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 //function to post the json data to the server
-- (void)postToServer:(NSString*)url theJSONData:(NSData*)jsonData{
+- (NSData*)postToServer:(NSString*)url theJSONData:(NSData*)jsonData{
     //here is some code in case the JSON data needs to be displayed in the console
     
     /*
@@ -246,8 +246,88 @@ static NSInteger kHotelCellFullHeight = 300;
     //right now it is being done synchronously
     //TODO: use asynchronous request.
     NSData *POSTReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
-    NSLog(@"\n\n\n\n %@", theReply);
+    //NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
+    //NSLog(@"\n\n\n\n %@", theReply);
+    return POSTReply;
+}
+
+//convert the JSONData into an array containing Trips and Events
+//TODO add itinerary and trip if necessary
+-(NSArray*) createArrayOfEventsFrom:(NSData*)jsonData usingContext:(NSManagedObjectContext*)context{
+    NSError *error;
+    NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    NSArray *planSteps = [[NSArray arrayWithObject:[jsonDic objectForKey:@"planSteps"]]objectAtIndex:0];
+    //NSLog(@"%@", planSteps);
+    NSMutableArray *eventsWithTrips = [[NSMutableArray alloc]init];
+    for (NSDictionary* step in planSteps){
+        //create the event and trip
+        Event *newEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
+        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        
+        //use a date format to process the dates later on
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
+        
+        
+        if([[step objectForKey:@"stepType"] isEqualToString:@"flight"]){
+            //process the flight type of event!
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"departureTime"]];
+            NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"arrivalTime"]];
+            NSString *arrivalCityName = [step objectForKey:@"arrivalCity"];
+            NSString *departureCityName = [step objectForKey:@"departureCity"];
+            City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
+            City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
+            double price = [[step objectForKey:@"cost"]floatValue];
+            
+            
+            //EVENT SETUP
+            newEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+            newEvent.startDate = startDate;
+            newEvent.endDate = endDate;
+            newEvent.toCity = arrivalCity;
+            //toTrip not set!
+            
+            
+            //TRIP SETUP
+            newTrip.toCityDepartureCity = departureCity;
+            newTrip.toCityDestinationCity = arrivalCity;
+            newTrip.price = [NSNumber numberWithDouble:price];
+            newTrip.startDate = startDate;
+            newTrip.endDate = endDate;
+            //toItinerary not set!
+        } else if ([[step objectForKey:@"stepType"] isEqualToString:@"hotel"]){
+            
+            //process the hotel type of event!
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"startDate"]];
+            NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
+            NSString *cityName = [step objectForKey:@"city"];
+            City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
+            double price = [[step objectForKey:@"cost"]floatValue];
+            
+            //EVENT SETUP
+            newEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+            newEvent.startDate = startDate;
+            newEvent.endDate = endDate;
+            newEvent.toCity = city;
+            //toTrip not set!
+            
+            //TRIP SETUP
+            newTrip.toCityDepartureCity = city;
+            newTrip.toCityDestinationCity = city;
+            newTrip.price = [NSNumber numberWithDouble:price];
+            newTrip.startDate = startDate;
+            newTrip.endDate = endDate;
+            //toItinerary not set!
+        }
+        //create a small array that contains the Trip-Event Pair (may be modified)
+        NSArray* eventTripPair = [[NSArray alloc]initWithObjects:newEvent,newTrip,nil];
+        [eventsWithTrips addObject:eventTripPair];
+    }
+    
+    //to test: the output must be equal to 3
+    NSLog(@"try the array length: %d",[eventsWithTrips count]);
+    return eventsWithTrips;
     
 }
 
@@ -268,12 +348,24 @@ static NSInteger kHotelCellFullHeight = 300;
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
                                                                     context:self.managedObjectContext];
     
-    //FUNCTIONS ADDED HERE
+    //FUNCTIONS DEALING WITH JSON ADDED HERE
     //get the JSON format based on the cities + current events
-    NSData *jsonData = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
+    //NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
+    
     //send the JSON data to the server
-    [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonData];
-    //FUNCTIONS ENDS HERE
+    //NSData *jsonDataIn = [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+    
+    //This is a file in order to avoid requesting information from the server during testing periods to save time
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    NSData *jsonDataIn = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //TODO use the server response instead of the file
+    //NSData *jsonDataIn = [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+    //transform the jsonData into an array of event-trip pairs
+    NSArray *eventsFromServer = [self createArrayOfEventsFrom:jsonDataIn  usingContext:self.managedObjectContext];
+    
+    //TODO process the newly created CoreData into visible info for the UI
+    //JSON FUNCTIONS ENDS HERE
     
     Trip *firstTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
     firstTrip.toCityDepartureCity = departureCity;

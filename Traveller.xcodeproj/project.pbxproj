@@ -89,6 +89,7 @@
 		76C497901918672600118140 /* MyScheduleFlightTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4978F1918672600118140 /* MyScheduleFlightTableCell.m */; };
 		76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C497921918673A00118140 /* MyScheduleHotelTableCell.m */; };
 		76C497951919614000118140 /* airCanadaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497941919614000118140 /* airCanadaLogo.png */; };
+		8668279D193813BF00BDF9E5 /* ServerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8668279C193813BF00BDF9E5 /* ServerResponse.json */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
 		9F08007019163BDE006ED9D8 /* Itinerary.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006F19163BDE006ED9D8 /* Itinerary.m */; };
@@ -294,6 +295,7 @@
 		76C497911918673A00118140 /* MyScheduleHotelTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleHotelTableCell.h; sourceTree = "<group>"; };
 		76C497921918673A00118140 /* MyScheduleHotelTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleHotelTableCell.m; sourceTree = "<group>"; };
 		76C497941919614000118140 /* airCanadaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airCanadaLogo.png; sourceTree = "<group>"; };
+		8668279C193813BF00BDF9E5 /* ServerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ServerResponse.json; path = Controllers/PlanTripViewController/ServerResponse.json; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
 		9F08006B19163BDD006ED9D8 /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 		76C270B718B2A1E2003A49A3 /* Traveller */ = {
 			isa = PBXGroup;
 			children = (
+				8668279C193813BF00BDF9E5 /* ServerResponse.json */,
 				76B9442719071436001B08DB /* Resources */,
 				76C2712018B2A3DC003A49A3 /* Libraries */,
 				9FC4184118FFABD7001CC750 /* Utilities */,
@@ -1424,6 +1427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7622B8E7190AE97500F2A22A /* note6.png in Resources */,
+				8668279D193813BF00BDF9E5 /* ServerResponse.json in Resources */,
 				7611889F191304EC00A620D9 /* Vancouver_3.jpg in Resources */,
 				9F3747FB1900F290003D67C8 /* calendar70@2x.png in Resources */,
 				76C497951919614000118140 /* airCanadaLogo.png in Resources */,

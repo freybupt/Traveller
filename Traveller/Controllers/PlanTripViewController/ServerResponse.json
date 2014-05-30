@@ -1,0 +1,34 @@
+{
+    "planSteps": [
+                  {
+                  "stepType": "flight",
+                  "departureCity": "Vancouver",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-06-24 07:00:00",
+                  "arrivalCity": "Toronto Lester B Pearson Intl Apt",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-06-24 02:29:00",
+                  "cost": 250.55707
+                  },
+                  {
+                  "stepType": "hotel",
+                  "city": "Toronto",
+                  "hotelName": "Knights Inn Toronto Scarborough",
+                  "address": "4694 Kingston Road",
+                  "country": "CA",
+                  "startDate": "2014-06-24",
+                  "endDate": "2014-06-27",
+                  "cost": 170.04
+                  },
+                  {
+                  "stepType": "flight",
+                  "departureCity": "Toronto Lester B Pearson Intl Apt",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-06-27 07:30:00",
+                  "arrivalCity": "Vancouver",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-06-27 09:26:00",
+                  "cost": 295.65735
+                  }
+                  ]
+}
