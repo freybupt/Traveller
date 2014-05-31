@@ -105,37 +105,37 @@ static NSInteger kHotelCellFullHeight = 300;
     }
 }
 
-#pragma mark - JSONwriter
 //REMVED METHOD.
 //This method was going to retrieve the province/state code by using reverse Geocode.
 //the delay was deemed too large, so the method is not being used. Just here for reference.
 /*
-- (void) getProvinceCodeFrom:(Location*)location withContext:(NSManagedObjectContext*)context{
-    [location willAccessValueForKey:nil];
-    NSString *address = [location valueForKey:@"address"];
-    NSLog(@"%@",address);
-    float latitude = [[location valueForKey:@"latitude"]floatValue];
-    float longitude = [[location valueForKey:@"longitude"]floatValue];
-    
-    CLLocation* realLocation = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+ - (void) getProvinceCodeFrom:(Location*)location withContext:(NSManagedObjectContext*)context{
+ [location willAccessValueForKey:nil];
+ NSString *address = [location valueForKey:@"address"];
+ NSLog(@"%@",address);
+ float latitude = [[location valueForKey:@"latitude"]floatValue];
+ float longitude = [[location valueForKey:@"longitude"]floatValue];
+ 
+ CLLocation* realLocation = [[CLLocation alloc]initWithLatitude:latitude longitude:longitude];
+ 
+ CLGeocoder *gc = [[CLGeocoder alloc] init];
+ [gc reverseGeocodeLocation:realLocation completionHandler:^(NSArray *placemark, NSError *error)
+ {
+ CLPlacemark *pm = placemark[0];
+ NSLog(@"\n\n\n\n\n\n\n\n\n\n %@", pm.administrativeArea);
+ }];
+ NSLog(@"\n\n\n\n %f %f", latitude, longitude);
+ 
+ }*/
 
-    CLGeocoder *gc = [[CLGeocoder alloc] init];
-    [gc reverseGeocodeLocation:realLocation completionHandler:^(NSArray *placemark, NSError *error)
-    {
-        CLPlacemark *pm = placemark[0];
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n %@", pm.administrativeArea);
-    }];
-    NSLog(@"\n\n\n\n %f %f", latitude, longitude);
-    
-}*/
-
+#pragma mark - Communication with the server and JSON processing
 //will create a dictionary with all the values that a city has
 - (NSMutableDictionary*) cityToDictionary:(City*)startCity
                               withContext:(NSManagedObjectContext*)context
                             needStartCity:(BOOL)need {
     NSString *cityJsonName;
     NSString *countryJsonName;
-
+    
     if(need){
         cityJsonName = @"startCity";
         countryJsonName = @"startCountry";
@@ -170,7 +170,7 @@ static NSInteger kHotelCellFullHeight = 300;
     NSMutableArray *eventData = [[NSMutableArray alloc]init];
     int i = 0;
     //get each of the events
-    for (NSManagedObject *event in events){
+    for (Event *event in events){ //TODO: change managed object into "event"
         i++;
         NSMutableDictionary *eventFields = [NSMutableDictionary dictionary];
         //and fill out the dictionary with the different attributes
@@ -178,7 +178,7 @@ static NSInteger kHotelCellFullHeight = 300;
             NSString *attributeName = attribute.name;
             
             if([attributeName isEqualToString:@"toCity"]){
-                City *city = [event valueForKey:@"toCity"];
+                City *city = event.toCity;
                 NSDictionary *cityDic = [self cityToDictionary:city withContext:context needStartCity:NO];
                 [eventFields addEntriesFromDictionary:cityDic];
             }
@@ -204,8 +204,10 @@ static NSInteger kHotelCellFullHeight = 300;
         }
         [eventData addObject:eventFields];
     }
+    //return the dictionary!
     NSMutableDictionary *eventsDictionary = [NSMutableDictionary dictionary];
     [eventsDictionary setObject:eventData forKey:@"events"];
+    NSLog(@"the events! %@", eventsDictionary);
     return eventsDictionary;
 }
 
@@ -217,8 +219,8 @@ static NSInteger kHotelCellFullHeight = 300;
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fields options:NSJSONWritingPrettyPrinted error:&error];
     
-   //next line of code will just conver the DATA into its string representation
-   // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //next line of code will just conver the DATA into its string representation
+    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     return jsonData;
 }
@@ -228,8 +230,8 @@ static NSInteger kHotelCellFullHeight = 300;
     //here is some code in case the JSON data needs to be displayed in the console
     
     /*
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSData *postData = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
+     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+     NSData *postData = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
      */
     
     //create a request with the JSON data
@@ -252,7 +254,6 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 //convert the JSONData into an array containing Trips and Events
-//TODO add itinerary and trip if necessary
 -(NSArray*) createArrayOfEventsFrom:(NSData*)jsonData usingContext:(NSManagedObjectContext*)context{
     NSError *error;
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
@@ -294,33 +295,37 @@ static NSInteger kHotelCellFullHeight = 300;
             newTrip.price = [NSNumber numberWithDouble:price];
             newTrip.startDate = startDate;
             newTrip.endDate = endDate;
-            //toItinerary not set!
+            newTrip.toEvent = newEvent;
+            
         } else if ([[step objectForKey:@"stepType"] isEqualToString:@"hotel"]){
             
             //process the hotel type of event!
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"startDate"]];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
             NSString *cityName = [step objectForKey:@"city"];
             City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
+            NSString *hotelName = [step objectForKey:@"hotelName"];
             
             //EVENT SETUP
-            newEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+            newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
             newEvent.startDate = startDate;
             newEvent.endDate = endDate;
+            newEvent.title = hotelName;
             newEvent.toCity = city;
-            //toTrip not set!
+            //to trip not set
             
             //TRIP SETUP
             newTrip.toCityDepartureCity = city;
             newTrip.toCityDestinationCity = city;
             newTrip.price = [NSNumber numberWithDouble:price];
             newTrip.startDate = startDate;
+            newTrip.toEvent = newEvent;
+            newTrip.title = hotelName;
             newTrip.endDate = endDate;
-            //toItinerary not set!
         }
-        //create a small array that contains the Trip-Event Pair (may be modified)
+        //create a small array that contains the Event-Trip Pair (may be modified)
         NSArray* eventTripPair = [[NSArray alloc]initWithObjects:newEvent,newTrip,nil];
         [eventsWithTrips addObject:eventTripPair];
     }
@@ -329,6 +334,42 @@ static NSInteger kHotelCellFullHeight = 300;
     NSLog(@"try the array length: %d",[eventsWithTrips count]);
     return eventsWithTrips;
     
+}
+
+#pragma mark - trip and event processing into UI
+-(void) processTrips:(NSArray*)trips withContext:(NSManagedObjectContext*) context{
+    //it will create the trips from an array of event-trip pairs
+    for (NSArray *pairs in trips){
+        Trip *trip = [pairs objectAtIndex:1];
+        double randomPrice = [trip.price floatValue];
+        self.totalPrice += randomPrice;
+        trip.toItinerary = _itinerary;
+        if ([[DataManager sharedInstance] saveTrip:trip
+                                           context:self.managedObjectContext]) {
+            _itinerary.date = trip.startDate;
+            _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), trip.toEvent.toCity.cityName];
+        }
+    }
+}
+
+- (void) processEvents:(NSArray*)events withContext:(NSManagedObjectContext*) context{
+    //it will create trips from an array of events (usually the ones user defined)
+    for(Event* event in events){
+        Trip *tripWithEvent = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+        tripWithEvent.toCityDepartureCity = event.toCity;
+        tripWithEvent.toCityDestinationCity = event.toCity;
+        tripWithEvent.startDate = event.startDate;
+        tripWithEvent.endDate = event.endDate;
+        tripWithEvent.toEvent = event;
+        tripWithEvent.price = [NSNumber numberWithInteger:0]; //a price of an event without a trip to back it off is cero
+        tripWithEvent.toItinerary = _itinerary;
+        if ([[DataManager sharedInstance] saveTrip:tripWithEvent
+                                           context:self.managedObjectContext]) {
+            _itinerary.date = tripWithEvent.startDate;
+            _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Event at %@", nil), event.toCity.cityName];
+        }
+        
+    }
 }
 
 #pragma mark - UI IBAction
@@ -340,15 +381,10 @@ static NSInteger kHotelCellFullHeight = 300;
         [self hideActivityIndicator];
         return;
     }
-
+    
     self.totalPrice = 0;
     //add flight and hotel events
-    Event *firstEvent = (Event *)[events objectAtIndex:0];
-    NSString *cityName = @"Vancouver";
-    City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
-                                                                    context:self.managedObjectContext];
     
-    //FUNCTIONS DEALING WITH JSON ADDED HERE
     //get the JSON format based on the cities + current events
     //NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
     
@@ -359,127 +395,23 @@ static NSInteger kHotelCellFullHeight = 300;
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
     NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     NSData *jsonDataIn = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
-    //TODO use the server response instead of the file
+    
+    //TODO: use the server response instead of the file
     //NSData *jsonDataIn = [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+    
     //transform the jsonData into an array of event-trip pairs
-    NSArray *eventsFromServer = [self createArrayOfEventsFrom:jsonDataIn  usingContext:self.managedObjectContext];
+    NSArray *stepsFromServer = [self createArrayOfEventsFrom:jsonDataIn  usingContext:self.managedObjectContext];
     
-    //TODO process the newly created CoreData into visible info for the UI
-    //JSON FUNCTIONS ENDS HERE
+    //Processing data in order to be displayed by the UI
+    //Please note that the total price label and the itinerary is being changed inside these functions
     
-    Trip *firstTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-    firstTrip.toCityDepartureCity = departureCity;
-    firstTrip.toCityDestinationCity = firstEvent.toCity;
-    firstTrip.startDate = [firstEvent.startDate dateBeforeOneDay]; //one day before first event
-    firstTrip.endDate = [firstEvent.endDate dateBeforeOneDay];
-    firstTrip.toEvent = nil;
-    NSInteger randomPrice = arc4random()%500+200;
-    self.totalPrice += randomPrice;
-    firstTrip.price = [NSNumber numberWithInteger:randomPrice];
-    firstTrip.toItinerary = _itinerary;
-    if ([[DataManager sharedInstance] saveTrip:firstTrip
-                                       context:self.managedObjectContext]) {
-        _itinerary.date = firstTrip.startDate;
-        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), firstEvent.toCity.cityName];
-    }
+    //conver the data sent from the server into trips
+    [self processTrips:stepsFromServer withContext:self.managedObjectContext];
     
-    Trip *firstTripWithEvent = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-    firstTripWithEvent.defaultColor = firstTrip.defaultColor;
-    firstTripWithEvent.toCityDepartureCity = firstEvent.toCity;
-    firstTripWithEvent.toCityDestinationCity = firstEvent.toCity;
-    firstTripWithEvent.startDate = firstEvent.startDate; //one day before first event
-    firstTripWithEvent.endDate = firstEvent.endDate;
-    firstTripWithEvent.toEvent = firstEvent;
-    firstTripWithEvent.price = [NSNumber numberWithInteger:0];
-    firstTripWithEvent.toItinerary = _itinerary;
-    if ([[DataManager sharedInstance] saveTrip:firstTripWithEvent
-                                       context:self.managedObjectContext]) {
-        _itinerary.date = firstTripWithEvent.startDate;
-        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Event at %@", nil), firstEvent.toCity.cityName];
-    }
+    //convert the events gotten from the user into trips
+    [self processEvents:events withContext:self.managedObjectContext];
     
-    Event *hotelEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-    hotelEvent.title = [NSString stringWithFormat:@"Stay Inn Airport South"];
-    hotelEvent.toCity = firstEvent.toCity;
-    hotelEvent.startDate = firstEvent.startDate;
-    hotelEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
-    
-    Trip *firstHotelEvent = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-    firstHotelEvent.defaultColor = firstTrip.defaultColor;
-    firstHotelEvent.toCityDepartureCity = firstEvent.toCity;
-    firstHotelEvent.toCityDestinationCity = firstEvent.toCity;
-    firstHotelEvent.startDate = firstEvent.startDate; //one day before first event
-    firstHotelEvent.endDate = firstEvent.endDate;
-    firstHotelEvent.toEvent = hotelEvent;
-    randomPrice = arc4random()%200+200;
-    self.totalPrice += randomPrice;
-    firstHotelEvent.price = [NSNumber numberWithInteger:randomPrice];
-    firstHotelEvent.toItinerary = _itinerary;
-    
-    if ([[DataManager sharedInstance] saveTrip:firstHotelEvent
-                                       context:self.managedObjectContext]) {
-        _itinerary.date = firstTripWithEvent.startDate;
-        _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), firstEvent.toCity.cityName];
-    }
-    
-    Event *lastEvent = (Event *)[events lastObject];
-    Trip *lastTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-    lastTrip.toCityDepartureCity = lastEvent.toCity;
-    lastTrip.toCityDestinationCity = departureCity;
-    lastTrip.startDate = [lastEvent.startDate dateAfterOneDay]; //one day before first event
-    lastTrip.endDate = [lastEvent.endDate dateAfterOneDay];
-    lastTrip.toEvent = nil;
-    lastTrip.toItinerary = _itinerary;
-    randomPrice = arc4random()%500+200;
-    self.totalPrice += randomPrice;
-    lastTrip.price = [NSNumber numberWithInteger:randomPrice];
-    [[DataManager sharedInstance] saveTrip:lastTrip
-                                   context:self.managedObjectContext];
-    
-    if ([[firstEvent.objectID URIRepresentation] isEqual:[lastEvent.objectID URIRepresentation]]) {
-        Event *event = (Event *)[events lastObject];
-        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        newTrip.toCityDepartureCity = event.toCity;
-        newTrip.toCityDestinationCity = event.toCity;
-        newTrip.startDate = event.startDate;
-        newTrip.endDate = event.endDate;
-        newTrip.toEvent = event;
-        newTrip.toItinerary = _itinerary;
-        [[DataManager sharedInstance] saveTrip:newTrip
-                                       context:self.managedObjectContext];
-        
-        [self hideActivityIndicator];
-        return;
-    }
-    
-    for (NSInteger i = 1; i < [events count]; i++) {
-        Event *previousEvent = (Event *)[events objectAtIndex:i-1];
-        Event *currentEvent = (Event *)[events objectAtIndex:i];
-        
-        Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-        newTrip.toCityDepartureCity = previousEvent.toCity;
-        newTrip.toCityDestinationCity = currentEvent.toCity;
-        newTrip.startDate = previousEvent.endDate;
-        newTrip.endDate = (i + 1 == [events count]) ? lastEvent.endDate : [currentEvent.startDate dateBeforeOneDay];
-        newTrip.toEvent = (i + 1 == [events count]) ? lastEvent : currentEvent;
-        newTrip.toItinerary = _itinerary;
-        [[DataManager sharedInstance] saveTrip:newTrip
-                                       context:self.managedObjectContext];
-        
-        if (![[previousEvent.toCity.cityName lowercaseString] isEqualToString:[currentEvent.toCity.cityName lowercaseString]]) {
-            // Add flight objects here
-        }
-    }
-    
-    
-    if (![[departureCity.cityName lowercaseString] isEqualToString:[firstEvent.toCity.cityName lowercaseString]]) {
-        // Add flight objects here
-    }
-    
-    if (![[departureCity.cityName lowercaseString] isEqualToString:[lastEvent.toCity.cityName lowercaseString]]) {
-        // Add flight objects here
-    }
-    
+    //show the price in the UI
     self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
     [self hideActivityIndicator];
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
@@ -507,18 +439,18 @@ static NSInteger kHotelCellFullHeight = 300;
         if ([array count] > 1) {
             NSString *cityName = [[array objectAtIndex:0] uppercaseStringToIndex:1];
             toCity = [[DataManager sharedInstance] getCityWithCityName:cityName
-                                                                     context:self.managedObjectContext];
+                                                               context:self.managedObjectContext];
         }
         if (toCity) {
             trip.toCityDestinationCity = toCity;
         }
     }
-
+    
     if (self.currentDateRange) {
         self.originalDateRange = [[DSLCalendarRange alloc] initWithStartDay:self.currentDateRange.startDay
                                                                      endDay:self.currentDateRange.endDay];
     }
-
+    
     if ([[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext]) {
         [self hideDestinationPanel:nil];
     }
@@ -535,7 +467,7 @@ static NSInteger kHotelCellFullHeight = 300;
         trip.endDate = self.originalDateRange.endDay.date; // Trip's endDate has to be equal to actually selected end day
         [[DataManager sharedInstance] saveTrip:trip context:self.managedObjectContext];
     }
-
+    
     [self hideDestinationPanel:nil];
 }
 
@@ -568,9 +500,9 @@ static NSInteger kHotelCellFullHeight = 300;
     if ([indexPath isEqual:self.expandedCellIndexPath]) {
         Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
         Event *event = trip.toEvent;
-    
+        
         //expand list item
-        if (!event) {
+        if ([event.eventType integerValue] == EventTypeFlight) {
             //flight
             return kFlightCellFullHeight;
         }
@@ -588,6 +520,7 @@ static NSInteger kHotelCellFullHeight = 300;
     }
 }
 
+#pragma mark - SET UP THE EVENT CELLS
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -599,7 +532,7 @@ static NSInteger kHotelCellFullHeight = 300;
         MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
         if (!cell) {
             cell = [[MyScheduleHotelTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                              reuseIdentifier:@"hotelCell"];
+                                                   reuseIdentifier:@"hotelCell"];
         }
         cell.eventTitleLabel.text = event.title;
         if ([event.allDay boolValue]) {
@@ -617,17 +550,17 @@ static NSInteger kHotelCellFullHeight = 300;
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
         }
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
-
+        
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         tableCell = cell;
     }
-    else{
+    else if ([event.eventType integerValue]== EventTypeDefault){
         //Event
         MyScheduleTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventCell"];
         if (!cell) {
             cell = [[MyScheduleTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                                   reuseIdentifier:@"eventCell"];
+                                              reuseIdentifier:@"eventCell"];
         }
         cell.eventTitleLabel.text = event.title;
         if ([event.allDay boolValue]) {
@@ -651,16 +584,29 @@ static NSInteger kHotelCellFullHeight = 300;
     }
     
     
-    if (!event) {
+    if ([event.eventType integerValue]== EventTypeFlight) {
         //flight
         MyScheduleFlightTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightCell"];
         if (!cell) {
             cell = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                                   reuseIdentifier:@"flightCell"];
+                                                    reuseIdentifier:@"flightCell"];
         }
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
+        
+        //TODO: set up the times!!!!!!!1111
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm"];
+        NSString *startDate = [formatter stringFromDate:event.startDate];
+        NSString *endDate = [formatter stringFromDate:event.endDate];
+        NSLog(@"start!: %@", startDate);
+        NSLog(@"end :( %@", endDate);
+        NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+        NSLog(@"check em: %@", fullDate);
+        cell.eventTimeLabel.text = fullDate;
+        
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
@@ -671,7 +617,7 @@ static NSInteger kHotelCellFullHeight = 300;
         }
         tableCell = cell;
     }
- 
+    
     return tableCell;
 }
 
@@ -698,7 +644,7 @@ static NSInteger kHotelCellFullHeight = 300;
         [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         
         //expand list item
-        if (!event) {
+        if ([event.eventType integerValue] == EventTypeFlight) {
             //flight
         }
         else if ([event.eventType integerValue] == EventTypeHotel) {
@@ -711,7 +657,7 @@ static NSInteger kHotelCellFullHeight = 300;
     }
     else{
         //hightlight item in calendar or map
-        if (!event) {
+        if ([event.eventType integerValue] == EventTypeFlight) {
             //flight
             PlanTripViewController __weak *weakSelf = self;
             City *city = trip.toCityDestinationCity;
@@ -723,7 +669,7 @@ static NSInteger kHotelCellFullHeight = 300;
                 [weakSelf.mapView setRegion:region animated:YES];
             });
         }
-        else{
+        else if (![event.eventType integerValue] == EventTypeFlight) {
             //update map
             PlanTripViewController __weak *weakSelf = self;
             City *city = event.toCity;
@@ -736,7 +682,7 @@ static NSInteger kHotelCellFullHeight = 300;
             });
         }
     }
-
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
@@ -795,7 +741,7 @@ static NSInteger kHotelCellFullHeight = 300;
 - (void)modalView:(ModalView *)modalView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
-        case ModalViewButtonCancelIndex: {            
+        case ModalViewButtonCancelIndex: {
             NSArray *array = [self getActiveTripByDateRange:self.currentDateRange];
             if ([array count] == 0) {
                 return;
