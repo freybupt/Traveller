@@ -327,6 +327,8 @@ static NSInteger kHotelCellFullHeight = 300;
             City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
             City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
+            
+            //TODO: replace this by the actual keys from the server
             NSString *airline = [step objectForKey:@"airline"];
             
             
@@ -358,6 +360,11 @@ static NSInteger kHotelCellFullHeight = 300;
             City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
             NSString *hotelName = [step objectForKey:@"hotelName"];
+            //[NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+            NSString *address = [step objectForKey:@"address"];
+            NSString *eventCity = [step objectForKey:@"city"];
+            NSString *countryCode= [step objectForKey:@"country"];
+            NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
             
             //EVENT SETUP
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
@@ -365,6 +372,7 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.endDate = endDate;
             newEvent.title = hotelName;
             newEvent.toCity = city;
+            newEvent.location = location;
             //to trip not set
             
             //TRIP SETUP
@@ -392,14 +400,11 @@ static NSInteger kHotelCellFullHeight = 300;
     //it will create the trips from an array of event-trip pairs
     for (NSArray *pairs in trips){
         Trip *trip = [pairs objectAtIndex:1];
-        NSLog(@"HEHEH %@", trip.toEvent.eventType);
         double price = [trip.price floatValue];
         self.totalPrice += price;
         trip.toItinerary = _itinerary;
         if ([[DataManager sharedInstance] saveTrip:trip
                                            context:self.managedObjectContext]) {
-            NSLog(@"HEHEH %@", trip.toEvent.eventType);
-            
             _itinerary.date = trip.startDate;
             _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), trip.toEvent.toCity.cityName];
         }
@@ -596,6 +601,7 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 #pragma mark - SET UP THE EVENT CELLS
+//TODO: Add the airline, update the bar based on which classes are available, etc
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -613,10 +619,12 @@ static NSInteger kHotelCellFullHeight = 300;
         if ([event.allDay boolValue]) {
             cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
         } else {
-            //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            //[formatter setDateFormat:@"HH:mm"];
-            //[formatter setTimeZone:[NSTimeZone localTimeZone]];
-            cell.eventTimeLabel.text = nil;
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"MMM dd"];
+            NSString *startDate = [formatter stringFromDate:event.startDate];
+            NSString *endDate = [formatter stringFromDate:event.endDate];
+            NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+            cell.eventTimeLabel.text = fullDate;
         }
         if ([event.location length] > 0) {
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
@@ -642,7 +650,7 @@ static NSInteger kHotelCellFullHeight = 300;
             cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
         } else {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"HH:mm"];
+            [formatter setDateFormat:@"MMM dd - HH:mm"];
             [formatter setTimeZone:[NSTimeZone localTimeZone]];
             cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
         }
@@ -670,17 +678,17 @@ static NSInteger kHotelCellFullHeight = 300;
         cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
         
-        //TODO: set up the times!!!!!!!1111
-        
+        //use date formatter to specify how the date will be displayed
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"HH:mm"];
         NSString *startDate = [formatter stringFromDate:event.startDate];
         NSString *endDate = [formatter stringFromDate:event.endDate];
-        NSLog(@"start!: %@", startDate);
-        NSLog(@"end :( %@", endDate);
         NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
-        NSLog(@"check em: %@", fullDate);
+        
+        //set up the cell time fields
         cell.eventTimeLabel.text = fullDate;
+        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDate, @" departure"];
+        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];

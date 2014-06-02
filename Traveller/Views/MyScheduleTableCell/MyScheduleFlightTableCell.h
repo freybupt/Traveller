@@ -12,5 +12,10 @@
 
 
 @property (nonatomic, weak) IBOutlet UIView *flightDetailView;
+@property (nonatomic, weak) IBOutlet UILabel *departureTimeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *arrivalTimeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *departureAirportLabel;
+@property (nonatomic, weak) IBOutlet UILabel *arrivalAirportLabel;
+
 
 @end

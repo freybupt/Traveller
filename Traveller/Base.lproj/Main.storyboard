@@ -317,6 +317,10 @@
                                                 <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <outlet property="actionButton" destination="04R-JF-0qa" id="uH6-k5-Zai"/>
+                                                    <outlet property="arrivalAirportLabel" destination="hjO-jz-hZJ" id="G7Z-4Q-Fld"/>
+                                                    <outlet property="arrivalTimeLabel" destination="BaL-A6-bXd" id="Wao-We-KMJ"/>
+                                                    <outlet property="departureAirportLabel" destination="O9L-xZ-Sb6" id="MGt-5N-aaR"/>
+                                                    <outlet property="departureTimeLabel" destination="bEx-CK-dpA" id="SvA-0g-4X5"/>
                                                     <outlet property="eventLocationLabel" destination="GqE-Zv-hBq" id="MEg-hK-wBE"/>
                                                     <outlet property="eventTimeLabel" destination="70u-kn-mtB" id="4PN-UW-o01"/>
                                                     <outlet property="eventTitleLabel" destination="NUd-KP-0dz" id="Dn8-5r-WpW"/>
