@@ -6,7 +6,7 @@
                   "departureCountry": "Canada",
                   "departureTime": "2014-06-24 07:00:00",
                   "duration": "120",
-                  "company": "Air Canada",
+                  "airline": "Air Canada",
                   "arrivalCity": "Toronto",
                   "stops": "0",
                   "arrivalCountry": "Canada",
@@ -16,11 +16,11 @@
                   {
                   "stepType": "hotel",
                   "city": "Toronto",
-                  "hotelName": "Knights Inn Toronto Scarborough",
+                  "hotelName": "Toronto Random Hotel",
                   "address": "4694 Kingston Road",
                   "country": "CA",
-                  "startDate": "2014-06-24 15:00",
-                  "endDate": "2014-06-27 6:30",
+                  "startDate": "2014-06-24",
+                  "endDate": "2014-06-27",
                   "cost": 170.04
                   },
                   {
@@ -29,7 +29,7 @@
                   "departureCountry": "Canada",
                   "departureTime": "2014-06-27 07:30:00",
                   "stops": "1",
-                  "company": "Westjet",
+                  "airline": "Westjet",
                   "arrivalCity": "Vancouver",
                   "arrivalCountry": "Canada",
                   "arrivalTime": "2014-06-27 09:26:00",

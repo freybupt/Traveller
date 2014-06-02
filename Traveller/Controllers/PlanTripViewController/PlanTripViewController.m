@@ -46,6 +46,8 @@ static NSInteger kHotelCellFullHeight = 300;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This will take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
     
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
@@ -170,7 +172,7 @@ static NSInteger kHotelCellFullHeight = 300;
     NSMutableArray *eventData = [[NSMutableArray alloc]init];
     int i = 0;
     //get each of the events
-    for (Event *event in events){ //TODO: change managed object into "event"
+    for (Event *event in events){
         i++;
         NSMutableDictionary *eventFields = [NSMutableDictionary dictionary];
         //and fill out the dictionary with the different attributes
@@ -225,8 +227,9 @@ static NSInteger kHotelCellFullHeight = 300;
     return jsonData;
 }
 
-//function to post the json data to the server
-- (NSData*)postToServer:(NSString*)url theJSONData:(NSData*)jsonData{
+//will post the data using async connection
+- (NSData*)postToServerAsync:(NSString*)url theJSONData:(NSData*)jsonData{
+    
     //here is some code in case the JSON data needs to be displayed in the console
     
     /*
@@ -241,17 +244,64 @@ static NSInteger kHotelCellFullHeight = 300;
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:jsonData];
-    //prepare the response
-    NSURLResponse *response;
-    NSError* error;
-    //do the request/response and print the data
-    //right now it is being done synchronously
-    //TODO: use asynchronous request.
-    NSData *POSTReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    //NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"\n\n\n\n %@", theReply);
-    return POSTReply;
+    
+    //create two block variables to store the response
+    __block NSError* errorMain;
+    __block NSData *responseAsync;//right now it is being done synchronously
+    
+    //use asynch connection to send a POST request
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if (error)
+        {
+            errorMain = error;
+            NSLog(@"Timeout Error!");
+        }
+        else
+        {
+            responseAsync = data;
+            [self calculateTripFromServer:nil usingResponse:responseAsync];
+            NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Your best travelling options are being displayed now." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            NSLog(@"\n\n\n\n %@", theReply);
+        }
+        
+    }];
+    return responseAsync;
 }
+
+
+//synchronous function to post the json data to the server
+//deprecated in favour of using the asynchronous function
+/*
+ - (NSData*)postToServer:(NSString*)url theJSONData:(NSData*)jsonData{
+ //here is some code in case the JSON data needs to be displayed in the console
+ 
+ 
+ // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+ // NSData *postData = [jsonString dataUsingEncoding:NSASCIIStringEncoding];
+ 
+ 
+ //create a request with the JSON data
+ NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+ [request setURL:[NSURL URLWithString:url]];
+ [request setHTTPMethod:@"POST"];
+ [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+ [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+ [request setHTTPBody:jsonData];
+ //prepare the response
+ NSURLResponse *response;
+ NSError* error;
+ //do the request/response and print the data
+ //right now it is being done synchronously
+ //TODO: use asynchronous request.
+ NSData *POSTReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+ //NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
+ //NSLog(@"\n\n\n\n %@", theReply);
+ return POSTReply;
+ }
+ */
+
 
 //convert the JSONData into an array containing Trips and Events
 -(NSArray*) createArrayOfEventsFrom:(NSData*)jsonData usingContext:(NSManagedObjectContext*)context{
@@ -267,8 +317,6 @@ static NSInteger kHotelCellFullHeight = 300;
         
         //use a date format to process the dates later on
         NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
-        
-        
         if([[step objectForKey:@"stepType"] isEqualToString:@"flight"]){
             //process the flight type of event!
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -279,6 +327,7 @@ static NSInteger kHotelCellFullHeight = 300;
             City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
             City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
+            NSString *airline = [step objectForKey:@"airline"];
             
             
             //EVENT SETUP
@@ -286,6 +335,7 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.startDate = startDate;
             newEvent.endDate = endDate;
             newEvent.toCity = arrivalCity;
+            newEvent.title = airline;
             //toTrip not set!
             
             
@@ -294,13 +344,14 @@ static NSInteger kHotelCellFullHeight = 300;
             newTrip.toCityDestinationCity = arrivalCity;
             newTrip.price = [NSNumber numberWithDouble:price];
             newTrip.startDate = startDate;
+            newTrip.title = airline;
             newTrip.endDate = endDate;
             newTrip.toEvent = newEvent;
             
         } else if ([[step objectForKey:@"stepType"] isEqualToString:@"hotel"]){
             
             //process the hotel type of event!
-            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"startDate"]];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
             NSString *cityName = [step objectForKey:@"city"];
@@ -341,11 +392,14 @@ static NSInteger kHotelCellFullHeight = 300;
     //it will create the trips from an array of event-trip pairs
     for (NSArray *pairs in trips){
         Trip *trip = [pairs objectAtIndex:1];
-        double randomPrice = [trip.price floatValue];
-        self.totalPrice += randomPrice;
+        NSLog(@"HEHEH %@", trip.toEvent.eventType);
+        double price = [trip.price floatValue];
+        self.totalPrice += price;
         trip.toItinerary = _itinerary;
         if ([[DataManager sharedInstance] saveTrip:trip
                                            context:self.managedObjectContext]) {
+            NSLog(@"HEHEH %@", trip.toEvent.eventType);
+            
             _itinerary.date = trip.startDate;
             _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), trip.toEvent.toCity.cityName];
         }
@@ -372,8 +426,17 @@ static NSInteger kHotelCellFullHeight = 300;
     }
 }
 
+
+
 #pragma mark - UI IBAction
-- (IBAction)calculateTrip:(id)sender
+
+//will calculate the whole trip based on the users events.
+-(IBAction)calculateTrip:(id)sender {
+    [self calculateTripFromClient:sender];
+    [self calculateTripFromServer:sender usingResponse:nil];
+}
+
+- (IBAction)calculateTripFromClient:(id)sender
 {
     NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
                                                                  context:self.managedObjectContext];
@@ -382,36 +445,48 @@ static NSInteger kHotelCellFullHeight = 300;
         return;
     }
     
+    //convert the events got from the user into trips
+    [self processEvents:events withContext:self.managedObjectContext];
+    //show the price in the UI
     self.totalPrice = 0;
-    //add flight and hotel events
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
+    [self hideActivityIndicator];
+    [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
+}
+
+- (IBAction)calculateTripFromServer:(id)sender usingResponse:(NSData*)jsonResponse
+{
+    NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
+                                                                 context:self.managedObjectContext];
+    if ([events count] == 0) {
+        [self hideActivityIndicator];
+        return;
+    }
     
     //get the JSON format based on the cities + current events
-    //NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
-    
-    //send the JSON data to the server
-    //NSData *jsonDataIn = [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+    NSString *cityName = @"Vancouver";
+    City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                                                                    context:self.managedObjectContext];
+    NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    NSData *jsonDataIn = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     
-    //TODO: use the server response instead of the file
-    //NSData *jsonDataIn = [self postToServer:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
     
-    //transform the jsonData into an array of event-trip pairs
-    NSArray *stepsFromServer = [self createArrayOfEventsFrom:jsonDataIn  usingContext:self.managedObjectContext];
+    if(!jsonResponse){ //if there is nothing from the server, ask for it
+        [self postToServerAsync:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+    } else {
+        //transform the jsonData into an array of event-trip pairs
+        NSArray *stepsFromServer = [self createArrayOfEventsFrom:jsonResponse  usingContext:self.managedObjectContext];
+        
+        //Processing data in order to be displayed by the UI
+        //Please note that the total price label and the itinerary is being changed inside these functions
+        
+        [self processTrips:stepsFromServer withContext:self.managedObjectContext];
+    }
     
-    //Processing data in order to be displayed by the UI
-    //Please note that the total price label and the itinerary is being changed inside these functions
-    
-    //conver the data sent from the server into trips
-    [self processTrips:stepsFromServer withContext:self.managedObjectContext];
-    
-    //convert the events gotten from the user into trips
-    [self processEvents:events withContext:self.managedObjectContext];
-    
-    //show the price in the UI
     self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
     [self hideActivityIndicator];
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
@@ -538,10 +613,10 @@ static NSInteger kHotelCellFullHeight = 300;
         if ([event.allDay boolValue]) {
             cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
         } else {
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"HH:mm"];
-            [formatter setTimeZone:[NSTimeZone localTimeZone]];
-            cell.eventTimeLabel.text = [formatter stringFromDate:event ? event.startDate : trip.startDate];
+            //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            //[formatter setDateFormat:@"HH:mm"];
+            //[formatter setTimeZone:[NSTimeZone localTimeZone]];
+            cell.eventTimeLabel.text = nil;
         }
         if ([event.location length] > 0) {
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
@@ -703,7 +778,7 @@ static NSInteger kHotelCellFullHeight = 300;
                 break;
             }
             default:
-                break;
+            break;
         }
     }
 }
@@ -753,7 +828,7 @@ static NSInteger kHotelCellFullHeight = 300;
             }
         } break;
         case ModalViewButtonFirstOtherIndex:
-            break;
+        break;
     }
 }
 @end
