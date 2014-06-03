@@ -22,9 +22,11 @@
 @dynamic location;
 @dynamic notes;
 @dynamic startDate;
+@dynamic stops;
 @dynamic title;
 @dynamic uid;
 @dynamic url;
+@dynamic toFlight;
 @dynamic toCity;
 @dynamic toLocation;
 @dynamic toTrip;

@@ -416,6 +416,141 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
         event.notes = ekEvent.notes;
     }
 }
+#pragma mark - Flight
+- (Flight *)newFlightWithContext:(NSManagedObjectContext *)moc
+{
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Flight"
+                                              inManagedObjectContext:moc];
+    Flight *flight = [[Flight alloc] initWithEntity:entity
+                     insertIntoManagedObjectContext:moc];
+    flight.title = NSLocalizedString(@"New Flight", nil);
+    flight.uid = [MockManager userid];
+    
+    return flight;
+}
+
+- (Flight *)getFlightWithFlightIdentifier:(NSString *)flightIdentifier
+                                  context:(NSManagedObjectContext *)moc
+{
+    if (!flightIdentifier || !moc ) {
+        return nil;
+    }
+    
+    NSError *error;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"flightIdentifier == %@ AND uid == %@", flightIdentifier, [MockManager userid]];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"Flight"
+                                        inManagedObjectContext:moc]];
+    [fetchRequest setPredicate:pred];
+    
+    NSArray *fetchResult = [moc executeFetchRequest:fetchRequest
+                                              error:&error];
+    
+    return fetchResult.count == 0 ? nil : [fetchResult lastObject];
+}
+
+- (BOOL)saveFlight:(Flight *)flight
+           context:(NSManagedObjectContext *)moc
+{
+    if (!flight || !moc ) {
+        return NO;
+    }
+    
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Saved an flight: %@", flight);
+    return YES;
+}
+
+- (void)setFlight:(Flight *)flight withDictionary:(NSDictionary *)dictionary
+{
+    if ([dictionary[@"airline"] isStringObject]) {
+        flight.airline = dictionary[@"airline"];
+    }
+    
+    if ([dictionary[@"departureCode"] isStringObject]) {
+        flight.departureCode = dictionary[@"departureCode"];
+    }
+    
+    if ([dictionary[@"arrivalCode"] isStringObject]) {
+        flight.arrivalCode = dictionary[@"arrivalCode"];
+    }
+    
+    if ([dictionary[@"arrivalAirport"] isStringObject]) {
+        flight.arrivalAirport = dictionary[@"arrivalAirport"];
+    }
+    
+    if ([dictionary[@"departureAirport"] isStringObject]) {
+        flight.departureAirport = dictionary[@"departureAirport"];
+    }
+    
+    if ([dictionary[@"departureCity"] isStringObject]) {
+        flight.departureCity = dictionary[@"departureCity"];
+    }
+    
+    if ([dictionary[@"departureCountry"] isStringObject]) {
+        flight.departureCountry = dictionary[@"departureCountry"];
+    }
+    
+    if ([dictionary[@"departureTime"] isStringObject]) {
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        flight.departureTime = [dateFormat dateFromString:[dictionary objectForKey:@"departureTime"]];
+    }
+    
+    if ([dictionary[@"arrivalCity"] isStringObject]) {
+        flight.arrivalCity = dictionary[@"arrivalCity"];
+    }
+    
+    if ([dictionary[@"arrivalCountry"] isStringObject]) {
+        flight.arrivalCountry = dictionary[@"arrivalCountry"];
+    }
+    
+    if ([dictionary[@"arrivalTime"] isStringObject]) {
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        flight.arrivalTime = [dateFormat dateFromString:[dictionary objectForKey:@"arrivalTime"]];
+    }
+    
+    if ([dictionary[@"designatorCode"] isStringObject]) {
+        flight.designatorCode = dictionary[@"designatorCode"];
+    }
+    
+    if ([dictionary[@"duration"] isNumberObject]) {
+        flight.duration = dictionary[@"duration"];
+    }
+    
+}
+
+
+- (BOOL)deleteFlight:(Flight *)flight
+             context:(NSManagedObjectContext *)moc
+{
+    if (!flight || !moc) {
+        return NO;
+    }
+    
+    [moc deleteObject:flight];
+    if ([moc hasChanges]) {
+        
+        NSError *error = nil;
+        if (![moc save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+            return NO;
+        }
+    }
+    NSLog(@"Deleted an flight");
+    return YES;
+}
 
 #pragma mark - Location
 - (Location *)newLocationWithContext:(NSManagedObjectContext *)moc

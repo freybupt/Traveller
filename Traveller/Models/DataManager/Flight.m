@@ -12,8 +12,19 @@
 
 @implementation Flight
 
-@dynamic endDate;
-@dynamic startDate;
+@dynamic airline;
+@dynamic departureCode;
+@dynamic arrivalCode;
+@dynamic departureAirport;
+@dynamic arrivalAirport;
+@dynamic departureCity;
+@dynamic departureCountry;
+@dynamic departureTime;
+@dynamic arrivalCity;
+@dynamic arrivalCountry;
+@dynamic arrivalTime;
+@dynamic designatorCode;
+@dynamic duration;
 @dynamic title;
 @dynamic uid;
 @dynamic toCity;

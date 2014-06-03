@@ -12,7 +12,7 @@
                   "classType": "economy",
                   "duration": 262,
                   "stops": 0,
-                  "cost": 342.76926,
+                  "cost": 342.50128,
                   "FlightConnections": [
                                         {
                                         "airline": "Air Canada",
@@ -20,6 +20,12 @@
                                         "arrivalCode": "YYZ",
                                         "departureAirport": "Vancouver Intl",
                                         "arrivalAirport": "Lester B Pearson Intl",
+                                        "departureCity": "Vancouver",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-14 07:30:00",
+                                        "arrivalCity": "Toronto",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-14 14:52:00",
                                         "designatorCode": "AC1182",
                                         "duration": 262
                                         }
@@ -49,7 +55,7 @@
                   "classType": "economy",
                   "duration": 296,
                   "stops": 0,
-                  "cost": 275.58914,
+                  "cost": 259.1368,
                   "FlightConnections": [
                                         {
                                         "airline": "Air Canada",
@@ -57,6 +63,12 @@
                                         "arrivalCode": "YVR",
                                         "departureAirport": "Lester B Pearson Intl",
                                         "arrivalAirport": "Vancouver Intl",
+                                        "departureCity": "Toronto",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-17 20:15:00",
+                                        "arrivalCity": "Vancouver",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-17 22:11:00",
                                         "designatorCode": "AC33",
                                         "duration": 296
                                         }

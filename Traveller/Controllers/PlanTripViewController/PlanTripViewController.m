@@ -331,20 +331,32 @@ static NSInteger kHotelCellFullHeight = 300;
             City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
             City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
+            NSNumber *stops = [step objectForKey:@"stops"];
             
             //TODO: Complete all the different attributes
             NSNumber *duration = [step objectForKey:@"duration"];
-            NSString *connections = [[step objectForKey:@"FlightConnections"]description];
+            NSArray *connections = [step objectForKey:@"FlightConnections"];
             
+            //FLIGHT SETUP
+            NSMutableArray *flightArray = [[NSMutableArray alloc]init];
+            //set it in one step by getting the data from server
+            for (int i =0; i<[connections count];i++){
+                Flight *newFlight = [[DataManager sharedInstance] newFlightWithContext:self.managedObjectContext];
+                [[DataManager sharedInstance]setFlight:newFlight withDictionary:[connections objectAtIndex:i]];
+                [flightArray addObject:newFlight];
+                NSLog(@"heherehe : %@", newFlight);
+            }
+            NSSet *flightSet = [[NSSet alloc]initWithArray:flightArray];
             
             //EVENT SETUP
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
             newEvent.startDate = startDate;
             newEvent.endDate = endDate;
             newEvent.toCity = arrivalCity;
+            newEvent.toFlight = flightSet;
+            newEvent.stops = stops;
+            
             //newEvent.title = airline;
-            newEvent.notes = connections;
-            NSLog(@"notes: %@", newEvent.notes);
             //toTrip not set!
             
             
@@ -357,6 +369,10 @@ static NSInteger kHotelCellFullHeight = 300;
             newTrip.endDate = endDate;
             newTrip.toEvent = newEvent;
             newTrip.duration = duration;
+            
+
+            
+            
             
         } else if ([[step objectForKey:@"stepType"] isEqualToString:@"hotel"]){
             
@@ -688,7 +704,18 @@ static NSInteger kHotelCellFullHeight = 300;
         NSNumber *remainingMinutes = [NSNumber numberWithInt:(flightDuration%60)];
         NSString *flightDurationStr = [durationHours stringValue];
         NSString *remainingMinutesStr = [remainingMinutes stringValue];
-        NSString *timeString = [NSString stringWithFormat:@"%@%@%@%@", flightDurationStr, @"h ",remainingMinutesStr,@"m \tnon-stop\tAirCanada"];
+        NSNumber *numOfStops = event.stops;
+        NSString *numOfStopsStr;
+        if([numOfStops integerValue]==0){
+            numOfStopsStr = @"non-stop";
+        } else {
+            NSString *stopRaw = [numOfStops integerValue]==1? @" stop" : @" stops";
+           NSString *numOfStopsStrInit = [event.stops stringValue];
+            numOfStopsStr = [NSString stringWithFormat:@"%@%@", numOfStopsStrInit, stopRaw];
+        }
+        
+        NSString *timeString = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
+                                ,remainingMinutesStr,@"m \t\t\t",numOfStopsStr];
         
         //NSString *flightInfo = event.notes;
         //NSData* flightData = [flightInfo dataUsingEncoding:NSUTF8StringEncoding];

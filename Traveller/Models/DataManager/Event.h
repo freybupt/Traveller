@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class City, Location, Trip;
+@class City, Location, Trip, Flight;
 
 @interface Event : NSManagedObject
 
+//TODO: create something to assign the flights
 @property (nonatomic, retain) NSNumber * allDay;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * eventIdentifier;
@@ -21,11 +22,13 @@
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSString * notes;
 @property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSNumber * stops;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) City *toCity;
 @property (nonatomic, retain) Location *toLocation;
+@property (nonatomic, retain) NSSet *toFlight;
 @property (nonatomic, retain) NSSet *toTrip;
 @end
 
@@ -33,6 +36,8 @@
 
 - (void)addToTripObject:(Trip *)value;
 - (void)removeToTripObject:(Trip *)value;
+- (void)addToFlightObject:(Flight *)value;
+- (void)removeToFlightObject:(Flight *)value;
 - (void)addToTrip:(NSSet *)values;
 - (void)removeToTrip:(NSSet *)values;
 
