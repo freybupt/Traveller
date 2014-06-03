@@ -328,8 +328,9 @@ static NSInteger kHotelCellFullHeight = 300;
             City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
             
-            //TODO: replace this by the actual keys from the server
-            NSString *airline = [step objectForKey:@"airline"];
+            //TODO: Complete all the different attributes
+            NSNumber *duration = [step objectForKey:@"duration"];
+            NSString *connections = [[step objectForKey:@"FlightConnections"]description];
             
             
             //EVENT SETUP
@@ -337,7 +338,9 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.startDate = startDate;
             newEvent.endDate = endDate;
             newEvent.toCity = arrivalCity;
-            newEvent.title = airline;
+            //newEvent.title = airline;
+            newEvent.notes = connections;
+            NSLog(@"notes: %@", newEvent.notes);
             //toTrip not set!
             
             
@@ -346,9 +349,10 @@ static NSInteger kHotelCellFullHeight = 300;
             newTrip.toCityDestinationCity = arrivalCity;
             newTrip.price = [NSNumber numberWithDouble:price];
             newTrip.startDate = startDate;
-            newTrip.title = airline;
+            //newTrip.title = airline;
             newTrip.endDate = endDate;
             newTrip.toEvent = newEvent;
+            newTrip.duration = duration;
             
         } else if ([[step objectForKey:@"stepType"] isEqualToString:@"hotel"]){
             
@@ -390,7 +394,7 @@ static NSInteger kHotelCellFullHeight = 300;
     }
     
     //to test: the output must be equal to 3
-    NSLog(@"try the array length: %d",[eventsWithTrips count]);
+    NSLog(@"try the array length: %lu",(unsigned long)[eventsWithTrips count]);
     return eventsWithTrips;
     
 }
@@ -475,9 +479,9 @@ static NSInteger kHotelCellFullHeight = 300;
     NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
-    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     
     
     if(!jsonResponse){ //if there is nothing from the server, ask for it
@@ -675,8 +679,21 @@ static NSInteger kHotelCellFullHeight = 300;
                                                     reuseIdentifier:@"flightCell"];
         }
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
-        cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        int flightDuration = [trip.duration integerValue];
+        NSNumber *durationHours = [NSNumber numberWithInt:floor(flightDuration/60)];
+        NSNumber *remainingMinutes = [NSNumber numberWithInt:(flightDuration%60)];
+        NSString *flightDurationStr = [durationHours stringValue];
+        NSString *remainingMinutesStr = [remainingMinutes stringValue];
+        NSString *timeString = [NSString stringWithFormat:@"%@%@%@%@", flightDurationStr, @"h ",remainingMinutesStr,@"m \tnon-stop\tAirCanada"];
+        
+        //NSString *flightInfo = event.notes;
+        //NSData* flightData = [flightInfo dataUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        //cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        cell.eventLocationLabel.text = timeString;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
+        cell.airlineWithDurationLabel.text = timeString;
         
         //use date formatter to specify how the date will be displayed
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

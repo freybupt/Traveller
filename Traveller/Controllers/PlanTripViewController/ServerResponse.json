@@ -4,36 +4,63 @@
                   "stepType": "flight",
                   "departureCity": "Vancouver",
                   "departureCountry": "Canada",
-                  "departureTime": "2014-06-24 07:00:00",
-                  "duration": "120",
-                  "airline": "Air Canada",
+                  "departureTime": "2014-06-14 07:30:00",
                   "arrivalCity": "Toronto",
-                  "stops": "0",
                   "arrivalCountry": "Canada",
-                  "arrivalTime": "2014-06-24 14:29:00",
-                  "cost": 250.55707
+                  "arrivalTime": "2014-06-14 14:52:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 262,
+                  "stops": 0,
+                  "cost": 342.76926,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YVR",
+                                        "arrivalCode": "YYZ",
+                                        "departureAirport": "Vancouver Intl",
+                                        "arrivalAirport": "Lester B Pearson Intl",
+                                        "designatorCode": "AC1182",
+                                        "duration": 262
+                                        }
+                                        ]
                   },
                   {
                   "stepType": "hotel",
                   "city": "Toronto",
-                  "hotelName": "Toronto Random Hotel",
+                  "hotelName": "Knights Inn Toronto Scarborough",
                   "address": "4694 Kingston Road",
                   "country": "CA",
-                  "startDate": "2014-06-24",
-                  "endDate": "2014-06-27",
-                  "cost": 170.04
+                  "startDate": "2014-06-14",
+                  "endDate": "2014-06-17",
+                  "cost": 169.41,
+                  "stayDays": 3,
+                  "hotelRating": 1.5
                   },
                   {
                   "stepType": "flight",
                   "departureCity": "Toronto",
                   "departureCountry": "Canada",
-                  "departureTime": "2014-06-27 07:30:00",
-                  "stops": "1",
-                  "airline": "Westjet",
+                  "departureTime": "2014-06-17 20:15:00",
                   "arrivalCity": "Vancouver",
                   "arrivalCountry": "Canada",
-                  "arrivalTime": "2014-06-27 09:26:00",
-                  "cost": 295.65735
+                  "arrivalTime": "2014-06-17 22:11:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 296,
+                  "stops": 0,
+                  "cost": 275.58914,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YYZ",
+                                        "arrivalCode": "YVR",
+                                        "departureAirport": "Lester B Pearson Intl",
+                                        "arrivalAirport": "Vancouver Intl",
+                                        "designatorCode": "AC33",
+                                        "duration": 296
+                                        }
+                                        ]
                   }
                   ]
 }

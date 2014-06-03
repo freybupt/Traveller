@@ -19,6 +19,7 @@
 @dynamic isEditing;
 @dynamic isRoundTrip;
 @dynamic startDate;
+@dynamic duration;
 @dynamic title;
 @dynamic uid;
 @dynamic toCityDepartureCity;

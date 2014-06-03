@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSNumber * isEditing;
 @property (nonatomic, retain) NSNumber * isRoundTrip;
 @property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) City *toCityDepartureCity;
