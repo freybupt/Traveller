@@ -17,6 +17,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *departureAirportLabel;
 @property (nonatomic, weak) IBOutlet UILabel *airlineWithDurationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *arrivalAirportLabel;
+@property (nonatomic, weak) IBOutlet UISegmentedControl *classSegmentedControl;
 
 
 @end

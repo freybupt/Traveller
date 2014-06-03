@@ -15,6 +15,7 @@
 
 //TODO: create something to assign the flights
 @property (nonatomic, retain) NSNumber * allDay;
+@property (nonatomic, retain) NSString * classType;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * eventIdentifier;
 @property (nonatomic, retain) NSNumber * eventType;

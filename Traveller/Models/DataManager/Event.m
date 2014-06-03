@@ -15,6 +15,7 @@
 @implementation Event
 
 @dynamic allDay;
+@dynamic classType;
 @dynamic endDate;
 @dynamic eventIdentifier;
 @dynamic eventType;

@@ -331,10 +331,9 @@ static NSInteger kHotelCellFullHeight = 300;
             City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
             NSNumber *stops = [step objectForKey:@"stops"];
-            
-            //TODO: Complete all the different attributes
             NSNumber *duration = [step objectForKey:@"duration"];
             NSArray *connections = [step objectForKey:@"FlightConnections"];
+            NSString *classType = [step objectForKey:@"classType"];
             
             //FLIGHT SETUP
             NSMutableArray *flightArray = [[NSMutableArray alloc]init];
@@ -354,6 +353,7 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.toCity = arrivalCity;
             newEvent.toFlight = flightSet;
             newEvent.stops = stops;
+            newEvent.classType = classType;
             
             //newEvent.title = airline;
             //toTrip not set!
@@ -697,6 +697,14 @@ static NSInteger kHotelCellFullHeight = 300;
             cell = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                                     reuseIdentifier:@"flightCell"];
         }
+        
+        MyScheduleFlightTableCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"flightCell"];
+        if (!cell2) {
+            cell2 = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                                    reuseIdentifier:@"flightCell"];
+        }
+        cell2.eventTitleLabel.text = @"Flight to I Don't Care Where";
+        
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         int flightDuration = [trip.duration integerValue];
         NSNumber *durationHours = [NSNumber numberWithInt:floor(flightDuration/60)];
@@ -715,10 +723,12 @@ static NSInteger kHotelCellFullHeight = 300;
         
         NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
                                 ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
-        //TODO: use NSSet to get the first/second etc objects instead of just a random one...
-        Flight *theFlight = [event.toFlight anyObject];
+        NSArray *flights = [event.toFlight allObjects];
+        //TODO: use array to get the all the objects instead of just a random one...
+        Flight *theFlight = [flights objectAtIndex:0];
         //set up the airport name and the code (code for example, is YVR)
         NSString *airline = theFlight.airline;
+        NSString *classType = event.classType;
         NSString* departureAirportName = theFlight.departureAirport;
         NSString *departureCode = theFlight.departureCode;
         cell.departureAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", departureAirportName, departureCode];
@@ -746,6 +756,7 @@ static NSInteger kHotelCellFullHeight = 300;
         cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
+        cell.classSegmentedControl.selectedSegmentIndex = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
