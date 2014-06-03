@@ -298,7 +298,6 @@ static NSInteger kHotelCellFullHeight = 300;
  NSError* error;
  //do the request/response and print the data
  //right now it is being done synchronously
- //TODO: use asynchronous request.
  NSData *POSTReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
  //NSString *theReply = [[NSString alloc]initWithBytes:[POSTReply bytes] length:[POSTReply length] encoding:NSUTF8StringEncoding];
  //NSLog(@"\n\n\n\n %@", theReply);
@@ -625,7 +624,7 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 #pragma mark - SET UP THE EVENT CELLS
-//TODO: Add the airline, update the bar based on which classes are available, etc
+//TODO: update the bar based on which classes are available, etc
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -714,17 +713,25 @@ static NSInteger kHotelCellFullHeight = 300;
             numOfStopsStr = [NSString stringWithFormat:@"%@%@", numOfStopsStrInit, stopRaw];
         }
         
-        NSString *timeString = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
-                                ,remainingMinutesStr,@"m \t\t\t",numOfStopsStr];
-        
-        //NSString *flightInfo = event.notes;
-        //NSData* flightData = [flightInfo dataUsingEncoding:NSUTF8StringEncoding];
-        
+        NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
+                                ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
+        //TODO: use NSSet to get the first/second etc objects instead of just a random one...
+        Flight *theFlight = [event.toFlight anyObject];
+        //set up the airport name and the code (code for example, is YVR)
+        NSString *airline = theFlight.airline;
+        NSString* departureAirportName = theFlight.departureAirport;
+        NSString *departureCode = theFlight.departureCode;
+        cell.departureAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", departureAirportName, departureCode];
+        NSString* arrivalAirportName = theFlight.arrivalAirport;
+        NSString *arrivalCode = theFlight.arrivalCode;
+        cell.arrivalAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", arrivalAirportName, arrivalCode];
+        NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m   %@   %@", flightDurationStr,
+                                 remainingMinutesStr,airline,numOfStopsStr];
         
         //cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
-        cell.eventLocationLabel.text = timeString;
+        cell.eventLocationLabel.text = timeString1;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
-        cell.airlineWithDurationLabel.text = timeString;
+        cell.airlineWithDurationLabel.text = timeString2;
         
         //use date formatter to specify how the date will be displayed
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
