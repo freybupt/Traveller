@@ -152,12 +152,13 @@
             [geocoder geocodeAddressString:event.location completionHandler:^(NSArray *placemarks, NSError *error) {
                 if (placemarks.count>0){
                     CLPlacemark *fullAddress = [placemarks firstObject];
-                    //NSDictionary *addressCorrected = fullAddress.addressDictionary;
-                    //NSString *addressCorrectedStr = [addressCorrected objectForKey:@"Street"];;
+                    NSDictionary *addressCorrected = fullAddress.addressDictionary;
+                    //NSString *addressCorrectedStr = [[addressCorrected objectForKey:@"FormattedAddressLines"]description];
+                    NSString *addressCorrectedStr = [[addressCorrected valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
                     //NSLog(@"%@", addressCorrectedStr);
                     NSString *newAddress = [fullAddress description];
                     if (!([cell.eventLocationTextField.text caseInsensitiveCompare:newAddress]== NSOrderedSame)){
-                        cell.eventLocationTextField.text = [fullAddress description];
+                        cell.eventLocationTextField.text = addressCorrectedStr;
                     }
                 }else if (placemarks.count == 0)
                 {

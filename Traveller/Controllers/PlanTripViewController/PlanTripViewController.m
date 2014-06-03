@@ -168,6 +168,7 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 //will convert an array of events into a dictionary with all the fields listed
+//TODO: cleanup the function into a more manageable one.
 - (NSMutableDictionary*) eventsToDictionary:(NSArray*)events withContext:(NSManagedObjectContext*)context{
     NSMutableArray *eventData = [[NSMutableArray alloc]init];
     int i = 0;
@@ -175,6 +176,9 @@ static NSInteger kHotelCellFullHeight = 300;
     for (Event *event in events){
         i++;
         NSMutableDictionary *eventFields = [NSMutableDictionary dictionary];
+        if (event.location){
+            [eventFields setObject:event.location forKey:@"address"];
+        }
         //and fill out the dictionary with the different attributes
         for (NSAttributeDescription *attribute in [[event entity] properties]) {
             NSString *attributeName = attribute.name;
@@ -222,8 +226,8 @@ static NSInteger kHotelCellFullHeight = 300;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:fields options:NSJSONWritingPrettyPrinted error:&error];
     
     //next line of code will just conver the DATA into its string representation
-    // NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
+     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSLog(@" json string %@", jsonString);
     return jsonData;
 }
 
