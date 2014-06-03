@@ -19,6 +19,7 @@
     CGFloat keyboardHeight;
 }
 @property (nonatomic, strong) NSIndexPath *processingIndexPath;
+@property (nonatomic) BOOL *isAlertShown;
 @end
 
 @implementation SelectEventsTableViewController
@@ -141,11 +142,38 @@
     
     cell.eventLocationTextField.leftView= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"earth16_mid"]];
 
+    //TODO: optimize this part to use less internet
     if ([event.location length] > 0) {
+        //let's try to add the geocode here
         cell.eventLocationLabel.text = event.location;
+        // perform geocode
+        if ([cell.eventLocationLabel.text length]>0){
+            CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+            [geocoder geocodeAddressString:event.location completionHandler:^(NSArray *placemarks, NSError *error) {
+                if (placemarks.count>0){
+                    CLPlacemark *fullAddress = [placemarks firstObject];
+                    //NSDictionary *addressCorrected = fullAddress.addressDictionary;
+                    //NSString *addressCorrectedStr = [addressCorrected objectForKey:@"Street"];;
+                    //NSLog(@"%@", addressCorrectedStr);
+                    NSString *newAddress = [fullAddress description];
+                    if (!([cell.eventLocationTextField.text caseInsensitiveCompare:newAddress]== NSOrderedSame)){
+                        cell.eventLocationTextField.text = [fullAddress description];
+                    }
+                }else if (placemarks.count == 0)
+                {
+                    // show an alert if no results were found
+                    if (![self isAlertShown]){
+                    UIAlertView *alert = [[UIAlertView alloc] init];
+                    alert.title = @"No places were found for that location.";
+                    [alert addButtonWithTitle:@"OK"];
+                        //TODO: change alertIsShown into false when the button is pressed
+                    [alert show];
+                    }
+                }
+            }];}
     }
     else{
-        cell.eventLocationLabel.text = @"Add event address";
+        cell.eventLocationLabel.text = @"Add an event address";
     }
     
     cell.locationView.hidden = ![event.isSelected boolValue]; // Include eventLocationLabel + imageView for edit12.png
