@@ -46,7 +46,7 @@ static NSInteger kHotelCellFullHeight = 300;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This will take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This may take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     
     // Register self.managedObjectContext to share with CalendarDayView
@@ -321,7 +321,8 @@ static NSInteger kHotelCellFullHeight = 300;
         //use a date format to process the dates later on
         NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
         if([[step objectForKey:@"stepType"] isEqualToString:@"flight"]){
-            //process the flight type of event!
+            
+            //process the flight type of event, with all its attributes!
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"departureTime"]];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"arrivalTime"]];
@@ -337,7 +338,6 @@ static NSInteger kHotelCellFullHeight = 300;
             
             //FLIGHT SETUP
             NSMutableArray *flightArray = [[NSMutableArray alloc]init];
-            //set it in one step by getting the data from server
             for (int i =0; i<[connections count];i++){
                 Flight *newFlight = [[DataManager sharedInstance] newFlightWithContext:self.managedObjectContext];
                 [[DataManager sharedInstance]setFlight:newFlight withDictionary:[connections objectAtIndex:i]];
@@ -624,7 +624,7 @@ static NSInteger kHotelCellFullHeight = 300;
 }
 
 #pragma mark - SET UP THE EVENT CELLS
-//TODO: update the bar based on which classes are available, etc
+//TODO: set up to be able to accommodate two cells or more in case the airplane has to do stops
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -735,10 +735,8 @@ static NSInteger kHotelCellFullHeight = 300;
         NSString* arrivalAirportName = theFlight.arrivalAirport;
         NSString *arrivalCode = theFlight.arrivalCode;
         cell.arrivalAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", arrivalAirportName, arrivalCode];
-        NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m   %@   %@", flightDurationStr,
-                                 remainingMinutesStr,airline,numOfStopsStr];
-        
-        //cell.eventLocationLabel.text = [NSString stringWithFormat:NSLocalizedString(@"5h\tnon-stop\tAirCanada", nil)];
+        NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m \t\t %@", flightDurationStr,
+                                 remainingMinutesStr,airline];
         cell.eventLocationLabel.text = timeString1;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
         cell.airlineWithDurationLabel.text = timeString2;

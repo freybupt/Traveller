@@ -320,7 +320,6 @@
                                                     <outlet property="airlineWithDurationLabel" destination="3cN-jI-bj2" id="Sip-Y7-4Ll"/>
                                                     <outlet property="arrivalAirportLabel" destination="hjO-jz-hZJ" id="G7Z-4Q-Fld"/>
                                                     <outlet property="arrivalTimeLabel" destination="BaL-A6-bXd" id="Wao-We-KMJ"/>
-                                                    <outlet property="classSegmentedControl" destination="8T2-Yx-pHW" id="7N3-ac-6Uh"/>
                                                     <outlet property="departureAirportLabel" destination="O9L-xZ-Sb6" id="MGt-5N-aaR"/>
                                                     <outlet property="departureTimeLabel" destination="bEx-CK-dpA" id="SvA-0g-4X5"/>
                                                     <outlet property="eventLocationLabel" destination="GqE-Zv-hBq" id="MEg-hK-wBE"/>
