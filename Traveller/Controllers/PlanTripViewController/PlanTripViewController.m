@@ -737,6 +737,7 @@ static NSInteger kHotelCellFullHeight = 300;
         cell.arrivalAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", arrivalAirportName, arrivalCode];
         NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m \t\t %@", flightDurationStr,
                                  remainingMinutesStr,airline];
+        int isBusiness = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
         cell.eventLocationLabel.text = timeString1;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
         cell.airlineWithDurationLabel.text = timeString2;
@@ -754,7 +755,7 @@ static NSInteger kHotelCellFullHeight = 300;
         cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
-        cell.classSegmentedControl.selectedSegmentIndex = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
+        cell.classSegmentedControl.selectedSegmentIndex = isBusiness;
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
