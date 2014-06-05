@@ -144,15 +144,15 @@
     [cell.eventLocationTextField setLeftViewMode:UITextFieldViewModeAlways];
     
     cell.eventLocationTextField.leftView= [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"earth16_mid"]];
-
+    
     //TODO: optimize this part to use less internet
-    if ([event.location length] > 0) {
+    if ([event.location length] > 0 && [event.isSelected boolValue]) {
         //let's try to add the geocode here
         NSString *currentLocationLabelText = cell.eventLocationLabel.text;
         if (!([currentLocationLabelText caseInsensitiveCompare:event.location]== NSOrderedSame)){
             cell.eventLocationLabel.text = event.location;
+            __block NSString* cityNameBlock;
             // perform geocode
-            if ([cell.eventLocationLabel.text length]>0){
                 CLGeocoder *geocoder = [[CLGeocoder alloc] init];
                 [geocoder geocodeAddressString:event.location completionHandler:^(NSArray *placemarks, NSError *error) {
                     if (placemarks.count>0){
@@ -160,12 +160,20 @@
                         CLPlacemark *fullAddress = [placemarks firstObject];
                         NSDictionary *addressCorrected = fullAddress.addressDictionary;
                         NSString *cityName = [addressCorrected objectForKey:@"City"];
+                        cityNameBlock = cityName;
                         BOOL didCityChange = !([event.toCity.cityName caseInsensitiveCompare:cityName]== NSOrderedSame);
-
                         if(!event.toCity || didCityChange){
-                            City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityName
+                            City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityNameBlock
                                                                                      context:self.managedObjectContext];
                             event.toCity = toCity;
+                            
+                            //TODO: Ask Shirley about this...
+                            if(!event.toCity){
+                                toCity.cityName = cityName;
+                                toCity.countryCode = [addressCorrected objectForKey:@"CountryCode"];
+                           //     NSLog(@"check check check %@ =========== %@", toCity.cityName, cityName);
+                            }
+                           // NSLog(@"to city, please make sure that this is working %@ =========== %@", toCity.cityName, cityName);
                         }
                         //NSString *addressCorrectedStr = [[addressCorrected objectForKey:@"FormattedAddressLines"]description];
                         NSString *addressCorrectedStr = [[addressCorrected valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
@@ -180,15 +188,22 @@
                         
                         if (![self isAlertShown]){
                             UIAlertView *alert = [[UIAlertView alloc] init];
-                            alert.title = @"No places were found for that location.";
+                            alert.title = @"No places were found for that location. Sorry about that";
                             [alert addButtonWithTitle:@"OK"];
                             self.isAlertShown = YES;
                             //TODO: change alertIsShown into false when the button is pressed
                             [alert show];
                         }
                     }
-                }];}
+                }];
+            if(cityNameBlock){
+                City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityNameBlock
+                                                                         context:self.managedObjectContext];
+                event.toCity = toCity;
+                NSLog(@"check outside of the asynchronous function... %@ =========== %@", toCity.cityName, cityNameBlock);
+            }
         }
+  
     }
     else{
         cell.eventLocationLabel.text = @"Add an event address";
