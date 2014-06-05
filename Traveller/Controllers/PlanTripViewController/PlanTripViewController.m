@@ -24,6 +24,7 @@ static NSInteger kHotelCellFullHeight = 300;
 @property (nonatomic, strong) Itinerary *itinerary;
 @property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
 @property (nonatomic, assign) NSInteger totalPrice;
+@property (nonatomic) int countAlertShown;
 
 
 @property (nonatomic, weak) IBOutlet UIView *bookTripView;
@@ -46,8 +47,6 @@ static NSInteger kHotelCellFullHeight = 300;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This may take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
     
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
@@ -233,6 +232,8 @@ static NSInteger kHotelCellFullHeight = 300;
 
 //will post the data using async connection
 - (NSData*)postToServerAsync:(NSString*)url theJSONData:(NSData*)jsonData{
+    UIAlertView *loadingMessage = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This may take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [loadingMessage show];
     
     //here is some code in case the JSON data needs to be displayed in the console
     
@@ -250,24 +251,26 @@ static NSInteger kHotelCellFullHeight = 300;
     [request setHTTPBody:jsonData];
     
     //create two block variables to store the response
-    __block NSError* errorMain;
+    //__block NSError* errorMain;
     __block NSData *responseAsync;//right now it is being done synchronously
     
     //use asynch connection to send a POST request
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if (error)
+        if (!data)
         {
-            errorMain = error;
-            NSLog(@"Timeout Error!");
+            [loadingMessage dismissWithClickedButtonIndex:0 animated:YES];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: @"No message received from the server." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            
         }
         else
         {
+            [loadingMessage dismissWithClickedButtonIndex:0 animated:YES];
             responseAsync = data;
             [self calculateTripFromServer:nil usingResponse:responseAsync];
             NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Your best travelling options are being displayed now." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
             NSLog(@"\n\n\n\n %@", theReply);
+        
         }
         
     }];
@@ -309,7 +312,19 @@ static NSInteger kHotelCellFullHeight = 300;
 //convert the JSONData into an array containing Trips and Events
 -(NSArray*) createArrayOfEventsFrom:(NSData*)jsonData usingContext:(NSManagedObjectContext*)context{
     NSError *error;
+    
+
+    NSString *theReply = [[NSString alloc]initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
+    NSLog(@"\n\n\n\n %@", theReply);
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    if([jsonDic objectForKey:@"Error Message"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: @"There was an error processing your request." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return nil;
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Your best travelling options are being displayed now." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
     NSArray *planSteps = [[NSArray arrayWithObject:[jsonDic objectForKey:@"planSteps"]]objectAtIndex:0];
     //NSLog(@"%@", planSteps);
     NSMutableArray *eventsWithTrips = [[NSMutableArray alloc]init];
@@ -496,11 +511,12 @@ static NSInteger kHotelCellFullHeight = 300;
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
                                                                     context:self.managedObjectContext];
     NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
-    
+    //TODO: use real city
     //This is a file in order to avoid requesting information from the server during testing periods to save time
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //TODO: comment or uncomment this sectino as needed
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     
     
     if(!jsonResponse){ //if there is nothing from the server, ask for it
@@ -508,11 +524,12 @@ static NSInteger kHotelCellFullHeight = 300;
     } else {
         //transform the jsonData into an array of event-trip pairs
         NSArray *stepsFromServer = [self createArrayOfEventsFrom:jsonResponse  usingContext:self.managedObjectContext];
-        
         //Processing data in order to be displayed by the UI
         //Please note that the total price label and the itinerary is being changed inside these functions
-        
-        [self processTrips:stepsFromServer withContext:self.managedObjectContext];
+        if (stepsFromServer)
+        {
+            [self processTrips:stepsFromServer withContext:self.managedObjectContext];
+        }
     }
     
     self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
