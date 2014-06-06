@@ -1685,10 +1685,10 @@
             </objects>
             <point key="canvasLocation" x="1587" y="1311"/>
         </scene>
-        <!--View Controller - Select another Flight-->
+        <!--Change Options View Controller - Select your trip-->
         <scene sceneID="1gh-R8-W2V">
             <objects>
-                <viewController id="AvV-a5-2ba" sceneMemberID="viewController">
+                <viewController id="AvV-a5-2ba" customClass="ChangeOptionsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c0k-fM-BPu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1703,7 +1703,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select another Flight" id="y1W-Y2-Wso"/>
+                    <navigationItem key="navigationItem" title="Select your trip" id="y1W-Y2-Wso">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="6aK-dE-ALL">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="editMySchedule:" destination="AvV-a5-2ba" id="wle-JJ-mmY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="Pej-Cf-HUv">
+                            <connections>
+                                <action selector="confirmTripButtonTapAction:" destination="AvV-a5-2ba" id="fwj-Hb-Pto"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0V-sp-qYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

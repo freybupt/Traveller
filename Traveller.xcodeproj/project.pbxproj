@@ -89,6 +89,7 @@
 		76C497901918672600118140 /* MyScheduleFlightTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C4978F1918672600118140 /* MyScheduleFlightTableCell.m */; };
 		76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C497921918673A00118140 /* MyScheduleHotelTableCell.m */; };
 		76C497951919614000118140 /* airCanadaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497941919614000118140 /* airCanadaLogo.png */; };
+		8417CF4E194263DA00ADBB41 /* ChangeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */; };
 		8668279D193813BF00BDF9E5 /* ServerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8668279C193813BF00BDF9E5 /* ServerResponse.json */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
@@ -295,6 +296,8 @@
 		76C497911918673A00118140 /* MyScheduleHotelTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyScheduleHotelTableCell.h; sourceTree = "<group>"; };
 		76C497921918673A00118140 /* MyScheduleHotelTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyScheduleHotelTableCell.m; sourceTree = "<group>"; };
 		76C497941919614000118140 /* airCanadaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airCanadaLogo.png; sourceTree = "<group>"; };
+		8417CF4C194263DA00ADBB41 /* ChangeOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeOptionsViewController.h; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.h; sourceTree = "<group>"; };
+		8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeOptionsViewController.m; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.m; sourceTree = "<group>"; };
 		8668279C193813BF00BDF9E5 /* ServerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ServerResponse.json; path = Controllers/PlanTripViewController/ServerResponse.json; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
@@ -843,6 +846,8 @@
 				9F37479B1900F168003D67C8 /* BookingTableViewController */,
 				9F37479E1900F168003D67C8 /* BookingViewController */,
 				9F3747A41900F168003D67C8 /* SelectEventsTableViewController */,
+				8417CF4C194263DA00ADBB41 /* ChangeOptionsViewController.h */,
+				8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1523,6 +1528,7 @@
 				9F5A80FA1911EEE400799FDD /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9F3747AB1900F168003D67C8 /* SelectEventsTableViewController.m in Sources */,
 				9F9933AC191A816900BEBB34 /* UIButton+Extensions.m in Sources */,
+				8417CF4E194263DA00ADBB41 /* ChangeOptionsViewController.m in Sources */,
 				9F3747C81900F213003D67C8 /* TripDataStorage.xcdatamodeld in Sources */,
 				9F5A80F21911EEE400799FDD /* AFURLConnectionOperation.m in Sources */,
 				761188AE1913194700A620D9 /* TutorialViewController.m in Sources */,

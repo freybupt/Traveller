@@ -129,6 +129,17 @@
             [alertView show];
             break;
         }
+        case 3:
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Cancel changes and go back to the original itinerary", nil)
+                                                                message:nil
+                                                               delegate:self
+                                                      cancelButtonTitle:NSLocalizedString(@"Stay", nil)
+                                                      otherButtonTitles:NSLocalizedString(@"Go back", nil), nil];
+            alertView.tag = 2;
+            [alertView show];
+            break;
+        }
         default:
             //WTF
             [self.navigationController popToRootViewControllerAnimated:YES];
@@ -179,6 +190,16 @@
             case 1:
             {
                 [self.navigationController popToRootViewControllerAnimated:YES];
+                break;
+            }
+            default:
+                break;
+        }
+    } else if (alertView.tag ==2){
+        switch (buttonIndex) {
+            case 1:
+            {
+                [self.navigationController popViewControllerAnimated:YES];
                 break;
             }
             default:
