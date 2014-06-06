@@ -168,9 +168,11 @@
                             event.toCity = toCity;
                             
                             //TODO: Ask Shirley about this...
-                            if(!event.toCity){
-                                toCity.cityName = cityName;
-                                toCity.countryCode = [addressCorrected objectForKey:@"CountryCode"];
+                            if(!([event.toCity.cityName caseInsensitiveCompare:cityName]== NSOrderedSame)){
+                               // [self checkBoxTapAction:nil];
+                               // [self checkBoxTapAction:nil];
+                                //toCity.cityName = cityName;
+                                //toCity.countryCode = [addressCorrected objectForKey:@"CountryCode"];
                            //     NSLog(@"check check check %@ =========== %@", toCity.cityName, cityName);
                             }
                            // NSLog(@"to city, please make sure that this is working %@ =========== %@", toCity.cityName, cityName);

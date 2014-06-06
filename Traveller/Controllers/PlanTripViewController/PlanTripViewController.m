@@ -393,7 +393,24 @@ static NSInteger kHotelCellFullHeight = 300;
             //process the hotel type of event!
             [dateFormat setDateFormat:@"yyyy-MM-dd"];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"startDate"]];
+            //has to be 12:59:59 I believe because of the time zone
+            //TODO: check with shirley about the time zone
+            [dateFormat setDateFormat:@"yyyy-MM-dd 12:59:59"];
+            NSString *newDate = [dateFormat stringFromDate:startDate];
+            NSLog(@"herererehe111111111 %@",newDate);
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            startDate = [dateFormat dateFromString:newDate];
+            NSLog(@"herererehe222222 %@",startDate);
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
+            [dateFormat setDateFormat:@"yyyy-MM-dd 13:00:00"];
+            newDate = [dateFormat stringFromDate:endDate];
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            endDate = [dateFormat dateFromString:newDate];
+            NSString *newEndDate = [dateFormat stringFromDate:endDate];
+            endDate = [dateFormat dateFromString:newEndDate];
+            
             NSString *cityName = [step objectForKey:@"city"];
             City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
             double price = [[step objectForKey:@"cost"]floatValue];
@@ -407,6 +424,7 @@ static NSInteger kHotelCellFullHeight = 300;
             //EVENT SETUP
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
             newEvent.startDate = startDate;
+            
             newEvent.endDate = endDate;
             newEvent.title = hotelName;
             newEvent.toCity = city;
@@ -642,6 +660,7 @@ static NSInteger kHotelCellFullHeight = 300;
 #pragma mark - SET UP THE EVENT CELLS
 //TODO: set up to be able to accommodate two cells or more in case the airplane has to do stops
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//display each cell as it dequeues and/or is created while scrolling through rows in your UITableView.
 {
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     Event *event = trip.toEvent;
@@ -714,13 +733,6 @@ static NSInteger kHotelCellFullHeight = 300;
                                                     reuseIdentifier:@"flightCell"];
         }
         
-        MyScheduleFlightTableCell *cell2 = [tableView dequeueReusableCellWithIdentifier:@"flightCell"];
-        if (!cell2) {
-            cell2 = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
-                                                    reuseIdentifier:@"flightCell"];
-        }
-        cell2.eventTitleLabel.text = @"Flight to I Don't Care Where";
-        
         cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), trip.toCityDestinationCity.cityName];
         int flightDuration = [trip.duration integerValue];
         NSNumber *durationHours = [NSNumber numberWithInt:floor(flightDuration/60)];
@@ -787,6 +799,7 @@ static NSInteger kHotelCellFullHeight = 300;
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//handle taps
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
