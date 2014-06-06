@@ -11,6 +11,7 @@
 
 @interface CalendarMapViewController ()
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
+@property (nonatomic) NSHashTable *headerHashTable;
 @end
 
 @implementation CalendarMapViewController
@@ -26,6 +27,8 @@
 
 - (void)viewDidLoad
 {
+    NSHashTable *tempHT = [[NSHashTable alloc]init];
+    self.headerHashTable = tempHT;
     [super viewDidLoad];
 
     [self showActivityIndicatorWithText:NSLocalizedString(@"Planning your trip....", nil)];
@@ -423,15 +426,31 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *tripIdentifier = [NSString stringWithFormat:@"%@", [trip description]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone localTimeZone]];
+    [formatter setDateFormat:@"EEE, MMM dd"];
+    NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
+    
+    //TODO: do it in a prettier way
+    if([self.headerHashTable containsObject:formattedDateString] && ![self.headerHashTable containsObject:tripIdentifier]){
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
+        titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
+        titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
+        titleLabel.text = nil;
+        [headerView addSubview:titleLabel];
+        return headerView;
+    } else {
+        [self.headerHashTable addObject:formattedDateString];
+        [self.headerHashTable addObject:tripIdentifier];
+    }
+
+
     [headerView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
     titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
     titleLabel.textColor = [UIColor blackColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    [formatter setDateFormat:@"EEE, MMM dd"];
-    NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
     titleLabel.text = formattedDateString;
     [headerView addSubview:titleLabel];
     
