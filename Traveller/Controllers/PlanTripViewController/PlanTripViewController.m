@@ -18,7 +18,7 @@
 
 static NSInteger kEventCellHeight = 80;
 static NSInteger kFlightCellFullHeight = 400;
-static NSInteger kHotelCellFullHeight = 300;
+static NSInteger kHotelCellFullHeight = 540;
 
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
@@ -426,6 +426,7 @@ static NSInteger kHotelCellFullHeight = 300;
             NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
             NSNumber *IDFromServer = [step objectForKey:@"hotelID"];
             NSArray *amenities = [step objectForKey:@"AddedValue"];
+            NSNumber *rating = [step objectForKey:@"hotelRating"];
 
             
             NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
@@ -443,6 +444,8 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.title = hotelName;
             newEvent.toCity = city;
             newEvent.location = location;
+            //TODO: maybe change stops into something that can be both used as the stops and as the rating.
+            newEvent.stops = rating;
             //to trip not set
             
             //TRIP SETUP
