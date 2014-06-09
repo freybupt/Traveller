@@ -8,5 +8,7 @@
 
 #import "CalendarMapViewController.h"
 @interface ChangeOptionsViewController : CalendarMapViewController
+@property (nonatomic) Trip* trip;
+
 
 @end

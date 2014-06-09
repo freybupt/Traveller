@@ -14,6 +14,7 @@
 #import "MyScheduleHotelTableCell.h"
 #import "MyScheduleFlightTableCell.h"
 #import "AlertModalView.h"
+#import "ChangeOptionsViewController.h"
 
 static NSInteger kEventCellHeight = 80;
 static NSInteger kFlightCellFullHeight = 400;
@@ -25,6 +26,7 @@ static NSInteger kHotelCellFullHeight = 300;
 @property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
 @property (nonatomic, assign) NSInteger totalPrice;
 @property (nonatomic) int countAlertShown;
+@property (nonatomic) Trip* tripToBeSentToTheServer;
 
 
 @property (nonatomic, weak) IBOutlet UIView *bookTripView;
@@ -348,6 +350,7 @@ static NSInteger kHotelCellFullHeight = 300;
             double price = [[step objectForKey:@"cost"]floatValue];
             NSNumber *stops = [step objectForKey:@"stops"];
             NSNumber *duration = [step objectForKey:@"duration"];
+            NSNumber *IDFromServer = [step objectForKey:@"flightID"];
             NSArray *connections = [step objectForKey:@"FlightConnections"];
             NSString *classType = [step objectForKey:@"classType"];
             
@@ -368,6 +371,7 @@ static NSInteger kHotelCellFullHeight = 300;
             newEvent.toCity = arrivalCity;
             newEvent.toFlight = flightSet;
             newEvent.stops = stops;
+            newEvent.serverID = IDFromServer;
             newEvent.classType = classType;
             
             //newEvent.title = airline;
@@ -420,11 +424,12 @@ static NSInteger kHotelCellFullHeight = 300;
             NSString *eventCity = [step objectForKey:@"city"];
             NSString *countryCode= [step objectForKey:@"country"];
             NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
+            NSNumber *IDFromServer = [step objectForKey:@"hotelID"];
             
             //EVENT SETUP
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
             newEvent.startDate = startDate;
-            
+            newEvent.serverID = IDFromServer;
             newEvent.endDate = endDate;
             newEvent.title = hotelName;
             newEvent.toCity = city;
@@ -787,6 +792,10 @@ static NSInteger kHotelCellFullHeight = 300;
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
+            self.tripToBeSentToTheServer = trip;
+            //TODO: add here the event that is currently selected.
+            //This event must be set to a property, which will be later used to send it to the change options view contorller
+            //The options view contrtoller will then process it to send it to the server................../
         }
         else{
             cell.flightDetailView.hidden = YES;
@@ -933,4 +942,18 @@ static NSInteger kHotelCellFullHeight = 300;
         break;
     }
 }
+
+#pragma mark - Segue
+
+@class ChangeOptionsViewController;
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"changeOptionsSegue"]){
+        ChangeOptionsViewController *changeOptionsController = (ChangeOptionsViewController *)segue.destinationViewController;
+        NSLog(@"aha");
+        changeOptionsController.trip = self.tripToBeSentToTheServer;
+    }
+}
 @end
+
+

@@ -21,6 +21,7 @@
         <attribute name="isSelected" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="serverID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="stops" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -83,7 +84,7 @@
     </entity>
     <elements>
         <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
-        <element name="Event" positionX="-189" positionY="-198" width="128" height="298"/>
+        <element name="Event" positionX="-189" positionY="-198" width="128" height="315"/>
         <element name="Flight" positionX="223" positionY="332" width="128" height="298"/>
         <element name="Itinerary" positionX="-504" positionY="390" width="128" height="105"/>
         <element name="Location" positionX="169" positionY="81" width="128" height="165"/>

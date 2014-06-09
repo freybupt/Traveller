@@ -22,6 +22,7 @@
 @dynamic isSelected;
 @dynamic location;
 @dynamic notes;
+@dynamic serverID;
 @dynamic startDate;
 @dynamic stops;
 @dynamic title;
