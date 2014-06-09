@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import <EventKit/EventKit.h>
+#import "Amenity.h"
 #import "City.h"
 #import "Event.h"
 #import "Location.h"
@@ -28,6 +29,8 @@ extern NSString * const DataManagerOperationDidDeleteEventNotification;
 /* Bridged NSManagedObjectContext */
 - (void)registerBridgedMoc:(NSManagedObjectContext *)moc;
 - (NSManagedObjectContext *)bridgedMoc;
+/* Amenity */
+- (Amenity *)newAmenityWithContext:(NSManagedObjectContext *)moc;
 
 /* City */
 - (NSArray *)getCityWithUserid:(NSNumber *)userid

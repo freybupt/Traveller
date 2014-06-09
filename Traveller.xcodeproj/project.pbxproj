@@ -90,6 +90,8 @@
 		76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C497921918673A00118140 /* MyScheduleHotelTableCell.m */; };
 		76C497951919614000118140 /* airCanadaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497941919614000118140 /* airCanadaLogo.png */; };
 		8417CF4E194263DA00ADBB41 /* ChangeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */; };
+		84993C7419462B11000B4BD8 /* Amenity.h in Resources */ = {isa = PBXBuildFile; fileRef = 84993C7319462B11000B4BD8 /* Amenity.h */; };
+		84993C7619462B29000B4BD8 /* Amenity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84993C7519462B29000B4BD8 /* Amenity.m */; };
 		8668279D193813BF00BDF9E5 /* ServerResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8668279C193813BF00BDF9E5 /* ServerResponse.json */; };
 		9F08006619163996006ED9D8 /* ItineraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006419163996006ED9D8 /* ItineraryViewController.m */; };
 		9F08006D19163BDD006ED9D8 /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F08006C19163BDD006ED9D8 /* Trip.m */; };
@@ -298,6 +300,8 @@
 		76C497941919614000118140 /* airCanadaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airCanadaLogo.png; sourceTree = "<group>"; };
 		8417CF4C194263DA00ADBB41 /* ChangeOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeOptionsViewController.h; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.h; sourceTree = "<group>"; };
 		8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeOptionsViewController.m; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.m; sourceTree = "<group>"; };
+		84993C7319462B11000B4BD8 /* Amenity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Amenity.h; sourceTree = "<group>"; };
+		84993C7519462B29000B4BD8 /* Amenity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Amenity.m; sourceTree = "<group>"; };
 		8668279C193813BF00BDF9E5 /* ServerResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ServerResponse.json; path = Controllers/PlanTripViewController/ServerResponse.json; sourceTree = "<group>"; };
 		9F08006319163996006ED9D8 /* ItineraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryViewController.h; sourceTree = "<group>"; };
 		9F08006419163996006ED9D8 /* ItineraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryViewController.m; sourceTree = "<group>"; };
@@ -1006,6 +1010,8 @@
 				9F3747B41900F213003D67C8 /* DataManager.h */,
 				9F3747B51900F213003D67C8 /* DataManager.m */,
 				9F3747BA1900F213003D67C8 /* TripDataStorage.xcdatamodeld */,
+				84993C7319462B11000B4BD8 /* Amenity.h */,
+				84993C7519462B29000B4BD8 /* Amenity.m */,
 				9F8DCF111932D5DD00B0DD33 /* Event.h */,
 				9F8DCF121932D5DD00B0DD33 /* Event.m */,
 				9F08006E19163BDE006ED9D8 /* Itinerary.h */,
@@ -1445,6 +1451,7 @@
 				76C4977B191720B800118140 /* hotelIcon@2x.png in Resources */,
 				76B9443D19071436001B08DB /* calendar53@2x.png in Resources */,
 				768263CF1905C14B00089319 /* map5.png in Resources */,
+				84993C7419462B11000B4BD8 /* Amenity.h in Resources */,
 				7611889E191304EC00A620D9 /* Vancouver_2.jpg in Resources */,
 				76B9443C19071436001B08DB /* arrowUp@2x.png in Resources */,
 				76C49782191808DB00118140 /* facebookSignIn.png in Resources */,
@@ -1558,6 +1565,7 @@
 				9F5A80FE1911EEE400799FDD /* UIProgressView+AFNetworking.m in Sources */,
 				9FE8BC2D190A09E900BDFE71 /* NSDateComponents+Extensions.m in Sources */,
 				9F9933A6191A802E00BEBB34 /* ModalView.m in Sources */,
+				84993C7619462B29000B4BD8 /* Amenity.m in Sources */,
 				9F3747961900F152003D67C8 /* Checkbox.m in Sources */,
 				9F5A80F41911EEE400799FDD /* AFURLResponseSerialization.m in Sources */,
 				9F3748391900F2E3003D67C8 /* FXBlurView.m in Sources */,

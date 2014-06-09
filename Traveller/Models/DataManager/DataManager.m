@@ -107,6 +107,22 @@ NSString * const DataManagerOperationDidDeleteEventNotification = @"com.spoonbil
     return _managedObjectContext;
 }
 
+#pragma mark - Amenity
+- (Amenity *)newAmenityWithContext:(NSManagedObjectContext *)moc
+{
+    if (!moc) {
+        return nil;
+    }
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Amenity"
+                                              inManagedObjectContext:moc];
+    Amenity *amenity = [[Amenity alloc] initWithEntity:entity
+                           insertIntoManagedObjectContext:moc];
+    amenity.uid = [MockManager userid];
+    
+    return amenity;
+}
+
 #pragma mark - City
 - (NSArray *)getCityWithUserid:(NSNumber *)userid
                        context:(NSManagedObjectContext *)moc

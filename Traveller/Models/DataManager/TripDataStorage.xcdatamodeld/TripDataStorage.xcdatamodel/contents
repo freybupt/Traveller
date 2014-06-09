@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Amenity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="toEvent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="toAmenity" inverseEntity="Event" syncable="YES"/>
+    </entity>
     <entity name="City" representedClassName="City" syncable="YES">
         <attribute name="cityCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="cityName" optional="YES" attributeType="String" syncable="YES"/>
@@ -27,6 +32,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="toAmenity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Amenity" inverseName="toEvent" inverseEntity="Amenity" syncable="YES"/>
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
         <relationship name="toFlight" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="toEvent" inverseEntity="Flight" syncable="YES"/>
         <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="toEvent" inverseEntity="Location" syncable="YES"/>
@@ -84,10 +90,11 @@
     </entity>
     <elements>
         <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
-        <element name="Event" positionX="-189" positionY="-198" width="128" height="315"/>
+        <element name="Event" positionX="-189" positionY="-198" width="128" height="328"/>
         <element name="Flight" positionX="223" positionY="332" width="128" height="298"/>
         <element name="Itinerary" positionX="-504" positionY="390" width="128" height="105"/>
         <element name="Location" positionX="169" positionY="81" width="128" height="165"/>
         <element name="Trip" positionX="-513" positionY="83" width="128" height="238"/>
+        <element name="Amenity" positionX="-315" positionY="-54" width="128" height="88"/>
     </elements>
 </model>

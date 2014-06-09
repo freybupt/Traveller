@@ -425,6 +425,15 @@ static NSInteger kHotelCellFullHeight = 300;
             NSString *countryCode= [step objectForKey:@"country"];
             NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
             NSNumber *IDFromServer = [step objectForKey:@"hotelID"];
+            NSArray *amenities = [step objectForKey:@"AddedValue"];
+
+            
+            NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
+            for (int i =0; i<[amenities count];i++){
+                Amenity *newAmenity = [[DataManager sharedInstance]newAmenityWithContext:self.managedObjectContext];
+                //TODO: check with Lan about the fields to add them here
+                [amenitiesArray addObject:newAmenity];
+            }
             
             //EVENT SETUP
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];

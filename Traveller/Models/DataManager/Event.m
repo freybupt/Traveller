@@ -28,6 +28,7 @@
 @dynamic title;
 @dynamic uid;
 @dynamic url;
+@dynamic toAmenity;
 @dynamic toFlight;
 @dynamic toCity;
 @dynamic toLocation;
