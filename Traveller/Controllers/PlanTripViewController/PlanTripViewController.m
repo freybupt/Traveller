@@ -699,6 +699,18 @@ static NSInteger kHotelCellFullHeight = 300;
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
+        
+        if ([indexPath isEqual:self.expandedCellIndexPath]){
+            cell.hotelDetailView.hidden = NO;
+            self.tripToBeSentToTheServer = trip;
+            //TODO: add here the event that is currently selected.
+            //This event must be set to a property, which will be later used to send it to the change options view contorller
+            //The options view contrtoller will then process it to send it to the server................../
+        }
+        else{
+            cell.hotelDetailView.hidden = YES;
+        }
+        
         tableCell = cell;
     }
     else if ([event.eventType integerValue]== EventTypeDefault){
@@ -803,6 +815,8 @@ static NSInteger kHotelCellFullHeight = 300;
         tableCell = cell;
     }
     
+    
+    
     return tableCell;
 }
 
@@ -868,7 +882,7 @@ static NSInteger kHotelCellFullHeight = 300;
             });
         }
     }
-    
+    self.tripToBeSentToTheServer = trip;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }

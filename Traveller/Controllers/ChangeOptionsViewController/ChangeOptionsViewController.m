@@ -54,7 +54,11 @@
 - (void) sendGetRequest:(Trip*)trip{
     self.isAConnectionOpen = YES;
     NSString *tripType = [trip.toEvent.eventType integerValue] == EventTypeHotel? @"showHotels":@"showFlights";
-    NSString *tripIdToServer = [NSString stringWithFormat:@"http://10.0.10.202:8182/showHotels/33"];
+    NSLog(@"%@",tripType);
+    NSString *tripServerID = [trip.toEvent.serverID stringValue];
+    NSLog(@"%@ and serverID: %@", tripType, tripServerID);
+    
+    //NSString *tripIdToServer = [NSString stringWithFormat:@"http://10.0.10.202:8182/showHotels/33"];
     //here is some code in case the JSON data needs to be displayed in the console
     
     /*

@@ -10,4 +10,7 @@
 
 @interface MyScheduleHotelTableCell : MyScheduleTableCell
 
+@property (nonatomic, weak) IBOutlet UIView *hotelDetailView;
+
+
 @end
