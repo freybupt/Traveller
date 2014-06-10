@@ -440,21 +440,16 @@ didChangeToVisibleMonth:(NSDateComponents *)month
         }
     }
 }
-
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *) headerSettingHelper:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section withNullHeader:(BOOL)nullHeader
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSString *tripIdentifier = [NSString stringWithFormat:@"%@", [trip description]];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
     [formatter setDateFormat:@"EEE, MMM dd"];
     NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
-    
-    //TODO: do it in a prettier way
-    if([self.headerHashTable containsObject:formattedDateString] && ![self.headerHashTable containsObject:tripIdentifier]){
+    if(nullHeader){
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0)];
         titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
         titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
@@ -462,11 +457,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
         [headerView addSubview:titleLabel];
         return headerView;
     } else {
-        [self.headerHashTable addObject:formattedDateString];
-        [self.headerHashTable addObject:tripIdentifier];
-    }
-
-
+    //TODO: do it in a prettier way
     [headerView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
@@ -497,6 +488,44 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     [headerView addSubview:locationImageView];
     
     return headerView;
+    }
+    return nil;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section==0){
+    return [self headerSettingHelper:tableView viewForHeaderInSection:section withNullHeader:NO];
+    }
+    else {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSDate *tripStartDate = trip.startDate;
+        unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+        NSCalendar* calendar = [NSCalendar currentCalendar];
+        NSDateComponents* components = [calendar components:flags fromDate:tripStartDate];
+        NSDate* tripStartDateWithoutHour = [calendar dateFromComponents:components];
+        
+        NSIndexPath *previousIndexPath = [NSIndexPath indexPathForRow:0 inSection:section-1];
+        Trip *previousTrip = (Trip *)[self.fetchedResultsController objectAtIndexPath:(previousIndexPath)];
+        NSDate *previousTripStartDate = previousTrip.startDate;
+        flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+        calendar = [NSCalendar currentCalendar];
+        components = [calendar components:flags fromDate:previousTripStartDate];
+        NSDate* previousTripStartDateWithoutHour = [calendar dateFromComponents:components];
+        //TODO: compare only the days!
+        if ([tripStartDateWithoutHour compare:previousTripStartDateWithoutHour] == NSOrderedDescending ||
+            [tripStartDateWithoutHour compare:previousTripStartDateWithoutHour] == NSOrderedAscending ){
+            //NSLog(@"different %@ and this %@", tripStartDateWithoutHour, previousTripStartDateWithoutHour);
+            
+            return [self headerSettingHelper:tableView viewForHeaderInSection:section withNullHeader:NO];
+        } else {
+            //NSLog(@"same %@ and this %@", tripStartDateWithoutHour, previousTripStartDateWithoutHour);
+            
+            return [self headerSettingHelper:tableView viewForHeaderInSection:section withNullHeader:YES];
+        }
+    }
+    return nil;
 }
 
 
