@@ -1832,6 +1832,9 @@
                                     <segment title="Rating"/>
                                     <segment title="Distance"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changedCriteria:" destination="AvV-a5-2ba" eventType="valueChanged" id="I2c-7B-B5b"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1849,6 +1852,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="criteriaSegmentedControl" destination="saQ-RR-vac" id="gVr-bk-vnW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0V-sp-qYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
