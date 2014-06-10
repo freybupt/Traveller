@@ -37,6 +37,7 @@ static NSInteger kHotelCellFullHeight = 540;
 - (IBAction)confirmTripChange:(id)sender;
 - (IBAction)cancelTripChange:(id)sender;
 - (IBAction)deleteCurrentTrip:(id)sender;
+- (IBAction)hotelUnneeded:(id)sender;
 
 @end
 
@@ -254,7 +255,7 @@ static NSInteger kHotelCellFullHeight = 540;
     
     //create two block variables to store the response
     //__block NSError* errorMain;
-    __block NSData *responseAsync;//right now it is being done synchronously
+    __block NSData *responseAsync;
     
     //use asynch connection to send a POST request
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
@@ -427,6 +428,7 @@ static NSInteger kHotelCellFullHeight = 540;
             NSNumber *IDFromServer = [step objectForKey:@"hotelID"];
             NSArray *amenities = [step objectForKey:@"AddedValue"];
             NSNumber *rating = [step objectForKey:@"hotelRating"];
+            NSNumber *duration = [step objectForKey:@"stayDays"];
 
             
             NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
@@ -445,7 +447,7 @@ static NSInteger kHotelCellFullHeight = 540;
             newEvent.toCity = city;
             newEvent.location = location;
             //TODO: maybe change stops into something that can be both used as the stops and as the rating.
-            newEvent.stops = rating;
+            newEvent.rating = rating;
             //to trip not set
             
             //TRIP SETUP
@@ -456,6 +458,7 @@ static NSInteger kHotelCellFullHeight = 540;
             newTrip.toEvent = newEvent;
             newTrip.title = hotelName;
             newTrip.endDate = endDate;
+            newTrip.duration = duration;
         }
         //create a small array that contains the Event-Trip Pair (may be modified)
         NSArray* eventTripPair = [[NSArray alloc]initWithObjects:newEvent,newTrip,nil];
@@ -700,14 +703,40 @@ static NSInteger kHotelCellFullHeight = 540;
             NSString *endDate = [formatter stringFromDate:event.endDate];
             NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
             cell.eventTimeLabel.text = fullDate;
+            //set the detailed view checkin, checkout
+            [formatter setDateFormat:@"EE, MMM dd"];
+            startDate = [formatter stringFromDate:event.startDate];
+            endDate = [formatter stringFromDate:event.endDate];
+            cell.checkinLabel.text = startDate;
+            cell.checkoutLabel.text = endDate;
         }
+        //set up the "address" label
+        NSString *address = event.location;
+        cell.addressLabel.text = address;
+        
+        //set up the "room" label
+        //TODO: replace "superior suite" by the appropriate suiet from the server
+        NSString *roomType = @"Superior Suite";
+        NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]/[trip.duration floatValue]];
+        NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+        cell.roomTypeLabel.text = roomDetails;
+        
+        //set up the review label
+        NSString *rating = [event.rating stringValue];        
+        NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [event.rating integerValue]>1?@"stars":@"star"];
+        cell.reviewLabel.text = reviewText;
+        
+        //TODO: add the amenity and the phone label
+        cell.amenitiesLabel.text = @"placeholder amenity";
+        cell.phoneLabel.text = @"place holder phone";
+        
         if ([event.location length] > 0) {
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
         }
         else if([event.toCity.cityName length] > 0){
             cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
         }
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.contentView.backgroundColor = [UIColor whiteColor];
@@ -715,9 +744,6 @@ static NSInteger kHotelCellFullHeight = 540;
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.hotelDetailView.hidden = NO;
             self.tripToBeSentToTheServer = trip;
-            //TODO: add here the event that is currently selected.
-            //This event must be set to a property, which will be later used to send it to the change options view contorller
-            //The options view contrtoller will then process it to send it to the server................../
         }
         else{
             cell.hotelDetailView.hidden = YES;
@@ -796,7 +822,7 @@ static NSInteger kHotelCellFullHeight = 540;
                                  remainingMinutesStr,airline];
         int isBusiness = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
         cell.eventLocationLabel.text = timeString1;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%ld", (long)[trip.price integerValue]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
         cell.airlineWithDurationLabel.text = timeString2;
         
         //use date formatter to specify how the date will be displayed
@@ -915,7 +941,22 @@ static NSInteger kHotelCellFullHeight = 540;
                 break;
             }
             default:
-            break;
+                break;
+        }
+    } else if (alertView.tag ==2){
+        switch(buttonIndex){
+            case 1:
+            {
+                int previousPrice = self.totalPrice;
+                float newPrice = previousPrice - [self.tripToBeSentToTheServer.price floatValue];
+                NSInteger price = ceil(newPrice);
+                self.totalPrice = price;
+                self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
+                [[DataManager sharedInstance]deleteTrip:[self tripToBeSentToTheServer] context:[self managedObjectContext]];
+                break;
+            }
+            default:
+                break;
         }
     }
 }
@@ -969,12 +1010,25 @@ static NSInteger kHotelCellFullHeight = 540;
     }
 }
 
+#pragma mark - delete the hotel
+- (IBAction)hotelUnneeded:(id)sender{
+    //TODO: ask shirley about this
+    UIAlertView *warningForDelete = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are you sure you don't need a hotel?", nil)
+                                                        message:nil
+                                                       delegate:self
+                                              cancelButtonTitle:NSLocalizedString(@"Keep Hotel", nil)
+                                              otherButtonTitles:NSLocalizedString(@"Delete Hotel", nil), nil];
+    warningForDelete.tag = 2;
+    [warningForDelete show];
+}
+
+
 #pragma mark - Segue
 
 @class ChangeOptionsViewController;
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
-    if([segue.identifier isEqualToString:@"changeOptionsSegue"]){
+    if([segue.identifier isEqualToString:@"changeFlightSegue"]||[segue.identifier isEqualToString:@"changeHotelSegue"]){
         ChangeOptionsViewController *changeOptionsController = (ChangeOptionsViewController *)segue.destinationViewController;
         NSLog(@"aha");
         changeOptionsController.trip = self.tripToBeSentToTheServer;

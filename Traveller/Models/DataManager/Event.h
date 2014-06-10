@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSNumber * isSelected;
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSString * notes;
+@property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSNumber * serverID;
 @property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSNumber * stops;
