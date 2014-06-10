@@ -1810,7 +1810,7 @@
             </objects>
             <point key="canvasLocation" x="1587" y="1311"/>
         </scene>
-        <!--Change Options View Controller - Select your trip-->
+        <!--Change Options View Controller - Hotel Options-->
         <scene sceneID="1gh-R8-W2V">
             <objects>
                 <viewController id="AvV-a5-2ba" customClass="ChangeOptionsViewController" sceneMemberID="viewController">
@@ -1818,22 +1818,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight/Hotel details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="09f-9Y-Y2c">
-                                <rect key="frame" x="82" y="95" width="156" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" id="Dya-pg-5Kl">
                                 <rect key="frame" x="0.0" y="46" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="saQ-RR-vac">
+                                <rect key="frame" x="47" y="78" width="226" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Price"/>
+                                    <segment title="Stars"/>
+                                    <segment title="Rating"/>
+                                    <segment title="Distance"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select your trip" id="y1W-Y2-Wso">
+                    <navigationItem key="navigationItem" title="Hotel Options" id="y1W-Y2-Wso">
                         <barButtonItem key="leftBarButtonItem" systemItem="reply" id="6aK-dE-ALL">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>

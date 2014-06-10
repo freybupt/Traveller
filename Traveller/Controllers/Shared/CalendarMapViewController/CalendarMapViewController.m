@@ -455,7 +455,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     
     //TODO: do it in a prettier way
     if([self.headerHashTable containsObject:formattedDateString] && ![self.headerHashTable containsObject:tripIdentifier]){
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0)];
         titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
         titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
         titleLabel.text = nil;

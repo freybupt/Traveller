@@ -2,54 +2,107 @@
     "planSteps": [
                   {
                   "stepType": "flight",
-                  "flightID": 68,
+                  "flightID": 88,
                   "departureCity": "Vancouver",
                   "departureCountry": "Canada",
-                  "departureTime": "2014-06-14 07:30:00",
-                  "arrivalCity": "Toronto",
+                  "departureTime": "2014-06-11 06:40:00",
+                  "arrivalCity": "Edmonton",
                   "arrivalCountry": "Canada",
-                  "arrivalTime": "2014-06-14 14:52:00",
+                  "arrivalTime": "2014-06-11 09:06:00",
                   "currency": "USD",
                   "classType": "economy",
-                  "duration": 262,
+                  "duration": 86,
                   "stops": 0,
-                  "cost": 407.4038,
+                  "cost": 264.45,
                   "FlightConnections": [
                                         {
-                                        "airline": "Air Canada",
+                                        "airline": "WestJet",
                                         "departureCode": "YVR",
-                                        "arrivalCode": "YYZ",
+                                        "arrivalCode": "YEG",
                                         "departureAirport": "Vancouver International Airport",
-                                        "arrivalAirport": "Lester B Pearson International Airport",
+                                        "arrivalAirport": "Edmonton International Airport",
                                         "departureCity": "Vancouver",
                                         "departureCountry": "Canada",
-                                        "departureTime": "2014-06-14 07:30:00",
-                                        "arrivalCity": "Toronto",
+                                        "departureTime": "2014-06-11 06:40:00",
+                                        "arrivalCity": "Edmonton",
                                         "arrivalCountry": "Canada",
-                                        "arrivalTime": "2014-06-14 14:52:00",
-                                        "designatorCode": "AC1182",
-                                        "duration": 262
+                                        "arrivalTime": "2014-06-11 09:06:00",
+                                        "designatorCode": "WS434",
+                                        "duration": 86
                                         }
                                         ]
                   },
                   {
                   "stepType": "hotel",
-                  "hotelID": 43,
-                  "city": "Hamilton",
-                  "hotelName": "Sheraton Hamilton Hotel",
-                  "address": "116 King St W",
+                  "hotelID": 56,
+                  "city": "Edmonton",
+                  "hotelName": "Chateau Lacombe Hotel",
+                  "address": "10111 Bellamy Hill Nw",
                   "country": "CA",
-                  "startDate": "2014-06-14",
-                  "endDate": "2014-06-17",
-                  "cost": 380.01,
+                  "startDate": "2014-06-11",
+                  "endDate": "2014-06-14",
+                  "cost": 489.02,
                   "stayDays": 3,
                   "hotelRating": 3.5,
-                  "userRating": 3.5,
-                  "AddedValue": []
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet"
+                                 ]
                   },
                   {
                   "stepType": "flight",
-                  "flightID": 69,
+                  "flightID": 89,
+                  "departureCity": "Edmonton",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-06-14 13:15:00",
+                  "arrivalCity": "Toronto",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-06-14 18:55:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 220,
+                  "stops": 0,
+                  "cost": 415.7,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YEG",
+                                        "arrivalCode": "YYZ",
+                                        "departureAirport": "Edmonton International Airport",
+                                        "arrivalAirport": "Lester B Pearson International Airport",
+                                        "departureCity": "Edmonton",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-14 13:15:00",
+                                        "arrivalCity": "Toronto",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-14 18:55:00",
+                                        "designatorCode": "AC172",
+                                        "duration": 220
+                                        }
+                                        ]
+                  },
+                  {
+                  "stepType": "hotel",
+                  "hotelID": 57,
+                  "city": "Hamilton",
+                  "hotelName": "Days Inn Hamilton",
+                  "address": "210 Main St E",
+                  "country": "CA",
+                  "startDate": "2014-06-14",
+                  "endDate": "2014-06-17",
+                  "cost": 318.79,
+                  "stayDays": 3,
+                  "hotelRating": 2,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Continental Breakfast",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "stepType": "flight",
+                  "flightID": 90,
                   "departureCity": "Toronto",
                   "departureCountry": "Canada",
                   "departureTime": "2014-06-17 20:15:00",
@@ -60,7 +113,7 @@
                   "classType": "economy",
                   "duration": 296,
                   "stops": 0,
-                  "cost": 356.18445,
+                  "cost": 426.76538,
                   "FlightConnections": [
                                         {
                                         "airline": "Air Canada",

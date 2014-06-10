@@ -321,7 +321,8 @@ static NSInteger kHotelCellFullHeight = 540;
     NSLog(@"\n\n\n\n %@", theReply);
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
     if([jsonDic objectForKey:@"Error Message"]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: @"There was an error processing your request." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString* errorMessage = [jsonDic objectForKey:@"Error Message"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: errorMessage delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return nil;
     } else {
@@ -344,6 +345,7 @@ static NSInteger kHotelCellFullHeight = 540;
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"departureTime"]];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"arrivalTime"]];
+            //TODO: put more attention to the timezones...
             NSString *arrivalCityName = [step objectForKey:@"arrivalCity"];
             NSString *departureCityName = [step objectForKey:@"departureCity"];
             City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
@@ -400,16 +402,22 @@ static NSInteger kHotelCellFullHeight = 540;
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"startDate"]];
             //has to be 12:59:59 I believe because of the time zone
             //TODO: check with shirley about the time zone
-            [dateFormat setDateFormat:@"yyyy-MM-dd 12:59:59"];
+            [dateFormat setDateFormat:@"yyyy-MM-dd 23:59:59"];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
             NSString *newDate = [dateFormat stringFromDate:startDate];
             NSLog(@"herererehe111111111 %@",newDate);
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             startDate = [dateFormat dateFromString:newDate];
             NSLog(@"herererehe222222 %@",startDate);
             [dateFormat setDateFormat:@"yyyy-MM-dd"];
-            
+            //LOCAL TIME ZONE HERE
+            NSLog(@"this is the time zone: %@",[NSTimeZone localTimeZone]);
+            // This is just so I can create a date from a string.
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
-            [dateFormat setDateFormat:@"yyyy-MM-dd 13:00:00"];
+            [dateFormat setDateFormat:@"yyyy-MM-dd 00:00:00"];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
             newDate = [dateFormat stringFromDate:endDate];
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             endDate = [dateFormat dateFromString:newDate];
@@ -551,9 +559,9 @@ static NSInteger kHotelCellFullHeight = 540;
     NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
     //This is a file in order to avoid requesting information from the server during testing periods to save time
     //TODO: comment or uncomment this sectino as needed
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     
     
     if(!jsonResponse){ //if there is nothing from the server, ask for it

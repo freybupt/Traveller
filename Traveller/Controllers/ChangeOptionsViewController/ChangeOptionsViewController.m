@@ -31,6 +31,7 @@
     if(!self.isAConnectionOpen){
         NSLog(@"connection started");
         if (self.trip){
+            self.title = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? @"HOTEL OPTIONS":@"FLIGHT OPTIONS";
             [self sendGetRequest:self.trip];
         } else {
             UIAlertView *errorMessage = [[UIAlertView alloc] initWithTitle: @"Error" message: @"Invalid trip selected. Please go back to the previous screen" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
