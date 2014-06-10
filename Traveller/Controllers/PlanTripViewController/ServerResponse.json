@@ -2,13 +2,13 @@
     "planSteps": [
                   {
                   "stepType": "flight",
-                  "flightID": 88,
+                  "flightID": 166,
                   "departureCity": "Vancouver",
                   "departureCountry": "Canada",
-                  "departureTime": "2014-06-11 06:40:00",
+                  "departureTime": "2014-06-12 06:40:00",
                   "arrivalCity": "Edmonton",
                   "arrivalCountry": "Canada",
-                  "arrivalTime": "2014-06-11 09:06:00",
+                  "arrivalTime": "2014-06-12 09:06:00",
                   "currency": "USD",
                   "classType": "economy",
                   "duration": 86,
@@ -23,10 +23,10 @@
                                         "arrivalAirport": "Edmonton International Airport",
                                         "departureCity": "Vancouver",
                                         "departureCountry": "Canada",
-                                        "departureTime": "2014-06-11 06:40:00",
+                                        "departureTime": "2014-06-12 06:40:00",
                                         "arrivalCity": "Edmonton",
                                         "arrivalCountry": "Canada",
-                                        "arrivalTime": "2014-06-11 09:06:00",
+                                        "arrivalTime": "2014-06-12 09:06:00",
                                         "designatorCode": "WS434",
                                         "duration": 86
                                         }
@@ -34,24 +34,22 @@
                   },
                   {
                   "stepType": "hotel",
-                  "hotelID": 56,
+                  "hotelID": 9,
                   "city": "Edmonton",
-                  "hotelName": "Chateau Lacombe Hotel",
-                  "address": "10111 Bellamy Hill Nw",
+                  "hotelName": "The Fairmont Hotel Macdonald",
+                  "address": "10065 100 St Nw",
                   "country": "CA",
-                  "startDate": "2014-06-11",
+                  "startDate": "2014-06-12",
                   "endDate": "2014-06-14",
-                  "cost": 489.02,
-                  "stayDays": 3,
-                  "hotelRating": 3.5,
-                  "userRating": 3,
-                  "AddedValue": [
-                                 "Free Wireless Internet"
-                                 ]
+                  "cost": 536.46,
+                  "stayDays": 2,
+                  "hotelRating": 4,
+                  "userRating": 4.5,
+                  "AddedValue": []
                   },
                   {
                   "stepType": "flight",
-                  "flightID": 89,
+                  "flightID": 167,
                   "departureCity": "Edmonton",
                   "departureCountry": "Canada",
                   "departureTime": "2014-06-14 13:15:00",
@@ -83,26 +81,24 @@
                   },
                   {
                   "stepType": "hotel",
-                  "hotelID": 57,
-                  "city": "Hamilton",
-                  "hotelName": "Days Inn Hamilton",
-                  "address": "210 Main St E",
+                  "hotelID": 10,
+                  "city": "Mississauga",
+                  "hotelName": "Novotel Toronto Mississauga Centre",
+                  "address": "3670 Hurontario St",
                   "country": "CA",
                   "startDate": "2014-06-14",
                   "endDate": "2014-06-17",
-                  "cost": 318.79,
+                  "cost": 432.85,
                   "stayDays": 3,
-                  "hotelRating": 2,
+                  "hotelRating": 3,
                   "userRating": 3.5,
                   "AddedValue": [
-                                 "Free Wireless Internet",
-                                 "Continental Breakfast",
-                                 "Free Parking"
+                                 "Free Wireless Internet"
                                  ]
                   },
                   {
                   "stepType": "flight",
-                  "flightID": 90,
+                  "flightID": 168,
                   "departureCity": "Toronto",
                   "departureCountry": "Canada",
                   "departureTime": "2014-06-17 20:15:00",
@@ -113,7 +109,7 @@
                   "classType": "economy",
                   "duration": 296,
                   "stops": 0,
-                  "cost": 426.76538,
+                  "cost": 421.91547,
                   "FlightConnections": [
                                         {
                                         "airline": "Air Canada",
