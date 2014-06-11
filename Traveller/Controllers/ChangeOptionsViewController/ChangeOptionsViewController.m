@@ -70,9 +70,9 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"cost", @YES, @NO, @NO, @YES];
@@ -81,9 +81,9 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
@@ -91,8 +91,8 @@ static NSInteger kHotelCellFullHeight = 540;
     }
     
     if (!serverData){
+        NSLog(@"data form server pls have sth %@", self.dataFromServer);
         serverData = [self sendGetRequest:self.trip];
-        self.dataFromServer = serverData;
     } else {
         NSString *searchingCriteria = @"cost";
         BOOL ascending = YES;
@@ -170,12 +170,14 @@ static NSInteger kHotelCellFullHeight = 540;
         {
             [loadingMessage dismissWithClickedButtonIndex:0 animated:YES];
             responseAsync = data;
+            self.dataFromServer = data;
             //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
             // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             self.isAConnectionOpen = NO;
             [self processEventChange:responseAsync];
+            [self.tableView reloadData];
             
         }
         
