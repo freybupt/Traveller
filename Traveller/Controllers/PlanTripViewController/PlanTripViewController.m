@@ -854,9 +854,6 @@ static NSInteger kHotelCellFullHeight = 540;
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
             self.tripToBeSentToTheServer = trip;
-            //TODO: add here the event that is currently selected.
-            //This event must be set to a property, which will be later used to send it to the change options view contorller
-            //The options view contrtoller will then process it to send it to the server................../
         }
         else{
             cell.flightDetailView.hidden = YES;

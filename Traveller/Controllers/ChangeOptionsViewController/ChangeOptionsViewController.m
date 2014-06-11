@@ -18,6 +18,7 @@ static NSInteger kHotelCellFullHeight = 540;
 @property (nonatomic) BOOL isAConnectionOpen;
 @property (nonatomic) BOOL isHotel;
 @property (nonatomic) NSData* dataFromServer;
+@property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
 @property (nonatomic) NSArray* resultsFromServer;
 
 
@@ -280,16 +281,17 @@ static NSInteger kHotelCellFullHeight = 540;
         NSString *endDateStr = [formatter stringFromDate:endDate];
         NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
         cell.contentView.backgroundColor = [UIColor whiteColor];
-        cell.hotelDetailView.hidden = YES;
         //NSLog(@"this is start Date: %@ and please compare to the string: %@",startDate,[hotelProcessed objectForKey:@"startDate"]);
         
-        cell.eventTimeLabel.text = fullDate;/*
+        cell.eventTimeLabel.text = fullDate;
+        
         //set the detailed view checkin, checkout
         [formatter setDateFormat:@"EE, MMM dd"];
-        startDate = [formatter stringFromDate:[hotelProcessed objectForKey:@"startDate"]];
-        endDate = [formatter stringFromDate:[hotelProcessed objectForKey:@"endDate"]];
-        cell.checkinLabel.text = startDate;
-        cell.checkoutLabel.text = endDate;*/
+        startDateStr = [formatter stringFromDate:startDate];
+        endDateStr = [formatter stringFromDate:endDate];
+        cell.checkinLabel.text = startDateStr;
+        cell.checkoutLabel.text = endDateStr;
+        
         /*
          //set up the "address" label
          NSString *address = event.location;
@@ -321,7 +323,12 @@ static NSInteger kHotelCellFullHeight = 540;
          cell.contentView.backgroundColor = [UIColor whiteColor];
          
          cell.hotelDetailView.hidden = YES;*/
-        
+        if ([indexPath isEqual:self.expandedCellIndexPath]){
+            cell.hotelDetailView.hidden = NO;
+        }
+        else{
+            cell.hotelDetailView.hidden = YES;
+        }
         tableCell = cell;
     } else {
         NSDictionary *flightProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
@@ -369,7 +376,12 @@ static NSInteger kHotelCellFullHeight = 540;
 
         
         
-        cell.flightDetailView.hidden = YES;
+        if ([indexPath isEqual:self.expandedCellIndexPath]){
+            cell.flightDetailView.hidden = NO;
+        }
+        else{
+            cell.flightDetailView.hidden = YES;
+        }
         /*
         
         NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
@@ -426,20 +438,74 @@ static NSInteger kHotelCellFullHeight = 540;
     return tableCell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{   //TODO: rework this function
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([indexPath isEqual:self.expandedCellIndexPath]) {
+        if (self.isHotel){
+            return kHotelCellFullHeight;
+        } else {
+            return kFlightCellFullHeight;
+        }
+    }
     return kStandardCellHeight;
 }
+
+/*f ([indexPath isEqual:self.expandedCellIndexPath]) {
+ Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+ Event *event = trip.toEvent;
+ 
+ //expand list item
+ if ([event.eventType integerValue] == EventTypeFlight) {
+ //flight
+ return kFlightCellFullHeight;
+ }
+ else if ([event.eventType integerValue] == EventTypeHotel) {
+ //hotel
+ return kHotelCellFullHeight;
+ }
+ else{
+ //calendar event
+ return kEventCellHeight;
+ }
+ }
+ else{
+ return kEventCellHeight;
+ }
+*/
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.resultsFromServer count];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"this is just a test, and I am trying it";
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if ([indexPath isEqual:self.expandedCellIndexPath]) {
+        self.expandedCellIndexPath = nil;
+    }
+    else{
+        self.expandedCellIndexPath = indexPath;
+    }
+    
+    [tableView beginUpdates];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [tableView endUpdates];
+    [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
 }
 
 @end

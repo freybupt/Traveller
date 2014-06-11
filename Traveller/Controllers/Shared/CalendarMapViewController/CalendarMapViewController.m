@@ -447,7 +447,7 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
     if(nullHeader){
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0)];
-        titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
+        titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:0.0];
         titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
         titleLabel.text = nil;
         [headerView addSubview:titleLabel];
