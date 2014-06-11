@@ -7,10 +7,18 @@
 //
 
 #import "ChangeOptionsViewController.h"
+#import "MyScheduleHotelTableCell.h"
+#import "MyScheduleFlightTableCell.h"
+
+static NSInteger kFlightCellFullHeight = 400;
+static NSInteger kStandardCellHeight = 70;
+static NSInteger kHotelCellFullHeight = 540;
 
 @interface ChangeOptionsViewController ()
 @property (nonatomic) BOOL isAConnectionOpen;
+@property (nonatomic) BOOL isHotel;
 @property (nonatomic) NSData* dataFromServer;
+@property (nonatomic) NSArray* resultsFromServer;
 
 
 -(NSData*)sendGetRequest:(Trip*)trip;
@@ -33,6 +41,7 @@
     if(!self.isAConnectionOpen){
         NSLog(@"connection started");
         if (self.trip){
+            self.isHotel = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? YES:NO;
             self.title = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? @"HOTEL OPTIONS":@"FLIGHT OPTIONS";
             //NSData* serverResponse = [self sendGetRequest:self.trip];
             [self processEventChange:nil];
@@ -53,11 +62,10 @@
 
 -(void)processEventChange:(NSData*)serverData{
     
-
-    BOOL isHotel = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? YES:NO;
+    
     //TODO: Optimizing: change nsarray into a dictionary and use the keys for the ascending value/
     NSArray *sortingCriteria;
-    if(isHotel){
+    if(self.isHotel){
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
@@ -80,7 +88,7 @@
         sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
         [self setSegmentedControlValuesAsHotel:NO];
     }
-
+    
     if (!serverData){
         serverData = [self sendGetRequest:self.trip];
         self.dataFromServer = serverData;
@@ -115,6 +123,7 @@
             }
         }
         NSArray *optionsFromServer = [self returnArrayOfEventsWith:serverData usingContext:[self managedObjectContext] sortedBy:searchingCriteria inAscending:ascending];
+        self.resultsFromServer = optionsFromServer;
     }
 }
 
@@ -125,7 +134,7 @@
     [loadingMessage show];
     
     self.isAConnectionOpen = YES;
-    NSString *tripType = [trip.toEvent.eventType integerValue] == EventTypeHotel? @"showHotels":@"showFlights";
+    NSString *tripType = self.isHotel? @"showHotels":@"showFlights";
     NSString *tripServerID = [trip.toEvent.serverID stringValue];
     NSString *urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@", tripType, tripServerID];
     NSLog(@"%@",urlForGet);
@@ -161,7 +170,7 @@
             [loadingMessage dismissWithClickedButtonIndex:0 animated:YES];
             responseAsync = data;
             //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
-           // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
+            // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             self.isAConnectionOpen = NO;
@@ -183,20 +192,20 @@
 {
     [self showActivityIndicatorWithText:NSLocalizedString(@"Flight selected, going back", nil)];
     [self.navigationController popViewControllerAnimated:YES];
-
+    
     
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 #pragma mark - Auxiliary functions
 -(NSArray*) returnArrayOfEventsWith:(NSData*)jsonData usingContext:(NSManagedObjectContext*)context sortedBy:(NSString*)sortingKey inAscending:(BOOL)ascending{
@@ -211,7 +220,7 @@
         [alert show];
         return nil;
     }
-    NSString* jsonDicKey = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? @"hotelList":@"flightList";
+    NSString* jsonDicKey = self.isHotel? @"hotelList":@"flightList";
     NSArray *optionsFromServer = [[NSArray arrayWithObject:[jsonDic objectForKey:jsonDicKey]]objectAtIndex:0];
     //NSLog(@"%@", planSteps);
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:sortingKey  ascending:ascending];
@@ -227,6 +236,7 @@
 
 - (IBAction)changedCriteria:(id)sender{
     [self processEventChange:self.dataFromServer];
+    [self.tableView reloadData];
 }
 
 -(void)setSegmentedControlValuesAsHotel:(BOOL)isHotel{
@@ -241,6 +251,97 @@
         [self.criteriaSegmentedControl setTitle:@"depart" forSegmentAtIndex:2];
         [self.criteriaSegmentedControl setTitle:@"duration" forSegmentAtIndex:3];
     }
+}
+
+#pragma mark - Setting up the Table
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MyScheduleTableCell *tableCell;
+    NSDictionary *hotelProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
+    if (self.isHotel){
+        MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
+        if (!cell) {
+            cell = [[MyScheduleHotelTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                                   reuseIdentifier:@"hotelCell"];
+        }
+        cell.eventTitleLabel.text = [hotelProcessed objectForKey:@"hotelName"];
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
+        cell.eventLocationLabel.text = [hotelProcessed objectForKey:@"address"];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [[hotelProcessed objectForKey:@"cost"] floatValue] ];
+        
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate *startDate = [formatter dateFromString:[hotelProcessed objectForKey:@"startDate"]];
+        NSDate *endDate = [formatter dateFromString:[hotelProcessed objectForKey:@"endDate"]];
+        [formatter setDateFormat:@"MMM dd"];
+        NSString *startDateStr = [formatter stringFromDate:startDate];
+        NSString *endDateStr = [formatter stringFromDate:endDate];
+        NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
+        //NSLog(@"this is start Date: %@ and please compare to the string: %@",startDate,[hotelProcessed objectForKey:@"startDate"]);
+        
+        cell.eventTimeLabel.text = fullDate;/*
+        //set the detailed view checkin, checkout
+        [formatter setDateFormat:@"EE, MMM dd"];
+        startDate = [formatter stringFromDate:[hotelProcessed objectForKey:@"startDate"]];
+        endDate = [formatter stringFromDate:[hotelProcessed objectForKey:@"endDate"]];
+        cell.checkinLabel.text = startDate;
+        cell.checkoutLabel.text = endDate;*/
+        /*
+         //set up the "address" label
+         NSString *address = event.location;
+         cell.addressLabel.text = address;
+         
+         //set up the "room" label
+         //TODO: replace "superior suite" by the appropriate suiet from the server
+         NSString *roomType = @"Superior Suite";
+         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]/[trip.duration floatValue]];
+         NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+         cell.roomTypeLabel.text = roomDetails;
+         
+         //set up the review label
+         NSString *rating = [event.rating stringValue];
+         NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [event.rating integerValue]>1?@"stars":@"star"];
+         cell.reviewLabel.text = reviewText;
+         
+         //TODO: add the amenity and the phone label
+         cell.amenitiesLabel.text = @"placeholder amenity";
+         cell.phoneLabel.text = @"place holder phone";
+         
+         if ([event.location length] > 0) {
+         cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
+         }
+         else if([event.toCity.cityName length] > 0){
+         cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
+         }
+         cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
+         
+         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
+         cell.contentView.backgroundColor = [UIColor whiteColor];
+         
+         cell.hotelDetailView.hidden = YES;*/
+        
+        tableCell = cell;
+    }
+    
+    return tableCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{   //TODO: rework this function
+    return kStandardCellHeight;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.resultsFromServer count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
 }
 
 @end

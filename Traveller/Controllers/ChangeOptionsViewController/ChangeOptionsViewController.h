@@ -7,7 +7,7 @@
 //
 
 #import "CalendarMapViewController.h"
-@interface ChangeOptionsViewController : CalendarMapViewController
+@interface ChangeOptionsViewController : CalendarMapViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic) Trip* trip;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *criteriaSegmentedControl;
 

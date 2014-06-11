@@ -1,1 +1,467 @@
-{"hotelList":[{"city":"Edmonton","hotelName":"The Fairmont Hotel Macdonald","address":"10065 100 St Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":536.46,"stayDays":2,"hotelRating":4.0,"userRating":4.5,"AddedValue":[]},{"city":"Edmonton","hotelName":"Chateau Lacombe Hotel","address":"10111 Bellamy Hill Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":331.27,"stayDays":2,"hotelRating":3.5,"userRating":3.0,"AddedValue":["Free Wireless Internet"]},{"city":"Edmonton","hotelName":"Fantasyland Hotel","address":"17700 87 Ave Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":510.45,"stayDays":2,"hotelRating":3.5,"userRating":3.0,"AddedValue":["Free Parking"]},{"city":"Edmonton","hotelName":"Matrix Hotel","address":"10640 100 Avenue NW","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":431.18,"stayDays":2,"hotelRating":3.5,"userRating":4.0,"AddedValue":["Free Wireless Internet","Continental Breakfast","Free Parking"]},{"city":"Edmonton","hotelName":"The Sutton Place Hotel - Edmonton","address":"10235 - 101 Street","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":355.16,"stayDays":2,"hotelRating":3.5,"userRating":3.0,"AddedValue":["Free High-Speed Internet"]},{"city":"Edmonton","hotelName":"Delta Edmonton South","address":"4404 Gateway Boulevard","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":336.88,"stayDays":2,"hotelRating":3.0,"userRating":4.5,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Sawridge Inn - Edmonton South","address":"4235 Gateway Boulevard N.","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":302.87,"stayDays":2,"hotelRating":3.0,"userRating":4.0,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Radisson Hotel Edmonton South","address":"4440 Gateway Blvd","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":331.21,"stayDays":2,"hotelRating":3.0,"userRating":4.0,"AddedValue":["Free High-Speed Internet"]},{"city":"Edmonton","hotelName":"Best Western Cedar Park Inn","address":"5116 Gateway Blvd","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":244.2,"stayDays":2,"hotelRating":3.0,"userRating":3.0,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Executive Royal Hotel West Edmonton","address":"10010 178 St Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":271.1,"stayDays":2,"hotelRating":3.0,"userRating":3.5,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Wingate by Wyndham - Edmonton West","address":"18220 100 Ave","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":277.43,"stayDays":2,"hotelRating":3.0,"userRating":4.0,"AddedValue":["Breakfast Buffet","Free High-Speed Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Holiday Inn Express Hotel &amp; Suites Edmonton South","address":"2440 Calgary Trail Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":260.33,"stayDays":2,"hotelRating":2.5,"userRating":4.0,"AddedValue":["Free Wireless Internet","Breakfast Buffet"]},{"city":"Edmonton","hotelName":"Best Western Plus Westwood Inn","address":"18035 Stony Plain Rd Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":245.81,"stayDays":2,"hotelRating":3.0,"userRating":3.0,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Ramada Edmonton South","address":"5359 Calgary Trail Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":220.85,"stayDays":2,"hotelRating":2.5,"userRating":3.0,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Varscona Hotel On Whyte","address":"8208 106 St Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":381.36,"stayDays":2,"hotelRating":2.5,"userRating":4.0,"AddedValue":["Free Wireless Internet","Continental Breakfast","Free Parking"]},{"city":"Edmonton","hotelName":"Delta Edmonton-Centre Suite Hotel","address":"10222 102 Street","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":517.57,"stayDays":2,"hotelRating":3.5,"userRating":3.5,"AddedValue":[]},{"city":"Edmonton","hotelName":"Holiday Inn Conference Center Edmonton South","address":"4485 Gateway Blvd NW","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":282.71,"stayDays":2,"hotelRating":3.0,"userRating":3.5,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Days Inn - Edmonton","address":"10041-106 street","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":250.28,"stayDays":2,"hotelRating":2.5,"userRating":3.5,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Days Inn and Suites - West Edmonton","address":"10010 179a St Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":259.45,"stayDays":2,"hotelRating":2.5,"userRating":4.0,"AddedValue":[]},{"city":"Edmonton","hotelName":"Four Points By Sheraton Edmonton Gateway","address":"10010 12 Ave Sw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":332.62,"stayDays":2,"hotelRating":3.0,"userRating":4.5,"AddedValue":[]},{"city":"Edmonton","hotelName":"Ramada Edmonton Hotel and Conference Centre","address":"11834 Kingsway Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":283.25,"stayDays":2,"hotelRating":3.0,"userRating":3.0,"AddedValue":["Free Wireless Internet","Full Breakfast","Free Parking"]},{"city":"Edmonton","hotelName":"Edmonton Hotel &amp; Convention Center","address":"4520 76 Ave Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":265.52,"stayDays":2,"hotelRating":3.0,"userRating":4.5,"AddedValue":["Breakfast Buffet","Free High-Speed Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Four Points by Sheraton Edmonton South","address":"7230 Argyll Rd Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":252.54,"stayDays":2,"hotelRating":3.0,"userRating":3.5,"AddedValue":[]},{"city":"Edmonton","hotelName":"Metterra Hotel on Whyte","address":"10454 82 Avenue","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":441.7,"stayDays":2,"hotelRating":3.5,"userRating":4.0,"AddedValue":["Continental Breakfast","Free High-Speed Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Comfort Inn &amp; Suites Downtown Edmonton","address":"10425 100 Ave Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":291.24,"stayDays":2,"hotelRating":2.5,"userRating":3.5,"AddedValue":["Free Wireless Internet","Continental Breakfast"]},{"city":"Edmonton","hotelName":"Days Inn Edmonton South","address":"10333 University Ave Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":298.55,"stayDays":2,"hotelRating":2.0,"userRating":4.5,"AddedValue":["Continental Breakfast","Free High-Speed Internet","Free Parking"]},{"city":"Edmonton","hotelName":"Travelodge Edmonton East","address":"3414 118 Ave Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":173.18,"stayDays":2,"hotelRating":2.0,"userRating":3.0,"AddedValue":[]},{"city":"Edmonton","hotelName":"Travelodge Edmonton South","address":"10320 - 45th Avenue So.","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":200.01,"stayDays":2,"hotelRating":2.0,"userRating":2.5,"AddedValue":["Free Wireless Internet","Breakfast Buffet","Free Parking"]},{"city":"Edmonton","hotelName":"Quality Inn West Harvest","address":"17803 Stony Plain Rd Nw","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":248.25,"stayDays":2,"hotelRating":3.0,"userRating":3.5,"AddedValue":["Free Wireless Internet","Free Parking"]},{"city":"Edmonton","hotelName":"DoubleTree by Hilton Hotel West Edmonton","address":"16615 109th Ave","country":"CA","startDate":"2014-06-12","endDate":"2014-06-14","cost":350.93,"stayDays":2,"hotelRating":3.5,"userRating":4.5,"AddedValue":[]}]}
+{
+    "hotelList": [
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "The Fairmont Hotel Macdonald",
+                  "address": "10065 100 St Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 536.46,
+                  "stayDays": 2,
+                  "hotelRating": 4,
+                  "userRating": 4.5,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Chateau Lacombe Hotel",
+                  "address": "10111 Bellamy Hill Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 331.27,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Fantasyland Hotel",
+                  "address": "17700 87 Ave Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 510.45,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Matrix Hotel",
+                  "address": "10640 100 Avenue NW",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 431.18,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Continental Breakfast",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "The Sutton Place Hotel - Edmonton",
+                  "address": "10235 - 101 Street",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 355.16,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free High-Speed Internet"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Delta Edmonton South",
+                  "address": "4404 Gateway Boulevard",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 336.88,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Sawridge Inn - Edmonton South",
+                  "address": "4235 Gateway Boulevard N.",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 302.87,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Radisson Hotel Edmonton South",
+                  "address": "4440 Gateway Blvd",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 331.21,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Free High-Speed Internet"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Best Western Cedar Park Inn",
+                  "address": "5116 Gateway Blvd",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 244.2,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Executive Royal Hotel West Edmonton",
+                  "address": "10010 178 St Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 271.1,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Wingate by Wyndham - Edmonton West",
+                  "address": "18220 100 Ave",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 277.43,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Breakfast Buffet",
+                                 "Free High-Speed Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Holiday Inn Express Hotel &amp; Suites Edmonton South",
+                  "address": "2440 Calgary Trail Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 260.33,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Breakfast Buffet"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Best Western Plus Westwood Inn",
+                  "address": "18035 Stony Plain Rd Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 245.81,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Ramada Edmonton South",
+                  "address": "5359 Calgary Trail Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 220.85,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Varscona Hotel On Whyte",
+                  "address": "8208 106 St Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 381.36,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Continental Breakfast",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Delta Edmonton-Centre Suite Hotel",
+                  "address": "10222 102 Street",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 517.57,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 3.5,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Holiday Inn Conference Center Edmonton South",
+                  "address": "4485 Gateway Blvd NW",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 282.71,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Days Inn - Edmonton",
+                  "address": "10041-106 street",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 250.28,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Days Inn and Suites - West Edmonton",
+                  "address": "10010 179a St Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 259.45,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 4,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Four Points By Sheraton Edmonton Gateway",
+                  "address": "10010 12 Ave Sw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 332.62,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4.5,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Ramada Edmonton Hotel and Conference Centre",
+                  "address": "11834 Kingsway Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 283.25,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Full Breakfast",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Edmonton Hotel &amp; Convention Center",
+                  "address": "4520 76 Ave Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 265.52,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 4.5,
+                  "AddedValue": [
+                                 "Breakfast Buffet",
+                                 "Free High-Speed Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Four Points by Sheraton Edmonton South",
+                  "address": "7230 Argyll Rd Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 252.54,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3.5,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Metterra Hotel on Whyte",
+                  "address": "10454 82 Avenue",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 441.7,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 4,
+                  "AddedValue": [
+                                 "Continental Breakfast",
+                                 "Free High-Speed Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Comfort Inn &amp; Suites Downtown Edmonton",
+                  "address": "10425 100 Ave Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 291.24,
+                  "stayDays": 2,
+                  "hotelRating": 2.5,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Continental Breakfast"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Days Inn Edmonton South",
+                  "address": "10333 University Ave Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 298.55,
+                  "stayDays": 2,
+                  "hotelRating": 2,
+                  "userRating": 4.5,
+                  "AddedValue": [
+                                 "Continental Breakfast",
+                                 "Free High-Speed Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Travelodge Edmonton East",
+                  "address": "3414 118 Ave Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 173.18,
+                  "stayDays": 2,
+                  "hotelRating": 2,
+                  "userRating": 3,
+                  "AddedValue": []
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Travelodge Edmonton South",
+                  "address": "10320 - 45th Avenue So.",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 200.01,
+                  "stayDays": 2,
+                  "hotelRating": 2,
+                  "userRating": 2.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Breakfast Buffet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "Quality Inn West Harvest",
+                  "address": "17803 Stony Plain Rd Nw",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 248.25,
+                  "stayDays": 2,
+                  "hotelRating": 3,
+                  "userRating": 3.5,
+                  "AddedValue": [
+                                 "Free Wireless Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "city": "Edmonton",
+                  "hotelName": "DoubleTree by Hilton Hotel West Edmonton",
+                  "address": "16615 109th Ave",
+                  "country": "CA",
+                  "startDate": "2014-06-12",
+                  "endDate": "2014-06-14",
+                  "cost": 350.93,
+                  "stayDays": 2,
+                  "hotelRating": 3.5,
+                  "userRating": 4.5,
+                  "AddedValue": []
+                  }
+                  ]
+}
