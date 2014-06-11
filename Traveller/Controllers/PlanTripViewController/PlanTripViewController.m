@@ -580,6 +580,7 @@ static NSInteger kHotelCellFullHeight = 540;
     }
     
     self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
+    [self.tableView reloadData];
     [self hideActivityIndicator];
     [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
 }

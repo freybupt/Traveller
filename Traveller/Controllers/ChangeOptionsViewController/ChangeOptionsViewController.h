@@ -10,6 +10,6 @@
 @interface ChangeOptionsViewController : CalendarMapViewController <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic) Trip* trip;
 @property (nonatomic, weak) IBOutlet UISegmentedControl *criteriaSegmentedControl;
-
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end

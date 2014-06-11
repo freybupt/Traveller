@@ -279,6 +279,8 @@ static NSInteger kHotelCellFullHeight = 540;
         NSString *startDateStr = [formatter stringFromDate:startDate];
         NSString *endDateStr = [formatter stringFromDate:endDate];
         NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.hotelDetailView.hidden = YES;
         //NSLog(@"this is start Date: %@ and please compare to the string: %@",startDate,[hotelProcessed objectForKey:@"startDate"]);
         
         cell.eventTimeLabel.text = fullDate;/*
@@ -315,9 +317,7 @@ static NSInteger kHotelCellFullHeight = 540;
          else if([event.toCity.cityName length] > 0){
          cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
          }
-         cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
-         
-         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
+
          cell.contentView.backgroundColor = [UIColor whiteColor];
          
          cell.hotelDetailView.hidden = YES;*/

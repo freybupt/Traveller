@@ -2049,6 +2049,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="criteriaSegmentedControl" destination="saQ-RR-vac" id="gVr-bk-vnW"/>
+                        <outlet property="tableView" destination="PzB-Rh-f5R" id="0Ll-aN-69X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0V-sp-qYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
