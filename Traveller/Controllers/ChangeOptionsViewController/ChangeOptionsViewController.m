@@ -53,23 +53,31 @@
 
 -(void)processEventChange:(NSData*)serverData{
     
-    //This part is to avoid saturating the server with GET requests
-    //TODO: comment or uncomment this section as needed
+
     BOOL isHotel = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? YES:NO;
+    //TODO: Optimizing: change nsarray into a dictionary and use the keys for the ascending value/
     NSArray *sortingCriteria;
     if(isHotel){
+        
+        //This part is to avoid saturating the server with GET requests
+        //TODO: comment or uncomment this section as needed
         NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
         NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
-        //TODO: change the bar's name according to whether it's a hotel or a flight and replace the criteria by real values
-        sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"cost"];
+        //END of section
+        
+        sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"cost", @YES, @NO, @NO, @YES];
         [self setSegmentedControlValuesAsHotel:YES];
     } else {
+        
+        //This part is to avoid saturating the server with GET requests
+        //TODO: comment or uncomment this section as needed
         NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
         NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
-        //TODO: sort the dates... this may be a bit harder
-        sortingCriteria = @[@"cost", @"arrival", @"departure", @"duration"];
+        //END of section
+        
+        sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
         [self setSegmentedControlValuesAsHotel:NO];
     }
 
@@ -82,22 +90,22 @@
         switch(self.criteriaSegmentedControl.selectedSegmentIndex){
             case 0:{
                 searchingCriteria = [sortingCriteria objectAtIndex:0];
-                ascending = YES;
+                ascending = [[sortingCriteria objectAtIndex:4]boolValue];
                 break;
             }
             case 1:{
                 searchingCriteria = [sortingCriteria objectAtIndex:1];
-                ascending = NO;
+                ascending = [[sortingCriteria objectAtIndex:5]boolValue];
                 break;
             }
             case 2:{
                 searchingCriteria = [sortingCriteria objectAtIndex:2];
-                ascending = NO;
+                ascending = [[sortingCriteria objectAtIndex:6]boolValue];
                 break;
             }
             case 3:{
                 searchingCriteria = [sortingCriteria objectAtIndex:3];
-                ascending = YES;
+                ascending = [[sortingCriteria objectAtIndex:7]boolValue];
                 break;
             }
             default:{
@@ -107,7 +115,6 @@
             }
         }
         NSArray *optionsFromServer = [self returnArrayOfEventsWith:serverData usingContext:[self managedObjectContext] sortedBy:searchingCriteria inAscending:ascending];
-        NSLog(@"many options here....%@", optionsFromServer);
     }
 }
 
@@ -203,10 +210,6 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: errorMessage delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return nil;
-    } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Your best travelling options are being displayed now." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-
     }
     NSString* jsonDicKey = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? @"hotelList":@"flightList";
     NSArray *optionsFromServer = [[NSArray arrayWithObject:[jsonDic objectForKey:jsonDicKey]]objectAtIndex:0];
@@ -218,7 +221,6 @@
     //for (NSDictionary* option in optionsFromServer){
     //}
     
-    //to test: the output must be equal to 3
     return optionsFromServer;
     
 }

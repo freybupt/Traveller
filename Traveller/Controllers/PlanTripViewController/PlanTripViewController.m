@@ -557,11 +557,13 @@ static NSInteger kHotelCellFullHeight = 540;
     City *departureCity = [[DataManager sharedInstance] getCityWithCityName:cityName
                                                                     context:self.managedObjectContext];
     NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
+    
     //This is a file in order to avoid requesting information from the server during testing periods to save time
-    //TODO: comment or uncomment this sectino as needed
+    //TODO: comment or uncomment this section as needed
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
     NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
     jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //END of section
     
     
     if(!jsonResponse){ //if there is nothing from the server, ask for it

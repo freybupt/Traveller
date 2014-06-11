@@ -11,7 +11,6 @@
 
 @interface CalendarMapViewController ()
 @property (nonatomic, assign) BOOL isDestinationPanelActive;
-@property (nonatomic) NSHashTable *headerHashTable;
 @end
 
 @implementation CalendarMapViewController
@@ -27,10 +26,7 @@
 
 - (void)viewDidLoad
 {
-    NSHashTable *tempHT = [[NSHashTable alloc]init];
-    self.headerHashTable = tempHT;
     [super viewDidLoad];
-
     [self showActivityIndicatorWithText:NSLocalizedString(@"Planning your trip....", nil)];
     
     // The Add button is initially disabled
@@ -461,8 +457,8 @@ didChangeToVisibleMonth:(NSDateComponents *)month
     [headerView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.bounds.size.width, 25)];
-    titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:14.0];
-    titleLabel.textColor = [UIColor blackColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
+    titleLabel.font = [UIFont fontWithName:@"Avenir-Heavy" size:14.0];
+    titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
     titleLabel.text = formattedDateString;
     [headerView addSubview:titleLabel];
     
