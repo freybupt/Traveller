@@ -258,8 +258,8 @@ static NSInteger kHotelCellFullHeight = 540;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MyScheduleTableCell *tableCell;
-    NSDictionary *hotelProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
     if (self.isHotel){
+        NSDictionary *hotelProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
         MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
         if (!cell) {
             cell = [[MyScheduleHotelTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
@@ -323,7 +323,105 @@ static NSInteger kHotelCellFullHeight = 540;
          cell.hotelDetailView.hidden = YES;*/
         
         tableCell = cell;
+    } else {
+        NSDictionary *flightProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
+        MyScheduleFlightTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flightCell"];
+        if (!cell) {
+            cell = [[MyScheduleFlightTableCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                                    reuseIdentifier:@"flightCell"];
+        }
+        cell.eventTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Flight to %@", nil), [flightProcessed objectForKey:@"arrivalCity"]];
+        int flightDuration = [[flightProcessed objectForKey:@"duration"] integerValue];
+        NSNumber *durationHours = [NSNumber numberWithInt:floor(flightDuration/60)];
+        NSNumber *remainingMinutes = [NSNumber numberWithInt:(flightDuration%60)];
+        NSString *flightDurationStr = [durationHours stringValue];
+        NSString *remainingMinutesStr = [remainingMinutes stringValue];
+        int numOfStops = [[flightProcessed objectForKey:@"stops"]integerValue];
+        NSString *numOfStopsStr;
+        if(numOfStops ==0){
+            numOfStopsStr = @"non-stop";
+        } else {
+            NSString *stopRaw = numOfStops==1? @" stop" : @" stops";
+            NSString *numOfStopsStrInit = [NSString stringWithFormat:@"%d", numOfStops];
+            numOfStopsStr = [NSString stringWithFormat:@"%@%@", numOfStopsStrInit, stopRaw];
+        }
+        
+        NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
+                                 ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
+        cell.eventLocationLabel.text = timeString1;
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [[flightProcessed objectForKey:@"cost"] floatValue] ];
+        
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *startDate = [formatter dateFromString:[flightProcessed objectForKey:@"departureTime"]];
+        NSDate *endDate = [formatter dateFromString:[flightProcessed objectForKey:@"arrivalTime"]];
+        NSLog(@"these are the dates %@ and this %@", startDate, endDate);
+        [formatter setDateFormat:@"HH:mm"];
+        NSString *startDateStr = [formatter stringFromDate:startDate];
+        NSString *endDateStr = [formatter stringFromDate:endDate];
+        NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
+        
+        //set up the cell time fields
+        cell.eventTimeLabel.text = fullDate;
+        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDate, @" departure"];
+        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
+
+        
+        
+        cell.flightDetailView.hidden = YES;
+        /*
+        
+        NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
+                                 ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
+        NSArray *flights = [event.toFlight allObjects];
+        //TODO: use array to get the all the objects instead of just a random one...
+        Flight *theFlight = [flights objectAtIndex:0];
+        //set up the airport name and the code (code for example, is YVR)
+        NSString *airline = theFlight.airline;
+        NSString *classType = event.classType;
+        NSString* departureAirportName = theFlight.departureAirport;
+        NSString *departureCode = theFlight.departureCode;
+        cell.departureAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", departureAirportName, departureCode];
+        NSString* arrivalAirportName = theFlight.arrivalAirport;
+        NSString *arrivalCode = theFlight.arrivalCode;
+        cell.arrivalAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", arrivalAirportName, arrivalCode];
+        NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m \t\t %@", flightDurationStr,
+                                 remainingMinutesStr,airline];
+        int isBusiness = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
+        cell.eventLocationLabel.text = timeString1;
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
+        cell.airlineWithDurationLabel.text = timeString2;
+        
+        //use date formatter to specify how the date will be displayed
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"HH:mm"];
+        NSString *startDate = [formatter stringFromDate:event.startDate];
+        NSString *endDate = [formatter stringFromDate:event.endDate];
+        NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+        
+        //set up the cell time fields
+        cell.eventTimeLabel.text = fullDate;
+        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDate, @" departure"];
+        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
+        
+        [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
+        cell.classSegmentedControl.selectedSegmentIndex = isBusiness;
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+        if ([indexPath isEqual:self.expandedCellIndexPath]){
+            cell.flightDetailView.hidden = NO;
+            self.tripToBeSentToTheServer = trip;
+            //TODO: add here the event that is currently selected.
+            //This event must be set to a property, which will be later used to send it to the change options view contorller
+            //The options view contrtoller will then process it to send it to the server................../
+        }
+        else{
+            cell.flightDetailView.hidden = YES;
+        }
+        */
+        tableCell = cell;
     }
+
     
     return tableCell;
 }
