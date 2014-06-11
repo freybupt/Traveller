@@ -423,6 +423,7 @@ static NSInteger kHotelCellFullHeight = 540;
             endDate = [dateFormat dateFromString:newDate];
             NSString *newEndDate = [dateFormat stringFromDate:endDate];
             endDate = [dateFormat dateFromString:newEndDate];
+            NSLog(@"herererehe222222 %@",endDate);
             
             NSString *cityName = [step objectForKey:@"city"];
             City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
@@ -709,10 +710,13 @@ static NSInteger kHotelCellFullHeight = 540;
             cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
         } else {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
             [formatter setDateFormat:@"MMM dd"];
             NSString *startDate = [formatter stringFromDate:event.startDate];
             NSString *endDate = [formatter stringFromDate:event.endDate];
             NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+            NSLog(@"this is the full Date %@ but originally it was %@", endDate, event.endDate);
+            
             cell.eventTimeLabel.text = fullDate;
             //set the detailed view checkin, checkout
             [formatter setDateFormat:@"EE, MMM dd"];

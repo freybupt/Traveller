@@ -287,42 +287,36 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //set the detailed view checkin, checkout
         [formatter setDateFormat:@"EE, MMM dd"];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         startDateStr = [formatter stringFromDate:startDate];
         endDateStr = [formatter stringFromDate:endDate];
         cell.checkinLabel.text = startDateStr;
         cell.checkoutLabel.text = endDateStr;
         
-        /*
-         //set up the "address" label
-         NSString *address = event.location;
-         cell.addressLabel.text = address;
-         
-         //set up the "room" label
-         //TODO: replace "superior suite" by the appropriate suiet from the server
-         NSString *roomType = @"Superior Suite";
-         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]/[trip.duration floatValue]];
-         NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+        NSString *address = [hotelProcessed objectForKey:@"address"];
+        cell.eventLocationLabel.text = address;
+        
+        NSString *roomType = @"Superior Suite";
+        NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [[hotelProcessed objectForKey:@"cost"] floatValue]/[[hotelProcessed objectForKey:@"stayDays"] floatValue]];
+        NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+        cell.roomTypeLabel.text = roomDetails;
+
+     
          cell.roomTypeLabel.text = roomDetails;
          
          //set up the review label
-         NSString *rating = [event.rating stringValue];
-         NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [event.rating integerValue]>1?@"stars":@"star"];
+         NSString *rating = [hotelProcessed objectForKey:@"hotelRating"];
+         NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [[hotelProcessed objectForKey:@"hotelRating"] integerValue]>1?@"stars":@"star"];
          cell.reviewLabel.text = reviewText;
          
          //TODO: add the amenity and the phone label
          cell.amenitiesLabel.text = @"placeholder amenity";
          cell.phoneLabel.text = @"place holder phone";
-         
-         if ([event.location length] > 0) {
-         cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@", event.location];
-         }
-         else if([event.toCity.cityName length] > 0){
-         cell.eventLocationLabel.text = [NSString stringWithFormat:@"%@, %@ - %@, %@", trip.toCityDepartureCity.cityName, trip.toCityDepartureCity.countryCode, event.toCity.cityName, event.toCity.countryCode];
-         }
-
-         cell.contentView.backgroundColor = [UIColor whiteColor];
-         
-         cell.hotelDetailView.hidden = YES;*/
+        
+        //Get the location
+        NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",[hotelProcessed objectForKey:@"city"], @", ", [hotelProcessed objectForKey:@"country"]];
+        cell.addressLabel.text = location;
+        
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.hotelDetailView.hidden = NO;
         }
@@ -448,29 +442,6 @@ static NSInteger kHotelCellFullHeight = 540;
     }
     return kStandardCellHeight;
 }
-
-/*f ([indexPath isEqual:self.expandedCellIndexPath]) {
- Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
- Event *event = trip.toEvent;
- 
- //expand list item
- if ([event.eventType integerValue] == EventTypeFlight) {
- //flight
- return kFlightCellFullHeight;
- }
- else if ([event.eventType integerValue] == EventTypeHotel) {
- //hotel
- return kHotelCellFullHeight;
- }
- else{
- //calendar event
- return kEventCellHeight;
- }
- }
- else{
- return kEventCellHeight;
- }
-*/
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
