@@ -194,7 +194,7 @@ static NSInteger kHotelCellFullHeight = 465;
 
 - (IBAction)confirmTripButtonTapAction:(id)sender
 {
-    [self showActivityIndicatorWithText:NSLocalizedString(@"Flight selected, going back", nil)];
+    [self showActivityIndicatorWithText:NSLocalizedString(@"Option selected, going back", nil)];
     [self.delegate addItemViewController:self didFinishEnteringItem:self.reselectedTrip];
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -378,6 +378,7 @@ static NSInteger kHotelCellFullHeight = 465;
         
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
+            self.reselectedTrip = flightProcessed;
         }
         else{
             cell.flightDetailView.hidden = YES;

@@ -1054,90 +1054,168 @@ static NSInteger kHotelCellFullHeight = 540;
 
 - (void)addItemViewController:(ChangeOptionsViewController *)controller didFinishEnteringItem:(NSDictionary *)selectedTrip
 {
-    NSLog(@"This was returned from SecondViewController %@",[selectedTrip description]);
+    int previousPrice = self.totalPrice;
+    float newPrice = previousPrice - [self.tripToBeSentToTheServer.price floatValue];
+    NSInteger price = ceil(newPrice);
+    self.totalPrice = price;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
     ([[DataManager sharedInstance] deleteTrip:self.tripToBeSentToTheServer
                                      context:self.managedObjectContext]);
-    Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
     Event *newEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-    //process the hotel type of event!
-    NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    NSDate *startDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"startDate"]];
-    //has to be 12:59:59 I believe because of the time zone
-    //TODO: check with shirley about the time zone
-    [dateFormat setDateFormat:@"yyyy-MM-dd 23:59:59"];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    NSString *newDate = [dateFormat stringFromDate:startDate];
-    NSLog(@"herererehe111111111 %@",newDate);
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    startDate = [dateFormat dateFromString:newDate];
-    NSLog(@"herererehe222222 %@",startDate);
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    //LOCAL TIME ZONE HERE
-    NSLog(@"this is the time zone: %@",[NSTimeZone localTimeZone]);
-    // This is just so I can create a date from a string.
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *endDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"endDate"]];
-    [dateFormat setDateFormat:@"yyyy-MM-dd 00:00:00"];
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    newDate = [dateFormat stringFromDate:endDate];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    endDate = [dateFormat dateFromString:newDate];
-    NSString *newEndDate = [dateFormat stringFromDate:endDate];
-    endDate = [dateFormat dateFromString:newEndDate];
-    NSLog(@"herererehe222222 %@",endDate);
+    Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    NSArray *EventTripPair = [self createArrayWithDictionary:selectedTrip];
     
-    NSString *cityName = [selectedTrip objectForKey:@"city"];
-    City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
-    double price = [[selectedTrip objectForKey:@"cost"]floatValue];
-    NSString *hotelName = [selectedTrip objectForKey:@"hotelName"];
-    //[NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
-    NSString *address = [selectedTrip objectForKey:@"address"];
-    NSString *eventCity = [selectedTrip objectForKey:@"city"];
-    NSString *countryCode= [selectedTrip objectForKey:@"country"];
-    NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
-    NSNumber *IDFromServer = [selectedTrip objectForKey:@"hotelID"];
-    NSArray *amenities = [selectedTrip objectForKey:@"AddedValue"];
-    NSNumber *rating = [selectedTrip objectForKey:@"hotelRating"];
-    NSNumber *duration = [selectedTrip objectForKey:@"stayDays"];
+    newEvent= [EventTripPair objectAtIndex:0];
+    newTrip= [EventTripPair objectAtIndex:1];
     
-    
-    NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
-    for (int i =0; i<[amenities count];i++){
-        Amenity *newAmenity = [[DataManager sharedInstance]newAmenityWithContext:self.managedObjectContext];
-        //TODO: check with Lan about the fields to add them here
-        [amenitiesArray addObject:newAmenity];
-    }
-    
-    //EVENT SETUP
-    newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
-    newEvent.startDate = startDate;
-    newEvent.serverID = IDFromServer;
-    newEvent.endDate = endDate;
-    newEvent.title = hotelName;
-    newEvent.toCity = city;
-    newEvent.location = location;
-    newEvent.rating = rating;
-    //to trip not set
-    
-    //TRIP SETUP
-    newTrip.toCityDepartureCity = city;
-    newTrip.toCityDestinationCity = city;
-    newTrip.price = [NSNumber numberWithDouble:price];
-    newTrip.startDate = startDate;
-    newTrip.toEvent = newEvent;
-    newTrip.title = hotelName;
-    newTrip.endDate = endDate;
-    newTrip.duration = duration;
-    
-    newTrip.toItinerary = _itinerary;
     [[DataManager sharedInstance] saveTrip:newTrip
                                    context:self.managedObjectContext];
 
     self.tripToBeSentToTheServer = newTrip;
+    previousPrice = self.totalPrice;
+    newPrice = previousPrice + [self.tripToBeSentToTheServer.price floatValue];
+    price = ceil(newPrice);
+    self.totalPrice = price;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
     
     [self.tableView reloadData];
+}
+
+-(NSArray*)createArrayWithDictionary: (NSDictionary*)selectedTrip{
+    Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
+    Event *newEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
+    NSLog(@"please help me here..... %@", [selectedTrip description]);
+    
+    if([selectedTrip objectForKey:@"hotelName"]){
+        //process the hotel type of event!
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        NSDate *startDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"startDate"]];
+        //has to be 12:59:59 I believe because of the time zone
+        //TODO: check with shirley about the time zone
+        [dateFormat setDateFormat:@"yyyy-MM-dd 23:59:59"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        NSString *newDate = [dateFormat stringFromDate:startDate];
+        NSLog(@"herererehe111111111 %@",newDate);
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        startDate = [dateFormat dateFromString:newDate];
+        NSLog(@"herererehe222222 %@",startDate);
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        //LOCAL TIME ZONE HERE
+        NSLog(@"this is the time zone: %@",[NSTimeZone localTimeZone]);
+        // This is just so I can create a date from a string.
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *endDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"endDate"]];
+        [dateFormat setDateFormat:@"yyyy-MM-dd 00:00:00"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        newDate = [dateFormat stringFromDate:endDate];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        endDate = [dateFormat dateFromString:newDate];
+        NSString *newEndDate = [dateFormat stringFromDate:endDate];
+        endDate = [dateFormat dateFromString:newEndDate];
+        NSLog(@"herererehe222222 %@",endDate);
+        
+        NSString *cityName = [selectedTrip objectForKey:@"city"];
+        City *city = [[DataManager sharedInstance] getCityWithCityName:cityName context:self.managedObjectContext];
+        double price = [[selectedTrip objectForKey:@"cost"]floatValue];
+        NSString *hotelName = [selectedTrip objectForKey:@"hotelName"];
+        //[NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
+        NSString *address = [selectedTrip objectForKey:@"address"];
+        NSString *eventCity = [selectedTrip objectForKey:@"city"];
+        NSString *countryCode= [selectedTrip objectForKey:@"country"];
+        NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
+        NSNumber *IDFromServer = [selectedTrip objectForKey:@"hotelID"];
+        NSArray *amenities = [selectedTrip objectForKey:@"AddedValue"];
+        NSNumber *rating = [selectedTrip objectForKey:@"hotelRating"];
+        NSNumber *duration = [selectedTrip objectForKey:@"stayDays"];
+        
+        
+        NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
+        for (int i =0; i<[amenities count];i++){
+            Amenity *newAmenity = [[DataManager sharedInstance]newAmenityWithContext:self.managedObjectContext];
+            //TODO: check with Lan about the fields to add them here
+            [amenitiesArray addObject:newAmenity];
+        }
+        
+        //EVENT SETUP
+        newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
+        newEvent.startDate = startDate;
+        newEvent.serverID = IDFromServer;
+        newEvent.endDate = endDate;
+        newEvent.title = hotelName;
+        newEvent.toCity = city;
+        newEvent.location = location;
+        newEvent.rating = rating;
+        //to trip not set
+        
+        //TRIP SETUP
+        newTrip.toCityDepartureCity = city;
+        newTrip.toCityDestinationCity = city;
+        newTrip.price = [NSNumber numberWithDouble:price];
+        newTrip.startDate = startDate;
+        newTrip.toEvent = newEvent;
+        newTrip.title = hotelName;
+        newTrip.endDate = endDate;
+        newTrip.duration = duration;
+        
+        newTrip.toItinerary = _itinerary;
+    } else if ([selectedTrip objectForKey:@"FlightConnections"]){
+        
+        //process the flight type of event, with all its attributes!
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *startDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"departureTime"]];
+        NSDate *endDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"arrivalTime"]];
+        //TODO: put more attention to the timezones...
+        NSString *arrivalCityName = [selectedTrip objectForKey:@"arrivalCity"];
+        NSString *departureCityName = [selectedTrip objectForKey:@"departureCity"];
+        City *arrivalCity = [[DataManager sharedInstance] getCityWithCityName:arrivalCityName                                                                          context:self.managedObjectContext];
+        City *departureCity = [[DataManager sharedInstance] getCityWithCityName:departureCityName                                                                          context:self.managedObjectContext];
+        double price = [[selectedTrip objectForKey:@"cost"]floatValue];
+        NSNumber *stops = [selectedTrip objectForKey:@"stops"];
+        NSNumber *duration = [selectedTrip objectForKey:@"duration"];
+        NSNumber *IDFromServer = [selectedTrip objectForKey:@"flightID"];
+        NSArray *connections = [selectedTrip objectForKey:@"FlightConnections"];
+        NSString *classType = [selectedTrip objectForKey:@"classType"];
+        
+        //FLIGHT SETUP
+        NSMutableArray *flightArray = [[NSMutableArray alloc]init];
+        for (int i =0; i<[connections count];i++){
+            Flight *newFlight = [[DataManager sharedInstance] newFlightWithContext:self.managedObjectContext];
+            [[DataManager sharedInstance]setFlight:newFlight withDictionary:[connections objectAtIndex:i]];
+            [flightArray addObject:newFlight];
+            NSLog(@"heherehe : %@", newFlight);
+        }
+        NSSet *flightSet = [[NSSet alloc]initWithArray:flightArray];
+        
+        //EVENT SETUP
+        newEvent.eventType = [NSNumber numberWithInteger: EventTypeFlight];
+        newEvent.startDate = startDate;
+        newEvent.endDate = endDate;
+        newEvent.toCity = arrivalCity;
+        newEvent.toFlight = flightSet;
+        newEvent.stops = stops;
+        newEvent.serverID = IDFromServer;
+        newEvent.classType = classType;
+        
+        //newEvent.title = airline;
+        //toTrip not set!
+        
+        
+        //TRIP SETUP
+        newTrip.toCityDepartureCity = departureCity;
+        newTrip.toCityDestinationCity = arrivalCity;
+        newTrip.price = [NSNumber numberWithDouble:price];
+        newTrip.startDate = startDate;
+        //newTrip.title = airline;
+        newTrip.endDate = endDate;
+        newTrip.toEvent = newEvent;
+        newTrip.duration = duration;
+        newTrip.toItinerary = _itinerary;
+    }
+    NSArray* eventTripPair = [[NSArray alloc]initWithObjects:newEvent,newTrip,nil];
+    return eventTripPair;
 }
 
 @end
