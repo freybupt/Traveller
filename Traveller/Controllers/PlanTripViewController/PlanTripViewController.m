@@ -14,7 +14,6 @@
 #import "MyScheduleHotelTableCell.h"
 #import "MyScheduleFlightTableCell.h"
 #import "AlertModalView.h"
-#import "ChangeOptionsViewController.h"
 
 static NSInteger kEventCellHeight = 80;
 static NSInteger kFlightCellFullHeight = 400;
@@ -1049,8 +1048,18 @@ static NSInteger kHotelCellFullHeight = 540;
          //                                 context:self.managedObjectContext]);
         //[self.tableView reloadData];
         changeOptionsController.trip = self.tripToBeSentToTheServer;
+        changeOptionsController.delegate = self;
     }
 }
+
+- (void)addItemViewController:(ChangeOptionsViewController *)controller didFinishEnteringItem:(NSDictionary *)selectedTrip
+{
+    NSLog(@"This was returned from SecondViewController %@",[selectedTrip description]);
+    //([[DataManager sharedInstance] deleteTrip:self.tripToBeSentToTheServer
+    //                                 context:self.managedObjectContext]);
+    [self.tableView reloadData];
+}
+
 @end
 
 

@@ -20,6 +20,7 @@ static NSInteger kHotelCellFullHeight = 465;
 @property (nonatomic) NSData* dataFromServer;
 @property (nonatomic, strong) NSIndexPath *expandedCellIndexPath;
 @property (nonatomic) NSArray* resultsFromServer;
+@property (nonatomic) NSDictionary* reselectedTrip;
 
 
 -(NSData*)sendGetRequest:(Trip*)trip;
@@ -194,6 +195,7 @@ static NSInteger kHotelCellFullHeight = 465;
 - (IBAction)confirmTripButtonTapAction:(id)sender
 {
     [self showActivityIndicatorWithText:NSLocalizedString(@"Flight selected, going back", nil)];
+    [self.delegate addItemViewController:self didFinishEnteringItem:self.reselectedTrip];
     [self.navigationController popViewControllerAnimated:YES];
     
     
@@ -320,6 +322,7 @@ static NSInteger kHotelCellFullHeight = 465;
         cell.addressLabel.text = location;
         
         if ([indexPath isEqual:self.expandedCellIndexPath]){
+            self.reselectedTrip = hotelProcessed;
             cell.hotelDetailView.hidden = NO;
         }
         else{

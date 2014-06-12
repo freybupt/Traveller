@@ -7,8 +7,9 @@
 //
 
 #import "CalendarMapViewController.h"
+#import "ChangeOptionsViewController.h"
 
-@interface PlanTripViewController : CalendarMapViewController
+@interface PlanTripViewController : CalendarMapViewController <ChangeOptionsViewControllerDelegate>
 
 
 @end
