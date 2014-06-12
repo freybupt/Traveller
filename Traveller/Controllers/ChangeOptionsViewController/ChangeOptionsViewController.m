@@ -12,7 +12,7 @@
 
 static NSInteger kFlightCellFullHeight = 400;
 static NSInteger kStandardCellHeight = 70;
-static NSInteger kHotelCellFullHeight = 540;
+static NSInteger kHotelCellFullHeight = 465;
 
 @interface ChangeOptionsViewController ()
 @property (nonatomic) BOOL isAConnectionOpen;

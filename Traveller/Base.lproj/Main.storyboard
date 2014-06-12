@@ -1900,10 +1900,13 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                                                            <state key="normal" title="Choose a different flight">
+                                                            <state key="normal" title="Select this flight">
                                                                 <color key="titleColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="confirmTripButtonTapAction:" destination="AvV-a5-2ba" eventType="touchDown" id="vJX-gi-W0o"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vancouver International Airport (YVR)" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rdC-Lk-jaR">
                                                             <rect key="frame" x="73" y="28" width="230" height="48"/>
@@ -1996,11 +1999,11 @@
                                             <outlet property="priceLabel" destination="DVv-qe-WIw" id="Xso-0G-USg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="500" id="twp-3w-Tal" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
-                                        <rect key="frame" x="0.0" y="422" width="320" height="500"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="466" id="twp-3w-Tal" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
+                                        <rect key="frame" x="0.0" y="422" width="320" height="466"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="twp-3w-Tal" id="hEp-UP-Asg">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="499"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SwT-SJ-QkM">
@@ -2045,7 +2048,7 @@
                                                     </state>
                                                 </button>
                                                 <view contentMode="scaleToFill" id="m5Z-2P-T4u" userLabel="Hotel Detail">
-                                                    <rect key="frame" x="0.0" y="72" width="320" height="466"/>
+                                                    <rect key="frame" x="0.0" y="72" width="320" height="393"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1155, Yan An Road (W), Shanghai, China" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QgL-x2-4md">
@@ -2137,22 +2140,12 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.90536610399999995" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                            <state key="normal" title="Choose a different hotel">
+                                                            <state key="normal" title="Select this hotel">
                                                                 <color key="titleColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eBN-pt-WDc">
-                                                            <rect key="frame" x="84" y="381" width="131" height="30"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <color key="backgroundColor" red="0.84989783429999999" green="0.92872621909999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
-                                                            <state key="normal" title="I don't need a hotel">
-                                                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </state>
                                                             <connections>
-                                                                <action selector="hotelUnneeded:" destination="vXZ-lx-hvc" eventType="touchDown" id="Wlw-H8-wdw"/>
+                                                                <action selector="confirmTripButtonTapAction:" destination="AvV-a5-2ba" eventType="touchDown" id="CAv-cq-zqz"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -2192,11 +2185,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="editMySchedule:" destination="AvV-a5-2ba" id="wle-JJ-mmY"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Confirm" id="Pej-Cf-HUv">
-                            <connections>
-                                <action selector="confirmTripButtonTapAction:" destination="AvV-a5-2ba" id="fwj-Hb-Pto"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
