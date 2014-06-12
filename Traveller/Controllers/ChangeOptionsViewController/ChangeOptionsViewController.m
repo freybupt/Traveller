@@ -360,8 +360,9 @@ static NSInteger kHotelCellFullHeight = 540;
         NSDate *startDate = [formatter dateFromString:[flightProcessed objectForKey:@"departureTime"]];
         NSDate *endDate = [formatter dateFromString:[flightProcessed objectForKey:@"arrivalTime"]];
         NSLog(@"these are the dates %@ and this %@", startDate, endDate);
-        [formatter setDateFormat:@"HH:mm"];
+        [formatter setDateFormat:@"MMM dd - HH:mm"];
         NSString *startDateStr = [formatter stringFromDate:startDate];
+        [formatter setDateFormat:@"HH:mm"];
         NSString *endDateStr = [formatter stringFromDate:endDate];
         NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
         
