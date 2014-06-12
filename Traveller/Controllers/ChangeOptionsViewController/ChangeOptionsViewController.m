@@ -70,9 +70,9 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"cost", @YES, @NO, @NO, @YES];
@@ -81,9 +81,9 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
@@ -368,8 +368,8 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //set up the cell time fields
         cell.eventTimeLabel.text = fullDate;
-        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDate, @" departure"];
-        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
+        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDateStr, @" departure"];
+        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDateStr, @" arrival"];
 
         
         
@@ -379,47 +379,30 @@ static NSInteger kHotelCellFullHeight = 540;
         else{
             cell.flightDetailView.hidden = YES;
         }
-        /*
         
-        NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
-                                 ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
-        NSArray *flights = [event.toFlight allObjects];
+        
+        NSArray *flights = [flightProcessed objectForKey:@"FlightConnections"];
         //TODO: use array to get the all the objects instead of just a random one...
-        Flight *theFlight = [flights objectAtIndex:0];
+        NSDictionary *firstFlight = [flights objectAtIndex:0];
         //set up the airport name and the code (code for example, is YVR)
-        NSString *airline = theFlight.airline;
-        NSString *classType = event.classType;
-        NSString* departureAirportName = theFlight.departureAirport;
-        NSString *departureCode = theFlight.departureCode;
+        NSString *airline = [firstFlight objectForKey:@"airline"];
+        NSString *classType = [flightProcessed objectForKey:@"classType"];
+        NSString* departureAirportName = [firstFlight objectForKey:@"departureAirport"];
+        NSString *departureCode = [firstFlight objectForKey:@"departureCode"];
         cell.departureAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", departureAirportName, departureCode];
-        NSString* arrivalAirportName = theFlight.arrivalAirport;
-        NSString *arrivalCode = theFlight.arrivalCode;
+        NSString* arrivalAirportName = [firstFlight objectForKey:@"arrivalAirport"];
+        NSString *arrivalCode = [firstFlight objectForKey:@"arrivalCode"];
         cell.arrivalAirportLabel.text = [NSString stringWithFormat:@"%@ (%@)", arrivalAirportName, arrivalCode];
         NSString *timeString2 = [NSString stringWithFormat:@"%@h %@m \t\t %@", flightDurationStr,
                                  remainingMinutesStr,airline];
         int isBusiness = [classType caseInsensitiveCompare:@"business"] == NSOrderedSame ? 1 : 0;
-        cell.eventLocationLabel.text = timeString1;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]];
         cell.airlineWithDurationLabel.text = timeString2;
-        
-        //use date formatter to specify how the date will be displayed
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"HH:mm"];
-        NSString *startDate = [formatter stringFromDate:event.startDate];
-        NSString *endDate = [formatter stringFromDate:event.endDate];
-        NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDate, @" - ",endDate];
-        
-        //set up the cell time fields
-        cell.eventTimeLabel.text = fullDate;
-        cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDate, @" departure"];
-        cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDate, @" arrival"];
         
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"flightIcon"]];
         cell.classSegmentedControl.selectedSegmentIndex = isBusiness;
         cell.contentView.backgroundColor = [UIColor whiteColor];
         if ([indexPath isEqual:self.expandedCellIndexPath]){
             cell.flightDetailView.hidden = NO;
-            self.tripToBeSentToTheServer = trip;
             //TODO: add here the event that is currently selected.
             //This event must be set to a property, which will be later used to send it to the change options view contorller
             //The options view contrtoller will then process it to send it to the server................../
@@ -427,7 +410,6 @@ static NSInteger kHotelCellFullHeight = 540;
         else{
             cell.flightDetailView.hidden = YES;
         }
-        */
         tableCell = cell;
     }
 

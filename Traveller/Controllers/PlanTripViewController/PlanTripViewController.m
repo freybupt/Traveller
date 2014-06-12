@@ -561,9 +561,9 @@ static NSInteger kHotelCellFullHeight = 540;
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
     //TODO: comment or uncomment this section as needed
-    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END of section
     
     
@@ -822,6 +822,7 @@ static NSInteger kHotelCellFullHeight = 540;
         NSString *timeString1 = [NSString stringWithFormat:@"%@%@%@%@%@", flightDurationStr, @"h "
                                 ,remainingMinutesStr,@"m \t\t\t\t",numOfStopsStr];
         NSArray *flights = [event.toFlight allObjects];
+
         //TODO: use array to get the all the objects instead of just a random one...
         Flight *theFlight = [flights objectAtIndex:0];
         //set up the airport name and the code (code for example, is YVR)
@@ -1043,6 +1044,10 @@ static NSInteger kHotelCellFullHeight = 540;
     if([segue.identifier isEqualToString:@"changeFlightSegue"]||[segue.identifier isEqualToString:@"changeHotelSegue"]){
         ChangeOptionsViewController *changeOptionsController = (ChangeOptionsViewController *)segue.destinationViewController;
         NSLog(@"aha");
+        //TODO: decide whether to do it this way
+        //([[DataManager sharedInstance] deleteTrip:self.tripToBeSentToTheServer
+         //                                 context:self.managedObjectContext]);
+        //[self.tableView reloadData];
         changeOptionsController.trip = self.tripToBeSentToTheServer;
     }
 }
