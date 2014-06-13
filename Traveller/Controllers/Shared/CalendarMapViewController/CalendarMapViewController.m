@@ -438,21 +438,18 @@ didChangeToVisibleMonth:(NSDateComponents *)month
 }
 - (UIView *) headerSettingHelper:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section withNullHeader:(BOOL)nullHeader
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setTimeZone:[NSTimeZone localTimeZone]];
-    [formatter setDateFormat:@"EEE, MMM dd"];
-    NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
+
     if(nullHeader){
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 0)];
-        titleLabel.font = [UIFont fontWithName:@"Avenir-Light" size:0.0];
-        titleLabel.textColor = [UIColor whiteColor];//[UIColor colorWithRed:32.0/255.0 green:68.0/255.0 blue:78.0/255.0 alpha:1.0];
-        titleLabel.text = nil;
-        [headerView addSubview:titleLabel];
+        UIView *headerView = [[UIView alloc] init];
         return headerView;
     } else {
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+        Trip *trip = (Trip *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeZone:[NSTimeZone localTimeZone]];
+        [formatter setDateFormat:@"EEE, MMM dd"];
+        NSString *formattedDateString = [formatter stringFromDate:trip.startDate];
     //TODO: do it in a prettier way
     [headerView setBackgroundColor:(UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:trip.defaultColor]];
     
