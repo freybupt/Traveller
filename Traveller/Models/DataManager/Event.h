@@ -29,6 +29,7 @@
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSNumber * uid;
 @property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) NSNumber * userRating;
 @property (nonatomic, retain) NSSet *toAmenity;
 @property (nonatomic, retain) City *toCity;
 @property (nonatomic, retain) Location *toLocation;

@@ -71,9 +71,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"distance", @YES, @NO, @NO, @YES];
@@ -82,9 +82,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment or uncomment this section as needed
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
@@ -138,7 +138,36 @@ static NSInteger kHotelCellFullHeight = 490;
     self.isAConnectionOpen = YES;
     NSString *tripType = self.isHotel? @"showHotels":@"showFlights";
     NSString *tripServerID = [trip.toEvent.serverID stringValue];
-    NSString *urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@", tripType, tripServerID];
+    NSString *urlForGet;
+    if (self.isHotel){
+        //TODO: check again the effed time zone...
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        NSString *startDate = [dateFormat stringFromDate:trip.toEvent.startDate];
+        NSString *endDate = [dateFormat stringFromDate:trip.toEvent.endDate];
+        NSLog(@"check this out pls %@ and this %@ compared to original %@ and end %@", startDate, endDate, trip.toEvent.startDate,trip.toEvent.endDate);
+
+        urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@/%@/%@", tripType, tripServerID, startDate, endDate];
+    } else {
+        urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@", tripType, tripServerID];
+    }
+    
+    /*NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+     NSDate *startDate = [formatter dateFromString:[flightProcessed objectForKey:@"departureTime"]];
+     NSDate *endDate = [formatter dateFromString:[flightProcessed objectForKey:@"arrivalTime"]];
+     NSLog(@"these are the dates %@ and this %@", startDate, endDate);
+     [formatter setDateFormat:@"MMM dd - HH:mm"];
+     NSString *startDateStr = [formatter stringFromDate:startDate];
+     [formatter setDateFormat:@"HH:mm"];
+     NSString *endDateStr = [formatter stringFromDate:endDate];
+     NSString *fullDate = [NSString stringWithFormat:@"%@%@%@", startDateStr, @" - ",endDateStr];
+     
+     //set up the cell time fields
+     cell.eventTimeLabel.text = fullDate;
+     cell.departureTimeLabel.text = [NSString stringWithFormat:@"%@%@", startDateStr, @" departure"];
+     cell.arrivalTimeLabel.text = [NSString stringWithFormat:@"%@%@", endDateStr, @" arrival"];*/
     NSLog(@"%@",urlForGet);
     
     //here is some code in case the JSON data needs to be displayed in the console

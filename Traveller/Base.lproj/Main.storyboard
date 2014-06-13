@@ -78,7 +78,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <view key="tableFooterView" contentMode="scaleToFill" id="m5l-kH-qMe" userLabel="Book view">
-                                            <rect key="frame" x="0.0" y="1022" width="320" height="157"/>
+                                            <rect key="frame" x="0.0" y="1020" width="320" height="157"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total: $0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNg-27-dBc">
@@ -331,11 +331,11 @@
                                                     <outlet property="priceLabel" destination="Gur-L6-Po7" id="AYt-lU-Quy"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="500" id="xeZ-tf-MnU" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
-                                                <rect key="frame" x="0.0" y="492" width="320" height="500"/>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="498" id="xeZ-tf-MnU" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
+                                                <rect key="frame" x="0.0" y="492" width="320" height="498"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xeZ-tf-MnU" id="Axh-dI-5VI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="499"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="497"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v4i-Om-I5d">
@@ -379,145 +379,152 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                         </button>
-                                                        <view contentMode="scaleToFill" id="CsE-p2-Oaf" userLabel="Hotel Detail">
-                                                            <rect key="frame" x="0.0" y="72" width="320" height="466"/>
+                                                        <view contentMode="scaleToFill" id="Wn0-fO-Se2" userLabel="Hotel Detail">
+                                                            <rect key="frame" x="0.0" y="66" width="320" height="444"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1155, Yan An Road (W), Shanghai, China" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qPM-iC-L8o">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1155, Yan An Road (W), Shanghai, China" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="exI-xJ-cVZ">
                                                                     <rect key="frame" x="20" y="16" width="312" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="textColor" red="0.094117656350135803" green="0.30196079611778259" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tel: 1 (621) 523 - 8255" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MdQ-MZ-Jqd">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tel: 1 (621) 523 - 8255" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rw9-Ga-SAA">
                                                                     <rect key="frame" x="20" y="33" width="312" height="21"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                    <color key="textColor" red="0.094117656350135803" green="0.30196079611778259" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHECK-IN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="epg-UL-eMN">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHECK-IN:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a5y-6a-2d5">
                                                                     <rect key="frame" x="20" y="62" width="80" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                                    <color key="textColor" red="0.094117656350135803" green="0.30196079611778259" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROOM TYPE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="o0c-iL-D2w">
-                                                                    <rect key="frame" x="20" y="127" width="88" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                                    <color key="textColor" red="0.094117656350135803" green="0.30196079611778259" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REVIEWS:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gt8-io-v5E">
-                                                                    <rect key="frame" x="20" y="251" width="88" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                     <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHECK-OUT:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vId-gJ-n8h">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROOM TYPE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kJc-xZ-iJj">
+                                                                    <rect key="frame" x="20" y="137" width="88" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                    <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REVIEWS:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9ke-7K-WAG">
+                                                                    <rect key="frame" x="20" y="290" width="88" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                                    <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHECK-OUT:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bG5-4c-Tc8">
                                                                     <rect key="frame" x="176" y="62" width="156" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                                    <color key="textColor" red="0.094117656350135803" green="0.30196079611778259" blue="0.60000002384185791" alpha="1" colorSpace="deviceRGB"/>
+                                                                    <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon, Feb 9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Uu-0B-oF6">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mon, Feb 9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dsO-Q9-2WE">
                                                                     <rect key="frame" x="20" y="87" width="109" height="27"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Stars" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e6b-vH-i9L">
-                                                                    <rect key="frame" x="20" y="276" width="195" height="27"/>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Stars / 3.5 rating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ddh-A3-JP8">
+                                                                    <rect key="frame" x="20" y="315" width="195" height="27"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Superior Suite - 190.33/night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dLt-2y-m1U">
-                                                                    <rect key="frame" x="20" y="152" width="259" height="29"/>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Superior Suite " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sjz-J4-HDt">
+                                                                    <rect key="frame" x="20" y="162" width="156" height="58"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Uo-2J-NoC">
-                                                                    <rect key="frame" x="20" y="211" width="259" height="29"/>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Okg-9t-mtx">
+                                                                    <rect key="frame" x="20" y="253" width="259" height="29"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, Feb 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DzI-Mx-IlA">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, Feb 11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bNH-Xb-BR8">
                                                                     <rect key="frame" x="176" y="87" width="109" height="27"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMENITIES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nlm-8q-6MY">
-                                                                    <rect key="frame" x="20" y="186" width="88" height="17"/>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMENITIES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YEC-Jr-6H1">
+                                                                    <rect key="frame" x="20" y="228" width="88" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                                     <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JQW-DR-It7">
-                                                                    <rect key="frame" x="20" y="330" width="280" height="43"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FfE-8F-FYg">
+                                                                    <rect key="frame" x="20" y="357" width="280" height="43"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <color key="backgroundColor" white="0.9053661040145986" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <color key="backgroundColor" white="0.90536610399999995" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                     <state key="normal" title="Choose a different hotel">
                                                                         <color key="titleColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <segue destination="AvV-a5-2ba" kind="push" identifier="changeHotelSegue" id="hAM-b6-4xh"/>
+                                                                        <segue destination="AvV-a5-2ba" kind="push" identifier="changeHotelSegue" id="4Dh-Ir-aA0"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="s2H-uS-IJh">
-                                                                    <rect key="frame" x="84" y="381" width="131" height="30"/>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="190.33/night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gyO-Mf-u2e">
+                                                                    <rect key="frame" x="184" y="162" width="101" height="58"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                    <color key="backgroundColor" red="0.8498978342715332" green="0.92872621911404496" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ngR-fB-8p2">
+                                                                    <rect key="frame" x="95" y="403" width="130" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
                                                                     <state key="normal" title="I don't need a hotel">
-                                                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="titleColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="hotelUnneeded:" destination="vXZ-lx-hvc" eventType="touchDown" id="fiy-um-amy"/>
+                                                                        <action selector="hotelUnneeded:" destination="vXZ-lx-hvc" eventType="touchDown" id="lxX-CG-AjS"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
-                                                            <color key="backgroundColor" red="0.98431378602981567" green="0.98431378602981567" blue="0.94509810209274292" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="backgroundColor" red="0.98431378599999997" green="0.98431378599999997" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
                                                         </view>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <outlet property="actionButton" destination="IAz-qW-rdS" id="q5l-qO-uLM"/>
-                                                    <outlet property="addressLabel" destination="qPM-iC-L8o" id="KE8-Jw-nN7"/>
-                                                    <outlet property="amenitiesLabel" destination="8Uo-2J-NoC" id="lID-NK-QpO"/>
-                                                    <outlet property="checkinLabel" destination="8Uu-0B-oF6" id="EGo-Ie-rBt"/>
-                                                    <outlet property="checkoutLabel" destination="DzI-Mx-IlA" id="MqO-SQ-n1g"/>
+                                                    <outlet property="addressLabel" destination="exI-xJ-cVZ" id="80B-8G-IrT"/>
+                                                    <outlet property="amenitiesLabel" destination="Okg-9t-mtx" id="OAM-mB-cIw"/>
+                                                    <outlet property="checkinLabel" destination="dsO-Q9-2WE" id="htC-in-8TF"/>
+                                                    <outlet property="checkoutLabel" destination="bNH-Xb-BR8" id="i88-Uz-Rnj"/>
                                                     <outlet property="eventLocationLabel" destination="j1b-sJ-b84" id="cH1-Lq-LUq"/>
                                                     <outlet property="eventTimeLabel" destination="v4i-Om-I5d" id="spZ-NB-1hz"/>
                                                     <outlet property="eventTitleLabel" destination="s2G-Le-LKH" id="qc1-5K-Jfy"/>
                                                     <outlet property="eventTypeImageView" destination="Ghs-it-Qov" id="d8Q-li-dS3"/>
-                                                    <outlet property="hotelDetailView" destination="CsE-p2-Oaf" id="9R5-iG-48R"/>
-                                                    <outlet property="phoneLabel" destination="MdQ-MZ-Jqd" id="lAC-iu-s0S"/>
+                                                    <outlet property="hotelDetailView" destination="Wn0-fO-Se2" id="xGr-qZ-Zkh"/>
+                                                    <outlet property="phoneLabel" destination="rw9-Ga-SAA" id="fpJ-qJ-E1j"/>
+                                                    <outlet property="priceDetailLabel" destination="gyO-Mf-u2e" id="PtN-IR-EwT"/>
                                                     <outlet property="priceLabel" destination="wth-hc-4Oy" id="5XP-CT-U15"/>
-                                                    <outlet property="reviewLabel" destination="e6b-vH-i9L" id="KD9-qX-ff1"/>
-                                                    <outlet property="roomTypeLabel" destination="dLt-2y-m1U" id="e1Y-DC-UJu"/>
+                                                    <outlet property="reviewLabel" destination="ddh-A3-JP8" id="tfB-Gq-vGM"/>
+                                                    <outlet property="roomTypeLabel" destination="sjz-J4-HDt" id="jT5-Oq-6nV"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeader" rowHeight="30" id="91l-bV-KBW" userLabel="Header view" customClass="MyScheduleTableViewHeaderView">
-                                                <rect key="frame" x="0.0" y="992" width="320" height="30"/>
+                                                <rect key="frame" x="0.0" y="990" width="320" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="91l-bV-KBW" id="V47-Tc-fch">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
@@ -2234,6 +2241,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hAM-b6-4xh"/>
+        <segue reference="4Dh-Ir-aA0"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -17,7 +17,7 @@
 
 static NSInteger kEventCellHeight = 80;
 static NSInteger kFlightCellFullHeight = 400;
-static NSInteger kHotelCellFullHeight = 540;
+static NSInteger kHotelCellFullHeight = 510;
 
 
 @interface PlanTripViewController () <MZFormSheetBackgroundWindowDelegate>
@@ -423,6 +423,7 @@ static NSInteger kHotelCellFullHeight = 540;
             NSString *newEndDate = [dateFormat stringFromDate:endDate];
             endDate = [dateFormat dateFromString:newEndDate];
             NSLog(@"herererehe222222 %@",endDate);
+            NSString *description = [step objectForKey:@"description"];
             
             NSString *cityName = [step objectForKey:@"city"];
             City *city = [[DataManager sharedInstance] getCityWithCityName:cityName                                                                          context:self.managedObjectContext];
@@ -437,6 +438,7 @@ static NSInteger kHotelCellFullHeight = 540;
             NSArray *amenities = [step objectForKey:@"AddedValue"];
             NSNumber *rating = [step objectForKey:@"hotelRating"];
             NSNumber *duration = [step objectForKey:@"stayDays"];
+            NSNumber *userRating = [step objectForKey:@"userRating"];
 
             
             NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
@@ -452,10 +454,12 @@ static NSInteger kHotelCellFullHeight = 540;
             newEvent.serverID = IDFromServer;
             newEvent.endDate = endDate;
             newEvent.title = hotelName;
+            newEvent.notes = description;
             newEvent.toCity = city;
             newEvent.location = location;
             //TODO: maybe change stops into something that can be both used as the stops and as the rating.
             newEvent.rating = rating;
+            newEvent.userRating = userRating;
             //to trip not set
             
             //TRIP SETUP
@@ -730,15 +734,25 @@ static NSInteger kHotelCellFullHeight = 540;
         
         //set up the "room" label
         //TODO: replace "superior suite" by the appropriate suiet from the server
-        NSString *roomType = @"Superior Suite";
+        NSString *roomType = event.notes?event.notes:@"Standard Room";
         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]/[trip.duration floatValue]];
-        NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+        NSString *roomDetails = [NSString stringWithFormat:@"%@", roomType];
         cell.roomTypeLabel.text = roomDetails;
+        cell.priceDetailLabel.text = [NSString stringWithFormat:@"%@/night", roomPrice];
+
+        /*
+         NSString *stars = [hotelProcessed objectForKey:@"hotelRating"];
+         NSString *starText = [NSString stringWithFormat:@"%@ %@", stars, [[hotelProcessed objectForKey:@"hotelRating"] integerValue]>1?@"stars":@"star"];
+         float userRating = [[hotelProcessed objectForKey:@"userRating"]floatValue];
+         NSString *ratingField = [NSString stringWithFormat:@"%@ / %.1f rating", starText, userRating];
+         cell.reviewLabel.text = ratingField;*/
         
         //set up the review label
-        NSString *rating = [event.rating stringValue];        
-        NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [event.rating integerValue]>1?@"stars":@"star"];
-        cell.reviewLabel.text = reviewText;
+        NSString *stars = [event.rating stringValue];
+        NSString *starText = [NSString stringWithFormat:@"%@ %@", stars, [event.rating integerValue]>1?@"stars":@"star"];
+        float userRating = [event.userRating floatValue];
+        NSString *ratingField = [NSString stringWithFormat:@"%@ / %.1f rating", starText, userRating];
+        cell.reviewLabel.text = ratingField;
         
         //TODO: add the amenity and the phone label
         cell.amenitiesLabel.text = @"placeholder amenity";
@@ -1116,6 +1130,7 @@ static NSInteger kHotelCellFullHeight = 540;
         endDate = [dateFormat dateFromString:newEndDate];
         NSLog(@"herererehe222222 %@",endDate);
         
+        NSString *description = [selectedTrip objectForKey:@"description"];
         NSString *cityName = [selectedTrip objectForKey:@"city"];
         City *city = [[DataManager sharedInstance] getCityWithCityName:cityName context:self.managedObjectContext];
         double price = [[selectedTrip objectForKey:@"cost"]floatValue];
@@ -1145,6 +1160,7 @@ static NSInteger kHotelCellFullHeight = 540;
         newEvent.endDate = endDate;
         newEvent.title = hotelName;
         newEvent.toCity = city;
+        newEvent.notes = description;
         newEvent.location = location;
         newEvent.rating = rating;
         //to trip not set

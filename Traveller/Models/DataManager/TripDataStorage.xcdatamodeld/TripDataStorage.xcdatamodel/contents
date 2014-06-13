@@ -33,6 +33,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uid" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userRating" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <relationship name="toAmenity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Amenity" inverseName="toEvent" inverseEntity="Amenity" syncable="YES"/>
         <relationship name="toCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="toEvent" inverseEntity="City" syncable="YES"/>
         <relationship name="toFlight" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flight" inverseName="toEvent" inverseEntity="Flight" syncable="YES"/>
@@ -90,12 +91,12 @@
         <relationship name="toItinerary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Itinerary" inverseName="toTrip" inverseEntity="Itinerary" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Amenity" positionX="-315" positionY="-54" width="128" height="88"/>
         <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
-        <element name="Event" positionX="-189" positionY="-198" width="128" height="28"/>
+        <element name="Event" positionX="-189" positionY="-198" width="128" height="360"/>
         <element name="Flight" positionX="223" positionY="332" width="128" height="298"/>
         <element name="Itinerary" positionX="-504" positionY="390" width="128" height="105"/>
         <element name="Location" positionX="169" positionY="81" width="128" height="165"/>
         <element name="Trip" positionX="-513" positionY="83" width="128" height="238"/>
-        <element name="Amenity" positionX="-315" positionY="-54" width="128" height="88"/>
     </elements>
 </model>
