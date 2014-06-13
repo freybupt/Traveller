@@ -76,7 +76,7 @@ static NSInteger kHotelCellFullHeight = 465;
         serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
-        sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"cost", @YES, @NO, @NO, @YES];
+        sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"distance", @YES, @NO, @NO, @YES];
         [self setSegmentedControlValuesAsHotel:YES];
     } else {
         
@@ -273,6 +273,10 @@ static NSInteger kHotelCellFullHeight = 465;
         cell.eventTitleLabel.text = [hotelProcessed objectForKey:@"hotelName"];
         [cell.eventTypeImageView setImage:[UIImage imageNamed:@"hotelIcon"]];
         cell.eventLocationLabel.text = [hotelProcessed objectForKey:@"address"];
+        
+        float distance = [[hotelProcessed objectForKey:@"distance"]floatValue];
+        NSString* distanceStr = [NSString stringWithFormat:@"%.2f km away", distance];
+        cell.distanceLabel.text = distanceStr;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", [[hotelProcessed objectForKey:@"cost"] floatValue] ];
         
         
@@ -300,7 +304,7 @@ static NSInteger kHotelCellFullHeight = 465;
         NSString *address = [hotelProcessed objectForKey:@"address"];
         cell.eventLocationLabel.text = address;
         
-        NSString *roomType = @"Superior Suite";
+        NSString *roomType = [hotelProcessed objectForKey:@"description"];
         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [[hotelProcessed objectForKey:@"cost"] floatValue]/[[hotelProcessed objectForKey:@"stayDays"] floatValue]];
         NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
         cell.roomTypeLabel.text = roomDetails;

@@ -2007,7 +2007,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SwT-SJ-QkM">
-                                                    <rect key="frame" x="73" y="5" width="227" height="19"/>
+                                                    <rect key="frame" x="73" y="8" width="120" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                                     <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -2038,15 +2038,6 @@
                                                     <rect key="frame" x="17" y="8" width="40" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nUi-Wk-0BA">
-                                                    <rect key="frame" x="222" y="1" width="55" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="12"/>
-                                                    <state key="normal" title="Change">
-                                                        <color key="titleColor" red="0.00082106110890000001" green="0.3969826212" blue="0.0012738924039999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
                                                 <view contentMode="scaleToFill" id="m5Z-2P-T4u" userLabel="Hotel Detail">
                                                     <rect key="frame" x="0.0" y="72" width="320" height="393"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2151,15 +2142,22 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98431378599999997" green="0.98431378599999997" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xOO-el-an5">
+                                                    <rect key="frame" x="201" y="8" width="99" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
+                                                    <color key="textColor" red="0.12549019610000001" green="0.2666666667" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.99215686270000003" green="0.99215686270000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="actionButton" destination="nUi-Wk-0BA" id="s12-xT-UIZ"/>
                                             <outlet property="addressLabel" destination="QgL-x2-4md" id="BOk-nf-4cb"/>
                                             <outlet property="amenitiesLabel" destination="ZGb-y6-Q8Z" id="Ije-lG-bgk"/>
                                             <outlet property="checkinLabel" destination="ykP-gi-juu" id="Wuu-NG-hI6"/>
                                             <outlet property="checkoutLabel" destination="Of3-1S-4w1" id="NnT-UU-KV8"/>
+                                            <outlet property="distanceLabel" destination="xOO-el-an5" id="zT8-p4-5Sv"/>
                                             <outlet property="eventLocationLabel" destination="NP8-LB-nmC" id="mqe-Bb-ggM"/>
                                             <outlet property="eventTimeLabel" destination="SwT-SJ-QkM" id="wl2-bJ-xeu"/>
                                             <outlet property="eventTitleLabel" destination="spJ-Ig-WDu" id="t2N-zU-CAL"/>

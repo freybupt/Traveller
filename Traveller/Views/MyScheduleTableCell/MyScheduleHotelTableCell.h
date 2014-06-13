@@ -18,6 +18,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *roomTypeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *amenitiesLabel;
 @property (nonatomic, weak) IBOutlet UILabel *reviewLabel;
+@property (nonatomic, weak) IBOutlet UILabel *distanceLabel;
 
 
 @end
