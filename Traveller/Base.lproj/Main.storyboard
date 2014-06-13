@@ -1999,11 +1999,11 @@
                                             <outlet property="priceLabel" destination="DVv-qe-WIw" id="Xso-0G-USg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="466" id="twp-3w-Tal" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
-                                        <rect key="frame" x="0.0" y="422" width="320" height="466"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotelCell" rowHeight="493" id="twp-3w-Tal" userLabel="Hotel cell" customClass="MyScheduleHotelTableCell">
+                                        <rect key="frame" x="0.0" y="422" width="320" height="493"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="twp-3w-Tal" id="hEp-UP-Asg">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="465"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="492"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00am - 10:00am" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SwT-SJ-QkM">
@@ -2039,7 +2039,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" id="m5Z-2P-T4u" userLabel="Hotel Detail">
-                                                    <rect key="frame" x="0.0" y="72" width="320" height="393"/>
+                                                    <rect key="frame" x="0.0" y="72" width="320" height="420"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1155, Yan An Road (W), Shanghai, China" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QgL-x2-4md">
@@ -2064,14 +2064,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROOM TYPE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hg7-pe-L4h">
-                                                            <rect key="frame" x="20" y="127" width="88" height="17"/>
+                                                            <rect key="frame" x="20" y="137" width="88" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REVIEWS:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="czl-9m-vSi">
-                                                            <rect key="frame" x="20" y="251" width="88" height="17"/>
+                                                            <rect key="frame" x="20" y="290" width="88" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
@@ -2091,22 +2091,22 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Stars" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="79w-qp-MqR">
-                                                            <rect key="frame" x="20" y="276" width="195" height="27"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Stars / 3.5 rating" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="79w-qp-MqR">
+                                                            <rect key="frame" x="20" y="315" width="195" height="27"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Superior Suite - 190.33/night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4a-Vc-lAA">
-                                                            <rect key="frame" x="20" y="152" width="259" height="29"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Superior Suite " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m4a-Vc-lAA">
+                                                            <rect key="frame" x="20" y="162" width="156" height="58"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZGb-y6-Q8Z">
-                                                            <rect key="frame" x="20" y="211" width="259" height="29"/>
+                                                            <rect key="frame" x="20" y="253" width="259" height="29"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -2120,14 +2120,14 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMENITIES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jMn-vO-DOR">
-                                                            <rect key="frame" x="20" y="186" width="88" height="17"/>
+                                                            <rect key="frame" x="20" y="228" width="88" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                             <color key="textColor" red="0.094117656349999995" green="0.30196079609999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fmE-94-R8g">
-                                                            <rect key="frame" x="20" y="330" width="280" height="43"/>
+                                                            <rect key="frame" x="20" y="357" width="280" height="43"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="0.90536610399999995" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -2139,6 +2139,13 @@
                                                                 <action selector="confirmTripButtonTapAction:" destination="AvV-a5-2ba" eventType="touchDown" id="CAv-cq-zqz"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="190.33/night" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sNI-Qv-FxN">
+                                                            <rect key="frame" x="184" y="162" width="101" height="58"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.98431378599999997" green="0.98431378599999997" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
                                                 </view>
@@ -2164,6 +2171,7 @@
                                             <outlet property="eventTypeImageView" destination="wLB-jG-Peb" id="YRR-gT-5p9"/>
                                             <outlet property="hotelDetailView" destination="m5Z-2P-T4u" id="CYU-mE-BrP"/>
                                             <outlet property="phoneLabel" destination="qP6-jp-2pi" id="bpi-rA-LZl"/>
+                                            <outlet property="priceDetailLabel" destination="sNI-Qv-FxN" id="RVR-kB-hkM"/>
                                             <outlet property="priceLabel" destination="a2Z-ZO-nRD" id="qZW-q6-MnI"/>
                                             <outlet property="reviewLabel" destination="79w-qp-MqR" id="evF-X7-Pcb"/>
                                             <outlet property="roomTypeLabel" destination="m4a-Vc-lAA" id="OEx-t4-XDG"/>

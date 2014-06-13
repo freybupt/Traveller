@@ -12,7 +12,7 @@
 
 static NSInteger kFlightCellFullHeight = 400;
 static NSInteger kStandardCellHeight = 70;
-static NSInteger kHotelCellFullHeight = 465;
+static NSInteger kHotelCellFullHeight = 490;
 
 @interface ChangeOptionsViewController ()
 @property (nonatomic) BOOL isAConnectionOpen;
@@ -306,16 +306,19 @@ static NSInteger kHotelCellFullHeight = 465;
         
         NSString *roomType = [hotelProcessed objectForKey:@"description"];
         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [[hotelProcessed objectForKey:@"cost"] floatValue]/[[hotelProcessed objectForKey:@"stayDays"] floatValue]];
-        NSString *roomDetails = [NSString stringWithFormat:@"%@ - %@/night", roomType, roomPrice];
+        NSString *roomDetails = [NSString stringWithFormat:@"%@", roomType];
         cell.roomTypeLabel.text = roomDetails;
+        cell.priceDetailLabel.text = [NSString stringWithFormat:@"%@/night", roomPrice];
 
      
          cell.roomTypeLabel.text = roomDetails;
          
          //set up the review label
-         NSString *rating = [hotelProcessed objectForKey:@"hotelRating"];
-         NSString *reviewText = [NSString stringWithFormat:@"%@ %@", rating, [[hotelProcessed objectForKey:@"hotelRating"] integerValue]>1?@"stars":@"star"];
-         cell.reviewLabel.text = reviewText;
+         NSString *stars = [hotelProcessed objectForKey:@"hotelRating"];
+         NSString *starText = [NSString stringWithFormat:@"%@ %@", stars, [[hotelProcessed objectForKey:@"hotelRating"] integerValue]>1?@"stars":@"star"];
+         float userRating = [[hotelProcessed objectForKey:@"userRating"]floatValue];
+        NSString *ratingField = [NSString stringWithFormat:@"%@ / %.1f rating", starText, userRating];
+         cell.reviewLabel.text = ratingField;
          
          //TODO: add the amenity and the phone label
          cell.amenitiesLabel.text = @"placeholder amenity";
@@ -448,7 +451,8 @@ static NSInteger kHotelCellFullHeight = 465;
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"this is just a test, and I am trying it";
+    NSString *option = self.isHotel?@"hotel":@"flight";
+    return [NSString stringWithFormat:@"Please select your ideal %@", option];
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
