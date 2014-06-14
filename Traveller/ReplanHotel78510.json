@@ -1,0 +1,154 @@
+{
+    "planSteps": [
+                  {
+                  "stepType": "flight",
+                  "flightID": 479,
+                  "departureCity": "Vancouver",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-06-24 08:00:00",
+                  "arrivalCity": "Moncton",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-06-24 19:59:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 479,
+                  "stops": 1,
+                  "cost": 486.40555,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YVR",
+                                        "arrivalCode": "YYZ",
+                                        "departureAirport": "Vancouver International Airport",
+                                        "arrivalAirport": "Lester B Pearson International Airport",
+                                        "departureCity": "Vancouver",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-24 08:00:00",
+                                        "arrivalCity": "Toronto",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-24 15:29:00",
+                                        "designatorCode": "AC142",
+                                        "duration": 269
+                                        },
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YYZ",
+                                        "arrivalCode": "YQM",
+                                        "departureAirport": "Lester B Pearson International Airport",
+                                        "arrivalAirport": "Greater Moncton International Airport",
+                                        "departureCity": "Toronto",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-24 16:40:00",
+                                        "arrivalCity": "Moncton",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-24 19:59:00",
+                                        "designatorCode": "AC8940",
+                                        "duration": 139
+                                        }
+                                        ]
+                  },
+                  {
+                  "stepType": "hotel",
+                  "hotelID": 82,
+                  "city": "Moncton",
+                  "hotelName": "Casino New Brunswick",
+                  "address": "21 Casino Drive",
+                  "country": "CA",
+                  "startDate": "2014-06-24",
+                  "endDate": "2014-06-29",
+                  "cost": 673.7,
+                  "stayDays": 5,
+                  "hotelRating": 3.5,
+                  "userRating": 4,
+                  "distance": 4.471787,
+                  "description": "Deluxe Room, 1 King Bed",
+                  "AddedValue": [
+                                 "Free High-Speed Internet",
+                                 "Free Parking"
+                                 ]
+                  },
+                  {
+                  "stepType": "flight",
+                  "flightID": 482,
+                  "departureCity": "Moncton",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-06-29 06:45:00",
+                  "arrivalCity": "Toronto",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-06-29 07:57:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 132,
+                  "stops": 0,
+                  "cost": 200.66,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "WestJet",
+                                        "departureCode": "YQM",
+                                        "arrivalCode": "YYZ",
+                                        "departureAirport": "Greater Moncton International Airport",
+                                        "arrivalAirport": "Lester B Pearson International Airport",
+                                        "departureCity": "Moncton",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-06-29 06:45:00",
+                                        "arrivalCity": "Toronto",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-06-29 07:57:00",
+                                        "designatorCode": "WS283",
+                                        "duration": 132
+                                        }
+                                        ]
+                  },
+                  {
+                  "stepType": "hotel",
+                  "hotelID": 79,
+                  "city": "Mississauga",
+                  "hotelName": "Sheraton Gateway Hotel In Toronto International Airport",
+                  "address": "Terminal 3",
+                  "country": "CA",
+                  "startDate": "2014-06-29",
+                  "endDate": "2014-07-02",
+                  "cost": 450.48,
+                  "stayDays": 3,
+                  "hotelRating": 4,
+                  "userRating": 4,
+                  "distance": 7.080837,
+                  "description": "Traditional Room, 2 Double Beds",
+                  "AddedValue": [
+                                 ""
+                                 ]
+                  },
+                  {
+                  "stepType": "flight",
+                  "flightID": 484,
+                  "departureCity": "Toronto",
+                  "departureCountry": "Canada",
+                  "departureTime": "2014-07-02 20:15:00",
+                  "arrivalCity": "Vancouver",
+                  "arrivalCountry": "Canada",
+                  "arrivalTime": "2014-07-02 22:11:00",
+                  "currency": "USD",
+                  "classType": "economy",
+                  "duration": 296,
+                  "stops": 0,
+                  "cost": 278.8906,
+                  "FlightConnections": [
+                                        {
+                                        "airline": "Air Canada",
+                                        "departureCode": "YYZ",
+                                        "arrivalCode": "YVR",
+                                        "departureAirport": "Lester B Pearson International Airport",
+                                        "arrivalAirport": "Vancouver International Airport",
+                                        "departureCity": "Toronto",
+                                        "departureCountry": "Canada",
+                                        "departureTime": "2014-07-02 20:15:00",
+                                        "arrivalCity": "Vancouver",
+                                        "arrivalCountry": "Canada",
+                                        "arrivalTime": "2014-07-02 22:11:00",
+                                        "designatorCode": "AC33",
+                                        "duration": 296
+                                        }
+                                        ]
+                  }
+                  ]
+}

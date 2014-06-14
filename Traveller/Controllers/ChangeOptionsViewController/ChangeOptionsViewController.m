@@ -70,7 +70,7 @@ static NSInteger kHotelCellFullHeight = 490;
     if(self.isHotel){
         
         //This part is to avoid saturating the server with GET requests
-        //TODO: comment or uncomment this section as needed
+        //TODO: comment this section to use the server
         //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
         //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
@@ -81,7 +81,7 @@ static NSInteger kHotelCellFullHeight = 490;
     } else {
         
         //This part is to avoid saturating the server with GET requests
-        //TODO: comment or uncomment this section as needed
+        //TODO: comment this section to use the server
         //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
         //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];

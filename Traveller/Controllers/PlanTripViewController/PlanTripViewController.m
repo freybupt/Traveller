@@ -26,6 +26,7 @@ static NSInteger kHotelCellFullHeight = 510;
 @property (nonatomic, assign) NSInteger totalPrice;
 @property (nonatomic) int countAlertShown;
 @property (nonatomic) Trip* tripToBeSentToTheServer;
+@property (nonatomic) NSMutableArray* allCurrentTrips;
 
 
 @property (nonatomic, weak) IBOutlet UIView *bookTripView;
@@ -52,7 +53,8 @@ static NSInteger kHotelCellFullHeight = 510;
     
     // Register self.managedObjectContext to share with CalendarDayView
     [[DataManager sharedInstance] registerBridgedMoc:self.managedObjectContext];
-    
+    NSMutableArray *initArray = [[NSMutableArray alloc]init];
+    self.allCurrentTrips = initArray;
     if ([[TripManager sharedManager] tripStage] == TripStageSelectEvent) {
         [self calculateTrip:nil];
     }
@@ -444,7 +446,6 @@ static NSInteger kHotelCellFullHeight = 510;
             NSMutableArray *amenitiesArray = [[NSMutableArray alloc]init];
             for (int i =0; i<[amenities count];i++){
                 Amenity *newAmenity = [[DataManager sharedInstance]newAmenityWithContext:self.managedObjectContext];
-                //TODO: check with Lan about the fields to add them here
                 [amenitiesArray addObject:newAmenity];
             }
             
@@ -493,6 +494,7 @@ static NSInteger kHotelCellFullHeight = 510;
         trip.toItinerary = _itinerary;
         if ([[DataManager sharedInstance] saveTrip:trip
                                            context:self.managedObjectContext]) {
+            [self.allCurrentTrips addObject:trip];
             _itinerary.date = trip.startDate;
             _itinerary.title = [NSString stringWithFormat:NSLocalizedString(@"Trip to %@", nil), trip.toEvent.toCity.cityName];
         }
@@ -563,10 +565,10 @@ static NSInteger kHotelCellFullHeight = 510;
     NSData *jsonDataOut = [self printToJsonAtCity:departureCity withEvents:events atContext:self.managedObjectContext];
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
-    //TODO: comment or uncomment this section as needed
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //TODO: comment this section to use the server
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END of section
     
     
@@ -733,7 +735,6 @@ static NSInteger kHotelCellFullHeight = 510;
         cell.addressLabel.text = address;
         
         //set up the "room" label
-        //TODO: replace "superior suite" by the appropriate suiet from the server
         NSString *roomType = event.notes?event.notes:@"Standard Room";
         NSString *roomPrice = [NSString stringWithFormat:@"$%.2f", [trip.price floatValue]/[trip.duration floatValue]];
         NSString *roomDetails = [NSString stringWithFormat:@"%@", roomType];
@@ -1056,11 +1057,6 @@ static NSInteger kHotelCellFullHeight = 510;
     
     if([segue.identifier isEqualToString:@"changeFlightSegue"]||[segue.identifier isEqualToString:@"changeHotelSegue"]){
         ChangeOptionsViewController *changeOptionsController = (ChangeOptionsViewController *)segue.destinationViewController;
-        NSLog(@"aha");
-        //TODO: decide whether to do it this way
-        //([[DataManager sharedInstance] deleteTrip:self.tripToBeSentToTheServer
-         //                                 context:self.managedObjectContext]);
-        //[self.tableView reloadData];
         changeOptionsController.trip = self.tripToBeSentToTheServer;
         changeOptionsController.delegate = self;
     }
@@ -1068,30 +1064,23 @@ static NSInteger kHotelCellFullHeight = 510;
 
 - (void)addItemViewController:(ChangeOptionsViewController *)controller didFinishEnteringItem:(NSDictionary *)selectedTrip
 {
-    int previousPrice = self.totalPrice;
-    float newPrice = previousPrice - [self.tripToBeSentToTheServer.price floatValue];
-    NSInteger price = ceil(newPrice);
-    self.totalPrice = price;
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
-    ([[DataManager sharedInstance] deleteTrip:self.tripToBeSentToTheServer
-                                     context:self.managedObjectContext]);
-    Event *newEvent = [[DataManager sharedInstance] newEventWithContext:self.managedObjectContext];
-    Trip *newTrip = [[DataManager sharedInstance] newTripWithContext:self.managedObjectContext];
-    NSArray *EventTripPair = [self createArrayWithDictionary:selectedTrip];
+    //TODO: rework this (ask shirley about delete)
+    NSNumber *oldID = self.tripToBeSentToTheServer.toEvent.serverID;
+    BOOL isHotel = [selectedTrip objectForKey:@"hotelID"]?YES:NO;
+    NSNumber *newID = isHotel?[selectedTrip objectForKey:@"hotelID"]:[selectedTrip objectForKey:@"flightID"];
     
-    newEvent= [EventTripPair objectAtIndex:0];
-    newTrip= [EventTripPair objectAtIndex:1];
-    
-    [[DataManager sharedInstance] saveTrip:newTrip
-                                   context:self.managedObjectContext];
+    //delete the current trips and basically, reset everything to cero
+    for (Trip* trip in self.allCurrentTrips){
+        ([[DataManager sharedInstance] deleteTrip:trip
+                                         context:self.managedObjectContext]);
+    }
+    self.totalPrice = 0;
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $0"];
 
-    self.tripToBeSentToTheServer = newTrip;
-    previousPrice = self.totalPrice;
-    newPrice = previousPrice + [self.tripToBeSentToTheServer.price floatValue];
-    price = ceil(newPrice);
-    self.totalPrice = price;
-    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
     
+    //create a new travel plan using the data from server
+    [self reworkHotelsAndFlightsWithData:nil withOldID:oldID andNewID:newID isHotel:isHotel];
+
     [self.tableView reloadData];
 }
 
@@ -1234,6 +1223,62 @@ static NSInteger kHotelCellFullHeight = 510;
     return eventTripPair;
 }
 
+- (void) reworkHotelsAndFlightsWithData:(NSData*)dataFromServer withOldID:(NSNumber*)oldID andNewID:(NSNumber*)newID isHotel:(BOOL)isHotel{
+    
+    //TODO: comment this section to use the server.
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //END OF SECTION
+    
+    if (!dataFromServer){
+        NSString *tripType = isHotel?@"hotel":@"flight";
+        NSString *oldServerID = [oldID stringValue];
+        NSString *newServerID = [newID stringValue];
+        NSString *urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/replan/%@/%@/%@", tripType, oldServerID, newServerID];
+        [self sendGetRequestToURL:urlForGet];
+    } else {
+        //transform the jsonData into an array of event-trip pairs
+        NSArray *stepsFromServer = [self createArrayOfEventsFrom:dataFromServer  usingContext:self.managedObjectContext];
+        //Processing data in order to be displayed by the UI
+        //Please note that the total price label and the itinerary is being changed inside these functions
+        if (stepsFromServer)
+        {
+            [self processTrips:stepsFromServer withContext:self.managedObjectContext];
+        }
+    }
+    
+    self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%ld", (long)self.totalPrice];
+    [self.tableView reloadData];
+    [[TripManager sharedManager] setTripStage:TripStagePlanTrip];
+    
+}
+
+//This will send a get request to the server for it to replan the trip based on the newly selected hotel/flight
+- (void) sendGetRequestToURL:(NSString*)urlForGet{
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    [request setURL:[NSURL URLWithString:urlForGet]];
+    [request setHTTPMethod:@"GET"];
+    
+    //use asynch connection to send a POST request
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
+        if (!data)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: @"No message received from the server." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        else
+        {
+            //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
+            // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
+            [self reworkHotelsAndFlightsWithData:data withOldID:nil andNewID:nil isHotel:NO];
+            [self.tableView reloadData];
+            
+        }
+        
+    }];
+}
 @end
 
 

@@ -90,6 +90,7 @@
 		76C497931918673A00118140 /* MyScheduleHotelTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C497921918673A00118140 /* MyScheduleHotelTableCell.m */; };
 		76C497951919614000118140 /* airCanadaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C497941919614000118140 /* airCanadaLogo.png */; };
 		8417CF4E194263DA00ADBB41 /* ChangeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */; };
+		8495B1A1194BC72A00A3F07D /* ReplanHotel78510.json in Resources */ = {isa = PBXBuildFile; fileRef = 8495B1A0194BC72A00A3F07D /* ReplanHotel78510.json */; };
 		8498911E1947BEDF00779CBB /* ShowHotels9.json in Resources */ = {isa = PBXBuildFile; fileRef = 8498911D1947BEDF00779CBB /* ShowHotels9.json */; };
 		849891201947BEFE00779CBB /* ShowFlights166.json in Resources */ = {isa = PBXBuildFile; fileRef = 8498911F1947BEFE00779CBB /* ShowFlights166.json */; };
 		84993C7419462B11000B4BD8 /* Amenity.h in Resources */ = {isa = PBXBuildFile; fileRef = 84993C7319462B11000B4BD8 /* Amenity.h */; };
@@ -302,6 +303,7 @@
 		76C497941919614000118140 /* airCanadaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airCanadaLogo.png; sourceTree = "<group>"; };
 		8417CF4C194263DA00ADBB41 /* ChangeOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeOptionsViewController.h; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.h; sourceTree = "<group>"; };
 		8417CF4D194263DA00ADBB41 /* ChangeOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChangeOptionsViewController.m; path = Controllers/ChangeOptionsViewController/ChangeOptionsViewController.m; sourceTree = "<group>"; };
+		8495B1A0194BC72A00A3F07D /* ReplanHotel78510.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ReplanHotel78510.json; sourceTree = "<group>"; };
 		8498911D1947BEDF00779CBB /* ShowHotels9.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ShowHotels9.json; sourceTree = "<group>"; };
 		8498911F1947BEFE00779CBB /* ShowFlights166.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ShowFlights166.json; sourceTree = "<group>"; };
 		84993C7319462B11000B4BD8 /* Amenity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Amenity.h; sourceTree = "<group>"; };
@@ -770,6 +772,7 @@
 		76C270B718B2A1E2003A49A3 /* Traveller */ = {
 			isa = PBXGroup;
 			children = (
+				8495B1A0194BC72A00A3F07D /* ReplanHotel78510.json */,
 				8498911D1947BEDF00779CBB /* ShowHotels9.json */,
 				8668279C193813BF00BDF9E5 /* ServerResponse.json */,
 				8498911F1947BEFE00779CBB /* ShowFlights166.json */,
@@ -1491,6 +1494,7 @@
 				76C270C518B2A1E2003A49A3 /* Main.storyboard in Resources */,
 				761188A61913067D00A620D9 /* logo.png in Resources */,
 				76C4977F191805F600118140 /* creditCards.png in Resources */,
+				8495B1A1194BC72A00A3F07D /* ReplanHotel78510.json in Resources */,
 				761188A1191304EC00A620D9 /* Vancouver_6.jpg in Resources */,
 				76C4976B191458FD00118140 /* bookTripButton.png in Resources */,
 				761213E31926EA810022098B /* logo_white.png in Resources */,
