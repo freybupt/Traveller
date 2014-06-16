@@ -16,6 +16,7 @@
 
 @dynamic allDay;
 @dynamic classType;
+@dynamic comfort;
 @dynamic endDate;
 @dynamic eventIdentifier;
 @dynamic eventType;

@@ -44,6 +44,7 @@ static NSInteger kHotelCellFullHeight = 490;
         NSLog(@"connection started");
         if (self.trip){
             self.isHotel = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? YES:NO;
+            self.isHotel?[self.criteriaSegmentedControl insertSegmentWithTitle:@"comfort" atIndex:4 animated:NO]:nil;
             self.title = [self.trip.toEvent.eventType integerValue] == EventTypeHotel? @"HOTEL OPTIONS":@"FLIGHT OPTIONS";
             //NSData* serverResponse = [self sendGetRequest:self.trip];
             [self processEventChange:nil];
@@ -66,30 +67,37 @@ static NSInteger kHotelCellFullHeight = 490;
     
     
     //TODO: Optimizing: change nsarray into a dictionary and use the keys for the ascending value/
-    NSArray *sortingCriteria;
+    NSArray *sortingFields;
+    NSArray *ascendingArray;
+    //NSMutableDictionary *sortingCriteriaDic = [[NSMutableDictionary alloc] init];
     if(self.isHotel){
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+       // NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+      //  serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
+        sortingFields = @[@"cost", @"hotelRating", @"userRating", @"distance", @"overAllValue"];
+        ascendingArray = @[@YES, @NO, @NO, @YES, @NO];
         
-        sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"distance", @YES, @NO, @NO, @YES];
+        //sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"distance", @YES, @NO, @NO, @YES];
         [self setSegmentedControlValuesAsHotel:YES];
     } else {
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+       // NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+      //  serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
-        sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
+        sortingFields = @[@"cost", @"arrivalTime", @"departureTime", @"duration"];
+        ascendingArray = @[@YES, @YES, @YES, @YES];
+        //sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
         [self setSegmentedControlValuesAsHotel:NO];
     }
+
     
     if (!serverData){
         NSLog(@"data form server pls have sth %@", self.dataFromServer);
@@ -97,33 +105,9 @@ static NSInteger kHotelCellFullHeight = 490;
     } else {
         NSString *searchingCriteria = @"cost";
         BOOL ascending = YES;
-        switch(self.criteriaSegmentedControl.selectedSegmentIndex){
-            case 0:{
-                searchingCriteria = [sortingCriteria objectAtIndex:0];
-                ascending = [[sortingCriteria objectAtIndex:4]boolValue];
-                break;
-            }
-            case 1:{
-                searchingCriteria = [sortingCriteria objectAtIndex:1];
-                ascending = [[sortingCriteria objectAtIndex:5]boolValue];
-                break;
-            }
-            case 2:{
-                searchingCriteria = [sortingCriteria objectAtIndex:2];
-                ascending = [[sortingCriteria objectAtIndex:6]boolValue];
-                break;
-            }
-            case 3:{
-                searchingCriteria = [sortingCriteria objectAtIndex:3];
-                ascending = [[sortingCriteria objectAtIndex:7]boolValue];
-                break;
-            }
-            default:{
-                searchingCriteria = [sortingCriteria objectAtIndex:0];
-                ascending = YES;
-                break;
-            }
-        }
+        int currentSegment = self.criteriaSegmentedControl.selectedSegmentIndex;
+        searchingCriteria = [sortingFields objectAtIndex:currentSegment];
+        ascending = [[ascendingArray objectAtIndex:currentSegment]boolValue];
         NSArray *optionsFromServer = [self returnArrayOfEventsWith:serverData usingContext:[self managedObjectContext] sortedBy:searchingCriteria inAscending:ascending];
         self.resultsFromServer = optionsFromServer;
     }

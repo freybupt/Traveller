@@ -439,6 +439,7 @@ static NSInteger kHotelCellFullHeight = 510;
             NSNumber *IDFromServer = [step objectForKey:@"hotelID"];
             NSArray *amenities = [step objectForKey:@"AddedValue"];
             NSNumber *rating = [step objectForKey:@"hotelRating"];
+            NSNumber *comfort = [step objectForKey:@"overAllValue"];
             NSNumber *duration = [step objectForKey:@"stayDays"];
             NSNumber *userRating = [step objectForKey:@"userRating"];
 
@@ -450,6 +451,7 @@ static NSInteger kHotelCellFullHeight = 510;
             }
             
             //EVENT SETUP
+            newEvent.comfort = comfort;
             newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
             newEvent.startDate = startDate;
             newEvent.serverID = IDFromServer;
@@ -566,9 +568,9 @@ static NSInteger kHotelCellFullHeight = 510;
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
     //TODO: comment this section to use the server
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END of section
     
     
@@ -1131,6 +1133,7 @@ static NSInteger kHotelCellFullHeight = 510;
         NSString *location = [NSString stringWithFormat:@"%@%@%@%@%@", address, @", ",eventCity, @", ", countryCode];
         NSNumber *IDFromServer = [selectedTrip objectForKey:@"hotelID"];
         NSArray *amenities = [selectedTrip objectForKey:@"AddedValue"];
+        NSNumber *comfort = [selectedTrip objectForKey:@"overAllValue"];
         NSNumber *rating = [selectedTrip objectForKey:@"hotelRating"];
         NSNumber *duration = [selectedTrip objectForKey:@"stayDays"];
         
@@ -1143,6 +1146,7 @@ static NSInteger kHotelCellFullHeight = 510;
         }
         
         //EVENT SETUP
+        newEvent.comfort = comfort;
         newEvent.eventType = [NSNumber numberWithInteger: EventTypeHotel];
         newEvent.startDate = startDate;
         newEvent.serverID = IDFromServer;
@@ -1226,9 +1230,9 @@ static NSInteger kHotelCellFullHeight = 510;
 - (void) reworkHotelsAndFlightsWithData:(NSData*)dataFromServer withOldID:(NSNumber*)oldID andNewID:(NSNumber*)newID isHotel:(BOOL)isHotel{
     
     //TODO: comment this section to use the server.
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+   // NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
+   // NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+   // dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END OF SECTION
     
     if (!dataFromServer){

@@ -20,6 +20,7 @@
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="allDay" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="classType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comfort" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -93,7 +94,7 @@
     <elements>
         <element name="Amenity" positionX="-315" positionY="-54" width="128" height="88"/>
         <element name="City" positionX="-207" positionY="372" width="128" height="195"/>
-        <element name="Event" positionX="-189" positionY="-198" width="128" height="360"/>
+        <element name="Event" positionX="-189" positionY="-198" width="128" height="375"/>
         <element name="Flight" positionX="223" positionY="332" width="128" height="298"/>
         <element name="Itinerary" positionX="-504" positionY="390" width="128" height="105"/>
         <element name="Location" positionX="169" positionY="81" width="128" height="165"/>
