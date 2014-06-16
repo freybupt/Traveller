@@ -149,7 +149,7 @@
     if ([event.location length] > 0 && [event.isSelected boolValue]) {
         //let's try to add the geocode here
         NSString *currentLocationLabelText = cell.eventLocationLabel.text;
-        if (!([currentLocationLabelText caseInsensitiveCompare:event.location]== NSOrderedSame)){
+        if (!([currentLocationLabelText caseInsensitiveCompare:event.location]== NSOrderedSame) || !event.toCity){
             cell.eventLocationLabel.text = event.location;
             __block NSString* cityNameBlock;
             // perform geocode
@@ -159,15 +159,26 @@
                         
                         CLPlacemark *fullAddress = [placemarks firstObject];
                         NSDictionary *addressCorrected = fullAddress.addressDictionary;
+                        NSLog(@"please %@", [addressCorrected description]);
+                        
                         NSString *cityName = [addressCorrected objectForKey:@"City"];
                         cityNameBlock = cityName;
                         BOOL didCityChange = !([event.toCity.cityName caseInsensitiveCompare:cityName]== NSOrderedSame);
                         if(!event.toCity || didCityChange){
                             City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityNameBlock
                                                                                      context:self.managedObjectContext];
+                            //TODO: Ask Shirley about this...
+                            if(!toCity){
+                                toCity.cityName = [addressCorrected objectForKey:@"City"];
+                                toCity.countryCode = [addressCorrected objectForKey:@"CountryCode"];
+                                toCity.countryName = [addressCorrected objectForKey:@"Country"];
+                                NSLog(@"Check that the city's fields are correct %@, %@, %@", [addressCorrected objectForKey:@"City"], [addressCorrected objectForKey:@"CountryCode"], [addressCorrected objectForKey:@"Country"]);
+                                NSLog(@"this is the new city %@", [toCity description]);
+                            } else {
+                                NSLog(@"The city was found! How come? %@", toCity.cityName);
+                            }
                             event.toCity = toCity;
                             
-                            //TODO: Ask Shirley about this...
                             if(!([event.toCity.cityName caseInsensitiveCompare:cityName]== NSOrderedSame)){
                                // [self checkBoxTapAction:nil];
                                // [self checkBoxTapAction:nil];
