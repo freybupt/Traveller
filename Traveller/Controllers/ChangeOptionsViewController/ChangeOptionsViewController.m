@@ -71,9 +71,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"hotelRating", @"userRating", @"distance", @YES, @NO, @NO, @YES];
@@ -82,9 +82,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingCriteria = @[@"cost", @"arrivalTime", @"departureTime", @"duration", @YES, @YES, @YES, @YES];
