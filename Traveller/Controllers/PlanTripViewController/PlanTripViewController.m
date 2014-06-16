@@ -981,7 +981,12 @@ static NSInteger kHotelCellFullHeight = 510;
                 NSInteger price = ceil(newPrice);
                 self.totalPrice = price;
                 self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
+                NSString *url = [NSString stringWithFormat:@"http://10.0.10.202:8182/deleteHotel/%@", [self.tripToBeSentToTheServer.toEvent.serverID stringValue]];
+                NSLog(@"this is the url %@", url);
+                
+                [self sendGetRequestToURL:url updatePlan:NO];
                 [[DataManager sharedInstance]deleteTrip:[self tripToBeSentToTheServer] context:[self managedObjectContext]];
+                
                 break;
             }
             default:
@@ -989,7 +994,6 @@ static NSInteger kHotelCellFullHeight = 510;
         }
     }
 }
-
 
 #pragma mark - Event detail views
 - (void)showHotelPanoramaWithEvent: (Event *)event
@@ -1240,7 +1244,7 @@ static NSInteger kHotelCellFullHeight = 510;
         NSString *oldServerID = [oldID stringValue];
         NSString *newServerID = [newID stringValue];
         NSString *urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/replan/%@/%@/%@", tripType, oldServerID, newServerID];
-        [self sendGetRequestToURL:urlForGet];
+        [self sendGetRequestToURL:urlForGet updatePlan:YES];
     } else {
         //transform the jsonData into an array of event-trip pairs
         NSArray *stepsFromServer = [self createArrayOfEventsFrom:dataFromServer  usingContext:self.managedObjectContext];
@@ -1259,7 +1263,7 @@ static NSInteger kHotelCellFullHeight = 510;
 }
 
 //This will send a get request to the server for it to replan the trip based on the newly selected hotel/flight
-- (void) sendGetRequestToURL:(NSString*)urlForGet{
+- (void) sendGetRequestToURL:(NSString*)urlForGet updatePlan:(BOOL)updatePlan{
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     [request setURL:[NSURL URLWithString:urlForGet]];
@@ -1276,8 +1280,10 @@ static NSInteger kHotelCellFullHeight = 510;
         {
             //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
             // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
-            [self reworkHotelsAndFlightsWithData:data withOldID:nil andNewID:nil isHotel:NO];
-            [self.tableView reloadData];
+            if(updatePlan){
+                [self reworkHotelsAndFlightsWithData:data withOldID:nil andNewID:nil isHotel:NO];
+                [self.tableView reloadData];
+            }
             
         }
         
