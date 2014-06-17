@@ -217,8 +217,8 @@ static NSInteger kHotelCellFullHeight = 490;
                     [self performSelector:@selector(dismissAlert:) withObject:connectionOpen afterDelay:2.0f];
                     break;
                 }
+                [self.navigationController popToRootViewControllerAnimated:YES];
                 
-                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
                 break;
             }
             default:
