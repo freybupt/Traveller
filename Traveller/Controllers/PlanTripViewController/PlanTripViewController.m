@@ -27,7 +27,7 @@ static NSInteger kHotelCellFullHeight = 510;
 @property (nonatomic) int countAlertShown;
 @property (nonatomic) Trip* tripToBeSentToTheServer;
 @property (nonatomic) NSMutableArray* allCurrentTrips;
-
+@property (nonatomic) BOOL isConnectionOpen;
 
 @property (nonatomic, weak) IBOutlet UIView *bookTripView;
 @property (nonatomic, weak) IBOutlet UILabel *totalPriceLabel;
@@ -236,6 +236,7 @@ static NSInteger kHotelCellFullHeight = 510;
 
 //will post the data using async connection
 - (NSData*)postToServerAsync:(NSString*)url theJSONData:(NSData*)jsonData{
+    self.isConnectionOpen = YES;
     UIAlertView *loadingMessage = [[UIAlertView alloc] initWithTitle: @"Loading" message: @"Please wait while your options load. This may take a few moments" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [loadingMessage show];
     
@@ -276,6 +277,7 @@ static NSInteger kHotelCellFullHeight = 510;
             NSLog(@"\n\n\n\n %@", theReply);
         
         }
+        self.isConnectionOpen = NO;
         
     }];
     return responseAsync;
@@ -568,9 +570,9 @@ static NSInteger kHotelCellFullHeight = 510;
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
     //TODO: comment this section to use the server
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END of section
     
     
@@ -961,6 +963,16 @@ static NSInteger kHotelCellFullHeight = 510;
         switch (buttonIndex) {
             case 1:
             {
+                if (self.isConnectionOpen){
+                    UIAlertView *connectionOpen = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", nil)
+                                                                               message:@"Please wait until the connection is terminated"
+                                                                              delegate:self
+                                                                     cancelButtonTitle:nil
+                                                                    otherButtonTitles: nil];
+                    [self performSelector:@selector(dismissAlert:) withObject:connectionOpen afterDelay:2.0f];
+                    break;
+                }
+                
                 // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
                 if ([[DataManager sharedInstance] deleteItineray:_itinerary
                                                          context:self.managedObjectContext]) {
@@ -993,6 +1005,11 @@ static NSInteger kHotelCellFullHeight = 510;
                 break;
         }
     }
+}
+
+-(void)dismissAlert:(UIAlertView *) alertView
+{
+    [alertView dismissWithClickedButtonIndex:0 animated:NO];
 }
 
 #pragma mark - Event detail views
@@ -1264,7 +1281,7 @@ static NSInteger kHotelCellFullHeight = 510;
 
 //This will send a get request to the server for it to replan the trip based on the newly selected hotel/flight
 - (void) sendGetRequestToURL:(NSString*)urlForGet updatePlan:(BOOL)updatePlan{
-    
+    self.isConnectionOpen = YES;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
     [request setURL:[NSURL URLWithString:urlForGet]];
     [request setHTTPMethod:@"GET"];
@@ -1286,7 +1303,7 @@ static NSInteger kHotelCellFullHeight = 510;
             }
             
         }
-        
+        self.isConnectionOpen = NO;
     }];
 }
 @end
