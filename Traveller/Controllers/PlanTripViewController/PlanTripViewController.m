@@ -570,9 +570,9 @@ static NSInteger kHotelCellFullHeight = 510;
     
     //This is a file in order to avoid requesting information from the server during testing periods to save time
     //TODO: comment this section to use the server
-    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
-    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    //jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ServerResponse" ofType:@"json"];
+    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    jsonResponse = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END of section
     
     
@@ -969,6 +969,7 @@ static NSInteger kHotelCellFullHeight = 510;
                                                                               delegate:self
                                                                      cancelButtonTitle:nil
                                                                     otherButtonTitles: nil];
+                    [connectionOpen show];
                     [self performSelector:@selector(dismissAlert:) withObject:connectionOpen afterDelay:2.0f];
                     break;
                 }

@@ -87,9 +87,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+        //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowFlights166" ofType:@"json"];
+        //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         
         sortingFields = @[@"cost", @"arrivalTime", @"departureTime", @"duration"];
@@ -187,8 +187,6 @@ static NSInteger kHotelCellFullHeight = 490;
             self.dataFromServer = data;
             //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
             // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
             self.isAConnectionOpen = NO;
             [self processEventChange:responseAsync];
             [self.tableView reloadData];
@@ -198,6 +196,39 @@ static NSInteger kHotelCellFullHeight = 490;
     }];
     return responseAsync;
 }
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 2) {
+        switch (buttonIndex) {
+            case 1:
+            {
+                if (self.isAConnectionOpen){
+                    UIAlertView *connectionOpen = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", nil)
+                                                                             message:@"Please wait until the connection is terminated"
+                                                                            delegate:self
+                                                                   cancelButtonTitle:nil
+                                                                   otherButtonTitles: nil];
+                    [connectionOpen show];
+                    [self performSelector:@selector(dismissAlert:) withObject:connectionOpen afterDelay:2.0f];
+                    break;
+                }
+                
+                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                break;
+            }
+            default:
+                break;
+        }
+    }
+}
+
+-(void)dismissAlert:(UIAlertView *) alertView
+    {
+        [alertView dismissWithClickedButtonIndex:0 animated:NO];
+    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -232,12 +263,17 @@ static NSInteger kHotelCellFullHeight = 490;
     NSString *theReply = [[NSString alloc]initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
     NSLog(@"\n\n\n\n %@", theReply);
     NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if([jsonDic objectForKey:@"Error Message"]){
+    if([jsonDic objectForKey:@"Error Message"]||!jsonDic){
         NSString* errorMessage = [jsonDic objectForKey:@"Error Message"];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: errorMessage delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        if (!jsonDic){
+            errorMessage = @"No data received, try later!";
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error" message: errorMessage delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return nil;
     }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
     NSString* jsonDicKey = self.isHotel? @"hotelList":@"flightList";
     NSArray *optionsFromServer = [[NSArray arrayWithObject:[jsonDic objectForKey:jsonDicKey]]objectAtIndex:0];
     //NSLog(@"%@", planSteps);
@@ -276,6 +312,8 @@ static NSInteger kHotelCellFullHeight = 490;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MyScheduleTableCell *tableCell;
+    NSLog(@"pelase thisL: %@", [self.resultsFromServer objectAtIndex:indexPath.row]);
+    
     if (self.isHotel){
         NSDictionary *hotelProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
         MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
