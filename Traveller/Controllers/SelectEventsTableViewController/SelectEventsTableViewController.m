@@ -37,7 +37,6 @@
 
 - (void)viewDidLoad
 {
-    self.wasChanged = NO;
     [super viewDidLoad];
     
     [HTAutocompleteTextField setDefaultAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
@@ -45,6 +44,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    self.wasChanged = NO;
     [super viewDidAppear:animated];
     
     [[TripManager sharedManager] setTripStage:TripStageSelectEvent];
@@ -102,7 +102,11 @@
             [vc setManagedObjectContext:self.managedObjectContext];
         }
     } else if ([[segue identifier] isEqualToString:@"createItinerary"]){
-        NSLog(@"hehehe");
+        /*ChangeOptionsViewController *changeOptionsController = (ChangeOptionsViewController *)segue.destinationViewController;
+         changeOptionsController.trip = self.tripToBeSentToTheServer;
+         changeOptionsController.delegate = self;*/
+        PlanTripViewController *planVC = (PlanTripViewController*)segue.destinationViewController;
+        planVC.wasChanged = self.wasChanged;
     }
 }
 

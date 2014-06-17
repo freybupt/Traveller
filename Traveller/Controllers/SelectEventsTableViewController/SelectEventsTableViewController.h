@@ -7,6 +7,7 @@
 //
 
 #import "EventViewController.h"
+#import "PlanTripViewController.h"
 
 
 @interface SelectEventsTableViewController : EventViewController

@@ -10,6 +10,7 @@
 #import "ChangeOptionsViewController.h"
 
 @interface PlanTripViewController : CalendarMapViewController <ChangeOptionsViewControllerDelegate>
+@property (nonatomic) BOOL wasChanged;
 
 
 @end
