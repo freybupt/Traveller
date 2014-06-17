@@ -218,7 +218,7 @@ static NSInteger kHotelCellFullHeight = 490;
                     break;
                 }
                 
-                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)                
+                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
                 break;
             }
             default:

@@ -20,6 +20,7 @@
 }
 @property (nonatomic, strong) NSIndexPath *processingIndexPath;
 @property (nonatomic) BOOL isAlertShown;
+@property (nonatomic) BOOL wasChanged;
 @end
 
 @implementation SelectEventsTableViewController
@@ -36,6 +37,7 @@
 
 - (void)viewDidLoad
 {
+    self.wasChanged = NO;
     [super viewDidLoad];
     
     [HTAutocompleteTextField setDefaultAutocompleteDataSource:[HTAutocompleteManager sharedManager]];
@@ -67,6 +69,7 @@
 #pragma mark - Button tap action
 - (IBAction)checkBoxTapAction:(id)sender
 {
+    self.wasChanged = YES;
     Checkbox *checkbox = (Checkbox *)sender;
     
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:checkbox.indexPath];
@@ -98,6 +101,8 @@
             [vc setEvent:eventToBeProcessed];
             [vc setManagedObjectContext:self.managedObjectContext];
         }
+    } else if ([[segue identifier] isEqualToString:@"createItinerary"]){
+        NSLog(@"hehehe");
     }
 }
 
