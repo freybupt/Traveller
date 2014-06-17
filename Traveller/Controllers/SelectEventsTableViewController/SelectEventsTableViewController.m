@@ -231,6 +231,8 @@
     UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(editEventLocation:)];
     singleTapGesture.numberOfTapsRequired = 1;
     [cell.locationView addGestureRecognizer:singleTapGesture];
+    [[DataManager sharedInstance] saveEvent:event
+                                    context:self.managedObjectContext];
     
 }
 
