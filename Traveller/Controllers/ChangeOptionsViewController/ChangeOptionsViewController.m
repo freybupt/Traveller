@@ -172,7 +172,9 @@ static NSInteger kHotelCellFullHeight = 490;
     
     //use asynch connection to send a POST request
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error){
-        if (!data)
+        if (!data || !([NSJSONSerialization JSONObjectWithData:data
+                                                      options:kNilOptions
+                                                        error:&error] != nil))
         {
             [loadingMessage dismissWithClickedButtonIndex:0 animated:YES];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error!" message: @"No message received from the server." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -187,6 +189,8 @@ static NSInteger kHotelCellFullHeight = 490;
             self.dataFromServer = data;
             //NSString *theReply = [[NSString alloc]initWithBytes:[responseAsync bytes] length:[responseAsync length] encoding:NSUTF8StringEncoding];
             // NSLog(@"\n\n\n\n %@", theReply); [self calculateTripFromServer:nil usingResponse:responseAsync];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
             self.isAConnectionOpen = NO;
             [self processEventChange:responseAsync];
             [self.tableView reloadData];
@@ -214,9 +218,7 @@ static NSInteger kHotelCellFullHeight = 490;
                     break;
                 }
                 
-                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)
-                    [self.navigationController popToRootViewControllerAnimated:YES];
-                
+                // TODO: Remove flights/hotel/rental car events (Set cascade delete rule for them)                
                 break;
             }
             default:
@@ -272,8 +274,6 @@ static NSInteger kHotelCellFullHeight = 490;
         [alert show];
         return nil;
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Success!" message: @"Here are your possible options" delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
     NSString* jsonDicKey = self.isHotel? @"hotelList":@"flightList";
     NSArray *optionsFromServer = [[NSArray arrayWithObject:[jsonDic objectForKey:jsonDicKey]]objectAtIndex:0];
     //NSLog(@"%@", planSteps);
@@ -312,8 +312,6 @@ static NSInteger kHotelCellFullHeight = 490;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     MyScheduleTableCell *tableCell;
-    NSLog(@"pelase thisL: %@", [self.resultsFromServer objectAtIndex:indexPath.row]);
-    
     if (self.isHotel){
         NSDictionary *hotelProcessed = [self.resultsFromServer objectAtIndex:indexPath.row];
         MyScheduleHotelTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"hotelCell"];
