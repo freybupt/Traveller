@@ -159,9 +159,22 @@
         //let's try to add the geocode here
         NSString *currentLocationLabelText = cell.eventLocationLabel.text;
         if (!([currentLocationLabelText caseInsensitiveCompare:event.location]== NSOrderedSame) || !event.toCity){
-            cell.eventLocationLabel.text = event.location;
-            __block NSString* cityNameBlock;
-            // perform geocode
+            
+            NSString* cityCountryField = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
+            
+            if(([currentLocationLabelText caseInsensitiveCompare:@"Add event address"]==NSOrderedSame && event.toCity) /*||*/
+                /*[cell.eventLocationTextField.text caseInsensitiveCompare:cityCountryField]==NSOrderedSame*/){
+                
+                cell.eventLocationLabel.text = event.location;
+                cell.eventLocationTextField.text = cityCountryField;
+                NSLog(@"check the comparison: %@ with thijs other %@", cell.eventLocationTextField.text, cityCountryField);
+                
+                }
+            else {
+                NSLog(@"check the comparison: %@ with thijs other %@", currentLocationLabelText, event.location);
+                cell.eventLocationLabel.text = event.location;
+                __block NSString* cityNameBlock;
+                // perform geocode
                 CLGeocoder *geocoder = [[CLGeocoder alloc] init];
                 [geocoder geocodeAddressString:event.location completionHandler:^(NSArray *placemarks, NSError *error) {
                     if (placemarks.count>0){
@@ -189,13 +202,13 @@
                             event.toCity = toCity;
                             
                             if(!([event.toCity.cityName caseInsensitiveCompare:cityName]== NSOrderedSame)){
-                               // [self checkBoxTapAction:nil];
-                               // [self checkBoxTapAction:nil];
+                                // [self checkBoxTapAction:nil];
+                                // [self checkBoxTapAction:nil];
                                 //toCity.cityName = cityName;
                                 //toCity.countryCode = [addressCorrected objectForKey:@"CountryCode"];
-                           //     NSLog(@"check check check %@ =========== %@", toCity.cityName, cityName);
+                                //     NSLog(@"check check check %@ =========== %@", toCity.cityName, cityName);
                             }
-                           // NSLog(@"to city, please make sure that this is working %@ =========== %@", toCity.cityName, cityName);
+                            // NSLog(@"to city, please make sure that this is working %@ =========== %@", toCity.cityName, cityName);
                         }
                         //NSString *addressCorrectedStr = [[addressCorrected objectForKey:@"FormattedAddressLines"]description];
                         NSString *addressCorrectedStr = [[addressCorrected valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
@@ -218,14 +231,16 @@
                         }
                     }
                 }];
-            if(cityNameBlock){
-                City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityNameBlock
-                                                                         context:self.managedObjectContext];
-                event.toCity = toCity;
-                NSLog(@"check outside of the asynchronous function... %@ =========== %@", toCity.cityName, cityNameBlock);
+                
+                if(cityNameBlock){
+                    City *toCity = [[DataManager sharedInstance] getCityWithCityName:cityNameBlock
+                                                                             context:self.managedObjectContext];
+                    event.toCity = toCity;
+                    NSLog(@"check outside of the asynchronous function... %@ =========== %@", toCity.cityName, cityNameBlock);
+                }
             }
         }
-  
+        
     }
     else{
         cell.eventLocationLabel.text = @"Add an event address";
