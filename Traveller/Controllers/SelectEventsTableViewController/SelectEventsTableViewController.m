@@ -382,22 +382,53 @@
 {
     NSDate *startDate = [NSDate date];
     NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:3600000000];
-    NSArray *events = [[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
-                                                                      toEndDate:endDate];
-        
+    NSMutableArray *events = [[NSMutableArray alloc]initWithArray:[[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
+                                                                      toEndDate:endDate]];
+    NSLog(@"events before sorting %@", [events description]);
+    //[events sortedArrayUsingSelector:@selector(compareStartDateWithEvent:)];
+    //NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES];
+    //[events sortUsingDescriptors:[NSArray arrayWithObject:sortByDate]];
+    //NSLog(@"check this out %@", [events description]);
+    
     // Initialize the events list for synchronizing
     // Add events for those not in local storage
+    NSDate *previousEndDate = [[NSDate alloc]init];
+    BOOL previousSelected = NO;
+    BOOL conflict = NO;
+    //If it happens and both are selected...
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+
     for (EKEvent *event in events)
     {
-        if ([[DataManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
-                                      context:self.managedObjectContext]) {
+        NSDateComponents *componentsForFirstDate = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:previousEndDate];
+        
+        NSDateComponents *componentsForSecondDate = [calendar components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit fromDate:event.startDate];
+        
+        if ([componentsForFirstDate month] > [componentsForSecondDate month] || ([componentsForFirstDate day] >= [componentsForSecondDate day] && [componentsForFirstDate month] == [componentsForSecondDate month])) {
+            conflict = YES;
+        }
+        NSLog(@"check this part out: %@", event.startDate);
+        Event* eventFromStore = [[DataManager sharedInstance] getEventWithEventIdentifier:event.eventIdentifier
+                                                                                  context:self.managedObjectContext];
+        if (eventFromStore) {
             [[DataManager sharedInstance] updateEventWithEKEvent:event
                                                       context:self.managedObjectContext];
+            if (conflict){
+                if (previousSelected && eventFromStore.isSelected){
+                    NSLog(@"there is a big conflict here");
+                    
+                } else {
+                    conflict = NO;
+                }
+            }
+            previousSelected = [eventFromStore.isSelected boolValue];
         }
         else{
             [[DataManager sharedInstance] addEventWithEKEvent:event
                                                       context:self.managedObjectContext];
         }
+        previousEndDate = event.endDate;
+        conflict = NO;
     }
     
     // Remove events for those not in calendar
@@ -432,6 +463,7 @@
             controller.event) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf saveEventButtonTapAction:controller.event];
+                [self.tableView reloadData];
             });
         } else if (action == EKEventEditViewActionDeleted) {
             Event *event = [[DataManager sharedInstance] getEventWithEventIdentifier:controller.event.eventIdentifier

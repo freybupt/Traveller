@@ -1256,9 +1256,9 @@ static NSInteger kHotelCellFullHeight = 510;
 - (void) reworkHotelsAndFlightsWithData:(NSData*)dataFromServer withOldID:(NSNumber*)oldID andNewID:(NSNumber*)newID isHotel:(BOOL)isHotel{
     
     //TODO: comment this section to use the server.
-    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
-    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    //dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
+    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END OF SECTION
     
     if (!dataFromServer){
