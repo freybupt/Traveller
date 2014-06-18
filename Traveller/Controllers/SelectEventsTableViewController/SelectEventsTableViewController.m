@@ -393,6 +393,7 @@
     // Initialize the events list for synchronizing
     // Add events for those not in local storage
     NSDate *previousEndDate = [[NSDate alloc]init];
+    BOOL totalConflict = NO;
     BOOL previousSelected = NO;
     BOOL conflict = NO;
     //If it happens and both are selected...
@@ -414,9 +415,9 @@
             [[DataManager sharedInstance] updateEventWithEKEvent:event
                                                       context:self.managedObjectContext];
             if (conflict){
-                if (previousSelected && eventFromStore.isSelected){
+                if (previousSelected && [eventFromStore.isSelected boolValue]){
                     NSLog(@"there is a big conflict here");
-                    
+                    totalConflict = YES;
                 } else {
                     conflict = NO;
                 }
@@ -426,11 +427,16 @@
         else{
             [[DataManager sharedInstance] addEventWithEKEvent:event
                                                       context:self.managedObjectContext];
+            previousSelected = NO;
         }
         previousEndDate = event.endDate;
         conflict = NO;
     }
-    
+    if (totalConflict){
+        
+        NSLog(@"Send an alert to the user that the events may be overlapping");
+        
+    }
     // Remove events for those not in calendar
     [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
         EKEventStore *eventStore = [[EKEventStore alloc] init];
