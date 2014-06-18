@@ -541,12 +541,15 @@ static NSInteger kHotelCellFullHeight = 510;
 
 - (IBAction)calculateTripFromClient:(id)sender
 {
-    NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
-                                                                 context:self.managedObjectContext];
+    NSMutableArray *events = [[NSMutableArray alloc]initWithArray:[[DataManager sharedInstance] getEventWithSelected:YES
+                                                                 context:self.managedObjectContext]];
     if ([events count] == 0) {
         [self hideActivityIndicator];
         return;
     }
+    //TODO: ask shirley about the sorting
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES];
+    [events sortUsingDescriptors:[NSArray arrayWithObject:sortByDate]];
     
     //convert the events got from the user into trips
     [self processEvents:events withContext:self.managedObjectContext];
@@ -559,12 +562,14 @@ static NSInteger kHotelCellFullHeight = 510;
 
 - (IBAction)calculateTripFromServer:(id)sender usingResponse:(NSData*)jsonResponse
 {
-    NSArray *events = [[DataManager sharedInstance] getEventWithSelected:YES
-                                                                 context:self.managedObjectContext];
+    NSMutableArray *events = [[NSMutableArray alloc]initWithArray:[[DataManager sharedInstance] getEventWithSelected:YES
+                                                                                                             context:self.managedObjectContext]];
     if ([events count] == 0) {
         [self hideActivityIndicator];
         return;
     }
+    NSSortDescriptor *sortByDate = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES];
+    [events sortUsingDescriptors:[NSArray arrayWithObject:sortByDate]];
     
     //get the JSON format based on the cities + current events
     NSString *cityName = @"Vancouver";

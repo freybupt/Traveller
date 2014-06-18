@@ -20,6 +20,7 @@
 }
 @property (nonatomic, strong) NSIndexPath *processingIndexPath;
 @property (nonatomic) BOOL isAlertShown;
+@property (nonatomic) Event * conflictEvent;
 @property (nonatomic) BOOL wasChanged;
 @end
 
@@ -74,6 +75,13 @@
     
     Event *event = (Event *)[self.fetchedResultsController objectAtIndexPath:checkbox.indexPath];
     event.isSelected = [NSNumber numberWithBool:checkbox.checked];
+    if ([event.isSelected boolValue]&&[event.eventIdentifier caseInsensitiveCompare:self.conflictEvent.eventIdentifier]==NSOrderedSame){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Conflict detected!" message: @"Some events may have conflicting dates." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        NSLog(@" No conflicts? %@ that's weird %@",event.eventIdentifier, self.conflictEvent.eventIdentifier);
+        
+    }
     [[DataManager sharedInstance] saveEvent:event
                                     context:self.managedObjectContext];
     MyScheduleTableCell *cell = (MyScheduleTableCell *)[self.tableView cellForRowAtIndexPath:checkbox.indexPath];
@@ -380,6 +388,7 @@
 #pragma mark Fetch events
 - (void)fetchEvents
 {
+    //TODO: ask Shirley about how to use this to warn the user, but take into consideration the checking box.
     NSDate *startDate = [NSDate date];
     NSDate *endDate = [[NSDate date] dateByAddingTimeInterval:3600000000];
     NSMutableArray *events = [[NSMutableArray alloc]initWithArray:[[CalendarManager sharedManager] fetchEventsFromStartDate:startDate
@@ -418,6 +427,7 @@
                 if (previousSelected && [eventFromStore.isSelected boolValue]){
                     NSLog(@"there is a big conflict here");
                     totalConflict = YES;
+                    self.conflictEvent = eventFromStore;
                 } else {
                     conflict = NO;
                 }
@@ -433,9 +443,8 @@
         conflict = NO;
     }
     if (totalConflict){
-        
-        NSLog(@"Send an alert to the user that the events may be overlapping");
-        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Conflict detected!" message: @"Some events may have conflicting dates." delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     }
     // Remove events for those not in calendar
     [[self.fetchedResultsController fetchedObjects] enumerateObjectsUsingBlock:^(Event *event, NSUInteger idx, BOOL *stop) {
