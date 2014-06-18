@@ -235,8 +235,15 @@
     [[DataManager sharedInstance] saveLocation:eventLocation context:self.managedObjectContext];
     
     //assign toCity
+    //TODO: Ask Shirley about this! This may be very inappropriate to do. 
     self.event.location = view.annotation.title;
     self.event.toLocation = eventLocation;
+    EKEventStore *eventStore = [[EKEventStore alloc]init];
+    EKEvent *ekEvent = [eventStore eventWithIdentifier:self.event.eventIdentifier];
+    ekEvent.location = view.annotation.title;
+    //dispatch_async(dispatch_get_main_queue(), ^{
+[eventStore saveEvent:ekEvent span:EKSpanThisEvent error:nil];
+    //});
     [[DataManager sharedInstance] saveEvent:self.event
                                     context:self.managedObjectContext];
     [self.navigationController popViewControllerAnimated:YES];
