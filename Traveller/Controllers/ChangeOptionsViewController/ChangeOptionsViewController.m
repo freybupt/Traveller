@@ -217,7 +217,7 @@ static NSInteger kHotelCellFullHeight = 490;
                     [self performSelector:@selector(dismissAlert:) withObject:connectionOpen afterDelay:2.0f];
                     break;
                 }
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
                 
                 break;
             }
@@ -344,7 +344,7 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //set the detailed view checkin, checkout
         [formatter setDateFormat:@"EE, MMM dd"];
-        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [formatter setTimeZone:[NSTimeZone timeZoneWithName:nil]];
         startDateStr = [formatter stringFromDate:startDate];
         endDateStr = [formatter stringFromDate:endDate];
         cell.checkinLabel.text = startDateStr;

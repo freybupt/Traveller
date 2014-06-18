@@ -346,8 +346,11 @@ static NSInteger kHotelCellFullHeight = 510;
             
             //process the flight type of event, with all its attributes!
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
             NSDate *startDate = [dateFormat dateFromString:[step objectForKey:@"departureTime"]];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"arrivalTime"]];
+            NSLog(@"check the dates here: %@ and this other %@", startDate, endDate);
+            
             //TODO: put more attention to the timezones...
             NSString *arrivalCityName = [step objectForKey:@"arrivalCity"];
             NSString *departureCityName = [step objectForKey:@"departureCity"];
@@ -406,13 +409,14 @@ static NSInteger kHotelCellFullHeight = 510;
             //has to be 12:59:59 I believe because of the time zone
             //TODO: check with shirley about the time zone
             [dateFormat setDateFormat:@"yyyy-MM-dd 23:59:59"];
-            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
             NSString *newDate = [dateFormat stringFromDate:startDate];
             NSLog(@"herererehe111111111 %@",newDate);
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             startDate = [dateFormat dateFromString:newDate];
             NSLog(@"herererehe222222 %@",startDate);
             [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            
             //LOCAL TIME ZONE HERE
             NSLog(@"this is the time zone: %@",[NSTimeZone localTimeZone]);
             // This is just so I can create a date from a string.
@@ -420,7 +424,7 @@ static NSInteger kHotelCellFullHeight = 510;
             [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *endDate = [dateFormat dateFromString:[step objectForKey:@"endDate"]];
             [dateFormat setDateFormat:@"yyyy-MM-dd 00:00:00"];
-            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
             newDate = [dateFormat stringFromDate:endDate];
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             endDate = [dateFormat dateFromString:newDate];
@@ -719,7 +723,7 @@ static NSInteger kHotelCellFullHeight = 510;
             cell.eventTimeLabel.text = NSLocalizedString(@"all-day", nil);
         } else {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+            [formatter setTimeZone:[NSTimeZone timeZoneWithName:nil]];
             [formatter setDateFormat:@"MMM dd"];
             NSString *startDate = [formatter stringFromDate:event.startDate];
             NSString *endDate = [formatter stringFromDate:event.endDate];
@@ -1121,7 +1125,7 @@ static NSInteger kHotelCellFullHeight = 510;
         //has to be 12:59:59 I believe because of the time zone
         //TODO: check with shirley about the time zone
         [dateFormat setDateFormat:@"yyyy-MM-dd 23:59:59"];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
         NSString *newDate = [dateFormat stringFromDate:startDate];
         NSLog(@"herererehe111111111 %@",newDate);
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -1135,7 +1139,7 @@ static NSInteger kHotelCellFullHeight = 510;
         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *endDate = [dateFormat dateFromString:[selectedTrip objectForKey:@"endDate"]];
         [dateFormat setDateFormat:@"yyyy-MM-dd 00:00:00"];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
         newDate = [dateFormat stringFromDate:endDate];
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         endDate = [dateFormat dateFromString:newDate];
@@ -1252,9 +1256,9 @@ static NSInteger kHotelCellFullHeight = 510;
 - (void) reworkHotelsAndFlightsWithData:(NSData*)dataFromServer withOldID:(NSNumber*)oldID andNewID:(NSNumber*)newID isHotel:(BOOL)isHotel{
     
     //TODO: comment this section to use the server.
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
-    NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-    dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ReplanHotel78510" ofType:@"json"];
+    //NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+    //dataFromServer = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
     //END OF SECTION
     
     if (!dataFromServer){
