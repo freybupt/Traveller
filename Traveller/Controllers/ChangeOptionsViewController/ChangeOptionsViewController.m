@@ -74,9 +74,9 @@ static NSInteger kHotelCellFullHeight = 490;
         
         //This part is to avoid saturating the server with GET requests
         //TODO: comment this section to use the server
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
-        NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
+       // NSString *filePath = [[NSBundle mainBundle]pathForResource:@"ShowHotels9" ofType:@"json"];
+      //  NSString *jsonDataInStr = [[NSString alloc] initWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+     //   serverData = [jsonDataInStr dataUsingEncoding:NSUTF8StringEncoding];
         //END of section
         sortingFields = @[@"cost", @"hotelRating", @"userRating", @"distance", @"overAllValue"];
         ascendingArray = @[@YES, @NO, @NO, @YES, @NO];
@@ -127,7 +127,7 @@ static NSInteger kHotelCellFullHeight = 490;
         //TODO: check again the effed time zone...
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc]init];
         [dateFormat setDateFormat:@"yyyy-MM-dd"];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:nil]];
         NSString *startDate = [dateFormat stringFromDate:trip.toEvent.startDate];
         NSString *endDate = [dateFormat stringFromDate:trip.toEvent.endDate];
         NSLog(@"check this out pls %@ and this %@ compared to original %@ and end %@", startDate, endDate, trip.toEvent.startDate,trip.toEvent.endDate);

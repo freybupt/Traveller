@@ -170,8 +170,9 @@
             
             NSString* cityCountryField = [NSString stringWithFormat:@"%@, %@", event.toCity.cityName, event.toCity.countryName];
             
-            if(([currentLocationLabelText caseInsensitiveCompare:@"Add event address"]==NSOrderedSame && event.toCity) /*||*/
-                /*[cell.eventLocationTextField.text caseInsensitiveCompare:cityCountryField]==NSOrderedSame*/){
+            if(event.toCity && ([currentLocationLabelText caseInsensitiveCompare:@"Add event address"]==NSOrderedSame ||
+                /*[cell.eventLocationTextField.text caseInsensitiveCompare:cityCountryField]==NSOrderedSame*/
+               [currentLocationLabelText caseInsensitiveCompare:event.location]==NSOrderedSame)){
                 
                 cell.eventLocationLabel.text = event.location;
                 cell.eventLocationTextField.text = cityCountryField;
