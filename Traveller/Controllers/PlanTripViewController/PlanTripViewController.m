@@ -586,7 +586,7 @@ static NSInteger kHotelCellFullHeight = 510;
     
     
     if(!jsonResponse){ //if there is nothing from the server, ask for it
-        [self postToServerAsync:@"http://10.0.10.202:8182/plan" theJSONData:jsonDataOut];
+        [self postToServerAsync:@"http://mobile.istuary.com/plan" theJSONData:jsonDataOut];
     } else {
         //transform the jsonData into an array of event-trip pairs
         NSArray *stepsFromServer = [self createArrayOfEventsFrom:jsonResponse  usingContext:self.managedObjectContext];
@@ -1003,7 +1003,7 @@ static NSInteger kHotelCellFullHeight = 510;
                 NSInteger price = ceil(newPrice);
                 self.totalPrice = price;
                 self.totalPriceLabel.text = [NSString stringWithFormat:@"Total: $%d", price];
-                NSString *url = [NSString stringWithFormat:@"http://10.0.10.202:8182/deleteHotel/%@", [self.tripToBeSentToTheServer.toEvent.serverID stringValue]];
+                NSString *url = [NSString stringWithFormat:@"http://mobile.istuary.com/deleteHotel/%@", [self.tripToBeSentToTheServer.toEvent.serverID stringValue]];
                 NSLog(@"this is the url %@", url);
                 
                 [self sendGetRequestToURL:url updatePlan:NO];
@@ -1270,7 +1270,7 @@ static NSInteger kHotelCellFullHeight = 510;
         NSString *tripType = isHotel?@"hotel":@"flight";
         NSString *oldServerID = [oldID stringValue];
         NSString *newServerID = [newID stringValue];
-        NSString *urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/replan/%@/%@/%@", tripType, oldServerID, newServerID];
+        NSString *urlForGet = [NSString stringWithFormat:@"http://mobile.istuary.com/replan/%@/%@/%@", tripType, oldServerID, newServerID];
         [self sendGetRequestToURL:urlForGet updatePlan:YES];
     } else {
         //transform the jsonData into an array of event-trip pairs

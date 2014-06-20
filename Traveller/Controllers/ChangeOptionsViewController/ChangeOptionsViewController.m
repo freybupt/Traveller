@@ -132,9 +132,9 @@ static NSInteger kHotelCellFullHeight = 490;
         NSString *endDate = [dateFormat stringFromDate:trip.toEvent.endDate];
         NSLog(@"check this out pls %@ and this %@ compared to original %@ and end %@", startDate, endDate, trip.toEvent.startDate,trip.toEvent.endDate);
 
-        urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@/%@/%@", tripType, tripServerID, startDate, endDate];
+        urlForGet = [NSString stringWithFormat:@"http://mobile.istuary.com/%@/%@/%@/%@", tripType, tripServerID, startDate, endDate];
     } else {
-        urlForGet = [NSString stringWithFormat:@"http://10.0.10.202:8182/%@/%@", tripType, tripServerID];
+        urlForGet = [NSString stringWithFormat:@"http://mobile.istuary.com/%@/%@", tripType, tripServerID];
     }
     
     /*NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
